@@ -1,6 +1,6 @@
 ﻿namespace Vista
 {
-    partial class Form1
+    partial class From1
     {
         /// <summary>
         /// Variable del diseñador necesaria.
@@ -98,15 +98,15 @@
             this.gestionGerenciaToolStripMenuItem.Size = new System.Drawing.Size(107, 20);
             this.gestionGerenciaToolStripMenuItem.Text = "Gestion gerencia";
             // 
-            // Form1
+            // From1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(630, 347);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "From1";
+            this.Text = "Taller UTN";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
