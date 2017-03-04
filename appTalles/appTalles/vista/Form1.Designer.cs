@@ -36,6 +36,13 @@
             this.parámetrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ediarOrdenesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gestionGerenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registroClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registroMarcasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registroClasesVehiculoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registroVehiculoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registroCatalogoRepuestosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registroCatalogoReparacionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,6 +74,7 @@
             this.cambioContraseñaToolStripMenuItem.Name = "cambioContraseñaToolStripMenuItem";
             this.cambioContraseñaToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.cambioContraseñaToolStripMenuItem.Text = "Cambio contraseña";
+            this.cambioContraseñaToolStripMenuItem.Click += new System.EventHandler(this.cambioContraseñaToolStripMenuItem_Click);
             // 
             // registroEmpleadoToolStripMenuItem
             // 
@@ -82,6 +90,14 @@
             // 
             // parámetrosToolStripMenuItem
             // 
+            this.parámetrosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.registroClienteToolStripMenuItem,
+            this.registroToolStripMenuItem,
+            this.registroMarcasToolStripMenuItem,
+            this.registroClasesVehiculoToolStripMenuItem,
+            this.registroVehiculoToolStripMenuItem,
+            this.registroCatalogoRepuestosToolStripMenuItem,
+            this.registroCatalogoReparacionToolStripMenuItem});
             this.parámetrosToolStripMenuItem.Name = "parámetrosToolStripMenuItem";
             this.parámetrosToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
             this.parámetrosToolStripMenuItem.Text = "Parámetros";
@@ -97,6 +113,49 @@
             this.gestionGerenciaToolStripMenuItem.Name = "gestionGerenciaToolStripMenuItem";
             this.gestionGerenciaToolStripMenuItem.Size = new System.Drawing.Size(107, 20);
             this.gestionGerenciaToolStripMenuItem.Text = "Gestion gerencia";
+            // 
+            // registroClienteToolStripMenuItem
+            // 
+            this.registroClienteToolStripMenuItem.Name = "registroClienteToolStripMenuItem";
+            this.registroClienteToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.registroClienteToolStripMenuItem.Text = "Registro cliente";
+            // 
+            // registroToolStripMenuItem
+            // 
+            this.registroToolStripMenuItem.Name = "registroToolStripMenuItem";
+            this.registroToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.registroToolStripMenuItem.Text = "Registro proyectos y Modulos";
+            this.registroToolStripMenuItem.Click += new System.EventHandler(this.registroToolStripMenuItem_Click);
+            // 
+            // registroMarcasToolStripMenuItem
+            // 
+            this.registroMarcasToolStripMenuItem.Name = "registroMarcasToolStripMenuItem";
+            this.registroMarcasToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.registroMarcasToolStripMenuItem.Text = "Registro marcas y modulos ";
+            // 
+            // registroClasesVehiculoToolStripMenuItem
+            // 
+            this.registroClasesVehiculoToolStripMenuItem.Name = "registroClasesVehiculoToolStripMenuItem";
+            this.registroClasesVehiculoToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.registroClasesVehiculoToolStripMenuItem.Text = "Registro Clases Vehiculo";
+            // 
+            // registroVehiculoToolStripMenuItem
+            // 
+            this.registroVehiculoToolStripMenuItem.Name = "registroVehiculoToolStripMenuItem";
+            this.registroVehiculoToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.registroVehiculoToolStripMenuItem.Text = "Registro Vehiculo";
+            // 
+            // registroCatalogoRepuestosToolStripMenuItem
+            // 
+            this.registroCatalogoRepuestosToolStripMenuItem.Name = "registroCatalogoRepuestosToolStripMenuItem";
+            this.registroCatalogoRepuestosToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.registroCatalogoRepuestosToolStripMenuItem.Text = "Registro Catalogo Repuestos";
+            // 
+            // registroCatalogoReparacionToolStripMenuItem
+            // 
+            this.registroCatalogoReparacionToolStripMenuItem.Name = "registroCatalogoReparacionToolStripMenuItem";
+            this.registroCatalogoReparacionToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.registroCatalogoReparacionToolStripMenuItem.Text = "Registro Catalogo Reparacion";
             // 
             // From1
             // 
@@ -124,6 +183,13 @@
         private System.Windows.Forms.ToolStripMenuItem parámetrosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ediarOrdenesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gestionGerenciaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem registroClienteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem registroToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem registroMarcasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem registroClasesVehiculoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem registroVehiculoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem registroCatalogoRepuestosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem registroCatalogoReparacionToolStripMenuItem;
     }
 }
 

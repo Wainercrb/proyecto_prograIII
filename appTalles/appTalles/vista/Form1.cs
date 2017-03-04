@@ -7,8 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Datos;
+using Logica;
 
 namespace Vista
+
 
 {
     public partial class From1 : Form
@@ -16,6 +19,16 @@ namespace Vista
         public From1()
         {
             InitializeComponent();
+        }
+
+        private void cambioContraseñaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void registroToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace Logica
 {
     public class Cliente
@@ -11,17 +10,23 @@ namespace Logica
         private int id;
         private string nombre;
         private string cedula;
-        private string telefonoOficina;
+        private string apellidoPaterno;
+        private string apellidoMaterno;
         private string telefonoCasa;
+        private string telefonoOficina;
         private string telefonoCelular;
-        public Cliente(int id, string nombre, string cedula, string telefonoOficina, string telefonoCasa, string telefonoCelular)
+
+        public int Id
         {
-            this.Id = id;
-            this.Nombre = nombre;
-            this.Cedula = cedula;
-            this.TelefonoOficina = telefonoOficina;
-            this.TelefonoCasa = telefonoCasa;
-            this.TelefonoCelular = telefonoCelular;
+            get
+            {
+                return id;
+            }
+
+            set
+            {
+                id = value;
+            }
         }
 
         public string Nombre
@@ -50,16 +55,29 @@ namespace Logica
             }
         }
 
-        public string TelefonoOficina
+        public string ApellidoPaterno
         {
             get
             {
-                return telefonoOficina;
+                return apellidoPaterno;
             }
 
             set
             {
-                telefonoOficina = value;
+                apellidoPaterno = value;
+            }
+        }
+
+        public string ApellidoMaterno
+        {
+            get
+            {
+                return apellidoMaterno;
+            }
+
+            set
+            {
+                apellidoMaterno = value;
             }
         }
 
@@ -76,6 +94,19 @@ namespace Logica
             }
         }
 
+        public string TelefonoOficina
+        {
+            get
+            {
+                return telefonoOficina;
+            }
+
+            set
+            {
+                telefonoOficina = value;
+            }
+        }
+
         public string TelefonoCelular
         {
             get
@@ -89,22 +120,22 @@ namespace Logica
             }
         }
 
-        public int Id
+        public Cliente(int id, string nombre, string cedula, string apellidoPaterno, string apellidoMaterno, string telefonoCasa, string telefonoOficina, string telefonoCelular)
         {
-            get
-            {
-                return id;
-            }
-
-            set
-            {
-                id = value;
-            }
+            this.Id = id;
+            this.Nombre = nombre;
+            this.Cedula = cedula;
+            this.ApellidoPaterno = apellidoPaterno;
+            this.ApellidoMaterno = apellidoMaterno;
+            this.TelefonoCasa = telefonoCasa;
+            this.TelefonoOficina = telefonoOficina;
+            this.TelefonoCelular = telefonoCelular;
         }
+
 
         public override string ToString()
         {
-            return this.id+" "+this.nombre + " " + this.Cedula + " " + this.telefonoCasa + " " + this.telefonoOficina + " " + this.telefonoCelular;
+            return this.apellidoPaterno + " " + this.apellidoMaterno + " " + this.Id + " " + this.Nombre + " " + this.Cedula + " " + this.TelefonoCasa + " " + this.TelefonoOficina + " " + this.TelefonoCelular;
 
         }
 
