@@ -14,7 +14,7 @@ namespace Datos
     {
         private Boolean isError = false;        //Una bandera, para determinar si existe o no algun error
         private String errorDescripcion;        //Almacena la descripcion del error        
-                        
+
         public NpgsqlConnection conexion;       //Objeto de tipo conexion, para establecer comunicacion con la BD
         private NpgsqlTransaction transaccion;  //Objeto de tipo transaccion de base de datos, para iniciar, procesar y cerrar transacciones
         private bool hayTransaccion;            //Bandera que determina si hay una transaccion activa
@@ -26,7 +26,7 @@ namespace Datos
 
         public static AccesoDatosPostgre Instance
         {
-            get 
+            get
             {
                 if (instance == null)
                 {
@@ -60,7 +60,7 @@ namespace Datos
         private AccesoDatosPostgre()
         {
             limpiarEstado();
-            
+
             if (instancias > 1)
                 return;
 
@@ -69,12 +69,12 @@ namespace Datos
             //DataRow fila = tabla.Rows[0];
 
             DataRow fila = this.cargarIni().Tables[0].Rows[0];
-            
-            conexion = new NpgsqlConnection("Encoding = UNICODE; Server=" + fila["Server"].ToString() + 
-                                            ";Port = " + fila["Port"].ToString() + 
-                                            ";User Id=" + fila["Usuario"].ToString() + 
-                                            ";Password=" + fila["Password"].ToString() + 
-                                            ";Database=" + fila["Database"].ToString() + 
+
+            conexion = new NpgsqlConnection("Encoding = UNICODE; Server=" + fila["Server"].ToString() +
+                                            ";Port = " + fila["Port"].ToString() +
+                                            ";User Id=" + fila["Usuario"].ToString() +
+                                            ";Password=" + fila["Password"].ToString() +
+                                            ";Database=" + fila["Database"].ToString() +
                                             ";CommandTimeout=3600;");
             instancias += 1;
 
@@ -91,9 +91,9 @@ namespace Datos
             }
 
         }
-        
+
         // Indica el estado de la persistencia
-        public  Boolean estado()
+        public Boolean estado()
         {
             limpiarEstado();
 
@@ -135,10 +135,10 @@ namespace Datos
 
         // destructor
         ~AccesoDatosPostgre()
-        {           
+        {
         }
 
-        public  void conectar()
+        public void conectar()
         {
             try
             {
@@ -152,10 +152,10 @@ namespace Datos
             {
                 this.IsError = true;
                 this.ErrorDescripcion = error.Message;
-            }            
+            }
         }
-        
-        public  void desconectar()
+
+        public void desconectar()
         {
             try
             {
@@ -170,7 +170,7 @@ namespace Datos
         }
 
         //Manipulacion de select
-        public  DataSet ejecutarConsultaSQL(String pSql)
+        public DataSet ejecutarConsultaSQL(String pSql)
         {
             limpiarEstado();
 
@@ -190,8 +190,8 @@ namespace Datos
 
             return oDataSet;
         }
-        
-        public  DataSet ejecutarConsultaSQL(String pSql, String pnTabla, Object[] myParamArray)
+
+        public DataSet ejecutarConsultaSQL(String pSql, String pnTabla, Object[] myParamArray)
         {
             limpiarEstado();
 
@@ -221,8 +221,8 @@ namespace Datos
 
             return oDataSet;
         }
-        
-        public  DataSet ejecutarConsultaSQL(String pSql, String pnTabla)
+
+        public DataSet ejecutarConsultaSQL(String pSql, String pnTabla)
         {
             limpiarEstado();
 
@@ -245,7 +245,7 @@ namespace Datos
         }
 
         // Método para manipular Insert, Update, Delete
-        public  void ejecutarSQL(String pSql)
+        public void ejecutarSQL(String pSql)
         {
             limpiarEstado();
 
@@ -270,9 +270,9 @@ namespace Datos
             }
 
         }
-        
+
         // Método para manipular Insert, Update, Delete con identidad
-        public  void ejecutarSQL(string pSql, Object[] myParamArray, ref string pNumero)
+        public void ejecutarSQL(string pSql, Object[] myParamArray, ref string pNumero)
         {
             limpiarEstado();
 
@@ -306,7 +306,7 @@ namespace Datos
         }
 
         //Método para manipular Insert, Update pero con parametros
-        public  void ejecutarSQL(string sql, Object[] myParamArray)
+        public void ejecutarSQL(string sql, Object[] myParamArray)
         {
             limpiarEstado();
 
@@ -335,9 +335,9 @@ namespace Datos
             }
 
         }
-        
+
         //Metodos de transaccion
-        public  void iniciarTransaccion()
+        public void iniciarTransaccion()
         {
             if (this.hayTransaccion == false)
             {
@@ -345,8 +345,8 @@ namespace Datos
                 this.hayTransaccion = true;
             }
         }
-        
-        public  void commitTransaccion()
+
+        public void commitTransaccion()
         {
             if (this.hayTransaccion)
             {
@@ -354,8 +354,8 @@ namespace Datos
                 this.hayTransaccion = false;
             }
         }
-        
-        public  void rollbackTransaccion()
+
+        public void rollbackTransaccion()
         {
             if (this.hayTransaccion)
             {
@@ -363,35 +363,72 @@ namespace Datos
                 this.hayTransaccion = false;
             }
         }
-               
+
         // Metodos de Set & Get
-        public  Boolean IsError
+        public Boolean IsError
         {
             set { isError = value; }
             get { return isError; }
         }
-        
-        public  String ErrorDescripcion
+
+        public String ErrorDescripcion
         {
             set { errorDescripcion = value; }
             get { return errorDescripcion; }
         }
-        
-        public  string Schema
+
+        public string Schema
         {
             get { return this.schema; }
         }
-        
-        public  string TipoConexion
+
+        public string TipoConexion
         {
             get { return this.tipoconexion; }
         }
-              
+
         //Elimina el estado de error de la clase.
-        public  void limpiarEstado()
+        public void limpiarEstado()
         {
             this.errorDescripcion = "";
-            this.isError = false;            
+            this.isError = false;
+        }
+
+
+
+        public DataSet ejecutarDataSetSQL(string sql, Object[] myParamArray)
+        {
+
+            limpiarEstado();
+
+
+            NpgsqlDataAdapter oDataAdapter = new NpgsqlDataAdapter(sql, conexion);
+            DataSet oDataSet = new DataSet();
+
+            try
+            {
+
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conexion);
+                cmd.CommandType = CommandType.Text;
+                for (int j = 0; j < myParamArray.Length; j++)
+                {
+                    cmd.Parameters.Add((NpgsqlParameter)myParamArray[j]);
+                }
+
+                if (this.hayTransaccion)
+                {
+                    cmd.Transaction = this.transaccion;
+                }
+
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (NpgsqlException error)
+            {
+                this.IsError = true;
+                this.errorDescripcion = error.Message;
+            }
+            return oDataSet;
         }
     }//Finaliza la clase
 }//Finaliza el namespace

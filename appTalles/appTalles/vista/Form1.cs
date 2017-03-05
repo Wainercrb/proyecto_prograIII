@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Datos;
 using Logica;
+using appTalles.Vista;
 
 namespace Vista
 
@@ -29,6 +30,12 @@ namespace Vista
         private void registroToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void registroMarcasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmMarca frm = new frmMarca();
+            frm.ShowDialog();
         }
     }
 }

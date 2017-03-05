@@ -34,8 +34,6 @@
             this.registroEmpleadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.parámetrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ediarOrdenesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gestionGerenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registroClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registroMarcasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,11 +41,16 @@
             this.registroVehiculoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registroCatalogoRepuestosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registroCatalogoReparacionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ediarOrdenesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gestionGerenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mantenimientoEmpleadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.menuStrip1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sistemaToolStripMenuItem,
             this.parámetrosToolStripMenuItem,
@@ -55,7 +58,7 @@
             this.gestionGerenciaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(630, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(769, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -78,6 +81,8 @@
             // 
             // registroEmpleadoToolStripMenuItem
             // 
+            this.registroEmpleadoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mantenimientoEmpleadoToolStripMenuItem});
             this.registroEmpleadoToolStripMenuItem.Name = "registroEmpleadoToolStripMenuItem";
             this.registroEmpleadoToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.registroEmpleadoToolStripMenuItem.Text = "Registro empleado";
@@ -99,25 +104,13 @@
             this.registroCatalogoRepuestosToolStripMenuItem,
             this.registroCatalogoReparacionToolStripMenuItem});
             this.parámetrosToolStripMenuItem.Name = "parámetrosToolStripMenuItem";
-            this.parámetrosToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
+            this.parámetrosToolStripMenuItem.Size = new System.Drawing.Size(83, 20);
             this.parámetrosToolStripMenuItem.Text = "Parámetros";
-            // 
-            // ediarOrdenesToolStripMenuItem
-            // 
-            this.ediarOrdenesToolStripMenuItem.Name = "ediarOrdenesToolStripMenuItem";
-            this.ediarOrdenesToolStripMenuItem.Size = new System.Drawing.Size(93, 20);
-            this.ediarOrdenesToolStripMenuItem.Text = "Ediar ordenes ";
-            // 
-            // gestionGerenciaToolStripMenuItem
-            // 
-            this.gestionGerenciaToolStripMenuItem.Name = "gestionGerenciaToolStripMenuItem";
-            this.gestionGerenciaToolStripMenuItem.Size = new System.Drawing.Size(107, 20);
-            this.gestionGerenciaToolStripMenuItem.Text = "Gestion gerencia";
             // 
             // registroClienteToolStripMenuItem
             // 
             this.registroClienteToolStripMenuItem.Name = "registroClienteToolStripMenuItem";
-            this.registroClienteToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.registroClienteToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
             this.registroClienteToolStripMenuItem.Text = "Registro cliente";
             // 
             // registroToolStripMenuItem
@@ -130,8 +123,9 @@
             // registroMarcasToolStripMenuItem
             // 
             this.registroMarcasToolStripMenuItem.Name = "registroMarcasToolStripMenuItem";
-            this.registroMarcasToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.registroMarcasToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.registroMarcasToolStripMenuItem.Text = "Registro marcas y modulos ";
+            this.registroMarcasToolStripMenuItem.Click += new System.EventHandler(this.registroMarcasToolStripMenuItem_Click);
             // 
             // registroClasesVehiculoToolStripMenuItem
             // 
@@ -157,11 +151,29 @@
             this.registroCatalogoReparacionToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
             this.registroCatalogoReparacionToolStripMenuItem.Text = "Registro Catalogo Reparacion";
             // 
+            // ediarOrdenesToolStripMenuItem
+            // 
+            this.ediarOrdenesToolStripMenuItem.Name = "ediarOrdenesToolStripMenuItem";
+            this.ediarOrdenesToolStripMenuItem.Size = new System.Drawing.Size(93, 20);
+            this.ediarOrdenesToolStripMenuItem.Text = "Ediar ordenes ";
+            // 
+            // gestionGerenciaToolStripMenuItem
+            // 
+            this.gestionGerenciaToolStripMenuItem.Name = "gestionGerenciaToolStripMenuItem";
+            this.gestionGerenciaToolStripMenuItem.Size = new System.Drawing.Size(107, 20);
+            this.gestionGerenciaToolStripMenuItem.Text = "Gestion gerencia";
+            // 
+            // mantenimientoEmpleadoToolStripMenuItem
+            // 
+            this.mantenimientoEmpleadoToolStripMenuItem.Name = "mantenimientoEmpleadoToolStripMenuItem";
+            this.mantenimientoEmpleadoToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
+            this.mantenimientoEmpleadoToolStripMenuItem.Text = "Mantenimiento empleado";
+            // 
             // From1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(630, 347);
+            this.ClientSize = new System.Drawing.Size(769, 425);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "From1";
@@ -190,6 +202,7 @@
         private System.Windows.Forms.ToolStripMenuItem registroVehiculoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem registroCatalogoRepuestosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem registroCatalogoReparacionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mantenimientoEmpleadoToolStripMenuItem;
     }
 }
 

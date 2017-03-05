@@ -11,6 +11,10 @@ namespace Logica
         private int id;
         private string marca;
 
+        public MarcaVehiculo()
+        {
+        }
+
         public MarcaVehiculo(int id, string marca)
         {
             this.id = id;
