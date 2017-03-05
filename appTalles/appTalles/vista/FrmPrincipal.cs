@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Datos;
 using Logica;
-using appTalles.Vista;
+using Vista;
 
 namespace Vista
 
@@ -35,6 +35,18 @@ namespace Vista
         private void registroMarcasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmMarca frm = new frmMarca();
+            frm.ShowDialog();
+        }
+
+        private void registroVehiculoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmEdicionVehiculo frm = new frmEdicionVehiculo();
+            frm.ShowDialog();
+        }
+
+        private void registroClasesVehiculoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmTipo frm = new FrmTipo();
             frm.ShowDialog();
         }
     }

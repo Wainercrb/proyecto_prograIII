@@ -11,6 +11,10 @@ namespace Logica
         private int id;
         private string tipo;
 
+        public TipoVehiculo()
+        {
+        }
+
         public TipoVehiculo(int id, string tipo)
         {
             this.Id = id;
