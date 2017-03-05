@@ -163,6 +163,68 @@ namespace Datos
 
 
         }
+
+        public List<MarcaVehiculo> buscarMarcas(string valor)
+        {
+            this.limpiarError();
+            List<MarcaVehiculo> marcas = new List<MarcaVehiculo>();
+            DataSet dsetMarcas;
+
+            string sql = "select * from marca where marca = " + "'"+valor+"'";
+            try
+            {
+                dsetMarcas = this.conexion.ejecutarConsultaSQL(sql);
+                foreach (DataRow tupla in dsetMarcas.Tables[0].Rows)
+                { 
+                    MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(tupla["id_marca"].ToString()), tupla["marca"].ToString());
+                    marcas.Add(oMarca);
+                }
+            }
+            catch (Exception e)
+            {
+                this.error = false;
+                this.errorMsg = e.Message;
+            }
+
+            return marcas;
+        }
+
+
+        public List<MarcaVehiculo> obtenerPorDataBUsqueda(string valor) {
+
+
+
+            this.limpiarError();
+            List<MarcaVehiculo> marcas = new List<MarcaVehiculo>();
+            DataSet dsetMarcas;
+
+            string sql = "select * from marca where marca = " + "'@marca'";
+            try
+            {
+                NpgsqlParameter[] parametros = new NpgsqlParameter[1];
+                parametros[0] = new NpgsqlParameter();
+                parametros[0].NpgsqlDbType = NpgsqlDbType.Varchar;
+                parametros[0].ParameterName = "'@marca'";
+                parametros[0].Value = "'"+valor+"'";
+
+                dsetMarcas = this.conexion.ejecutarDataSetSQL(sql, parametros);
+                foreach (DataRow tupla in dsetMarcas.Tables[0].Rows)
+                {
+                    MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(tupla["id_marca"].ToString()), tupla["marca"].ToString());
+                    marcas.Add(oMarca);
+                }
+            }
+            catch (Exception e)
+            {
+                this.error = false;
+                this.errorMsg = e.Message;
+            }
+
+            return marcas;
+
+
+
+        }
     }
 
 }
