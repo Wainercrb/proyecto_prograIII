@@ -49,7 +49,7 @@ namespace Logica
 
         public override string ToString()
         {
-            return this.id + " " + this.marca;
+            return  this.marca;
         }
     }
 }

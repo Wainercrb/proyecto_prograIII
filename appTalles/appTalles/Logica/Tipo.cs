@@ -50,7 +50,7 @@ namespace Logica
 
         public override string ToString()
         {
-            return this.id + " " + this.tipo;
+            return this.tipo;
         }
     }
 

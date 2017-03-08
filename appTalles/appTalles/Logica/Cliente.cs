@@ -20,12 +20,12 @@ namespace Logica
         {
             get
             {
-                return id;
+                return Id1;
             }
 
             set
             {
-                id = value;
+                Id1 = value;
             }
         }
 
@@ -120,6 +120,19 @@ namespace Logica
             }
         }
 
+        public int Id1
+        {
+            get
+            {
+                return id;
+            }
+
+            set
+            {
+                id = value;
+            }
+        }
+
         public Cliente(int id, string nombre, string cedula, string apellidoPaterno, string apellidoMaterno, string telefonoCasa, string telefonoOficina, string telefonoCelular)
         {
             this.Id = id;
@@ -132,10 +145,13 @@ namespace Logica
             this.TelefonoCelular = telefonoCelular;
         }
 
+        public Cliente()
+        {
+        }
 
         public override string ToString()
         {
-            return this.apellidoPaterno + " " + this.apellidoMaterno + " " + this.Id + " " + this.Nombre + " " + this.Cedula + " " + this.TelefonoCasa + " " + this.TelefonoOficina + " " + this.TelefonoCelular;
+            return this.nombre + " " + this.apellidoPaterno + " " + this.ApellidoMaterno + " " + this.Cedula + " " + this.TelefonoCasa + " " + this.TelefonoOficina + " " + this.TelefonoCelular;
 
         }
 

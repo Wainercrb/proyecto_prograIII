@@ -11,25 +11,33 @@ namespace Logica
 
         private int id;
         private string placa;
-        private string cilindraje;
-        private double numeroMotor;
+        private int anno;
+        private int cilindraje;
+        private int numeroMotor;
         private int numeroChazis;
         private string tipoCombustible;
-        private Cliente cliente;
+        private string estado;
         private MarcaVehiculo marca;
+        private Cliente cliente;
         private TipoVehiculo tipo;
 
-        public Vehiculo(int id, string placa, string cilindraje, double numeroMotor, int numeroChazis, string tipoCombustible, Cliente cliente, MarcaVehiculo marca, TipoVehiculo tipo)
+        public Vehiculo(int id, string placa, int anno, int cilindraje, int numeroMotor, int numeroChazis, string tipoCombustible, string estado, MarcaVehiculo marca, Cliente cliente, TipoVehiculo tipo)
         {
             this.id = id;
             this.placa = placa;
+            this.anno = anno;
             this.cilindraje = cilindraje;
             this.numeroMotor = numeroMotor;
             this.numeroChazis = numeroChazis;
             this.tipoCombustible = tipoCombustible;
-            this.cliente = cliente;
+            this.estado = estado;
             this.marca = marca;
+            this.cliente = cliente;
             this.tipo = tipo;
+        }
+
+        public Vehiculo()
+        {
         }
 
         public int Id
@@ -58,7 +66,20 @@ namespace Logica
             }
         }
 
-        public string Cilindraje
+        public int Anno
+        {
+            get
+            {
+                return anno;
+            }
+
+            set
+            {
+                anno = value;
+            }
+        }
+
+        public int Cilindraje
         {
             get
             {
@@ -71,7 +92,7 @@ namespace Logica
             }
         }
 
-        public double NumeroMotor
+        public int NumeroMotor
         {
             get
             {
@@ -110,16 +131,16 @@ namespace Logica
             }
         }
 
-        public Cliente Cliente
+        public string Estado
         {
             get
             {
-                return cliente;
+                return estado;
             }
 
             set
             {
-                cliente = value;
+                estado = value;
             }
         }
 
@@ -133,6 +154,19 @@ namespace Logica
             set
             {
                 marca = value;
+            }
+        }
+
+        public Cliente Cliente
+        {
+            get
+            {
+                return cliente;
+            }
+
+            set
+            {
+                cliente = value;
             }
         }
 
@@ -151,7 +185,8 @@ namespace Logica
 
         public override string ToString()
         {
-            return this.id + " " + this.placa + " " + this.cilindraje + " " + this.NumeroMotor +" " + this.numeroChazis + " " + this.tipoCombustible +" "+ this.cliente + " " + this.marca + " " + this.tipo;
+            return  this.placa + " " + this.anno + " " +this.cilindraje + " " + this.NumeroMotor +" " + this.numeroChazis + " " + this.tipoCombustible +" "+ this.cliente + " " + this.marca + " " + this.tipo;
         }
     }
 }
+ 
