@@ -70,7 +70,7 @@ namespace Datos
                 if (this.conexion.IsError)
                 {
                     this.error = false;
-                    this.errorMsg= this.conexion.ErrorDescripcion;
+                    this.errorMsg = this.conexion.ErrorDescripcion;
                 }
             }
             catch (Exception e)
@@ -125,7 +125,7 @@ namespace Datos
         public bool editarVehiculos(MarcaVehiculo pMarca)
         {
 
-             this.error= true;
+            this.error = true;
             this.errorMsg = "";
             try
             {
@@ -136,7 +136,7 @@ namespace Datos
                 parametros[0].ParameterName = "@marca";
                 parametros[0].Value = pMarca.Marca;
 
-               
+
                 parametros[1] = new NpgsqlParameter();
                 parametros[1].NpgsqlDbType = NpgsqlDbType.Integer;
                 parametros[1].ParameterName = "@id_marca";
@@ -170,12 +170,12 @@ namespace Datos
             List<MarcaVehiculo> marcas = new List<MarcaVehiculo>();
             DataSet dsetMarcas;
 
-            string sql = "select * from marca where marca = " + "'"+valor+"'";
+            string sql = "select * from marca where marca = " + "'" + valor + "'";
             try
             {
                 dsetMarcas = this.conexion.ejecutarConsultaSQL(sql);
                 foreach (DataRow tupla in dsetMarcas.Tables[0].Rows)
-                { 
+                {
                     MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(tupla["id_marca"].ToString()), tupla["marca"].ToString());
                     marcas.Add(oMarca);
                 }
@@ -190,7 +190,8 @@ namespace Datos
         }
 
 
-        public List<MarcaVehiculo> obtenerPorDataBUsqueda(string valor) {
+        public List<MarcaVehiculo> obtenerPorDataBUsqueda(string valor)
+        {
 
 
 
@@ -205,7 +206,7 @@ namespace Datos
                 parametros[0] = new NpgsqlParameter();
                 parametros[0].NpgsqlDbType = NpgsqlDbType.Varchar;
                 parametros[0].ParameterName = "'@marca'";
-                parametros[0].Value = "'"+valor+"'";
+                parametros[0].Value = "'" + valor + "'";
 
                 dsetMarcas = this.conexion.ejecutarDataSetSQL(sql, parametros);
                 foreach (DataRow tupla in dsetMarcas.Tables[0].Rows)

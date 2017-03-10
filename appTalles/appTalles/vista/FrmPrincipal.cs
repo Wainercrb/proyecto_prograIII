@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Datos;
 using Logica;
 using Vista;
+using Vista;
 
 namespace Vista
 
@@ -40,7 +41,7 @@ namespace Vista
 
         private void registroVehiculoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmEdicionVehiculo frm = new frmEdicionVehiculo();
+            frmCliente frm = new frmCliente();
             frm.ShowDialog();
         }
 

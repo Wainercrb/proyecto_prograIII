@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NpgsqlTypes;
-using System.Data;
 using Logica;
+using NpgsqlTypes;
+using Npgsql;
+using System.Data;
+
 
 namespace Datos
 {
@@ -13,18 +15,9 @@ namespace Datos
     {
 
         private AccesoDatosPostgre conexion;
-
         private bool error;
-        public bool Error
-        {
-            get { return error; }
-        }
-
         private string errorMsg;
-        public string ErrorMsg
-        {
-            get { return errorMsg; }
-        }
+
 
         public ClienteD()
         {
@@ -38,22 +31,268 @@ namespace Datos
             this.errorMsg = "";
         }
 
-        public List<Cliente> obtenerCliente()
+        public List<Cliente> obtenerClientes()
         {
             this.limpiarError();
             List<Cliente> clientes = new List<Cliente>();
-            DataSet dsetClientes;
-            string sql = "select c.id_cliente as id_cliente, c.cedula as cedula, c.nombre as nombre, c.apellido as apellido, c.apellido2 as apellido2, c.telefono_oficina as telefono_oficina, c.telefono_casa as telefono_casa, c.telefono_celular as telefono_celular " +
-                         "from cliente c";
+            DataSet dsetCliente;
 
-            dsetClientes = this.conexion.ejecutarConsultaSQL(sql);
-            foreach (DataRow tupla in dsetClientes.Tables[0].Rows)
+            string sql = "select * from cliente";
+            try
             {
-                Cliente oCliente= new Cliente(Int32.Parse(tupla["id_cliente"].ToString()), tupla["cedula"].ToString(), tupla["nombre"].ToString(), tupla["apellido"].ToString(),tupla["apellido2"].ToString(), tupla["telefono_oficina"].ToString(), tupla["telefono_casa"].ToString(), tupla["telefono_celular"].ToString());
-                clientes.Add(oCliente);
+                dsetCliente = this.conexion.ejecutarConsultaSQL(sql);
+                foreach (DataRow tupla in dsetCliente.Tables[0].Rows)
+                {
+                    Cliente oCliente = new Cliente(Int32.Parse(tupla["id_cliente"].ToString()), tupla["nombre"].ToString(), tupla["cedula"].ToString(), tupla["apellido"].ToString(), tupla["apellido2"].ToString(), tupla["telefono_casa"].ToString(), tupla["telefono_oficina"].ToString(), tupla["telefono_celular"].ToString());
+                    clientes.Add(oCliente);
+                }
             }
+            catch (Exception e)
+            {
+                this.error = false;
+                this.errorMsg = e.Message;
+            }
+
             return clientes;
         }
+
+        public bool agregarCliente(Cliente pCliente)
+        {
+            DataSet dsetCliente;
+            try
+            {
+                string sql = "insert into cliente(cedula, nombre, apellido, apellido2, telefono_casa, telefono_oficina, telefono_celular) " +
+                             "values(@cedula, @nombre, @apellido, @apellido2, @telefono_casa, @telefono_oficina, @telefono_celular)";
+                NpgsqlParameter[] parametros = new NpgsqlParameter[7];
+                parametros[0] = new NpgsqlParameter();
+                parametros[0].NpgsqlDbType = NpgsqlDbType.Varchar;
+                parametros[0].ParameterName = "@cedula";
+                parametros[0].Value = pCliente.Cedula;
+
+                parametros[1] = new NpgsqlParameter();
+                parametros[1].NpgsqlDbType = NpgsqlDbType.Varchar;
+                parametros[1].ParameterName = "@nombre";
+                parametros[1].Value = pCliente.Nombre;
+
+
+                parametros[2] = new NpgsqlParameter();
+                parametros[2].NpgsqlDbType = NpgsqlDbType.Varchar;
+                parametros[2].ParameterName = "@apellido";
+                parametros[2].Value = pCliente.ApellidoPaterno;
+
+
+                parametros[3] = new NpgsqlParameter();
+                parametros[3].NpgsqlDbType = NpgsqlDbType.Varchar;
+                parametros[3].ParameterName = "@apellido2";
+                parametros[3].Value = pCliente.ApellidoMaterno;
+
+
+                parametros[4] = new NpgsqlParameter();
+                parametros[4].NpgsqlDbType = NpgsqlDbType.Varchar;
+                parametros[4].ParameterName = "@telefono_casa";
+                parametros[4].Value = pCliente.TelefonoCasa;
+
+
+                parametros[5] = new NpgsqlParameter();
+                parametros[5].NpgsqlDbType = NpgsqlDbType.Varchar;
+                parametros[5].ParameterName = "@telefono_oficina";
+                parametros[5].Value = pCliente.TelefonoOficina;
+
+
+                parametros[6] = new NpgsqlParameter();
+                parametros[6].NpgsqlDbType = NpgsqlDbType.Varchar;
+                parametros[6].ParameterName = "telefono_celular";
+                parametros[6].Value = pCliente.TelefonoCelular;
+
+
+                dsetCliente = this.conexion.ejecutarDataSetSQL(sql, parametros);
+                if (this.conexion.IsError)
+                {
+                    this.error = false;
+                    this.errorMsg = this.conexion.ErrorDescripcion;
+                }
+            }
+            catch (Exception e)
+            {
+                this.error = false;
+                this.errorMsg = e.Message;
+            }
+            return this.error;
+
+        }
+        public bool borrarCliente(Cliente pCliente)
+        {
+            this.error = true;
+            this.errorMsg = "";
+            try
+            {
+                string sql = "delete from marca where id_cluente = @id_cliente";
+
+                NpgsqlParameter[] parametros = new NpgsqlParameter[1];
+
+                parametros[0] = new NpgsqlParameter();
+                parametros[0].NpgsqlDbType = NpgsqlDbType.Varchar;
+                parametros[0].ParameterName = "@id_marca";
+                parametros[0].Value = pCliente.Id;
+                DataSet dsetMarca;
+                dsetMarca = this.conexion.ejecutarDataSetSQL(sql, parametros);
+                if (this.conexion.IsError)
+                {
+                    this.error = false;
+                    this.errorMsg = this.conexion.ErrorDescripcion;
+                }
+            }
+            catch (Exception e)
+            {
+                this.error = false;
+                this.errorMsg = e.Message;
+            }
+            return this.error;
+        }
+
+
+        public bool Error
+        {
+            get { return error; }
+        }
+
+        public string ErrorMsg
+        {
+            get { return errorMsg; }
+        }
+
+        public bool editarCliente(Cliente pCliente)
+        {
+
+            this.error = true;
+            this.errorMsg = "";
+            try
+            {
+                DataSet dsetCliente;
+                string sql = "UPDATE cliente SET cedula = @cedula, nombre = @nombre, apellido = @apellido, apellido2 = @apellido2, telefono_casa = @telefono_casa, telefono_oficina = @telefono_oficina, telefono_celular = @telefono_celular where id_cliente = @id_cliente";
+                NpgsqlParameter[] parametros = new NpgsqlParameter[8];
+                parametros[0] = new NpgsqlParameter();
+                parametros[0].NpgsqlDbType = NpgsqlDbType.Varchar;
+                parametros[0].ParameterName = "@cedula";
+                parametros[0].Value = pCliente.Cedula;
+
+                parametros[1] = new NpgsqlParameter();
+                parametros[1].NpgsqlDbType = NpgsqlDbType.Varchar;
+                parametros[1].ParameterName = "@nombre";
+                parametros[1].Value = pCliente.Nombre;
+
+                parametros[2] = new NpgsqlParameter();
+                parametros[2].NpgsqlDbType = NpgsqlDbType.Varchar;
+                parametros[2].ParameterName = "@apellido";
+                parametros[2].Value = pCliente.ApellidoPaterno;
+
+                parametros[3] = new NpgsqlParameter();
+                parametros[3].NpgsqlDbType = NpgsqlDbType.Varchar;
+                parametros[3].ParameterName = "@apellido2";
+                parametros[3].Value = pCliente.ApellidoMaterno;
+
+                parametros[4] = new NpgsqlParameter();
+                parametros[4].NpgsqlDbType = NpgsqlDbType.Varchar;
+                parametros[4].ParameterName = "@telefono_casa";
+                parametros[4].Value = pCliente.TelefonoCasa;
+
+                parametros[5] = new NpgsqlParameter();
+                parametros[5].NpgsqlDbType = NpgsqlDbType.Varchar;
+                parametros[5].ParameterName = "@telefono_oficina";
+                parametros[5].Value = pCliente.TelefonoOficina;
+
+                parametros[6] = new NpgsqlParameter();
+                parametros[6].NpgsqlDbType = NpgsqlDbType.Varchar;
+                parametros[6].ParameterName = "@telefono_celular";
+                parametros[6].Value = pCliente.TelefonoCelular;
+
+                parametros[7] = new NpgsqlParameter();
+                parametros[7].NpgsqlDbType = NpgsqlDbType.Integer;
+                parametros[7].ParameterName = "@id_cliente";
+                parametros[7].Value = pCliente.Id;
+                dsetCliente = this.conexion.ejecutarDataSetSQL(sql, parametros);
+
+                if (this.conexion.IsError)
+                {
+                    this.error = false;
+                    this.errorMsg = this.conexion.ErrorDescripcion;
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                this.error = false;
+                this.errorMsg = e.Message;
+            }
+
+            return this.error;
+        }
+
+
+        public List<MarcaVehiculo> buscarMarcas(string valor)
+        {
+            this.limpiarError();
+            List<MarcaVehiculo> marcas = new List<MarcaVehiculo>();
+            DataSet dsetMarcas;
+
+            string sql = "select * from marca where marca = " + "'" + valor + "'";
+            try
+            {
+                dsetMarcas = this.conexion.ejecutarConsultaSQL(sql);
+                foreach (DataRow tupla in dsetMarcas.Tables[0].Rows)
+                {
+                    MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(tupla["id_marca"].ToString()), tupla["marca"].ToString());
+                    marcas.Add(oMarca);
+                }
+            }
+            catch (Exception e)
+            {
+                this.error = false;
+                this.errorMsg = e.Message;
+            }
+
+            return marcas;
+        }
+
+
+        public List<MarcaVehiculo> obtenerPorDataBUsqueda(string valor)
+        {
+
+
+
+            this.limpiarError();
+            List<MarcaVehiculo> marcas = new List<MarcaVehiculo>();
+            DataSet dsetMarcas;
+
+            string sql = "select * from marca where marca = " + "'@marca'";
+            try
+            {
+                NpgsqlParameter[] parametros = new NpgsqlParameter[1];
+                parametros[0] = new NpgsqlParameter();
+                parametros[0].NpgsqlDbType = NpgsqlDbType.Varchar;
+                parametros[0].ParameterName = "'@marca'";
+                parametros[0].Value = "'" + valor + "'";
+
+                dsetMarcas = this.conexion.ejecutarDataSetSQL(sql, parametros);
+                foreach (DataRow tupla in dsetMarcas.Tables[0].Rows)
+                {
+                    MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(tupla["id_marca"].ToString()), tupla["marca"].ToString());
+                    marcas.Add(oMarca);
+                }
+            }
+            catch (Exception e)
+            {
+                this.error = false;
+                this.errorMsg = e.Message;
+            }
+
+            return marcas;
+
+
+
+        }
+
 
     }
 }

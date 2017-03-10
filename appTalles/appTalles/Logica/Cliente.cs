@@ -8,8 +8,8 @@ namespace Logica
     public class Cliente
     {
         private int id;
-        private string nombre;
         private string cedula;
+        private string nombre;
         private string apellidoPaterno;
         private string apellidoMaterno;
         private string telefonoCasa;
@@ -20,25 +20,12 @@ namespace Logica
         {
             get
             {
-                return Id1;
+                return id;
             }
 
             set
             {
-                Id1 = value;
-            }
-        }
-
-        public string Nombre
-        {
-            get
-            {
-                return nombre;
-            }
-
-            set
-            {
-                nombre = value;
+                id = value;
             }
         }
 
@@ -52,6 +39,19 @@ namespace Logica
             set
             {
                 cedula = value;
+            }
+        }
+
+        public string Nombre
+        {
+            get
+            {
+                return nombre;
+            }
+
+            set
+            {
+                nombre = value;
             }
         }
 
@@ -120,19 +120,6 @@ namespace Logica
             }
         }
 
-        public int Id1
-        {
-            get
-            {
-                return id;
-            }
-
-            set
-            {
-                id = value;
-            }
-        }
-
         public Cliente(int id, string nombre, string cedula, string apellidoPaterno, string apellidoMaterno, string telefonoCasa, string telefonoOficina, string telefonoCelular)
         {
             this.Id = id;
@@ -151,7 +138,7 @@ namespace Logica
 
         public override string ToString()
         {
-            return this.nombre + " " + this.apellidoPaterno + " " + this.ApellidoMaterno + " " + this.Cedula + " " + this.TelefonoCasa + " " + this.TelefonoOficina + " " + this.TelefonoCelular;
+            return this.id +" "+ this.Nombre + " " + this.ApellidoPaterno + " " + this.ApellidoMaterno + " " + this.Cedula + " " + this.TelefonoCasa + " " + this.TelefonoOficina + " " + this.TelefonoCelular;
 
         }
 

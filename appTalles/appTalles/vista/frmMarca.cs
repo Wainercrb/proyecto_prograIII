@@ -51,7 +51,6 @@ namespace Vista
                 MarcaVehiculo marca = new MarcaVehiculo(0, txtMarca.Text);
                 oMarca.agregarMarca(marca);
                 txtMensaje.Text = "Marca " + txtMarca.Text + " agregada.";
-                txtMarca.Text = "";
                 cargarMarcas();
             }
 
@@ -147,6 +146,9 @@ namespace Vista
             }
         }
 
-      
+        private void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
