@@ -7,6 +7,7 @@ using Logica;
 using NpgsqlTypes;
 using Npgsql;
 using System.Data;
+using System.Windows.Forms;
 
 namespace Datos
 {
@@ -19,6 +20,19 @@ namespace Datos
         private TipoVehiculo tipo;
         private MarcaVehiculo marca;
         private Cliente cliente;
+
+        public string ErrorMsg
+        {
+            get
+            {
+                return errorMsg;
+            }
+
+            set
+            {
+                errorMsg = value;
+            }
+        }
 
         public VehiculoD()
         {
@@ -33,7 +47,7 @@ namespace Datos
         public void limpiarError()
         {
             this.error = false;
-            this.errorMsg = "";
+            this.ErrorMsg = "";
         }
 
         public List<Vehiculo> obtenerVehiculos()
@@ -68,20 +82,18 @@ namespace Datos
             DataSet dsetVehiculo;
             try
             {
-                string sql = "insert into vehiculo(anno, placa, cilindraje, numero_motor, numero_chazis, combustible, estado, fk_marca, fk_cliente, fk_tipo) " +
-                             "values(@anno, @placa,@cilindraje, @numero_motor, @numero_chazis, @combustible, @estado, @fk_marca, @fk_cliente, fk_tipo)";
-                NpgsqlParameter[] parametros = new NpgsqlParameter[9];
+                string sql = "insert into vehiculo (placa, anno, cilindraje, numero_motor, numero_chazis, combustible, estado, fk_marca, fk_cliente, fk_tipo) " +
+                             "values (@placa, @anno, @cilindraje, @numero_motor, @numero_chazis, @combustible, @estado, @fk_marca, @fk_cliente, @fk_tipo); ";
 
-
+                NpgsqlParameter[] parametros = new NpgsqlParameter[10];
                 parametros[0] = new NpgsqlParameter();
                 parametros[0].NpgsqlDbType = NpgsqlDbType.Integer;
-                parametros[0].ParameterName = "@anno";
+                parametros[0].ParameterName = "@placa";
                 parametros[0].Value = oVehiculo.Anno;
-                dsetVehiculo = this.conexion.ejecutarDataSetSQL(sql, parametros);
 
                 parametros[1] = new NpgsqlParameter();
-                parametros[1].NpgsqlDbType = NpgsqlDbType.Varchar;
-                parametros[1].ParameterName = "@placa";
+                parametros[1].NpgsqlDbType = NpgsqlDbType.Integer;
+                parametros[1].ParameterName = "@anno";
                 parametros[1].Value = oVehiculo.Placa;
 
                 parametros[2] = new NpgsqlParameter();
@@ -109,27 +121,142 @@ namespace Datos
                 parametros[6].ParameterName = "@estado";
                 parametros[6].Value = oVehiculo.Estado;
 
+
                 parametros[7] = new NpgsqlParameter();
                 parametros[7].NpgsqlDbType = NpgsqlDbType.Integer;
-                parametros[7].ParameterName = "@anno";
-                parametros[7].Value = oVehiculo.Anno;
+                parametros[7].ParameterName = "@fk_marca";
+                parametros[7].Value = oVehiculo.Marca.Id;
 
                 parametros[8] = new NpgsqlParameter();
                 parametros[8].NpgsqlDbType = NpgsqlDbType.Integer;
-                parametros[8].ParameterName = "@fk_marca";
-                parametros[8].Value = oVehiculo.Marca;
+                parametros[8].ParameterName = "@fk_cliente";
+                parametros[8].Value = oVehiculo.Cliente.Id;
 
                 parametros[9] = new NpgsqlParameter();
                 parametros[9].NpgsqlDbType = NpgsqlDbType.Integer;
                 parametros[9].ParameterName = "@fk_tipo";
-                parametros[9].Value = oVehiculo.Tipo;
+                parametros[9].Value = oVehiculo.Tipo.Id;
+
+                dsetVehiculo = this.conexion.ejecutarDataSetSQL(sql, parametros);
+                if (this.conexion.IsError)
+                {
+                    this.error = false;
+                    this.ErrorMsg = this.conexion.ErrorDescripcion;
+                }
+            }
+            catch (Exception e)
+            {
+                this.error = false;
+                this.ErrorMsg = e.Message;
+            }
+            return this.error;
+
+        }
+
+        public bool editarVehiculo(Vehiculo vehiculo)
+        {
+
+            try
+            {
+                DataSet dsetVehiculo;
+                string sql = "UPDATE vehiculo SET placa = @placa, anno = @anno ,cilindraje = @cilindraje, numero_motor = @numero_motor, numero_chazis = @numero_chazis, combustible = @combustible, estado = @estado, fk_marca = @fk_marca, fk_cliente = @fk_cliente, fk_tipo = @fk_tipo where id_vehiculo = @id_vehiculo";
+
+                NpgsqlParameter[] parametros = new NpgsqlParameter[11];
+                parametros[0] = new NpgsqlParameter();
+                parametros[0].NpgsqlDbType = NpgsqlDbType.Varchar;
+                parametros[0].ParameterName = "@placa";
+                parametros[0].Value = vehiculo.Placa;
+
+                parametros[1] = new NpgsqlParameter();
+                parametros[1].NpgsqlDbType = NpgsqlDbType.Integer;
+                parametros[1].ParameterName = "@anno";
+                parametros[1].Value = vehiculo.Anno;
+
+                parametros[2] = new NpgsqlParameter();
+                parametros[2].NpgsqlDbType = NpgsqlDbType.Integer;
+                parametros[2].ParameterName = "@cilindraje";
+                parametros[2].Value = vehiculo.Cilindraje;
+
+                parametros[3] = new NpgsqlParameter();
+                parametros[3].NpgsqlDbType = NpgsqlDbType.Integer;
+                parametros[3].ParameterName = "@numero_motor";
+                parametros[3].Value = vehiculo.NumeroMotor;
+
+                parametros[4] = new NpgsqlParameter();
+                parametros[4].NpgsqlDbType = NpgsqlDbType.Integer;
+                parametros[4].ParameterName = "@numero_chazis";
+                parametros[4].Value = vehiculo.NumeroChazis;
+
+                parametros[5] = new NpgsqlParameter();
+                parametros[5].NpgsqlDbType = NpgsqlDbType.Varchar;
+                parametros[5].ParameterName = "@combustible";
+                parametros[5].Value = vehiculo.TipoCombustible;
+
+                parametros[6] = new NpgsqlParameter();
+                parametros[6].NpgsqlDbType = NpgsqlDbType.Varchar;
+                parametros[6].ParameterName = "@estado";
+                parametros[6].Value = vehiculo.Estado;
+
+
+                parametros[7] = new NpgsqlParameter();
+                parametros[7].NpgsqlDbType = NpgsqlDbType.Integer;
+                parametros[7].ParameterName = "@fk_marca";
+                parametros[7].Value = vehiculo.Marca.Id;
+
+                parametros[8] = new NpgsqlParameter();
+                parametros[8].NpgsqlDbType = NpgsqlDbType.Integer;
+                parametros[8].ParameterName = "@fk_cliente";
+                parametros[8].Value = vehiculo.Cliente.Id;
+
+                parametros[9] = new NpgsqlParameter();
+                parametros[9].NpgsqlDbType = NpgsqlDbType.Integer;
+                parametros[9].ParameterName = "@fk_tipo";
+                parametros[9].Value = vehiculo.Tipo.Id;
 
                 parametros[10] = new NpgsqlParameter();
                 parametros[10].NpgsqlDbType = NpgsqlDbType.Integer;
-                parametros[10].ParameterName = "@fk_cliente";
-                parametros[10].Value = oVehiculo.Cliente;
+                parametros[10].ParameterName = "@id_vehiculo";
+                parametros[10].Value = vehiculo.Id;
+
 
                 dsetVehiculo = this.conexion.ejecutarDataSetSQL(sql, parametros);
+
+                if (this.conexion.IsError)
+                {
+                    error = false;
+                    this.errorMsg = this.conexion.ErrorDescripcion;
+                }
+
+            }
+            catch (Exception e)
+            {
+                error = false;
+
+                this.errorMsg = e.Message;
+            }
+            return error;
+
+
+
+        }
+
+
+        public bool borrarVehiculo(Vehiculo pVehiculo)
+        {
+            this.error = true;
+            this.errorMsg = "";
+            try
+            {
+                string sql = "delete from vehiculo where id_vehiculo = @id_vehiculo";
+
+                NpgsqlParameter[] parametros = new NpgsqlParameter[1];
+
+                parametros[0] = new NpgsqlParameter();
+                parametros[0].NpgsqlDbType = NpgsqlDbType.Integer;
+                parametros[0].ParameterName = "@id_vehiculo";
+                parametros[0].Value = pVehiculo.Id;
+                DataSet dsetMarca;
+                dsetMarca = this.conexion.ejecutarDataSetSQL(sql, parametros);
                 if (this.conexion.IsError)
                 {
                     this.error = false;
@@ -142,7 +269,6 @@ namespace Datos
                 this.errorMsg = e.Message;
             }
             return this.error;
-
         }
 
     }

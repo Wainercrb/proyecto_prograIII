@@ -126,16 +126,16 @@ namespace Datos
             this.errorMsg = "";
             try
             {
-                string sql = "delete from marca where id_cluente = @id_cliente";
+                string sql = "delete from cliente where id_cliente = @id_cliente";
 
                 NpgsqlParameter[] parametros = new NpgsqlParameter[1];
 
                 parametros[0] = new NpgsqlParameter();
-                parametros[0].NpgsqlDbType = NpgsqlDbType.Varchar;
-                parametros[0].ParameterName = "@id_marca";
+                parametros[0].NpgsqlDbType = NpgsqlDbType.Integer;
+                parametros[0].ParameterName = "@id_cliente";
                 parametros[0].Value = pCliente.Id;
-                DataSet dsetMarca;
-                dsetMarca = this.conexion.ejecutarDataSetSQL(sql, parametros);
+                DataSet dsetCliente;
+                dsetCliente = this.conexion.ejecutarDataSetSQL(sql, parametros);
                 if (this.conexion.IsError)
                 {
                     this.error = false;

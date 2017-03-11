@@ -18,7 +18,7 @@ namespace Vista
         private MarcaVehiculo marca;
         private TipoVehiculo tipo;
         private Cliente cliente;
-        private string vehiculoAntes;
+
         public frmEdicionVehiculo()
         {
             vehiculo = new Vehiculo();
@@ -28,46 +28,19 @@ namespace Vista
             InitializeComponent();
             llenarComboMarca();
             llenarComboTipo();
-            grbEstado.Enabled = false;
-        }
-
-        public void llenarComboMarca()
-        {
-            this.cbMarca.Items.Clear();
-            MarcaD oMarcaD = new MarcaD();
-            List<MarcaVehiculo> marcas = oMarcaD.obtenerMarcas();
-
-            foreach (MarcaVehiculo oMarcaL in marcas)
-            {
-                this.cbMarca.Items.Add(oMarcaL);
-            }
-        }
-
-
-        public void llenarComboTipo()
-        {
-            this.cbTipo.Items.Clear();
-            TipoD oTipoD = new TipoD();
-            List<TipoVehiculo> tipos = oTipoD.obtenerTipos();
-
-            foreach (TipoVehiculo oTipoL in tipos)
-            {
-                this.cbTipo.Items.Add(oTipoL);
-            }
+            llenarComboCliente();
+            cargarDataGriew();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-
             cargarVehiculos();
-
         }
 
         private void cargarVehiculos()
         {
             VehiculoD oVehiculoD = new VehiculoD();
             List<Vehiculo> lsVehiculos = oVehiculoD.obtenerVehiculos();
-
             txtCantidad.Text = "" + lsVehiculos.Count();
             if (lsVehiculos.ToString() == "")
             {
@@ -78,66 +51,45 @@ namespace Vista
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            string estado = "";
+            VehiculoD oVehiculo = new VehiculoD();
 
-            try
+            if (!verificarDatos())
             {
-                VehiculoD oVehiculo = new VehiculoD();
-                if (txtPlacaa.Text == "" || txtCombustible.Text == "")
+                return;
+            }
+            if (vehiculo.Id > 0)
+            {
+                VehiculoD oVehiculoD = new VehiculoD();
+                if (!verificarDatos())
                 {
-                    MessageBox.Show("¡Eror!", "No dejes espacios vacios como pueden ser:\n"
-                        + " numero de placa ó combustible ", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                if (rbDanado.Enabled == true)
-                {
-                    estado = "Dañado";
-                }
-                else if (rbPendiente.Enabled == true)
-                {
-                    estado = "Pendiente";
-                }
-                else
-                {
-                    estado = "Finalizado";
-                }
 
-                if (vehiculo.Id > 0)
-                {
-                    VehiculoD oVehiculoD = new VehiculoD();
-
-                    oVehiculo.agregarVehiculo(vehiculo);
-
-                    txtTarea.Text = "Vehiculo agreagado correctamente.";
-
-                    cargarVehiculos();
-
-                }
-                else
-                {
-                    vehiculo = new Vehiculo();
-                    oVehiculo.agregarVehiculo(vehiculo);
-                    txtTarea.Text = "Vehiculo  agregada.";
-                    cargarVehiculos();
-                }
-
-
-
-                txtAnno.Text = "";
-                txtChazis.Text = "";
-                txtCombustible.Text = "";
-                txtPlaca.Text = "";
-                txtMotor.Text = "";
-                txtCombustible.Text = "";
-
-
-
+                seleccionEstado();
+                vehiculo.Placa = txtPlacaa.Text;
+                vehiculo.Anno = Int32.Parse(txtAnno.Text);
+                vehiculo.Cilindraje = Int32.Parse(txtCilindraje.Text);
+                vehiculo.NumeroMotor = Int32.Parse(txtMotor.Text);
+                vehiculo.NumeroChazis = Int32.Parse(txtChazis.Text);
+                vehiculo.TipoCombustible = txtCombustible.Text;
+                vehiculo.Estado = seleccionEstado();
+                seleccionCbs();
+                vehiculo.Cliente = cliente;
+                vehiculo.Marca = marca;
+                vehiculo.Tipo = tipo;
+                oVehiculo.editarVehiculo(vehiculo);
+                txtTarea.Text = "Vehiculo editado correctamente.";
+                grbEstado.Enabled = false;
+                limpiarDatos();
+                cargarVehiculos();
             }
-            catch (FormatException ex)
+            else
             {
-
-                MessageBox.Show("¡Error!", "Verifique los compos de: cilindraje, año, numero de motor/n"
-                    + "y numero de chazis ya que solo admite numeros", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                vehiculo = new Vehiculo();
+                vehiculo = new Vehiculo(0, txtPlaca.Text, Int32.Parse(txtAnno.Text), Int32.Parse(txtCilindraje.Text), Int32.Parse(txtMotor.Text), Int32.Parse(txtChazis.Text), txtCombustible.Text, seleccionEstado(), marca, cliente, tipo);
+                oVehiculo.agregarVehiculo(vehiculo);
+                txtTarea.Text = "Vehiculo  agregada.";
+                cargarVehiculos();
             }
         }
 
@@ -174,7 +126,7 @@ namespace Vista
             if (cbTipo.SelectedIndex != -1)
             {
                 int selectedIndex = cbTipo.SelectedIndex;
-                TipoVehiculo selectedItem = (TipoVehiculo)cbMarca.SelectedItem;
+                TipoVehiculo selectedItem = (TipoVehiculo)cbTipo.SelectedItem;
                 tipo = new TipoVehiculo();
                 tipo = new TipoVehiculo(selectedItem.Id, selectedItem.Tipo);
             }
@@ -182,7 +134,6 @@ namespace Vista
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            string estado = "";
             txtTarea.Text = "";
             if (this.grdVehiculos.Rows.Count > 0)
             {
@@ -198,6 +149,19 @@ namespace Vista
                     txtMotor.Text = this.grdVehiculos[4, fila].Value.ToString();
                     txtChazis.Text = this.grdVehiculos[5, fila].Value.ToString();
                     txtCombustible.Text = this.grdVehiculos[6, fila].Value.ToString();
+                    if (this.grdVehiculos[7, fila].Value.ToString() == "Dañado")
+                    {
+                        this.rbDanado.Checked = true;
+                    }
+                    else if (this.grdVehiculos[7, fila].Value.ToString() == "Pendiente")
+                    {
+                        this.rbPendiente.Checked = true;
+                    }
+                    else if (this.grdVehiculos[7, fila].Value.ToString() == "Finalizado")
+                    {
+                        this.rbFinalizado.Checked = true;
+                    }
+                    this.grdVehiculos[6, fila].Value.ToString();
 
                     for (int i = 0; i < cbMarca.Items.Count; i++)
                     {
@@ -233,33 +197,187 @@ namespace Vista
                         }
 
                     }
+                    seleccionEstado();
+                    vehiculo = new Vehiculo(Int32.Parse(this.grdVehiculos[0, fila].Value.ToString()), txtPlacaa.Text, Int32.Parse(txtAnno.Text.ToString()), Int32.Parse(txtCilindraje.Text.ToString()), Int32.Parse(txtMotor.Text.ToString()), Int32.Parse(txtChazis.Text.ToString()), txtCombustible.Text, seleccionEstado(), marca, cliente, tipo);
+                }
+            }
+        }
 
-                    if (this.grdVehiculos[7, fila].Value.ToString() == "Dañado")
-                    {
-                        rbDanado.Checked = true;
-                        estado = "Dañado";
-                    }
-                    else if (this.grdVehiculos[7, fila].Value.ToString() == "Pendiente")
-                    {
-                        rbPendiente.Checked = true;
-                        estado = "Pendiente";
-                    }
-                    else
-                    {
-                        rbFinalizado.Checked = true;
-                        estado = "Finalizado";
-                    }
-                    this.grdVehiculos[2, fila].Value.ToString();
 
-                    vehiculo = new Vehiculo(Int32.Parse(grdVehiculos[0, fila].Value.ToString()), txtPlaca.Text, Int32.Parse(txtAnno.Text), Int32.Parse(txtCilindraje.Text), Int32.Parse(txtMotor.Text), Int32.Parse(txtChazis.Text), txtCombustible.Text, "", marca, cliente, tipo);
+        private void limpiarDatos()
+        {
+            txtPlacaa.Text = "";
+            txtAnno.Text = "";
+            txtChazis.Text = "";
+            txtMotor.Text = "";
+            txtCilindraje.Text = "";
+            txtChazis.Text = "";
+            txtChazis.Text = "";
+            txtCombustible.Text = "";
+            cbCliente.SelectedIndex = -1;
+            cbMarca.SelectedIndex = -1;
+            cbTipo.SelectedIndex = -1;
+        }
 
-                    vehiculo = new Vehiculo(Int32.Parse(this.grdVehiculos[0, fila].Value.ToString()), txtPlacaa.Text, Int32.Parse(txtAnno.Text.ToString()), Int32.Parse(txtCilindraje.Text.ToString()), Int32.Parse(txtMotor.Text.ToString()), Int32.Parse(txtChazis.Text.ToString()), txtCombustible.Text, estado, marca, cliente, tipo);
+        private bool verificarDatos()
+        {
+            try
+            {
+                Int32.Parse(txtAnno.Text);
+                Int32.Parse(txtChazis.Text);
+                Int32.Parse(txtMotor.Text);
+                Int32.Parse(txtCilindraje.Text);
 
-                    //vehiculo = this.grdMarcas[1, fila].Value.ToString();
 
+                if (txtCombustible.Text.Equals("") || txtPlacaa.Text.Equals(""))
+                {
+                    MessageBox.Show("Verifique los campos de año o tipo de combustible que no esten en blanco", " !Error¡", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                if (cbCliente.SelectedIndex < 0)
+                {
+                    MessageBox.Show("Debes seleccionar el dueño del vehículo", " !Error¡", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+
+                }
+                else if (cbMarca.SelectedIndex < 0)
+                {
+                    MessageBox.Show("Debes selecionar la marca del vehiculo", " !Error¡", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                else if (cbTipo.SelectedIndex < 0)
+                {
+                    MessageBox.Show("Debes seleccionar el tipo de vehiculo", " !Error¡", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show("Verifique los campos de año, motor , cilindraje, y chazis ya que solo admiten numeros", " !Error¡", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+                throw;
+            }
+
+            return true;
+        }
+
+        private void seleccionCbs()
+        {
+            if (cbCliente.SelectedIndex != -1)
+            {
+                int selectedIndex = cbCliente.SelectedIndex;
+                Cliente selectedItem = (Cliente)cbCliente.SelectedItem;
+                cliente = new Cliente();
+                cliente = new Cliente(selectedItem.Id, selectedItem.Nombre, selectedItem.Cedula, selectedItem.ApellidoPaterno, selectedItem.ApellidoMaterno, selectedItem.TelefonoCasa, selectedItem.TelefonoOficina, selectedItem.TelefonoCelular);
+            }
+
+            if (cbMarca.SelectedIndex != -1)
+            {
+                int selectedIndex = cbMarca.SelectedIndex;
+                MarcaVehiculo selectedItem = (MarcaVehiculo)cbMarca.SelectedItem;
+                marca = new MarcaVehiculo();
+                marca = new MarcaVehiculo(selectedItem.Id, selectedItem.Marca);
+            }
+
+            if (cbTipo.SelectedIndex != -1)
+            {
+                int selectedIndex = cbTipo.SelectedIndex;
+                TipoVehiculo selectedItem = (TipoVehiculo)cbTipo.SelectedItem;
+                tipo = new TipoVehiculo();
+                tipo = new TipoVehiculo(selectedItem.Id, selectedItem.Tipo);
+            }
+        }
+
+        private string seleccionEstado()
+        {
+            string estado = "";
+            if (this.rbDanado.Checked)
+            {
+                estado = "Dañado";
+            }
+            else if (this.rbPendiente.Checked)
+            {
+                estado = "Pendiente";
+            }
+            else
+            {
+                estado = "Finalizado";
+            }
+
+            return estado;
+        }
+
+        public void llenarComboMarca()
+        {
+            this.cbMarca.Items.Clear();
+            MarcaD oMarcaD = new MarcaD();
+            List<MarcaVehiculo> marcas = oMarcaD.obtenerMarcas();
+
+            foreach (MarcaVehiculo oMarcaL in marcas)
+            {
+                this.cbMarca.Items.Add(oMarcaL);
+            }
+        }
+
+
+        public void llenarComboTipo()
+        {
+            this.cbTipo.Items.Clear();
+            TipoD oTipoD = new TipoD();
+            List<TipoVehiculo> tipos = oTipoD.obtenerTipos();
+
+            foreach (TipoVehiculo oTipoL in tipos)
+            {
+                this.cbTipo.Items.Add(oTipoL);
+            }
+        }
+
+        private void llenarComboCliente()
+        {
+            this.cbCliente.Items.Clear();
+            ClienteD oCienteD = new ClienteD();
+            List<Cliente> clientes = oCienteD.obtenerClientes();
+
+            foreach (Cliente oClienteL in clientes)
+            {
+                this.cbCliente.Items.Add(oClienteL);
+            }
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            txtTarea.Text = "";
+            if (this.grdVehiculos.Rows.Count > 0)
+            {
+                DialogResult respuesta = MessageBox.Show("¿Está seguro de borrar?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (respuesta == DialogResult.Yes)
+                {
+                    int fila = this.grdVehiculos.CurrentRow.Index;
+                    vehiculo.Id = Int32.Parse(grdVehiculos[0, fila].Value.ToString());
+                    VehiculoD pVehiculo = new VehiculoD();
+                    MessageBox.Show(vehiculo.ToString());
+                    pVehiculo.borrarVehiculo(vehiculo);
+                    txtTarea.Text = "Marca eliminada correctamente";
+                    cargarVehiculos();
 
                 }
             }
+        }
+        private void cargarDataGriew()
+        {
+            this.grdVehiculos.Columns["Id"].Visible = false;
+            this.grdVehiculos.Columns["Placa"].Width = 40;
+            this.grdVehiculos.Columns["Año"].Width = 40;
+            this.grdVehiculos.Columns["Cilindraje"].Width = 60;
+            this.grdVehiculos.Columns["Motor"].Width = 50;
+            this.grdVehiculos.Columns["Chazis"].Width = 40;
+            this.grdVehiculos.Columns["Combustible"].Width = 70;
+            this.grdVehiculos.Columns["Estado"].Width = 65;
+            this.grdVehiculos.Columns["Marca_Vehiculo"].Width = 70;
+            this.grdVehiculos.Columns["Tipo_"].Width = 70;
+            this.grdVehiculos.Columns["Cliente_"].Width = 200;
+
         }
     }
 }

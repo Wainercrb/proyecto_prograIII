@@ -16,7 +16,7 @@ namespace Logica
         private int numeroMotor;
         private int numeroChazis;
         private string tipoCombustible;
-        private string estado;
+        private string  estado;
         private MarcaVehiculo marca;
         private Cliente cliente;
         private TipoVehiculo tipo;
@@ -131,7 +131,7 @@ namespace Logica
             }
         }
 
-        public string Estado
+        public string  Estado
         {
             get
             {
@@ -185,7 +185,7 @@ namespace Logica
 
         public override string ToString()
         {
-            return  this.placa + " " + this.anno + " " +this.cilindraje + " " + this.NumeroMotor +" " + this.numeroChazis + " " + this.tipoCombustible +" "+ this.cliente + " " + this.marca + " " + this.tipo;
+            return  this.id +" id" +  this.placa + " " + this.anno + " " +this.cilindraje + " " + this.NumeroMotor +" " + this.numeroChazis + " " + this.tipoCombustible +" "+ this.cliente + " " + this.marca + " " + this.tipo;
         }
     }
 }

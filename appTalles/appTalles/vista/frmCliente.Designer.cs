@@ -90,7 +90,7 @@
             // 
             // btnSalir
             // 
-            this.btnSalir.Location = new System.Drawing.Point(353, 396);
+            this.btnSalir.Location = new System.Drawing.Point(530, 391);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(75, 23);
             this.btnSalir.TabIndex = 5;
@@ -99,7 +99,7 @@
             // 
             // txtCantidadRegistros
             // 
-            this.txtCantidadRegistros.Location = new System.Drawing.Point(137, 401);
+            this.txtCantidadRegistros.Location = new System.Drawing.Point(177, 393);
             this.txtCantidadRegistros.Name = "txtCantidadRegistros";
             this.txtCantidadRegistros.ReadOnly = true;
             this.txtCantidadRegistros.Size = new System.Drawing.Size(100, 20);
@@ -108,7 +108,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(21, 401);
+            this.label2.Location = new System.Drawing.Point(48, 396);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(109, 13);
             this.label2.TabIndex = 3;
@@ -171,7 +171,7 @@
             // 
             this.btnAgregar.Location = new System.Drawing.Point(230, 208);
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(75, 23);
+            this.btnAgregar.Size = new System.Drawing.Size(62, 23);
             this.btnAgregar.TabIndex = 19;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.UseVisualStyleBackColor = true;
@@ -185,6 +185,7 @@
             this.btnEliminar.TabIndex = 18;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnEditar
             // 
@@ -208,16 +209,16 @@
             // 
             // txtMensaje
             // 
-            this.txtMensaje.Location = new System.Drawing.Point(50, 305);
+            this.txtMensaje.Location = new System.Drawing.Point(36, 305);
             this.txtMensaje.Name = "txtMensaje";
             this.txtMensaje.ReadOnly = true;
-            this.txtMensaje.Size = new System.Drawing.Size(255, 20);
+            this.txtMensaje.Size = new System.Drawing.Size(284, 20);
             this.txtMensaje.TabIndex = 15;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 308);
+            this.label10.Location = new System.Drawing.Point(-3, 308);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(38, 13);
             this.label10.TabIndex = 14;

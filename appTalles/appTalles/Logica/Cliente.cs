@@ -138,7 +138,7 @@ namespace Logica
 
         public override string ToString()
         {
-            return this.id +" "+ this.Nombre + " " + this.ApellidoPaterno + " " + this.ApellidoMaterno + " " + this.Cedula + " " + this.TelefonoCasa + " " + this.TelefonoOficina + " " + this.TelefonoCelular;
+            return this.cedula + " " + this.Nombre + " " + this.ApellidoPaterno + " " + this.ApellidoMaterno;
 
         }
 

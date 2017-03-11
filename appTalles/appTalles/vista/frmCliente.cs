@@ -42,7 +42,7 @@ namespace Vista
                 cliente.ApellidoPaterno = txtApellidoPaterno.Text;
                 cliente.ApellidoMaterno = txtApellidoMaterno.Text;
                 cliente.TelefonoCasa = txtTelefono_casa.Text;
-                cliente.TelefonoCelular = txtTelefono_oficina.Text;
+                cliente.TelefonoCelular = txtTelefono_celular.Text;
                 cliente.TelefonoOficina = txtTelefono_oficina.Text;
                 MessageBox.Show(cliente.ToString());
                 oCliente.editarCliente(cliente);
@@ -118,8 +118,7 @@ namespace Vista
 
                     int fila = this.grdClientes.CurrentRow.Index;
                     cliente = new Cliente();
-                    cliente = new Cliente(Int32.Parse(this.grdClientes[0, fila].Value.ToString()), grdClientes[1, fila].Value.ToString(), grdClientes[2, fila].Value.ToString(), grdClientes[3, fila].Value.ToString(), grdClientes[4, fila].Value.ToString(), grdClientes[5, fila].Value.ToString(), grdClientes[6, fila].Value.ToString(), grdClientes[7, fila].Value.ToString());
-
+                    cliente = new Cliente(Int32.Parse(this.grdClientes[0, fila].Value.ToString()), grdClientes[2, fila].Value.ToString(), grdClientes[1, fila].Value.ToString(), grdClientes[3, fila].Value.ToString(), grdClientes[4, fila].Value.ToString(), grdClientes[5, fila].Value.ToString(), grdClientes[6, fila].Value.ToString(), grdClientes[7, fila].Value.ToString());
                     txtCedula.Text = cliente.Cedula;
                     txtNombre.Text = cliente.Nombre;
                     txtApellidoPaterno.Text = cliente.ApellidoPaterno;
@@ -128,6 +127,28 @@ namespace Vista
                     txtTelefono_celular.Text = cliente.TelefonoCelular;
                     txtTelefono_oficina.Text = cliente.TelefonoOficina;
 
+
+                }
+            }
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            txtMensaje.Text = "";
+            if (this.grdClientes.Rows.Count > 0)
+            {
+                DialogResult respuesta = MessageBox.Show("¿Está seguro de borrar?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (respuesta == DialogResult.Yes)
+                {
+
+                    int fila = this.grdClientes.CurrentRow.Index;
+                    cliente = new Cliente();
+                    cliente = new Cliente(Int32.Parse(this.grdClientes[0, fila].Value.ToString()), grdClientes[2, fila].Value.ToString(), grdClientes[1, fila].Value.ToString(), grdClientes[3, fila].Value.ToString(), grdClientes[4, fila].Value.ToString(), grdClientes[5, fila].Value.ToString(), grdClientes[6, fila].Value.ToString(), grdClientes[7, fila].Value.ToString());
+                    ClienteD pCliente = new ClienteD();
+                    pCliente.borrarCliente(cliente);
+                    txtMensaje.Text = " cliente  eliminada correctamente";
+                    cargarClientes();
+                    cliente = new Cliente();
 
                 }
             }

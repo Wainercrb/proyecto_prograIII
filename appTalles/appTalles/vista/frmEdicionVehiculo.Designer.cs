@@ -37,6 +37,10 @@
             this.label12 = new System.Windows.Forms.Label();
             this.grdVehiculos = new System.Windows.Forms.DataGridView();
             this.txtPlaca = new System.Windows.Forms.GroupBox();
+            this.grbEstado = new System.Windows.Forms.GroupBox();
+            this.rbFinalizado = new System.Windows.Forms.RadioButton();
+            this.rbPendiente = new System.Windows.Forms.RadioButton();
+            this.rbDanado = new System.Windows.Forms.RadioButton();
             this.button1 = new System.Windows.Forms.Button();
             this.txtTarea = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -62,15 +66,32 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.grbEstado = new System.Windows.Forms.GroupBox();
-            this.rbDanado = new System.Windows.Forms.RadioButton();
-            this.rbPendiente = new System.Windows.Forms.RadioButton();
-            this.rbFinalizado = new System.Windows.Forms.RadioButton();
+            this.eventLog1 = new System.Diagnostics.EventLog();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Placa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Año = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cilindraje = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Motor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Chazis = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Combustible = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Marca_Vehiculo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tipo_ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cliente_ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rbBuscarPlaca = new System.Windows.Forms.RadioButton();
+            this.rbBuscarAnno = new System.Windows.Forms.RadioButton();
+            this.rbBuscarCliente = new System.Windows.Forms.RadioButton();
+            this.rbBuscarMarca = new System.Windows.Forms.RadioButton();
+            this.rbBuscarTipo = new System.Windows.Forms.RadioButton();
+            this.rbBuscarCilindraje = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdVehiculos)).BeginInit();
             this.txtPlaca.SuspendLayout();
             this.grbEstado.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -84,11 +105,10 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.groupBox1);
             this.tabPage2.Controls.Add(this.btnSalir);
             this.tabPage2.Controls.Add(this.txtCantidad);
             this.tabPage2.Controls.Add(this.label13);
-            this.tabPage2.Controls.Add(this.textBox2);
-            this.tabPage2.Controls.Add(this.label12);
             this.tabPage2.Controls.Add(this.grdVehiculos);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -127,7 +147,7 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(66, 18);
+            this.textBox2.Location = new System.Drawing.Point(417, 12);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(310, 20);
             this.textBox2.TabIndex = 2;
@@ -135,7 +155,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(20, 21);
+            this.label12.Location = new System.Drawing.Point(6, 15);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(43, 13);
             this.label12.TabIndex = 1;
@@ -144,6 +164,18 @@
             // grdVehiculos
             // 
             this.grdVehiculos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdVehiculos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.id,
+            this.Placa,
+            this.Año,
+            this.Cilindraje,
+            this.Motor,
+            this.Chazis,
+            this.Combustible,
+            this.Estado,
+            this.Marca_Vehiculo,
+            this.tipo_,
+            this.Cliente_});
             this.grdVehiculos.Location = new System.Drawing.Point(6, 54);
             this.grdVehiculos.Name = "grdVehiculos";
             this.grdVehiculos.Size = new System.Drawing.Size(801, 360);
@@ -184,6 +216,49 @@
             this.txtPlaca.TabStop = false;
             this.txtPlaca.Text = "Actualización vehiculo";
             // 
+            // grbEstado
+            // 
+            this.grbEstado.Controls.Add(this.rbFinalizado);
+            this.grbEstado.Controls.Add(this.rbPendiente);
+            this.grbEstado.Controls.Add(this.rbDanado);
+            this.grbEstado.Location = new System.Drawing.Point(98, 183);
+            this.grbEstado.Name = "grbEstado";
+            this.grbEstado.Size = new System.Drawing.Size(239, 41);
+            this.grbEstado.TabIndex = 2;
+            this.grbEstado.TabStop = false;
+            // 
+            // rbFinalizado
+            // 
+            this.rbFinalizado.AutoSize = true;
+            this.rbFinalizado.Location = new System.Drawing.Point(148, 17);
+            this.rbFinalizado.Name = "rbFinalizado";
+            this.rbFinalizado.Size = new System.Drawing.Size(72, 17);
+            this.rbFinalizado.TabIndex = 17;
+            this.rbFinalizado.Text = "Finalizado";
+            this.rbFinalizado.UseVisualStyleBackColor = true;
+            // 
+            // rbPendiente
+            // 
+            this.rbPendiente.AutoSize = true;
+            this.rbPendiente.Location = new System.Drawing.Point(69, 15);
+            this.rbPendiente.Name = "rbPendiente";
+            this.rbPendiente.Size = new System.Drawing.Size(73, 17);
+            this.rbPendiente.TabIndex = 16;
+            this.rbPendiente.Text = "Pendiente";
+            this.rbPendiente.UseVisualStyleBackColor = true;
+            // 
+            // rbDanado
+            // 
+            this.rbDanado.AutoSize = true;
+            this.rbDanado.Checked = true;
+            this.rbDanado.Location = new System.Drawing.Point(0, 16);
+            this.rbDanado.Name = "rbDanado";
+            this.rbDanado.Size = new System.Drawing.Size(63, 17);
+            this.rbDanado.TabIndex = 15;
+            this.rbDanado.TabStop = true;
+            this.rbDanado.Text = "Dañado";
+            this.rbDanado.UseVisualStyleBackColor = true;
+            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(128, 316);
@@ -219,6 +294,7 @@
             this.btnEliminar.TabIndex = 22;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnEditar
             // 
@@ -402,48 +478,153 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Numero placa:";
             // 
-            // grbEstado
+            // eventLog1
             // 
-            this.grbEstado.Controls.Add(this.rbFinalizado);
-            this.grbEstado.Controls.Add(this.rbPendiente);
-            this.grbEstado.Controls.Add(this.rbDanado);
-            this.grbEstado.Location = new System.Drawing.Point(98, 183);
-            this.grbEstado.Name = "grbEstado";
-            this.grbEstado.Size = new System.Drawing.Size(239, 41);
-            this.grbEstado.TabIndex = 2;
-            this.grbEstado.TabStop = false;
+            this.eventLog1.SynchronizingObject = this;
             // 
-            // rbDanado
+            // id
             // 
-            this.rbDanado.AutoSize = true;
-            this.rbDanado.Checked = true;
-            this.rbDanado.Location = new System.Drawing.Point(0, 16);
-            this.rbDanado.Name = "rbDanado";
-            this.rbDanado.Size = new System.Drawing.Size(63, 17);
-            this.rbDanado.TabIndex = 15;
-            this.rbDanado.TabStop = true;
-            this.rbDanado.Text = "Dañado";
-            this.rbDanado.UseVisualStyleBackColor = true;
+            this.id.DataPropertyName = "Id";
+            this.id.HeaderText = "id";
+            this.id.Name = "id";
             // 
-            // rbPendiente
+            // Placa
             // 
-            this.rbPendiente.AutoSize = true;
-            this.rbPendiente.Location = new System.Drawing.Point(69, 15);
-            this.rbPendiente.Name = "rbPendiente";
-            this.rbPendiente.Size = new System.Drawing.Size(73, 17);
-            this.rbPendiente.TabIndex = 16;
-            this.rbPendiente.Text = "Pendiente";
-            this.rbPendiente.UseVisualStyleBackColor = true;
+            this.Placa.DataPropertyName = "placa";
+            this.Placa.HeaderText = "Placa";
+            this.Placa.Name = "Placa";
             // 
-            // rbFinalizado
+            // Año
             // 
-            this.rbFinalizado.AutoSize = true;
-            this.rbFinalizado.Location = new System.Drawing.Point(148, 17);
-            this.rbFinalizado.Name = "rbFinalizado";
-            this.rbFinalizado.Size = new System.Drawing.Size(72, 17);
-            this.rbFinalizado.TabIndex = 17;
-            this.rbFinalizado.Text = "Finalizado";
-            this.rbFinalizado.UseVisualStyleBackColor = true;
+            this.Año.DataPropertyName = "Anno";
+            this.Año.HeaderText = "Año";
+            this.Año.Name = "Año";
+            // 
+            // Cilindraje
+            // 
+            this.Cilindraje.DataPropertyName = "Cilindraje";
+            this.Cilindraje.HeaderText = "Cilindraje";
+            this.Cilindraje.Name = "Cilindraje";
+            // 
+            // Motor
+            // 
+            this.Motor.DataPropertyName = "NumeroMotor";
+            this.Motor.HeaderText = "Motor";
+            this.Motor.Name = "Motor";
+            // 
+            // Chazis
+            // 
+            this.Chazis.DataPropertyName = "NumeroChazis";
+            this.Chazis.HeaderText = "Chazis";
+            this.Chazis.Name = "Chazis";
+            // 
+            // Combustible
+            // 
+            this.Combustible.DataPropertyName = "TipoCombustible";
+            this.Combustible.HeaderText = "Combustible";
+            this.Combustible.Name = "Combustible";
+            // 
+            // Estado
+            // 
+            this.Estado.DataPropertyName = "Estado";
+            this.Estado.HeaderText = "Estado";
+            this.Estado.Name = "Estado";
+            // 
+            // Marca_Vehiculo
+            // 
+            this.Marca_Vehiculo.DataPropertyName = "Marca";
+            this.Marca_Vehiculo.HeaderText = "Marca";
+            this.Marca_Vehiculo.Name = "Marca_Vehiculo";
+            // 
+            // tipo_
+            // 
+            this.tipo_.DataPropertyName = "Tipo";
+            this.tipo_.HeaderText = "Tipo";
+            this.tipo_.Name = "tipo_";
+            // 
+            // Cliente_
+            // 
+            this.Cliente_.DataPropertyName = "Cliente";
+            this.Cliente_.HeaderText = "Cliente";
+            this.Cliente_.Name = "Cliente_";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.rbBuscarCilindraje);
+            this.groupBox1.Controls.Add(this.rbBuscarTipo);
+            this.groupBox1.Controls.Add(this.rbBuscarMarca);
+            this.groupBox1.Controls.Add(this.rbBuscarCliente);
+            this.groupBox1.Controls.Add(this.rbBuscarAnno);
+            this.groupBox1.Controls.Add(this.rbBuscarPlaca);
+            this.groupBox1.Controls.Add(this.textBox2);
+            this.groupBox1.Controls.Add(this.label12);
+            this.groupBox1.Location = new System.Drawing.Point(6, 6);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(793, 42);
+            this.groupBox1.TabIndex = 6;
+            this.groupBox1.TabStop = false;
+            // 
+            // rbBuscarPlaca
+            // 
+            this.rbBuscarPlaca.AutoSize = true;
+            this.rbBuscarPlaca.Checked = true;
+            this.rbBuscarPlaca.Location = new System.Drawing.Point(56, 14);
+            this.rbBuscarPlaca.Name = "rbBuscarPlaca";
+            this.rbBuscarPlaca.Size = new System.Drawing.Size(52, 17);
+            this.rbBuscarPlaca.TabIndex = 3;
+            this.rbBuscarPlaca.TabStop = true;
+            this.rbBuscarPlaca.Text = "Placa";
+            this.rbBuscarPlaca.UseVisualStyleBackColor = true;
+            // 
+            // rbBuscarAnno
+            // 
+            this.rbBuscarAnno.AutoSize = true;
+            this.rbBuscarAnno.Location = new System.Drawing.Point(114, 14);
+            this.rbBuscarAnno.Name = "rbBuscarAnno";
+            this.rbBuscarAnno.Size = new System.Drawing.Size(44, 17);
+            this.rbBuscarAnno.TabIndex = 4;
+            this.rbBuscarAnno.Text = "Año";
+            this.rbBuscarAnno.UseVisualStyleBackColor = true;
+            // 
+            // rbBuscarCliente
+            // 
+            this.rbBuscarCliente.AutoSize = true;
+            this.rbBuscarCliente.Location = new System.Drawing.Point(164, 15);
+            this.rbBuscarCliente.Name = "rbBuscarCliente";
+            this.rbBuscarCliente.Size = new System.Drawing.Size(57, 17);
+            this.rbBuscarCliente.TabIndex = 5;
+            this.rbBuscarCliente.Text = "Cliente";
+            this.rbBuscarCliente.UseVisualStyleBackColor = true;
+            // 
+            // rbBuscarMarca
+            // 
+            this.rbBuscarMarca.AutoSize = true;
+            this.rbBuscarMarca.Location = new System.Drawing.Point(304, 15);
+            this.rbBuscarMarca.Name = "rbBuscarMarca";
+            this.rbBuscarMarca.Size = new System.Drawing.Size(55, 17);
+            this.rbBuscarMarca.TabIndex = 6;
+            this.rbBuscarMarca.Text = "Marca";
+            this.rbBuscarMarca.UseVisualStyleBackColor = true;
+            // 
+            // rbBuscarTipo
+            // 
+            this.rbBuscarTipo.AutoSize = true;
+            this.rbBuscarTipo.Location = new System.Drawing.Point(365, 15);
+            this.rbBuscarTipo.Name = "rbBuscarTipo";
+            this.rbBuscarTipo.Size = new System.Drawing.Size(49, 17);
+            this.rbBuscarTipo.TabIndex = 7;
+            this.rbBuscarTipo.Text = "Tipo:";
+            this.rbBuscarTipo.UseVisualStyleBackColor = true;
+            // 
+            // rbBuscarCilindraje
+            // 
+            this.rbBuscarCilindraje.AutoSize = true;
+            this.rbBuscarCilindraje.Location = new System.Drawing.Point(231, 15);
+            this.rbBuscarCilindraje.Name = "rbBuscarCilindraje";
+            this.rbBuscarCilindraje.Size = new System.Drawing.Size(67, 17);
+            this.rbBuscarCilindraje.TabIndex = 8;
+            this.rbBuscarCilindraje.Text = "Cilindraje";
+            this.rbBuscarCilindraje.UseVisualStyleBackColor = true;
             // 
             // frmEdicionVehiculo
             // 
@@ -462,6 +643,9 @@
             this.txtPlaca.PerformLayout();
             this.grbEstado.ResumeLayout(false);
             this.grbEstado.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -506,5 +690,24 @@
         private System.Windows.Forms.RadioButton rbFinalizado;
         private System.Windows.Forms.RadioButton rbPendiente;
         private System.Windows.Forms.RadioButton rbDanado;
+        private System.Diagnostics.EventLog eventLog1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Placa;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Año;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Cilindraje;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Motor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Chazis;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Combustible;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Estado;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Marca_Vehiculo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tipo_;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Cliente_;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton rbBuscarCilindraje;
+        private System.Windows.Forms.RadioButton rbBuscarTipo;
+        private System.Windows.Forms.RadioButton rbBuscarMarca;
+        private System.Windows.Forms.RadioButton rbBuscarCliente;
+        private System.Windows.Forms.RadioButton rbBuscarAnno;
+        private System.Windows.Forms.RadioButton rbBuscarPlaca;
     }
 }

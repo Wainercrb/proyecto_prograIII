@@ -41,13 +41,19 @@ namespace Vista
 
         private void registroVehiculoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmCliente frm = new frmCliente();
+            frmEdicionVehiculo frm = new frmEdicionVehiculo();
             frm.ShowDialog();
         }
 
         private void registroClasesVehiculoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmTipo frm = new FrmTipo();
+            frm.ShowDialog();
+        }
+
+        private void registroClienteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmCliente frm = new frmCliente();
             frm.ShowDialog();
         }
     }
