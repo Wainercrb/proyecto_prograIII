@@ -30,6 +30,8 @@ namespace Vista
             llenarComboTipo();
             llenarComboCliente();
             cargarDataGriew();
+            this.Location = Screen.PrimaryScreen.WorkingArea.Location;
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -44,7 +46,11 @@ namespace Vista
             txtCantidad.Text = "" + lsVehiculos.Count();
             if (lsVehiculos.ToString() == "")
             {
-                txtTarea.Text = "No hay marcas registrados";
+                txtTarea.Text = "No hay marcas registrados.";
+            }
+            else if (!oVehiculoD.ErrorMsg.Equals(""))
+            {
+                txtTarea.Text = "Error al cargar marcas, " + oVehiculoD.ErrorMsg;
             }
             this.grdVehiculos.DataSource = lsVehiculos;
         }
@@ -59,38 +65,42 @@ namespace Vista
             }
             if (vehiculo.Id > 0)
             {
-                VehiculoD oVehiculoD = new VehiculoD();
-                if (!verificarDatos())
-                {
-                    return;
-                }
-
                 seleccionEstado();
-                vehiculo.Placa = txtPlacaa.Text;
-                vehiculo.Anno = Int32.Parse(txtAnno.Text);
-                vehiculo.Cilindraje = Int32.Parse(txtCilindraje.Text);
-                vehiculo.NumeroMotor = Int32.Parse(txtMotor.Text);
-                vehiculo.NumeroChazis = Int32.Parse(txtChazis.Text);
-                vehiculo.TipoCombustible = txtCombustible.Text;
-                vehiculo.Estado = seleccionEstado();
                 seleccionCbs();
+                vehiculo.NumeroChazis = Int32.Parse(txtChazis.Text);
+                vehiculo.NumeroMotor = Int32.Parse(txtMotor.Text);
+                vehiculo.Placa = txtPlacaa.Text;
+                vehiculo.Cilindraje = Int32.Parse(txtCilindraje.Text);
                 vehiculo.Cliente = cliente;
                 vehiculo.Marca = marca;
                 vehiculo.Tipo = tipo;
-                oVehiculo.editarVehiculo(vehiculo);
-                txtTarea.Text = "Vehiculo editado correctamente.";
-                grbEstado.Enabled = false;
-                limpiarDatos();
-                cargarVehiculos();
+                vehiculo.TipoCombustible = txtCombustible.Text;
+
+                if (!oVehiculo.editarVehiculo(vehiculo))
+                {
+                    txtTarea.Text = "Vehiculo editado correctamente.";
+                }
+                else
+                {
+                    txtTarea.Text = "Error al editar el vehiculo, " + oVehiculo.ErrorMsg;
+                }
             }
             else
             {
-                vehiculo = new Vehiculo();
-                vehiculo = new Vehiculo(0, txtPlaca.Text, Int32.Parse(txtAnno.Text), Int32.Parse(txtCilindraje.Text), Int32.Parse(txtMotor.Text), Int32.Parse(txtChazis.Text), txtCombustible.Text, seleccionEstado(), marca, cliente, tipo);
-                oVehiculo.agregarVehiculo(vehiculo);
-                txtTarea.Text = "Vehiculo  agregada.";
-                cargarVehiculos();
+                if (!oVehiculo.agregarVehiculo(vehiculo))
+                {
+                    vehiculo = new Vehiculo(0, txtPlacaa.Text, Int32.Parse(txtAnno.Text), Int32.Parse(txtCilindraje.Text), Int32.Parse(txtMotor.Text),
+                    Int32.Parse(txtChazis.Text), txtCombustible.Text, seleccionEstado(), marca, cliente, tipo);
+                    txtTarea.Text = "Vehiculo  agregada.";
+                }
+                else
+                {
+                    txtTarea.Text = "Problema al agragar elvehiculo, " + oVehiculo.ErrorMsg;
+                }
             }
+
+            limpiarDatos();
+            cargarVehiculos();
         }
 
         private void cbClienteSeleccion(object sender, EventArgs e)
@@ -122,7 +132,6 @@ namespace Vista
 
         private void seleccionCbTipo(object sender, EventArgs e)
         {
-
             if (cbTipo.SelectedIndex != -1)
             {
                 int selectedIndex = cbTipo.SelectedIndex;
@@ -135,6 +144,7 @@ namespace Vista
         private void btnEditar_Click(object sender, EventArgs e)
         {
             txtTarea.Text = "";
+
             if (this.grdVehiculos.Rows.Count > 0)
             {
                 DialogResult respuesta = MessageBox.Show("¿Está seguro de editar esta marca?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -149,6 +159,7 @@ namespace Vista
                     txtMotor.Text = this.grdVehiculos[4, fila].Value.ToString();
                     txtChazis.Text = this.grdVehiculos[5, fila].Value.ToString();
                     txtCombustible.Text = this.grdVehiculos[6, fila].Value.ToString();
+
                     if (this.grdVehiculos[7, fila].Value.ToString() == "Dañado")
                     {
                         this.rbDanado.Checked = true;
@@ -165,14 +176,12 @@ namespace Vista
 
                     for (int i = 0; i < cbMarca.Items.Count; i++)
                     {
-
                         if (cbMarca.Items[i] + "" == grdVehiculos[8, fila].Value.ToString() + "")
                         {
                             cbMarca.SelectedIndex = i;
                             break;
 
                         }
-
                     }
 
 
@@ -186,8 +195,6 @@ namespace Vista
                         }
                     }
 
-
-
                     for (int i = 0; i < cbCliente.Items.Count; i++)
                     {
                         if (grdVehiculos[9, fila].Value.ToString() == cbCliente.Items[i].ToString())
@@ -195,7 +202,6 @@ namespace Vista
                             cbCliente.SelectedIndex = i;
                             break;
                         }
-
                     }
                     seleccionEstado();
                     vehiculo = new Vehiculo(Int32.Parse(this.grdVehiculos[0, fila].Value.ToString()), txtPlacaa.Text, Int32.Parse(txtAnno.Text.ToString()), Int32.Parse(txtCilindraje.Text.ToString()), Int32.Parse(txtMotor.Text.ToString()), Int32.Parse(txtChazis.Text.ToString()), txtCombustible.Text, seleccionEstado(), marca, cliente, tipo);
@@ -206,6 +212,10 @@ namespace Vista
 
         private void limpiarDatos()
         {
+            cliente = new Cliente();
+            marca = new MarcaVehiculo();
+            tipo = new TipoVehiculo();
+            vehiculo = new Vehiculo();
             txtPlacaa.Text = "";
             txtAnno.Text = "";
             txtChazis.Text = "";
@@ -219,6 +229,137 @@ namespace Vista
             cbTipo.SelectedIndex = -1;
         }
 
+        private void seleccionCbs()
+        {
+            if (cbCliente.SelectedIndex != -1)
+            {
+                int selectedIndex = cbCliente.SelectedIndex;
+                Cliente selectedItem = (Cliente)cbCliente.SelectedItem;
+                cliente = new Cliente(selectedItem.Id, selectedItem.Nombre, selectedItem.Cedula, selectedItem.ApellidoPaterno,
+                selectedItem.ApellidoMaterno, selectedItem.TelefonoCasa, selectedItem.TelefonoOficina, selectedItem.TelefonoCelular);
+            }
+
+            if (cbMarca.SelectedIndex != -1)
+            {
+                int selectedIndex = cbMarca.SelectedIndex;
+                MarcaVehiculo selectedItem = (MarcaVehiculo)cbMarca.SelectedItem;
+                marca = new MarcaVehiculo(selectedItem.Id, selectedItem.Marca);
+            }
+
+            if (cbTipo.SelectedIndex != -1)
+            {
+                int selectedIndex = cbTipo.SelectedIndex;
+                TipoVehiculo selectedItem = (TipoVehiculo)cbTipo.SelectedItem;
+                tipo = new TipoVehiculo(selectedItem.Id, selectedItem.Tipo);
+            }
+        }
+
+        private string seleccionEstado()
+        {
+            string estado = "";
+            if (this.rbDanado.Checked)
+            {
+                estado = "Dañado";
+            }
+            else if (this.rbPendiente.Checked)
+            {
+                estado = "Pendiente";
+            }
+            else
+            {
+                estado = "Finalizado";
+            }
+
+            return estado;
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            txtTarea.Text = "";
+            if (this.grdVehiculos.Rows.Count > 0)
+            {
+                DialogResult respuesta = MessageBox.Show("¿Está seguro de borrar?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (respuesta == DialogResult.Yes)
+                {
+                    int fila = this.grdVehiculos.CurrentRow.Index;
+                    vehiculo.Id = Int32.Parse(grdVehiculos[0, fila].Value.ToString());
+                    VehiculoD pVehiculo = new VehiculoD();
+                    if (!pVehiculo.borrarVehiculo(vehiculo))
+                    {
+                        txtTarea.Text = "Vehiculo eliminada correctamente";
+                        cargarVehiculos();
+
+                    }
+                    else
+                    {
+
+                        txtTarea.Text = "Error al eliminar el vehículo, " + pVehiculo.ErrorMsg;
+                    }
+                }
+                limpiarDatos();
+            }
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            limpiarDatos();
+        }
+
+        private void BusquedaVehiculo(object sender, KeyPressEventArgs e)
+        {
+            try
+            {
+                txtTarea.Text = "";
+                VehiculoD oVehiculo = new VehiculoD();
+                List<Vehiculo> lsVehiculos = new List<Vehiculo>();
+
+                if ((int)e.KeyChar == (int)Keys.Enter)
+                {
+                    if (rbBuscarAnno.Checked)
+                    {
+                        lsVehiculos = oVehiculo.BuscarIntVehiculo(Int32.Parse(txtBuscar.Text), "v.anno");
+
+                    }
+                    else if (rbBuscarCilindraje.Checked)
+                    {
+                        lsVehiculos = oVehiculo.BuscarIntVehiculo(Int32.Parse(txtBuscar.Text), "v.cilindraje");
+                    }
+                    else if (rbBuscarPlaca.Checked)
+                    {
+
+                        lsVehiculos = oVehiculo.BuscarStringVehiculo(txtBuscar.Text, "v.placa");
+
+                    }
+                    else if (rbBuscarCombustible.Checked)
+                    {
+                        lsVehiculos = oVehiculo.BuscarStringVehiculo(txtBuscar.Text, "v.combustible");
+                    }
+                    else if (rbBuscarMotor.Checked)
+                    {
+
+                        lsVehiculos = oVehiculo.BuscarIntVehiculo(Int32.Parse(txtBuscar.Text), " v.numero_motor");
+
+                    }
+                    else if (rbBuscarChazis.Checked)
+                    {
+                        lsVehiculos = oVehiculo.BuscarIntVehiculo(Int32.Parse(txtBuscar.Text), "v.numero_chazis");
+                    }
+                    txtCantidad.Text = "" + lsVehiculos.Count();
+
+                    if (lsVehiculos.Count() <= 0)
+                    {
+                        txtTarea.Text = "No hay marcas registrados";
+                    }
+                    this.grdVehiculos.DataSource = lsVehiculos;
+                }
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show("Tipo error" + ex.Message, "¡Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
+            }
+        }
+
         private bool verificarDatos()
         {
             try
@@ -227,7 +368,6 @@ namespace Vista
                 Int32.Parse(txtChazis.Text);
                 Int32.Parse(txtMotor.Text);
                 Int32.Parse(txtCilindraje.Text);
-
 
                 if (txtCombustible.Text.Equals("") || txtPlacaa.Text.Equals(""))
                 {
@@ -250,7 +390,6 @@ namespace Vista
                     MessageBox.Show("Debes seleccionar el tipo de vehiculo", " !Error¡", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
-
             }
             catch (FormatException ex)
             {
@@ -260,52 +399,6 @@ namespace Vista
             }
 
             return true;
-        }
-
-        private void seleccionCbs()
-        {
-            if (cbCliente.SelectedIndex != -1)
-            {
-                int selectedIndex = cbCliente.SelectedIndex;
-                Cliente selectedItem = (Cliente)cbCliente.SelectedItem;
-                cliente = new Cliente();
-                cliente = new Cliente(selectedItem.Id, selectedItem.Nombre, selectedItem.Cedula, selectedItem.ApellidoPaterno, selectedItem.ApellidoMaterno, selectedItem.TelefonoCasa, selectedItem.TelefonoOficina, selectedItem.TelefonoCelular);
-            }
-
-            if (cbMarca.SelectedIndex != -1)
-            {
-                int selectedIndex = cbMarca.SelectedIndex;
-                MarcaVehiculo selectedItem = (MarcaVehiculo)cbMarca.SelectedItem;
-                marca = new MarcaVehiculo();
-                marca = new MarcaVehiculo(selectedItem.Id, selectedItem.Marca);
-            }
-
-            if (cbTipo.SelectedIndex != -1)
-            {
-                int selectedIndex = cbTipo.SelectedIndex;
-                TipoVehiculo selectedItem = (TipoVehiculo)cbTipo.SelectedItem;
-                tipo = new TipoVehiculo();
-                tipo = new TipoVehiculo(selectedItem.Id, selectedItem.Tipo);
-            }
-        }
-
-        private string seleccionEstado()
-        {
-            string estado = "";
-            if (this.rbDanado.Checked)
-            {
-                estado = "Dañado";
-            }
-            else if (this.rbPendiente.Checked)
-            {
-                estado = "Pendiente";
-            }
-            else
-            {
-                estado = "Finalizado";
-            }
-
-            return estado;
         }
 
         public void llenarComboMarca()
@@ -344,30 +437,10 @@ namespace Vista
                 this.cbCliente.Items.Add(oClienteL);
             }
         }
-
-        private void btnEliminar_Click(object sender, EventArgs e)
-        {
-            txtTarea.Text = "";
-            if (this.grdVehiculos.Rows.Count > 0)
-            {
-                DialogResult respuesta = MessageBox.Show("¿Está seguro de borrar?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (respuesta == DialogResult.Yes)
-                {
-                    int fila = this.grdVehiculos.CurrentRow.Index;
-                    vehiculo.Id = Int32.Parse(grdVehiculos[0, fila].Value.ToString());
-                    VehiculoD pVehiculo = new VehiculoD();
-                    MessageBox.Show(vehiculo.ToString());
-                    pVehiculo.borrarVehiculo(vehiculo);
-                    txtTarea.Text = "Marca eliminada correctamente";
-                    cargarVehiculos();
-
-                }
-            }
-        }
         private void cargarDataGriew()
         {
             this.grdVehiculos.Columns["Id"].Visible = false;
-            this.grdVehiculos.Columns["Placa"].Width = 40;
+            this.grdVehiculos.Columns["Placa"].Width = 45;
             this.grdVehiculos.Columns["Año"].Width = 40;
             this.grdVehiculos.Columns["Cilindraje"].Width = 60;
             this.grdVehiculos.Columns["Motor"].Width = 50;

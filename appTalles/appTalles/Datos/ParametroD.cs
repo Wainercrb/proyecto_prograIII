@@ -8,16 +8,18 @@ using NpgsqlTypes;
 using Npgsql;
 using System.Data;
 
+
 namespace Datos
 {
-    public class TipoD
+    class ParametroD
     {
+
         private AccesoDatosPostgre conexion;
         private bool error;
         private string errorMsg;
 
 
-        public TipoD()
+        public ParametroD ()
         {
             this.conexion = AccesoDatosPostgre.Instance;
             this.limpiarError();
@@ -29,20 +31,20 @@ namespace Datos
             this.errorMsg = "";
         }
 
-        public List<TipoVehiculo> obtenerTipos()
+        public List<MarcaVehiculo> obtenerParametro()
         {
             this.limpiarError();
-            List<TipoVehiculo> tipos = new List<TipoVehiculo>();
-            DataSet dsetTipo;
+            List<MarcaVehiculo> marcas = new List<MarcaVehiculo>();
+            DataSet dsetMarcas;
 
-            string sql = "select * from tipo";
+            string sql = "select * from parametro";
             try
             {
-                dsetTipo = this.conexion.ejecutarConsultaSQL(sql);
-                foreach (DataRow tupla in dsetTipo.Tables[0].Rows)
+                dsetMarcas = this.conexion.ejecutarConsultaSQL(sql);
+                foreach (DataRow tupla in dsetMarcas.Tables[0].Rows)
                 {
-                    TipoVehiculo oTipo = new TipoVehiculo(Int32.Parse(tupla["id_tipo"].ToString()), tupla["tipo"].ToString());
-                    tipos.Add(oTipo);
+                    MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(tupla["id_marca"].ToString()), tupla["marca"].ToString());
+                    marcas.Add(oMarca);
                 }
             }
             catch (Exception e)
@@ -51,24 +53,23 @@ namespace Datos
                 this.errorMsg = e.Message;
             }
 
-            return tipos;
+            return marcas;
         }
 
-        public bool agregarTipo(TipoVehiculo pTipo)
+        public bool agregarMarca(MarcaVehiculo pMarca)
         {
-            limpiarError();
-            DataSet dsetTipo;
+            DataSet dsetMarca;
+            this.error = true;
             try
             {
-                string sql = "insert into tipo(tipo) " +
-                             "values(@tipo)";
+                string sql = "insert into marca(marca) " +
+                             "values(@marca)";
                 NpgsqlParameter[] parametros = new NpgsqlParameter[1];
                 parametros[0] = new NpgsqlParameter();
                 parametros[0].NpgsqlDbType = NpgsqlDbType.Varchar;
-                parametros[0].ParameterName = "@tipo";
-                parametros[0].Value = pTipo.Tipo;
-                dsetTipo = this.conexion.ejecutarDataSetSQL(sql, parametros);
-
+                parametros[0].ParameterName = "@marca";
+                parametros[0].Value = pMarca.Marca;
+                dsetMarca = this.conexion.ejecutarDataSetSQL(sql, parametros);
             }
             catch (Exception e)
             {
@@ -78,51 +79,57 @@ namespace Datos
             return this.error;
 
         }
-        public bool borrarTipo(TipoVehiculo pTipo)
+        public bool borrarMarca(MarcaVehiculo pMarca)
         {
-            limpiarError();
+            this.error = true;
+            this.errorMsg = "";
+            try
+            {
+                string sql = "delete from marca where marca = @id_marca";
+
+                NpgsqlParameter[] parametros = new NpgsqlParameter[1];
+
+                parametros[0] = new NpgsqlParameter();
+                parametros[0].NpgsqlDbType = NpgsqlDbType.Varchar;
+                parametros[0].ParameterName = "@id_marca";
+                parametros[0].Value = pMarca.Marca;
+                DataSet dsetMarca;
+                dsetMarca = this.conexion.ejecutarDataSetSQL(sql, parametros);
+                if (this.conexion.IsError)
+                {
+                    this.error = false;
+                    this.errorMsg = this.conexion.ErrorDescripcion;
+                }
+            }
+            catch (Exception e)
+            {
+                this.error = false;
+                this.errorMsg = e.Message;
+            }
+            return this.error;
+        }
+        public bool editarMarca(MarcaVehiculo pMarca)
+        {
+            this.error = true;
+            this.errorMsg = "";
             DataSet dsetMarca;
             try
             {
-                string sql = "delete from tipo where id_tipo = @id_tipo";
 
-                NpgsqlParameter[] parametros = new NpgsqlParameter[1];
-                parametros[0] = new NpgsqlParameter();
-                parametros[0].NpgsqlDbType = NpgsqlDbType.Integer;
-                parametros[0].ParameterName = "@id_tipo";
-                parametros[0].Value = pTipo.Id;
-                dsetMarca = this.conexion.ejecutarDataSetSQL(sql, parametros);
-
-            }
-            catch (Exception e)
-            {
-                this.error = false;
-                this.errorMsg = e.Message;
-            }
-            return this.error;
-        }
-
-        public bool editarTipos(TipoVehiculo pTipo)
-        {
-            limpiarError();
-            try
-            {
-                string sql = "UPDATE tipo SET tipo = @tipo where id_tipo = @id_tipo";
+                string sql = "UPDATE marca SET marca = @marca where id_marca = @id_marca";
                 NpgsqlParameter[] parametros = new NpgsqlParameter[2];
                 parametros[0] = new NpgsqlParameter();
                 parametros[0].NpgsqlDbType = NpgsqlDbType.Varchar;
-                parametros[0].ParameterName = "@tipo";
-                parametros[0].Value = pTipo.Tipo;
-
+                parametros[0].ParameterName = "@marca";
+                parametros[0].Value = pMarca.Marca;
 
                 parametros[1] = new NpgsqlParameter();
                 parametros[1].NpgsqlDbType = NpgsqlDbType.Integer;
-                parametros[1].ParameterName = "@id_tipo";
-                parametros[1].Value = pTipo.Id;
+                parametros[1].ParameterName = "@id_marca";
+                parametros[1].Value = pMarca.Id;
 
-                DataSet dsetMarca;
                 dsetMarca = this.conexion.ejecutarDataSetSQL(sql, parametros);
-                this.conexion.ejecutarSQL(sql, parametros);
+
                 if (this.conexion.IsError)
                 {
                     this.error = false;
@@ -139,21 +146,20 @@ namespace Datos
             return this.error;
         }
 
-
-        public List<TipoVehiculo> buscarTipos(string valor)
+        public List<MarcaVehiculo> buscarMarcas(string valor)
         {
             this.limpiarError();
-            List<TipoVehiculo> tipos = new List<TipoVehiculo>();
-            DataSet dsetTipos;
+            List<MarcaVehiculo> marcas = new List<MarcaVehiculo>();
+            DataSet dsetMarcas;
 
-            string sql = "select * from tipo where tipo = " + "'" + valor + "'";
+            string sql = "select * from marca where marca = " + "'" + valor + "'";
             try
             {
-                dsetTipos = this.conexion.ejecutarConsultaSQL(sql);
-                foreach (DataRow tupla in dsetTipos.Tables[0].Rows)
+                dsetMarcas = this.conexion.ejecutarConsultaSQL(sql);
+                foreach (DataRow tupla in dsetMarcas.Tables[0].Rows)
                 {
-                    TipoVehiculo oTipo = new TipoVehiculo(Int32.Parse(tupla["id_tipo"].ToString()), tupla["tipo"].ToString());
-                    tipos.Add(oTipo);
+                    MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(tupla["id_marca"].ToString()), tupla["marca"].ToString());
+                    marcas.Add(oMarca);
                 }
             }
             catch (Exception e)
@@ -162,30 +168,31 @@ namespace Datos
                 this.errorMsg = e.Message;
             }
 
-            return tipos;
+            return marcas;
         }
 
 
-        public List<TipoVehiculo> obtenerPorDataBUsqueda(string valor)
+        public List<MarcaVehiculo> obtenerPorDataBUsqueda(string valor)
         {
-            this.limpiarError();
-            List<TipoVehiculo> tipos = new List<TipoVehiculo>();
-            DataSet dsetTipos;
 
-            string sql = "select * from tipo where tipo = " + "'@tipo'";
+            this.limpiarError();
+            List<MarcaVehiculo> marcas = new List<MarcaVehiculo>();
+            DataSet dsetMarcas;
+
+            string sql = "select * from marca where marca = " + "'@marca'";
             try
             {
                 NpgsqlParameter[] parametros = new NpgsqlParameter[1];
                 parametros[0] = new NpgsqlParameter();
-                parametros[0].NpgsqlDbType = NpgsqlDbType.Integer;
-                parametros[0].ParameterName = "'@tipo'";
+                parametros[0].NpgsqlDbType = NpgsqlDbType.Varchar;
+                parametros[0].ParameterName = "'@marca'";
                 parametros[0].Value = "'" + valor + "'";
-                dsetTipos = this.conexion.ejecutarDataSetSQL(sql, parametros);
 
-                foreach (DataRow tupla in dsetTipos.Tables[0].Rows)
+                dsetMarcas = this.conexion.ejecutarDataSetSQL(sql, parametros);
+                foreach (DataRow tupla in dsetMarcas.Tables[0].Rows)
                 {
-                    TipoVehiculo oMarca = new TipoVehiculo(Int32.Parse(tupla["id_tipo"].ToString()), tupla["tipo"].ToString());
-                    tipos.Add(oMarca);
+                    MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(tupla["id_marca"].ToString()), tupla["marca"].ToString());
+                    marcas.Add(oMarca);
                 }
             }
             catch (Exception e)
@@ -194,8 +201,7 @@ namespace Datos
                 this.errorMsg = e.Message;
             }
 
-            return tipos;
-
+            return marcas;
         }
 
         public bool Error

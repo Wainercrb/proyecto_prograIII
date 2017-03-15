@@ -12,9 +12,7 @@ namespace Logica
         private int cantidad;
 
 
-        public OrdenRepuesto(int id, string repuesto, double precio, MarcaVehiculo marca, Parametro parametro) : base(id, repuesto, precio, marca, parametro)
-        {
-        }
+ 
 
         public int Cantidad
         {

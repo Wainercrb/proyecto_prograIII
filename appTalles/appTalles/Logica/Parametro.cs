@@ -10,7 +10,9 @@ namespace Logica
     {
 
         private int id;
+        private string tipo_impuesto;
         private double impusto;
+        
 
     }
 }

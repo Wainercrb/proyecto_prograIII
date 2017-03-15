@@ -20,34 +20,46 @@ namespace Vista
         {
             this.tipo = new TipoVehiculo();
             InitializeComponent();
+            cargarDataGriw();
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             TipoD oTipo = new TipoD();
             txtMensaje.Text = "";
-            if (txtTipo.Text == "")
+            if (!verificarDatos())
             {
-                MessageBox.Show("Debes ingresar una Tipo ", "¡Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (tipo.Id > 0)
             {
-                TipoD pTipo = new TipoD();
                 tipo.Tipo = txtTipo.Text;
-                pTipo.editarTipos(tipo);
-                txtMensaje.Text = "Tipo " + tipoAntes + " editada a (" + txtTipo.Text + ") correctamente.";
-                cargarTipos();
-
+                if (!oTipo.editarTipos(tipo))
+                {
+                    txtMensaje.Text = "Tipo " + tipoAntes + " editada a (" + txtTipo.Text + ") correctamente.";
+                    cargarTipos();
+                }
+                else
+                {
+                    txtMensaje.Text = "Error al editar el tipo de vehiculo." + "\n" +
+                        "Detalles: " + oTipo.ErrorMsg;
+                }
             }
             else
             {
                 TipoVehiculo tipo = new TipoVehiculo(0, txtTipo.Text);
-                oTipo.agregarTipo(tipo);
-                txtMensaje.Text = "Marca " + txtTipo.Text + " agregada.";
-                txtTipo.Text = "";
-                cargarTipos();
+                if (!oTipo.agregarTipo(tipo))
+                {
+                    txtMensaje.Text = "Marca " + txtTipo.Text + " agregada.";
+                    txtTipo.Text = "";
+                    cargarTipos();
+                }
+                else
+                {
+                    txtMensaje.Text = "Error al agregar el tipo de vehículo." + "\n" +
+                        "Detalles: " + oTipo.ErrorMsg;
+                }
             }
 
             tipo = new TipoVehiculo();
@@ -69,6 +81,7 @@ namespace Vista
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             txtMensaje.Text = "";
+            TipoD pTipo = new TipoD();
             if (this.grdTipos.Rows.Count > 0)
             {
                 DialogResult respuesta = MessageBox.Show("¿Está seguro de borrar?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -76,11 +89,17 @@ namespace Vista
                 {
                     int fila = this.grdTipos.CurrentRow.Index;
                     TipoVehiculo oTipo = new TipoVehiculo(Int32.Parse(this.grdTipos[0, fila].Value.ToString()), this.grdTipos[1, fila].Value.ToString());
-                    TipoD pTipo = new TipoD();
-                    pTipo.borrarTipo(oTipo);
-                    txtMensaje.Text = "Marca eliminada correctamente";
-                    cargarTipos();
+                    if (!pTipo.borrarTipo(oTipo))
+                    {
+                        txtMensaje.Text = "Marca eliminada correctamente";
+                        cargarTipos();
 
+                    }
+                    else {
+
+                        txtMensaje.Text = "Error al eliminar el tipo de vehículo."+"\n"
+                            +"Detalles: "+ pTipo.ErrorMsg;
+                    }
                 }
             }
         }
@@ -110,6 +129,10 @@ namespace Vista
         {
             cargarTipos();
         }
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            limpiarDatos();
+        }
 
         private void enterSeleccion(object sender, KeyPressEventArgs e)
         {
@@ -126,14 +149,35 @@ namespace Vista
                     txtMensaje.Text = "No hay tipos registrados";
                 }
                 this.grdTipos.DataSource = lsTipo;
-
-
             }
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+        private bool verificarDatos()
+        {
+            if (txtTipo.Text.Equals(""))
+            {
+                MessageBox.Show("Debes ingresar un tipo de vehículo.");
+                return false;
+            }
+            return true;
+        }
+
+        private void limpiarDatos()
+        {
+            txtMensaje.Text = "";
+            txtCantidadRegistros.Text = "";
+            txtTipo.Text = "";
+        }
+
+        private void cargarDataGriw() {
+
+            this.grdTipos.Columns["Id"].Visible = false;
+            this.grdTipos.Columns["tipoVehiculo"].Width = 240;
+
         }
     }
 }

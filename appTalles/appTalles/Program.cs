@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Datos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,15 +9,18 @@ namespace Vista
 {
     static class Program
     {
+        static AccesoDatosPostgre conexion;
         /// <summary>
         /// Punto de entrada principal para la aplicación.
         /// </summary>
         [STAThread]
         static void Main()
         {
+
+            conexion = AccesoDatosPostgre.Instance;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new From1());
+            Application.Run(new FrmLogin());
         }
     }
 }

@@ -16,16 +16,27 @@ namespace Vista
 
 
 {
-    public partial class From1 : Form
+    public partial class FrmPrincipal : Form
     {
-        public From1()
+
+        private Empleado empleado;
+
+        public FrmPrincipal()
         {
             InitializeComponent();
+
+
+        }
+        public FrmPrincipal(Empleado empleado)
+        {
+            InitializeComponent();
+            this.empleado = empleado;
         }
 
         private void cambioContraseñaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            FrmCambio frm = new FrmCambio(empleado);
+            frm.ShowDialog();
         }
 
         private void registroToolStripMenuItem_Click(object sender, EventArgs e)
@@ -54,6 +65,22 @@ namespace Vista
         private void registroClienteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmCliente frm = new frmCliente();
+            frm.ShowDialog();
+        }
+
+        private void registroEmpleadoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (empleado.Permiso == "Administrador")
+            {
+                FrmEmpleado frm = new FrmEmpleado();
+                frm.ShowDialog();
+                return;
+            }
+            MessageBox.Show("No tienes permisos para acceder a esta función");
+        }
+        private void registroCatalogoRepuestosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmRepuestos frm = new FrmRepuestos();
             frm.ShowDialog();
         }
     }

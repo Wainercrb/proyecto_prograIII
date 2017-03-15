@@ -11,18 +11,31 @@ namespace Logica
         private int id;
         private string repuesto;
         private double precio;
-        private MarcaVehiculo marca;
-        private Parametro parametro;
+        private double impuesto;
+        private List<MarcaVehiculo> marcas;
 
-        public RepuestoVehiculo(int id, string repuesto, double precio, MarcaVehiculo marca, Parametro parametro)
+
+
+        public RepuestoVehiculo(int id, string repuesto, double precio, double impuesto, List<MarcaVehiculo> marcas)
         {
             this.id = id;
             this.repuesto = repuesto;
             this.precio = precio;
-            this.marca = marca;
-            this.parametro = parametro;
+            this.impuesto = impuesto;
+            this.marcas = marcas;
+
+
         }
 
+
+
+        public RepuestoVehiculo(int id, string repuesto, double precio, double impuesto)
+        {
+            this.id = id;
+            this.repuesto = repuesto;
+            this.precio = precio;
+            this.impuesto = impuesto;
+        }
         public int Id
         {
             get
@@ -62,35 +75,38 @@ namespace Logica
             }
         }
 
-        public MarcaVehiculo Marca
+        public List<MarcaVehiculo> Marcas
         {
             get
             {
-                return marca;
+                return marcas;
             }
 
             set
             {
-                marca = value;
+                marcas = value;
             }
         }
 
-        public Parametro Parametro
+        public double Impuesto
         {
             get
             {
-                return parametro;
+                return impuesto;
             }
 
             set
             {
-                parametro = value;
+                impuesto = value;
             }
         }
 
+        public RepuestoVehiculo()
+        {
+        }
         public override string ToString()
         {
-            return this.Id + " " + this.Repuesto + " " + this.Precio + " " + this.Marca + " " + this.Parametro;
+            return this.Id + " " + this.Repuesto + " " + this.Precio + " " + "" + impuesto + " " + marcas;
         }
 
 

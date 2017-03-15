@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.grdMarcas = new System.Windows.Forms.DataGridView();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MarcaVehiculo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.txtMarca = new System.Windows.Forms.TextBox();
             this.btnAgregar = new System.Windows.Forms.Button();
@@ -44,6 +46,7 @@
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnLimpiar = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.grdMarcas)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -54,10 +57,25 @@
             // grdMarcas
             // 
             this.grdMarcas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdMarcas.Location = new System.Drawing.Point(6, 53);
+            this.grdMarcas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Id,
+            this.MarcaVehiculo});
+            this.grdMarcas.Location = new System.Drawing.Point(-1, 28);
             this.grdMarcas.Name = "grdMarcas";
-            this.grdMarcas.Size = new System.Drawing.Size(236, 203);
+            this.grdMarcas.Size = new System.Drawing.Size(269, 203);
             this.grdMarcas.TabIndex = 0;
+            // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "Id";
+            this.Id.Name = "Id";
+            // 
+            // MarcaVehiculo
+            // 
+            this.MarcaVehiculo.DataPropertyName = "Marca";
+            this.MarcaVehiculo.HeaderText = "Marca del vehiculo";
+            this.MarcaVehiculo.Name = "MarcaVehiculo";
             // 
             // label1
             // 
@@ -72,14 +90,14 @@
             // 
             this.txtMarca.Location = new System.Drawing.Point(91, 37);
             this.txtMarca.Name = "txtMarca";
-            this.txtMarca.Size = new System.Drawing.Size(147, 20);
+            this.txtMarca.Size = new System.Drawing.Size(95, 20);
             this.txtMarca.TabIndex = 2;
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(244, 35);
+            this.btnAgregar.Location = new System.Drawing.Point(192, 35);
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(75, 23);
+            this.btnAgregar.Size = new System.Drawing.Size(61, 23);
             this.btnAgregar.TabIndex = 3;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.UseVisualStyleBackColor = true;
@@ -87,9 +105,9 @@
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(125, 85);
+            this.btnEditar.Location = new System.Drawing.Point(61, 85);
             this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(75, 23);
+            this.btnEditar.Size = new System.Drawing.Size(62, 23);
             this.btnEditar.TabIndex = 4;
             this.btnEditar.Text = "Editar";
             this.btnEditar.UseVisualStyleBackColor = true;
@@ -97,9 +115,9 @@
             // 
             // btnElininar
             // 
-            this.btnElininar.Location = new System.Drawing.Point(244, 85);
+            this.btnElininar.Location = new System.Drawing.Point(129, 85);
             this.btnElininar.Name = "btnElininar";
-            this.btnElininar.Size = new System.Drawing.Size(75, 23);
+            this.btnElininar.Size = new System.Drawing.Size(57, 23);
             this.btnElininar.TabIndex = 5;
             this.btnElininar.Text = "Eliminar";
             this.btnElininar.UseVisualStyleBackColor = true;
@@ -108,17 +126,18 @@
             // txtMensaje
             // 
             this.txtMensaje.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtMensaje.Location = new System.Drawing.Point(50, 140);
+            this.txtMensaje.Location = new System.Drawing.Point(50, 130);
+            this.txtMensaje.Multiline = true;
             this.txtMensaje.Name = "txtMensaje";
             this.txtMensaje.ReadOnly = true;
-            this.txtMensaje.Size = new System.Drawing.Size(269, 13);
+            this.txtMensaje.Size = new System.Drawing.Size(203, 20);
             this.txtMensaje.TabIndex = 6;
             // 
             // btnRefrescar
             // 
             this.btnRefrescar.Location = new System.Drawing.Point(6, 85);
             this.btnRefrescar.Name = "btnRefrescar";
-            this.btnRefrescar.Size = new System.Drawing.Size(75, 23);
+            this.btnRefrescar.Size = new System.Drawing.Size(49, 23);
             this.btnRefrescar.TabIndex = 7;
             this.btnRefrescar.Text = "Refrescar";
             this.btnRefrescar.UseVisualStyleBackColor = true;
@@ -127,10 +146,10 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Location = new System.Drawing.Point(362, 1);
+            this.tabControl1.Location = new System.Drawing.Point(274, -1);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(258, 353);
+            this.tabControl1.Size = new System.Drawing.Size(277, 301);
             this.tabControl1.TabIndex = 8;
             // 
             // tabPage1
@@ -145,33 +164,32 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(250, 327);
+            this.tabPage1.Size = new System.Drawing.Size(269, 275);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Listado de marcas";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // btnSalir
             // 
-            this.btnSalir.Location = new System.Drawing.Point(167, 266);
+            this.btnSalir.Location = new System.Drawing.Point(193, 237);
             this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(75, 23);
+            this.btnSalir.Size = new System.Drawing.Size(68, 23);
             this.btnSalir.TabIndex = 5;
             this.btnSalir.Text = "Salir";
             this.btnSalir.UseVisualStyleBackColor = true;
-            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // txtCantidadRegistros
             // 
-            this.txtCantidadRegistros.Location = new System.Drawing.Point(89, 268);
+            this.txtCantidadRegistros.Location = new System.Drawing.Point(84, 240);
             this.txtCantidadRegistros.Name = "txtCantidadRegistros";
             this.txtCantidadRegistros.ReadOnly = true;
-            this.txtCantidadRegistros.Size = new System.Drawing.Size(72, 20);
+            this.txtCantidadRegistros.Size = new System.Drawing.Size(87, 20);
             this.txtCantidadRegistros.TabIndex = 4;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(7, 275);
+            this.label4.Location = new System.Drawing.Point(2, 244);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(76, 13);
             this.label4.TabIndex = 3;
@@ -179,17 +197,16 @@
             // 
             // txtBuscar
             // 
-            this.txtBuscar.Location = new System.Drawing.Point(48, 19);
+            this.txtBuscar.Location = new System.Drawing.Point(45, 3);
             this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(194, 20);
+            this.txtBuscar.Size = new System.Drawing.Size(220, 20);
             this.txtBuscar.TabIndex = 2;
-            this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
-            this.txtBuscar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
+            this.txtBuscar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.busquedaMarca);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 19);
+            this.label2.Location = new System.Drawing.Point(2, 6);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(43, 13);
             this.label2.TabIndex = 1;
@@ -197,6 +214,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnLimpiar);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.txtMarca);
@@ -205,17 +223,27 @@
             this.groupBox1.Controls.Add(this.btnElininar);
             this.groupBox1.Controls.Add(this.btnAgregar);
             this.groupBox1.Controls.Add(this.btnEditar);
-            this.groupBox1.Location = new System.Drawing.Point(28, 150);
+            this.groupBox1.Location = new System.Drawing.Point(5, 148);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(328, 195);
+            this.groupBox1.Size = new System.Drawing.Size(267, 152);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Actualización marcas";
             // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.Location = new System.Drawing.Point(192, 85);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(61, 23);
+            this.btnLimpiar.TabIndex = 9;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 140);
+            this.label3.Location = new System.Drawing.Point(6, 130);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(38, 13);
             this.label3.TabIndex = 8;
@@ -225,10 +253,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(624, 357);
+            this.ClientSize = new System.Drawing.Size(549, 302);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.tabControl1);
             this.Name = "frmMarca";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Marca";
             ((System.ComponentModel.ISupportInitialize)(this.grdMarcas)).EndInit();
             this.tabControl1.ResumeLayout(false);
@@ -259,5 +288,8 @@
         private System.Windows.Forms.Button btnSalir;
         private System.Windows.Forms.TextBox txtCantidadRegistros;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnLimpiar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MarcaVehiculo;
     }
 }

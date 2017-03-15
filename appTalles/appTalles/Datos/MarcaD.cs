@@ -57,6 +57,7 @@ namespace Datos
         public bool agregarMarca(MarcaVehiculo pMarca)
         {
             DataSet dsetMarca;
+            this.error = true;
             try
             {
                 string sql = "insert into marca(marca) " +
@@ -67,11 +68,6 @@ namespace Datos
                 parametros[0].ParameterName = "@marca";
                 parametros[0].Value = pMarca.Marca;
                 dsetMarca = this.conexion.ejecutarDataSetSQL(sql, parametros);
-                if (this.conexion.IsError)
-                {
-                    this.error = false;
-                    this.errorMsg = this.conexion.ErrorDescripcion;
-                }
             }
             catch (Exception e)
             {
@@ -110,25 +106,14 @@ namespace Datos
             }
             return this.error;
         }
-
-
-        public bool Error
+        public bool editarMarca(MarcaVehiculo pMarca)
         {
-            get { return error; }
-        }
-
-        public string ErrorMsg
-        {
-            get { return errorMsg; }
-        }
-
-        public bool editarVehiculos(MarcaVehiculo pMarca)
-        {
-
             this.error = true;
             this.errorMsg = "";
+            DataSet dsetMarca;
             try
             {
+
                 string sql = "UPDATE marca SET marca = @marca where id_marca = @id_marca";
                 NpgsqlParameter[] parametros = new NpgsqlParameter[2];
                 parametros[0] = new NpgsqlParameter();
@@ -136,21 +121,18 @@ namespace Datos
                 parametros[0].ParameterName = "@marca";
                 parametros[0].Value = pMarca.Marca;
 
-
                 parametros[1] = new NpgsqlParameter();
                 parametros[1].NpgsqlDbType = NpgsqlDbType.Integer;
                 parametros[1].ParameterName = "@id_marca";
                 parametros[1].Value = pMarca.Id;
 
-                DataSet dsetMarca;
                 dsetMarca = this.conexion.ejecutarDataSetSQL(sql, parametros);
-                this.conexion.ejecutarSQL(sql, parametros);
+
                 if (this.conexion.IsError)
                 {
                     this.error = false;
                     this.errorMsg = this.conexion.ErrorDescripcion;
                 }
-
 
             }
             catch (Exception e)
@@ -160,8 +142,6 @@ namespace Datos
             }
 
             return this.error;
-
-
         }
 
         public List<MarcaVehiculo> buscarMarcas(string valor)
@@ -193,8 +173,6 @@ namespace Datos
         public List<MarcaVehiculo> obtenerPorDataBUsqueda(string valor)
         {
 
-
-
             this.limpiarError();
             List<MarcaVehiculo> marcas = new List<MarcaVehiculo>();
             DataSet dsetMarcas;
@@ -222,11 +200,17 @@ namespace Datos
             }
 
             return marcas;
+        }
 
+        public bool Error
+        {
+            get { return error; }
+        }
 
-
+        public string ErrorMsg
+        {
+            get { return errorMsg; }
         }
     }
-
 }
 

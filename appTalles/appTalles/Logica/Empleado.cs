@@ -33,6 +33,23 @@ namespace Logica
             this.contrasenna = contrasenna;
         }
 
+        public Empleado()
+        {
+        }
+
+        public Empleado(string nombre, string apellido, string direccion, string telefonoResidencia, string telefonoCelular, string puesto, string permiso, string usuario, string contrasenna)
+        {
+            this.nombre = nombre;
+            this.apellido = apellido;
+            this.direccion = direccion;
+            this.telefonoResidencia = telefonoResidencia;
+            this.telefonoCelular = telefonoCelular;
+            this.puesto = puesto;
+            this.permiso = permiso;
+            this.usuario = usuario;
+            this.contrasenna = contrasenna;
+        }
+
         public int Id
         {
             get

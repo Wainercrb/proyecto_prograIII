@@ -30,13 +30,32 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rbBuscarCilindraje = new System.Windows.Forms.RadioButton();
+            this.rbBuscarCombustible = new System.Windows.Forms.RadioButton();
+            this.rbBuscarChazis = new System.Windows.Forms.RadioButton();
+            this.rbBuscarMotor = new System.Windows.Forms.RadioButton();
+            this.rbBuscarAnno = new System.Windows.Forms.RadioButton();
+            this.rbBuscarPlaca = new System.Windows.Forms.RadioButton();
+            this.txtBuscar = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.btnSalir = new System.Windows.Forms.Button();
             this.txtCantidad = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
             this.grdVehiculos = new System.Windows.Forms.DataGridView();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Placa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Año = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cilindraje = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Motor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Chazis = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Combustible = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Marca_Vehiculo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tipo_ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cliente_ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtPlaca = new System.Windows.Forms.GroupBox();
+            this.btnLimpiar = new System.Windows.Forms.Button();
             this.grbEstado = new System.Windows.Forms.GroupBox();
             this.rbFinalizado = new System.Windows.Forms.RadioButton();
             this.rbPendiente = new System.Windows.Forms.RadioButton();
@@ -67,31 +86,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.eventLog1 = new System.Diagnostics.EventLog();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Placa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Año = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cilindraje = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Motor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Chazis = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Combustible = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Marca_Vehiculo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tipo_ = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cliente_ = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rbBuscarPlaca = new System.Windows.Forms.RadioButton();
-            this.rbBuscarAnno = new System.Windows.Forms.RadioButton();
-            this.rbBuscarCliente = new System.Windows.Forms.RadioButton();
-            this.rbBuscarMarca = new System.Windows.Forms.RadioButton();
-            this.rbBuscarTipo = new System.Windows.Forms.RadioButton();
-            this.rbBuscarCilindraje = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdVehiculos)).BeginInit();
             this.txtPlaca.SuspendLayout();
             this.grbEstado.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).BeginInit();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -118,12 +119,107 @@
             this.tabPage2.Text = "Listados vehiculos";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.rbBuscarCilindraje);
+            this.groupBox1.Controls.Add(this.rbBuscarCombustible);
+            this.groupBox1.Controls.Add(this.rbBuscarChazis);
+            this.groupBox1.Controls.Add(this.rbBuscarMotor);
+            this.groupBox1.Controls.Add(this.rbBuscarAnno);
+            this.groupBox1.Controls.Add(this.rbBuscarPlaca);
+            this.groupBox1.Controls.Add(this.txtBuscar);
+            this.groupBox1.Controls.Add(this.label12);
+            this.groupBox1.Location = new System.Drawing.Point(6, 0);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(738, 42);
+            this.groupBox1.TabIndex = 6;
+            this.groupBox1.TabStop = false;
+            // 
+            // rbBuscarCilindraje
+            // 
+            this.rbBuscarCilindraje.AutoSize = true;
+            this.rbBuscarCilindraje.Location = new System.Drawing.Point(232, 13);
+            this.rbBuscarCilindraje.Name = "rbBuscarCilindraje";
+            this.rbBuscarCilindraje.Size = new System.Drawing.Size(77, 17);
+            this.rbBuscarCilindraje.TabIndex = 4;
+            this.rbBuscarCilindraje.Text = "# Cilindraje";
+            this.rbBuscarCilindraje.UseVisualStyleBackColor = true;
+            // 
+            // rbBuscarCombustible
+            // 
+            this.rbBuscarCombustible.AutoSize = true;
+            this.rbBuscarCombustible.Location = new System.Drawing.Point(397, 14);
+            this.rbBuscarCombustible.Name = "rbBuscarCombustible";
+            this.rbBuscarCombustible.Size = new System.Drawing.Size(85, 17);
+            this.rbBuscarCombustible.TabIndex = 6;
+            this.rbBuscarCombustible.Text = "Combustible:";
+            this.rbBuscarCombustible.UseVisualStyleBackColor = true;
+            // 
+            // rbBuscarChazis
+            // 
+            this.rbBuscarChazis.AutoSize = true;
+            this.rbBuscarChazis.Location = new System.Drawing.Point(325, 14);
+            this.rbBuscarChazis.Name = "rbBuscarChazis";
+            this.rbBuscarChazis.Size = new System.Drawing.Size(66, 17);
+            this.rbBuscarChazis.TabIndex = 5;
+            this.rbBuscarChazis.Text = "# Chazis";
+            this.rbBuscarChazis.UseVisualStyleBackColor = true;
+            // 
+            // rbBuscarMotor
+            // 
+            this.rbBuscarMotor.AutoSize = true;
+            this.rbBuscarMotor.Location = new System.Drawing.Point(164, 15);
+            this.rbBuscarMotor.Name = "rbBuscarMotor";
+            this.rbBuscarMotor.Size = new System.Drawing.Size(62, 17);
+            this.rbBuscarMotor.TabIndex = 3;
+            this.rbBuscarMotor.Text = "# Motor";
+            this.rbBuscarMotor.UseVisualStyleBackColor = true;
+            // 
+            // rbBuscarAnno
+            // 
+            this.rbBuscarAnno.AutoSize = true;
+            this.rbBuscarAnno.Location = new System.Drawing.Point(114, 14);
+            this.rbBuscarAnno.Name = "rbBuscarAnno";
+            this.rbBuscarAnno.Size = new System.Drawing.Size(44, 17);
+            this.rbBuscarAnno.TabIndex = 2;
+            this.rbBuscarAnno.Text = "Año";
+            this.rbBuscarAnno.UseVisualStyleBackColor = true;
+            // 
+            // rbBuscarPlaca
+            // 
+            this.rbBuscarPlaca.AutoSize = true;
+            this.rbBuscarPlaca.Checked = true;
+            this.rbBuscarPlaca.Location = new System.Drawing.Point(56, 14);
+            this.rbBuscarPlaca.Name = "rbBuscarPlaca";
+            this.rbBuscarPlaca.Size = new System.Drawing.Size(52, 17);
+            this.rbBuscarPlaca.TabIndex = 1;
+            this.rbBuscarPlaca.TabStop = true;
+            this.rbBuscarPlaca.Text = "Placa";
+            this.rbBuscarPlaca.UseVisualStyleBackColor = true;
+            // 
+            // txtBuscar
+            // 
+            this.txtBuscar.Location = new System.Drawing.Point(488, 12);
+            this.txtBuscar.Name = "txtBuscar";
+            this.txtBuscar.Size = new System.Drawing.Size(239, 20);
+            this.txtBuscar.TabIndex = 7;
+            this.txtBuscar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.BusquedaVehiculo);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(6, 15);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(43, 13);
+            this.label12.TabIndex = 0;
+            this.label12.Text = "Buscar:";
+            // 
             // btnSalir
             // 
             this.btnSalir.Location = new System.Drawing.Point(301, 430);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(75, 23);
-            this.btnSalir.TabIndex = 5;
+            this.btnSalir.TabIndex = 0;
             this.btnSalir.Text = "Salir";
             this.btnSalir.UseVisualStyleBackColor = true;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
@@ -145,22 +241,6 @@
             this.label13.TabIndex = 3;
             this.label13.Text = "Cantidad Vehiculos:";
             // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(417, 12);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(310, 20);
-            this.textBox2.TabIndex = 2;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 15);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(43, 13);
-            this.label12.TabIndex = 1;
-            this.label12.Text = "Buscar:";
-            // 
             // grdVehiculos
             // 
             this.grdVehiculos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -176,311 +256,10 @@
             this.Marca_Vehiculo,
             this.tipo_,
             this.Cliente_});
-            this.grdVehiculos.Location = new System.Drawing.Point(6, 54);
+            this.grdVehiculos.Location = new System.Drawing.Point(0, 44);
             this.grdVehiculos.Name = "grdVehiculos";
-            this.grdVehiculos.Size = new System.Drawing.Size(801, 360);
+            this.grdVehiculos.Size = new System.Drawing.Size(744, 360);
             this.grdVehiculos.TabIndex = 0;
-            // 
-            // txtPlaca
-            // 
-            this.txtPlaca.Controls.Add(this.grbEstado);
-            this.txtPlaca.Controls.Add(this.button1);
-            this.txtPlaca.Controls.Add(this.txtTarea);
-            this.txtPlaca.Controls.Add(this.label11);
-            this.txtPlaca.Controls.Add(this.btnEliminar);
-            this.txtPlaca.Controls.Add(this.btnEditar);
-            this.txtPlaca.Controls.Add(this.btnAgregar);
-            this.txtPlaca.Controls.Add(this.cbTipo);
-            this.txtPlaca.Controls.Add(this.cbMarca);
-            this.txtPlaca.Controls.Add(this.cbCliente);
-            this.txtPlaca.Controls.Add(this.label10);
-            this.txtPlaca.Controls.Add(this.label9);
-            this.txtPlaca.Controls.Add(this.label8);
-            this.txtPlaca.Controls.Add(this.label7);
-            this.txtPlaca.Controls.Add(this.txtCombustible);
-            this.txtPlaca.Controls.Add(this.txtChazis);
-            this.txtPlaca.Controls.Add(this.txtMotor);
-            this.txtPlaca.Controls.Add(this.txtCilindraje);
-            this.txtPlaca.Controls.Add(this.txtAnno);
-            this.txtPlaca.Controls.Add(this.txtPlacaa);
-            this.txtPlaca.Controls.Add(this.label6);
-            this.txtPlaca.Controls.Add(this.label5);
-            this.txtPlaca.Controls.Add(this.label4);
-            this.txtPlaca.Controls.Add(this.label3);
-            this.txtPlaca.Controls.Add(this.label2);
-            this.txtPlaca.Controls.Add(this.label1);
-            this.txtPlaca.Location = new System.Drawing.Point(2, 100);
-            this.txtPlaca.Name = "txtPlaca";
-            this.txtPlaca.Size = new System.Drawing.Size(358, 391);
-            this.txtPlaca.TabIndex = 1;
-            this.txtPlaca.TabStop = false;
-            this.txtPlaca.Text = "Actualización vehiculo";
-            // 
-            // grbEstado
-            // 
-            this.grbEstado.Controls.Add(this.rbFinalizado);
-            this.grbEstado.Controls.Add(this.rbPendiente);
-            this.grbEstado.Controls.Add(this.rbDanado);
-            this.grbEstado.Location = new System.Drawing.Point(98, 183);
-            this.grbEstado.Name = "grbEstado";
-            this.grbEstado.Size = new System.Drawing.Size(239, 41);
-            this.grbEstado.TabIndex = 2;
-            this.grbEstado.TabStop = false;
-            // 
-            // rbFinalizado
-            // 
-            this.rbFinalizado.AutoSize = true;
-            this.rbFinalizado.Location = new System.Drawing.Point(148, 17);
-            this.rbFinalizado.Name = "rbFinalizado";
-            this.rbFinalizado.Size = new System.Drawing.Size(72, 17);
-            this.rbFinalizado.TabIndex = 17;
-            this.rbFinalizado.Text = "Finalizado";
-            this.rbFinalizado.UseVisualStyleBackColor = true;
-            // 
-            // rbPendiente
-            // 
-            this.rbPendiente.AutoSize = true;
-            this.rbPendiente.Location = new System.Drawing.Point(69, 15);
-            this.rbPendiente.Name = "rbPendiente";
-            this.rbPendiente.Size = new System.Drawing.Size(73, 17);
-            this.rbPendiente.TabIndex = 16;
-            this.rbPendiente.Text = "Pendiente";
-            this.rbPendiente.UseVisualStyleBackColor = true;
-            // 
-            // rbDanado
-            // 
-            this.rbDanado.AutoSize = true;
-            this.rbDanado.Checked = true;
-            this.rbDanado.Location = new System.Drawing.Point(0, 16);
-            this.rbDanado.Name = "rbDanado";
-            this.rbDanado.Size = new System.Drawing.Size(63, 17);
-            this.rbDanado.TabIndex = 15;
-            this.rbDanado.TabStop = true;
-            this.rbDanado.Text = "Dañado";
-            this.rbDanado.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(128, 316);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 25;
-            this.button1.Text = "Refrescar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // txtTarea
-            // 
-            this.txtTarea.Location = new System.Drawing.Point(43, 357);
-            this.txtTarea.Name = "txtTarea";
-            this.txtTarea.ReadOnly = true;
-            this.txtTarea.Size = new System.Drawing.Size(294, 20);
-            this.txtTarea.TabIndex = 24;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 358);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(38, 13);
-            this.label11.TabIndex = 23;
-            this.label11.Text = "Tarea:";
-            // 
-            // btnEliminar
-            // 
-            this.btnEliminar.Location = new System.Drawing.Point(277, 316);
-            this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(61, 23);
-            this.btnEliminar.TabIndex = 22;
-            this.btnEliminar.Text = "Eliminar";
-            this.btnEliminar.UseVisualStyleBackColor = true;
-            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
-            // 
-            // btnEditar
-            // 
-            this.btnEditar.Location = new System.Drawing.Point(209, 316);
-            this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(62, 23);
-            this.btnEditar.TabIndex = 21;
-            this.btnEditar.Text = "Editar";
-            this.btnEditar.UseVisualStyleBackColor = true;
-            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
-            // 
-            // btnAgregar
-            // 
-            this.btnAgregar.Location = new System.Drawing.Point(51, 316);
-            this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(59, 23);
-            this.btnAgregar.TabIndex = 20;
-            this.btnAgregar.Text = "Agregar";
-            this.btnAgregar.UseVisualStyleBackColor = true;
-            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
-            // 
-            // cbTipo
-            // 
-            this.cbTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbTipo.FormattingEnabled = true;
-            this.cbTipo.Location = new System.Drawing.Point(98, 286);
-            this.cbTipo.Name = "cbTipo";
-            this.cbTipo.Size = new System.Drawing.Size(239, 21);
-            this.cbTipo.TabIndex = 19;
-            this.cbTipo.SelectionChangeCommitted += new System.EventHandler(this.seleccionCbTipo);
-            // 
-            // cbMarca
-            // 
-            this.cbMarca.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbMarca.FormattingEnabled = true;
-            this.cbMarca.Location = new System.Drawing.Point(98, 258);
-            this.cbMarca.Name = "cbMarca";
-            this.cbMarca.Size = new System.Drawing.Size(239, 21);
-            this.cbMarca.TabIndex = 18;
-            this.cbMarca.SelectionChangeCommitted += new System.EventHandler(this.seleccionCbMarca);
-            // 
-            // cbCliente
-            // 
-            this.cbCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbCliente.FormattingEnabled = true;
-            this.cbCliente.Location = new System.Drawing.Point(98, 230);
-            this.cbCliente.Name = "cbCliente";
-            this.cbCliente.Size = new System.Drawing.Size(239, 21);
-            this.cbCliente.TabIndex = 17;
-            this.cbCliente.SelectionChangeCommitted += new System.EventHandler(this.cbClienteSeleccion);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(60, 289);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(31, 13);
-            this.label10.TabIndex = 16;
-            this.label10.Text = "Tipo:";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(49, 261);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(40, 13);
-            this.label9.TabIndex = 15;
-            this.label9.Text = "Marca:";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(49, 238);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(42, 13);
-            this.label8.TabIndex = 14;
-            this.label8.Text = "Cliente:";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(48, 200);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(43, 13);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "Estado:";
-            // 
-            // txtCombustible
-            // 
-            this.txtCombustible.Location = new System.Drawing.Point(98, 157);
-            this.txtCombustible.Name = "txtCombustible";
-            this.txtCombustible.Size = new System.Drawing.Size(121, 20);
-            this.txtCombustible.TabIndex = 11;
-            // 
-            // txtChazis
-            // 
-            this.txtChazis.Location = new System.Drawing.Point(98, 131);
-            this.txtChazis.Name = "txtChazis";
-            this.txtChazis.Size = new System.Drawing.Size(121, 20);
-            this.txtChazis.TabIndex = 10;
-            // 
-            // txtMotor
-            // 
-            this.txtMotor.Location = new System.Drawing.Point(98, 104);
-            this.txtMotor.Name = "txtMotor";
-            this.txtMotor.Size = new System.Drawing.Size(121, 20);
-            this.txtMotor.TabIndex = 9;
-            // 
-            // txtCilindraje
-            // 
-            this.txtCilindraje.Location = new System.Drawing.Point(98, 78);
-            this.txtCilindraje.Name = "txtCilindraje";
-            this.txtCilindraje.Size = new System.Drawing.Size(121, 20);
-            this.txtCilindraje.TabIndex = 8;
-            // 
-            // txtAnno
-            // 
-            this.txtAnno.Location = new System.Drawing.Point(98, 52);
-            this.txtAnno.Name = "txtAnno";
-            this.txtAnno.Size = new System.Drawing.Size(121, 20);
-            this.txtAnno.TabIndex = 7;
-            // 
-            // txtPlacaa
-            // 
-            this.txtPlacaa.Location = new System.Drawing.Point(98, 26);
-            this.txtPlacaa.Name = "txtPlacaa";
-            this.txtPlacaa.Size = new System.Drawing.Size(121, 20);
-            this.txtPlacaa.TabIndex = 6;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(27, 160);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(65, 13);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "Conbustible:";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 134);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(80, 13);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Numero chazis:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(16, 107);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(76, 13);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Numero motor:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(40, 81);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Cilindraje:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(63, 55);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(29, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Año:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 29);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(76, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Numero placa:";
-            // 
-            // eventLog1
-            // 
-            this.eventLog1.SynchronizingObject = this;
             // 
             // id
             // 
@@ -548,104 +327,339 @@
             this.Cliente_.HeaderText = "Cliente";
             this.Cliente_.Name = "Cliente_";
             // 
-            // groupBox1
+            // txtPlaca
             // 
-            this.groupBox1.Controls.Add(this.rbBuscarCilindraje);
-            this.groupBox1.Controls.Add(this.rbBuscarTipo);
-            this.groupBox1.Controls.Add(this.rbBuscarMarca);
-            this.groupBox1.Controls.Add(this.rbBuscarCliente);
-            this.groupBox1.Controls.Add(this.rbBuscarAnno);
-            this.groupBox1.Controls.Add(this.rbBuscarPlaca);
-            this.groupBox1.Controls.Add(this.textBox2);
-            this.groupBox1.Controls.Add(this.label12);
-            this.groupBox1.Location = new System.Drawing.Point(6, 6);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(793, 42);
-            this.groupBox1.TabIndex = 6;
-            this.groupBox1.TabStop = false;
+            this.txtPlaca.Controls.Add(this.btnLimpiar);
+            this.txtPlaca.Controls.Add(this.grbEstado);
+            this.txtPlaca.Controls.Add(this.button1);
+            this.txtPlaca.Controls.Add(this.txtTarea);
+            this.txtPlaca.Controls.Add(this.label11);
+            this.txtPlaca.Controls.Add(this.btnEliminar);
+            this.txtPlaca.Controls.Add(this.btnEditar);
+            this.txtPlaca.Controls.Add(this.btnAgregar);
+            this.txtPlaca.Controls.Add(this.cbTipo);
+            this.txtPlaca.Controls.Add(this.cbMarca);
+            this.txtPlaca.Controls.Add(this.cbCliente);
+            this.txtPlaca.Controls.Add(this.label10);
+            this.txtPlaca.Controls.Add(this.label9);
+            this.txtPlaca.Controls.Add(this.label8);
+            this.txtPlaca.Controls.Add(this.label7);
+            this.txtPlaca.Controls.Add(this.txtCombustible);
+            this.txtPlaca.Controls.Add(this.txtChazis);
+            this.txtPlaca.Controls.Add(this.txtMotor);
+            this.txtPlaca.Controls.Add(this.txtCilindraje);
+            this.txtPlaca.Controls.Add(this.txtAnno);
+            this.txtPlaca.Controls.Add(this.txtPlacaa);
+            this.txtPlaca.Controls.Add(this.label6);
+            this.txtPlaca.Controls.Add(this.label5);
+            this.txtPlaca.Controls.Add(this.label4);
+            this.txtPlaca.Controls.Add(this.label3);
+            this.txtPlaca.Controls.Add(this.label2);
+            this.txtPlaca.Controls.Add(this.label1);
+            this.txtPlaca.Location = new System.Drawing.Point(2, 100);
+            this.txtPlaca.Name = "txtPlaca";
+            this.txtPlaca.Size = new System.Drawing.Size(358, 391);
+            this.txtPlaca.TabIndex = 0;
+            this.txtPlaca.TabStop = false;
+            this.txtPlaca.Text = "Actualización vehiculo";
             // 
-            // rbBuscarPlaca
+            // btnLimpiar
             // 
-            this.rbBuscarPlaca.AutoSize = true;
-            this.rbBuscarPlaca.Checked = true;
-            this.rbBuscarPlaca.Location = new System.Drawing.Point(56, 14);
-            this.rbBuscarPlaca.Name = "rbBuscarPlaca";
-            this.rbBuscarPlaca.Size = new System.Drawing.Size(52, 17);
-            this.rbBuscarPlaca.TabIndex = 3;
-            this.rbBuscarPlaca.TabStop = true;
-            this.rbBuscarPlaca.Text = "Placa";
-            this.rbBuscarPlaca.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Location = new System.Drawing.Point(203, 328);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(57, 23);
+            this.btnLimpiar.TabIndex = 12;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
-            // rbBuscarAnno
+            // grbEstado
             // 
-            this.rbBuscarAnno.AutoSize = true;
-            this.rbBuscarAnno.Location = new System.Drawing.Point(114, 14);
-            this.rbBuscarAnno.Name = "rbBuscarAnno";
-            this.rbBuscarAnno.Size = new System.Drawing.Size(44, 17);
-            this.rbBuscarAnno.TabIndex = 4;
-            this.rbBuscarAnno.Text = "Año";
-            this.rbBuscarAnno.UseVisualStyleBackColor = true;
+            this.grbEstado.Controls.Add(this.rbFinalizado);
+            this.grbEstado.Controls.Add(this.rbPendiente);
+            this.grbEstado.Controls.Add(this.rbDanado);
+            this.grbEstado.Location = new System.Drawing.Point(76, 183);
+            this.grbEstado.Name = "grbEstado";
+            this.grbEstado.Size = new System.Drawing.Size(206, 41);
+            this.grbEstado.TabIndex = 2;
+            this.grbEstado.TabStop = false;
             // 
-            // rbBuscarCliente
+            // rbFinalizado
             // 
-            this.rbBuscarCliente.AutoSize = true;
-            this.rbBuscarCliente.Location = new System.Drawing.Point(164, 15);
-            this.rbBuscarCliente.Name = "rbBuscarCliente";
-            this.rbBuscarCliente.Size = new System.Drawing.Size(57, 17);
-            this.rbBuscarCliente.TabIndex = 5;
-            this.rbBuscarCliente.Text = "Cliente";
-            this.rbBuscarCliente.UseVisualStyleBackColor = true;
+            this.rbFinalizado.AutoSize = true;
+            this.rbFinalizado.Location = new System.Drawing.Point(129, 18);
+            this.rbFinalizado.Name = "rbFinalizado";
+            this.rbFinalizado.Size = new System.Drawing.Size(72, 17);
+            this.rbFinalizado.TabIndex = 2;
+            this.rbFinalizado.Text = "Finalizado";
+            this.rbFinalizado.UseVisualStyleBackColor = true;
             // 
-            // rbBuscarMarca
+            // rbPendiente
             // 
-            this.rbBuscarMarca.AutoSize = true;
-            this.rbBuscarMarca.Location = new System.Drawing.Point(304, 15);
-            this.rbBuscarMarca.Name = "rbBuscarMarca";
-            this.rbBuscarMarca.Size = new System.Drawing.Size(55, 17);
-            this.rbBuscarMarca.TabIndex = 6;
-            this.rbBuscarMarca.Text = "Marca";
-            this.rbBuscarMarca.UseVisualStyleBackColor = true;
+            this.rbPendiente.AutoSize = true;
+            this.rbPendiente.Location = new System.Drawing.Point(59, 17);
+            this.rbPendiente.Name = "rbPendiente";
+            this.rbPendiente.Size = new System.Drawing.Size(73, 17);
+            this.rbPendiente.TabIndex = 1;
+            this.rbPendiente.Text = "Pendiente";
+            this.rbPendiente.UseVisualStyleBackColor = true;
             // 
-            // rbBuscarTipo
+            // rbDanado
             // 
-            this.rbBuscarTipo.AutoSize = true;
-            this.rbBuscarTipo.Location = new System.Drawing.Point(365, 15);
-            this.rbBuscarTipo.Name = "rbBuscarTipo";
-            this.rbBuscarTipo.Size = new System.Drawing.Size(49, 17);
-            this.rbBuscarTipo.TabIndex = 7;
-            this.rbBuscarTipo.Text = "Tipo:";
-            this.rbBuscarTipo.UseVisualStyleBackColor = true;
+            this.rbDanado.AutoSize = true;
+            this.rbDanado.Checked = true;
+            this.rbDanado.Location = new System.Drawing.Point(0, 16);
+            this.rbDanado.Name = "rbDanado";
+            this.rbDanado.Size = new System.Drawing.Size(63, 17);
+            this.rbDanado.TabIndex = 0;
+            this.rbDanado.TabStop = true;
+            this.rbDanado.Text = "Dañado";
+            this.rbDanado.UseVisualStyleBackColor = true;
             // 
-            // rbBuscarCilindraje
+            // button1
             // 
-            this.rbBuscarCilindraje.AutoSize = true;
-            this.rbBuscarCilindraje.Location = new System.Drawing.Point(231, 15);
-            this.rbBuscarCilindraje.Name = "rbBuscarCilindraje";
-            this.rbBuscarCilindraje.Size = new System.Drawing.Size(67, 17);
-            this.rbBuscarCilindraje.TabIndex = 8;
-            this.rbBuscarCilindraje.Text = "Cilindraje";
-            this.rbBuscarCilindraje.UseVisualStyleBackColor = true;
+            this.button1.Location = new System.Drawing.Point(288, 328);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(63, 23);
+            this.button1.TabIndex = 13;
+            this.button1.Text = "Refrescar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // txtTarea
+            // 
+            this.txtTarea.Location = new System.Drawing.Point(50, 365);
+            this.txtTarea.Name = "txtTarea";
+            this.txtTarea.ReadOnly = true;
+            this.txtTarea.Size = new System.Drawing.Size(294, 20);
+            this.txtTarea.TabIndex = 24;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 372);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(38, 13);
+            this.label11.TabIndex = 23;
+            this.label11.Text = "Tarea:";
+            // 
+            // btnEliminar
+            // 
+            this.btnEliminar.Location = new System.Drawing.Point(136, 328);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(61, 23);
+            this.btnEliminar.TabIndex = 11;
+            this.btnEliminar.Text = "Eliminar";
+            this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
+            // 
+            // btnEditar
+            // 
+            this.btnEditar.Location = new System.Drawing.Point(59, 328);
+            this.btnEditar.Name = "btnEditar";
+            this.btnEditar.Size = new System.Drawing.Size(62, 23);
+            this.btnEditar.TabIndex = 10;
+            this.btnEditar.Text = "Editar";
+            this.btnEditar.UseVisualStyleBackColor = true;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
+            // 
+            // btnAgregar
+            // 
+            this.btnAgregar.Location = new System.Drawing.Point(288, 285);
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.Size = new System.Drawing.Size(64, 23);
+            this.btnAgregar.TabIndex = 9;
+            this.btnAgregar.Text = "Agregar";
+            this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
+            // 
+            // cbTipo
+            // 
+            this.cbTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTipo.FormattingEnabled = true;
+            this.cbTipo.Location = new System.Drawing.Point(76, 286);
+            this.cbTipo.Name = "cbTipo";
+            this.cbTipo.Size = new System.Drawing.Size(206, 21);
+            this.cbTipo.TabIndex = 8;
+            this.cbTipo.SelectionChangeCommitted += new System.EventHandler(this.seleccionCbTipo);
+            // 
+            // cbMarca
+            // 
+            this.cbMarca.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbMarca.FormattingEnabled = true;
+            this.cbMarca.Location = new System.Drawing.Point(76, 258);
+            this.cbMarca.Name = "cbMarca";
+            this.cbMarca.Size = new System.Drawing.Size(206, 21);
+            this.cbMarca.TabIndex = 7;
+            this.cbMarca.SelectionChangeCommitted += new System.EventHandler(this.seleccionCbMarca);
+            // 
+            // cbCliente
+            // 
+            this.cbCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbCliente.FormattingEnabled = true;
+            this.cbCliente.Location = new System.Drawing.Point(76, 230);
+            this.cbCliente.Name = "cbCliente";
+            this.cbCliente.Size = new System.Drawing.Size(206, 21);
+            this.cbCliente.TabIndex = 6;
+            this.cbCliente.SelectionChangeCommitted += new System.EventHandler(this.cbClienteSeleccion);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(39, 291);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(31, 13);
+            this.label10.TabIndex = 16;
+            this.label10.Text = "Tipo:";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(30, 261);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(40, 13);
+            this.label9.TabIndex = 15;
+            this.label9.Text = "Marca:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(28, 233);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(42, 13);
+            this.label8.TabIndex = 14;
+            this.label8.Text = "Cliente:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(27, 200);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(43, 13);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Estado:";
+            // 
+            // txtCombustible
+            // 
+            this.txtCombustible.Location = new System.Drawing.Point(76, 157);
+            this.txtCombustible.Name = "txtCombustible";
+            this.txtCombustible.Size = new System.Drawing.Size(121, 20);
+            this.txtCombustible.TabIndex = 5;
+            // 
+            // txtChazis
+            // 
+            this.txtChazis.Location = new System.Drawing.Point(76, 131);
+            this.txtChazis.Name = "txtChazis";
+            this.txtChazis.Size = new System.Drawing.Size(121, 20);
+            this.txtChazis.TabIndex = 4;
+            // 
+            // txtMotor
+            // 
+            this.txtMotor.Location = new System.Drawing.Point(76, 104);
+            this.txtMotor.Name = "txtMotor";
+            this.txtMotor.Size = new System.Drawing.Size(121, 20);
+            this.txtMotor.TabIndex = 3;
+            // 
+            // txtCilindraje
+            // 
+            this.txtCilindraje.Location = new System.Drawing.Point(76, 78);
+            this.txtCilindraje.Name = "txtCilindraje";
+            this.txtCilindraje.Size = new System.Drawing.Size(121, 20);
+            this.txtCilindraje.TabIndex = 2;
+            // 
+            // txtAnno
+            // 
+            this.txtAnno.Location = new System.Drawing.Point(76, 52);
+            this.txtAnno.Name = "txtAnno";
+            this.txtAnno.Size = new System.Drawing.Size(121, 20);
+            this.txtAnno.TabIndex = 1;
+            // 
+            // txtPlacaa
+            // 
+            this.txtPlacaa.Location = new System.Drawing.Point(76, 26);
+            this.txtPlacaa.Name = "txtPlacaa";
+            this.txtPlacaa.Size = new System.Drawing.Size(121, 20);
+            this.txtPlacaa.TabIndex = 0;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(1, 160);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(67, 13);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "Combustible:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(29, 134);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(41, 13);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "Chazis:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(33, 107);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(37, 13);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Motor:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(18, 81);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(52, 13);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Cilindraje:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(39, 55);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(29, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Año:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(33, 29);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(37, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Placa:";
+            // 
+            // eventLog1
+            // 
+            this.eventLog1.SynchronizingObject = this;
             // 
             // frmEdicionVehiculo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1181, 490);
+            this.ClientSize = new System.Drawing.Size(1116, 491);
             this.Controls.Add(this.txtPlaca);
             this.Controls.Add(this.tabControl1);
             this.Name = "frmEdicionVehiculo";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmEdicionVehiculo";
             this.tabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdVehiculos)).EndInit();
             this.txtPlaca.ResumeLayout(false);
             this.txtPlaca.PerformLayout();
             this.grbEstado.ResumeLayout(false);
             this.grbEstado.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -683,7 +697,7 @@
         private System.Windows.Forms.Button btnSalir;
         private System.Windows.Forms.TextBox txtCantidad;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtBuscar;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox grbEstado;
@@ -704,10 +718,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Cliente_;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton rbBuscarCilindraje;
-        private System.Windows.Forms.RadioButton rbBuscarTipo;
-        private System.Windows.Forms.RadioButton rbBuscarMarca;
-        private System.Windows.Forms.RadioButton rbBuscarCliente;
+        private System.Windows.Forms.RadioButton rbBuscarCombustible;
+        private System.Windows.Forms.RadioButton rbBuscarChazis;
+        private System.Windows.Forms.RadioButton rbBuscarMotor;
         private System.Windows.Forms.RadioButton rbBuscarAnno;
         private System.Windows.Forms.RadioButton rbBuscarPlaca;
+        private System.Windows.Forms.Button btnLimpiar;
     }
 }

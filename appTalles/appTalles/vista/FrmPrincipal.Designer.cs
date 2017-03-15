@@ -1,6 +1,6 @@
 ﻿namespace Vista
 {
-    partial class From1
+    partial class FrmPrincipal
     {
         /// <summary>
         /// Variable del diseñador necesaria.
@@ -32,7 +32,6 @@
             this.sistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cambioContraseñaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registroEmpleadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mantenimientoEmpleadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.parámetrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registroClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -81,17 +80,10 @@
             // 
             // registroEmpleadoToolStripMenuItem
             // 
-            this.registroEmpleadoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mantenimientoEmpleadoToolStripMenuItem});
             this.registroEmpleadoToolStripMenuItem.Name = "registroEmpleadoToolStripMenuItem";
             this.registroEmpleadoToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.registroEmpleadoToolStripMenuItem.Text = "Registro empleado";
-            // 
-            // mantenimientoEmpleadoToolStripMenuItem
-            // 
-            this.mantenimientoEmpleadoToolStripMenuItem.Name = "mantenimientoEmpleadoToolStripMenuItem";
-            this.mantenimientoEmpleadoToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-            this.mantenimientoEmpleadoToolStripMenuItem.Text = "Mantenimiento empleado";
+            this.registroEmpleadoToolStripMenuItem.Click += new System.EventHandler(this.registroEmpleadoToolStripMenuItem_Click);
             // 
             // salirToolStripMenuItem
             // 
@@ -153,6 +145,7 @@
             this.registroCatalogoRepuestosToolStripMenuItem.Name = "registroCatalogoRepuestosToolStripMenuItem";
             this.registroCatalogoRepuestosToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.registroCatalogoRepuestosToolStripMenuItem.Text = "Registro Catalogo Repuestos";
+            this.registroCatalogoRepuestosToolStripMenuItem.Click += new System.EventHandler(this.registroCatalogoRepuestosToolStripMenuItem_Click);
             // 
             // registroCatalogoReparacionToolStripMenuItem
             // 
@@ -172,14 +165,15 @@
             this.gestionGerenciaToolStripMenuItem.Size = new System.Drawing.Size(112, 20);
             this.gestionGerenciaToolStripMenuItem.Text = "Gestion gerencia";
             // 
-            // From1
+            // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(820, 492);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "From1";
+            this.Name = "FrmPrincipal";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Taller UTN";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -205,7 +199,6 @@
         private System.Windows.Forms.ToolStripMenuItem registroVehiculoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem registroCatalogoRepuestosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem registroCatalogoReparacionToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mantenimientoEmpleadoToolStripMenuItem;
     }
 }
 
