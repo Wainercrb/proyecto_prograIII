@@ -36,6 +36,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnSalir = new System.Windows.Forms.Button();
             this.grdTipos = new System.Windows.Forms.DataGridView();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tipoVehiculo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.txtMensaje = new System.Windows.Forms.TextBox();
@@ -45,8 +47,6 @@
             this.btnAgregar = new System.Windows.Forms.Button();
             this.txtTipo = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tipoVehiculo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdTipos)).BeginInit();
@@ -83,7 +83,7 @@
             this.txtBuscar.Location = new System.Drawing.Point(55, 13);
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(222, 20);
-            this.txtBuscar.TabIndex = 5;
+            this.txtBuscar.TabIndex = 0;
             this.txtBuscar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.enterSeleccion);
             // 
             // label4
@@ -134,6 +134,18 @@
             this.grdTipos.TabIndex = 0;
             this.grdTipos.DoubleClick += new System.EventHandler(this.Editar);
             // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "Código";
+            this.Id.Name = "Id";
+            // 
+            // tipoVehiculo
+            // 
+            this.tipoVehiculo.DataPropertyName = "Tipo";
+            this.tipoVehiculo.HeaderText = "Tipo Vehículo";
+            this.tipoVehiculo.Name = "tipoVehiculo";
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.btnLimpiar);
@@ -156,7 +168,7 @@
             this.btnLimpiar.Location = new System.Drawing.Point(206, 62);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(60, 23);
-            this.btnLimpiar.TabIndex = 8;
+            this.btnLimpiar.TabIndex = 4;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
@@ -183,7 +195,7 @@
             this.btnEliminar.Location = new System.Drawing.Point(98, 62);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(83, 23);
-            this.btnEliminar.TabIndex = 5;
+            this.btnEliminar.TabIndex = 3;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
@@ -193,7 +205,7 @@
             this.btnActualizar.Location = new System.Drawing.Point(5, 62);
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Size = new System.Drawing.Size(71, 23);
-            this.btnActualizar.TabIndex = 3;
+            this.btnActualizar.TabIndex = 2;
             this.btnActualizar.Text = "Refrescar";
             this.btnActualizar.UseVisualStyleBackColor = true;
             this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
@@ -203,7 +215,7 @@
             this.btnAgregar.Location = new System.Drawing.Point(207, 23);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(59, 23);
-            this.btnAgregar.TabIndex = 2;
+            this.btnAgregar.TabIndex = 1;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.UseVisualStyleBackColor = true;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
@@ -213,7 +225,7 @@
             this.txtTipo.Location = new System.Drawing.Point(82, 25);
             this.txtTipo.Name = "txtTipo";
             this.txtTipo.Size = new System.Drawing.Size(114, 20);
-            this.txtTipo.TabIndex = 1;
+            this.txtTipo.TabIndex = 0;
             // 
             // label1
             // 
@@ -223,18 +235,6 @@
             this.label1.Size = new System.Drawing.Size(76, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Tipo vehículo:";
-            // 
-            // Id
-            // 
-            this.Id.DataPropertyName = "Id";
-            this.Id.HeaderText = "Código";
-            this.Id.Name = "Id";
-            // 
-            // tipoVehiculo
-            // 
-            this.tipoVehiculo.DataPropertyName = "Tipo";
-            this.tipoVehiculo.HeaderText = "Tipo Vehículo";
-            this.tipoVehiculo.Name = "tipoVehiculo";
             // 
             // FrmTipo
             // 

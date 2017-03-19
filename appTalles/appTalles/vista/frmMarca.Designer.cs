@@ -94,14 +94,14 @@
             this.txtMarca.Location = new System.Drawing.Point(91, 37);
             this.txtMarca.Name = "txtMarca";
             this.txtMarca.Size = new System.Drawing.Size(95, 20);
-            this.txtMarca.TabIndex = 2;
+            this.txtMarca.TabIndex = 0;
             // 
             // btnAgregar
             // 
             this.btnAgregar.Location = new System.Drawing.Point(192, 35);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(61, 23);
-            this.btnAgregar.TabIndex = 3;
+            this.btnAgregar.TabIndex = 1;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.UseVisualStyleBackColor = true;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
@@ -111,7 +111,7 @@
             this.btnElininar.Location = new System.Drawing.Point(91, 85);
             this.btnElininar.Name = "btnElininar";
             this.btnElininar.Size = new System.Drawing.Size(82, 23);
-            this.btnElininar.TabIndex = 5;
+            this.btnElininar.TabIndex = 3;
             this.btnElininar.Text = "Eliminar";
             this.btnElininar.UseVisualStyleBackColor = true;
             this.btnElininar.Click += new System.EventHandler(this.btnElininar_Click);
@@ -131,7 +131,7 @@
             this.btnRefrescar.Location = new System.Drawing.Point(9, 85);
             this.btnRefrescar.Name = "btnRefrescar";
             this.btnRefrescar.Size = new System.Drawing.Size(65, 23);
-            this.btnRefrescar.TabIndex = 7;
+            this.btnRefrescar.TabIndex = 2;
             this.btnRefrescar.Text = "Refrescar";
             this.btnRefrescar.UseVisualStyleBackColor = true;
             this.btnRefrescar.Click += new System.EventHandler(this.btnRefrescar_Click);
@@ -167,7 +167,7 @@
             this.btnSalir.Location = new System.Drawing.Point(193, 237);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(68, 23);
-            this.btnSalir.TabIndex = 5;
+            this.btnSalir.TabIndex = 1;
             this.btnSalir.Text = "Salir";
             this.btnSalir.UseVisualStyleBackColor = true;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
@@ -194,7 +194,7 @@
             this.txtBuscar.Location = new System.Drawing.Point(45, 3);
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(220, 20);
-            this.txtBuscar.TabIndex = 2;
+            this.txtBuscar.TabIndex = 0;
             this.txtBuscar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.busquedaMarca);
             // 
             // label2
@@ -228,7 +228,7 @@
             this.btnLimpiar.Location = new System.Drawing.Point(192, 85);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(61, 23);
-            this.btnLimpiar.TabIndex = 9;
+            this.btnLimpiar.TabIndex = 4;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);

@@ -11,28 +11,29 @@ using NpgsqlTypes;
 
 namespace Datos
 {
-   public class ServicioD
+    public class ServicioD
     {
         private AccesoDatosPostgre conexion;
-        private string error;
+        private bool error;
         private string errorMsg;
 
-        public string Error
+
+
+        public ServicioD()
         {
-            get { return error; }
+            this.conexion = AccesoDatosPostgre.Instance;
+            this.limpiarError();
         }
 
-
-        public ServicioD(AccesoDatosPostgre pConexion)
+        public void limpiarError()
         {
-            this.conexion = pConexion;
-            this.error = "";
+            this.Error = false;
+            this.ErrorMsg = "";
         }
 
         public bool agregarservicio(Servicio server)
         {
-            bool estado = true;
-            this.error = "";
+            limpiarError();
             try
             {
 
@@ -51,16 +52,16 @@ namespace Datos
 
                 if (conexion.IsError)
                 {
-                    estado = false;
-                    this.error = this.conexion.ErrorDescripcion;
+                    this.Error = true;
+                    this.ErrorMsg = this.conexion.ErrorDescripcion;
                 }
             }
             catch (Exception e)
             {
-                estado = false;
-                error = e.Message;
+                this.Error = true;
+                this.ErrorMsg = e.Message;
             }
-            return estado;
+            return this.Error;
         }
 
 
@@ -84,8 +85,7 @@ namespace Datos
         }
         public bool borrarservicio(Servicio server)
         {
-            bool estado = true;
-            this.error = "";
+            limpiarError();
             try
             {
                 string sql = "delete from servicio where id_servicio = @id_servicio";
@@ -100,58 +100,57 @@ namespace Datos
                 this.conexion.ejecutarSQL(sql, parametros);
                 if (this.conexion.IsError)
                 {
-                    estado = false;
-                    this.error = this.conexion.ErrorDescripcion;
+                    this.Error = true;
+                    this.ErrorMsg = this.conexion.ErrorDescripcion;
                 }
             }
             catch (Exception e)
             {
-                estado = false;
-                this.error = e.Message;
+                this.Error = true;
+                this.ErrorMsg = e.Message;
             }
-            return estado;
+            return this.Error;
         }
         public bool actualizarServicio(Servicio server)
         {
-            bool estado = true;
-            this.error = "";
+            limpiarError();
 
             try
             {
                 string sql = " update  servicio set servcio = @servicio ,detalles = @detalles  where id_servicio = @id_servicio";
                 NpgsqlParameter[] parametros = new NpgsqlParameter[3];
                 parametros[0] = new NpgsqlParameter();
-                parametros[0].NpgsqlDbType = NpgsqlDbType.Integer;
+                parametros[0].NpgsqlDbType = NpgsqlDbType.Varchar;
                 parametros[0].ParameterName = "@servicio";
                 parametros[0].Value = server.pServicio;
                 parametros[1] = new NpgsqlParameter();
-                parametros[1].NpgsqlDbType = NpgsqlDbType.Text;
+                parametros[1].NpgsqlDbType = NpgsqlDbType.Varchar;
                 parametros[1].ParameterName = "@detalles";
                 parametros[1].Value = server.Detalle;
                 parametros[2] = new NpgsqlParameter();
-                parametros[2].NpgsqlDbType = NpgsqlDbType.Text;
+                parametros[2].NpgsqlDbType = NpgsqlDbType.Integer;
                 parametros[2].ParameterName = "@id_servicio";
-                parametros[2].Value = server.Detalle;
+                parametros[2].Value = server.Id;
 
                 this.conexion.ejecutarSQL(sql, parametros);
                 if (this.conexion.IsError)
                 {
-                    estado = false;
-                    this.error = this.conexion.ErrorDescripcion;
+                    this.Error = true;
+                    this.ErrorMsg = this.conexion.ErrorDescripcion;
                 }
             }
             catch (Exception e)
             {
-                estado = false;
-                error = e.Message;
+                this.Error = true;
+                ErrorMsg = e.Message;
             }
 
-            return estado;
+            return this.Error;
         }
         public List<Servicio> buscarServicios(string valor1)
         {
 
-            bool estado = true;
+            limpiarError();
             List<Servicio> empleados = new List<Servicio>();
             DataSet dsetEmpleados;
             string sql = "select * from servicio where servcio ='" + valor1 + "'";
@@ -169,12 +168,39 @@ namespace Datos
 
             catch (Exception e)
             {
-                estado = false;
-                error = e.Message;
+                this.Error = false;
+                this.ErrorMsg = e.Message;
             }
 
             return empleados;
 
+        }
+
+
+        public bool Error
+        {
+            get
+            {
+                return error;
+            }
+
+            set
+            {
+                error = value;
+            }
+        }
+
+        public string ErrorMsg
+        {
+            get
+            {
+                return errorMsg;
+            }
+
+            set
+            {
+                errorMsg = value;
+            }
         }
     }
 }

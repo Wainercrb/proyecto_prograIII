@@ -7,16 +7,12 @@ using Datos;
 
 namespace Logica
 {
-   public class Servicio
+    public class Servicio
     {
         private int id;
         private string servicio;
         private string detalle;
-        private AccesoDatosPostgre cnx;
 
-        public Servicio(){
-            
-            }
         public Servicio(int id, string servicio, string detalle)
         {
             this.id = id;
@@ -24,9 +20,9 @@ namespace Logica
             this.detalle = detalle;
         }
 
-        public Servicio(AccesoDatosPostgre cnx)
+        public Servicio()
         {
-            this.cnx = cnx;
+
         }
 
         public int Id
@@ -66,14 +62,12 @@ namespace Logica
             {
                 detalle = value;
             }
-           
         }
 
-  
 
         public override string ToString()
         {
-            return id + servicio + detalle;
+            return Id + " " + pServicio + " " + Detalle;
         }
     }
 }
