@@ -50,13 +50,17 @@
             this.label7 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.txtMarcas = new System.Windows.Forms.TextBox();
             this.btnQuitar = new System.Windows.Forms.Button();
             this.btnTipoMarca = new System.Windows.Forms.Button();
             this.cbMarca = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.grdMarca = new System.Windows.Forms.DataGridView();
+            this.idMarca = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.marcaVehiculo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.rbImpuesto = new System.Windows.Forms.RadioButton();
             this.rbPrecio = new System.Windows.Forms.RadioButton();
             this.rbRepuesto = new System.Windows.Forms.RadioButton();
             this.txtBuscar = new System.Windows.Forms.TextBox();
@@ -64,10 +68,6 @@
             this.txtCantidadRepuesto = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btnSalir = new System.Windows.Forms.Button();
-            this.txtMarcas = new System.Windows.Forms.TextBox();
-            this.idMarca = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.marcaVehiculo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rbImpuesto = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.grdRepuesto)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtImpuesto)).BeginInit();
@@ -136,7 +136,7 @@
             this.groupBox1.Size = new System.Drawing.Size(289, 238);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Edicion repuestos";
+            this.groupBox1.Text = "Edición repuestos:";
             // 
             // txtImpuesto
             // 
@@ -156,7 +156,7 @@
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(201, 96);
+            this.btnAgregar.Location = new System.Drawing.Point(188, 96);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(75, 23);
             this.btnAgregar.TabIndex = 11;
@@ -215,14 +215,14 @@
             // 
             this.txtPrecio.Location = new System.Drawing.Point(70, 66);
             this.txtPrecio.Name = "txtPrecio";
-            this.txtPrecio.Size = new System.Drawing.Size(125, 20);
+            this.txtPrecio.Size = new System.Drawing.Size(112, 20);
             this.txtPrecio.TabIndex = 4;
             // 
             // txtRepuesto
             // 
             this.txtRepuesto.Location = new System.Drawing.Point(70, 35);
             this.txtRepuesto.Name = "txtRepuesto";
-            this.txtRepuesto.Size = new System.Drawing.Size(125, 20);
+            this.txtRepuesto.Size = new System.Drawing.Size(112, 20);
             this.txtRepuesto.TabIndex = 3;
             // 
             // label3
@@ -255,7 +255,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(161, 101);
+            this.label7.Location = new System.Drawing.Point(160, 101);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(21, 13);
             this.label7.TabIndex = 13;
@@ -293,6 +293,13 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Listado de repuestos";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // txtMarcas
+            // 
+            this.txtMarcas.Location = new System.Drawing.Point(261, 364);
+            this.txtMarcas.Name = "txtMarcas";
+            this.txtMarcas.Size = new System.Drawing.Size(74, 20);
+            this.txtMarcas.TabIndex = 18;
             // 
             // btnQuitar
             // 
@@ -353,6 +360,18 @@
             this.grdMarca.Size = new System.Drawing.Size(186, 204);
             this.grdMarca.TabIndex = 6;
             // 
+            // idMarca
+            // 
+            this.idMarca.DataPropertyName = "Id";
+            this.idMarca.HeaderText = "Id";
+            this.idMarca.Name = "idMarca";
+            // 
+            // marcaVehiculo
+            // 
+            this.marcaVehiculo.DataPropertyName = "marca";
+            this.marcaVehiculo.HeaderText = "Marca";
+            this.marcaVehiculo.Name = "marcaVehiculo";
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.rbImpuesto);
@@ -363,6 +382,17 @@
             this.groupBox2.Size = new System.Drawing.Size(250, 35);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
+            // 
+            // rbImpuesto
+            // 
+            this.rbImpuesto.AutoSize = true;
+            this.rbImpuesto.Location = new System.Drawing.Point(145, 12);
+            this.rbImpuesto.Name = "rbImpuesto";
+            this.rbImpuesto.Size = new System.Drawing.Size(68, 17);
+            this.rbImpuesto.TabIndex = 19;
+            this.rbImpuesto.TabStop = true;
+            this.rbImpuesto.Text = "Impuesto";
+            this.rbImpuesto.UseVisualStyleBackColor = true;
             // 
             // rbPrecio
             // 
@@ -428,36 +458,6 @@
             this.btnSalir.Text = "Salir";
             this.btnSalir.UseVisualStyleBackColor = true;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
-            // 
-            // txtMarcas
-            // 
-            this.txtMarcas.Location = new System.Drawing.Point(261, 364);
-            this.txtMarcas.Name = "txtMarcas";
-            this.txtMarcas.Size = new System.Drawing.Size(74, 20);
-            this.txtMarcas.TabIndex = 18;
-            // 
-            // idMarca
-            // 
-            this.idMarca.DataPropertyName = "Id";
-            this.idMarca.HeaderText = "Id";
-            this.idMarca.Name = "idMarca";
-            // 
-            // marcaVehiculo
-            // 
-            this.marcaVehiculo.DataPropertyName = "marca";
-            this.marcaVehiculo.HeaderText = "Marca";
-            this.marcaVehiculo.Name = "marcaVehiculo";
-            // 
-            // rbImpuesto
-            // 
-            this.rbImpuesto.AutoSize = true;
-            this.rbImpuesto.Location = new System.Drawing.Point(145, 12);
-            this.rbImpuesto.Name = "rbImpuesto";
-            this.rbImpuesto.Size = new System.Drawing.Size(68, 17);
-            this.rbImpuesto.TabIndex = 19;
-            this.rbImpuesto.TabStop = true;
-            this.rbImpuesto.Text = "Impuesto";
-            this.rbImpuesto.UseVisualStyleBackColor = true;
             // 
             // FrmRepuestos
             // 

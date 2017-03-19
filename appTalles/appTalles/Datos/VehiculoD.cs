@@ -44,14 +44,18 @@ namespace Datos
                          "v.fk_cliente = c.id_cliente";
 
             dsetVehiculos = this.conexion.ejecutarConsultaSQL(sql);
-
             foreach (DataRow tupla in dsetVehiculos.Tables[0].Rows)
             {
                 MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(tupla["id_marca"].ToString()), tupla["marca"].ToString());
-                Cliente oCliente = new Cliente(Int32.Parse(tupla["id_cliente"].ToString()), tupla["nombre"].ToString(), tupla["cedula"].ToString(), tupla["apellido"].ToString(), tupla["apellido2"].ToString(), tupla["telefono_casa"].ToString(), tupla["telefono_celular"].ToString(), tupla["telefono_oficina"].ToString());
+                Cliente oCliente = new Cliente(Int32.Parse(tupla["id_cliente"].ToString()), tupla["cedula"].ToString(), tupla["nombre"].ToString(), tupla["apellido"].ToString(), tupla["apellido2"].ToString(), tupla["telefono_casa"].ToString(), tupla["telefono_celular"].ToString(), tupla["telefono_oficina"].ToString());
                 TipoVehiculo oTipo = new TipoVehiculo(Int32.Parse(tupla["id_tipo"].ToString()), tupla["tipo"].ToString());
                 Vehiculo oVehiculo = new Vehiculo(Int32.Parse(tupla["id_vehiculo"].ToString()), tupla["placa"].ToString(), Int32.Parse(tupla["anno"].ToString()), Int32.Parse(tupla["cilindraje"].ToString()), Int32.Parse(tupla["numero_motor"].ToString()), Int32.Parse(tupla["numero_chazis"].ToString()), tupla["combustible"].ToString(), tupla["estado"].ToString(), oMarca, oCliente, oTipo);
                 vehiculos.Add(oVehiculo);
+            }
+            if (this.conexion.IsError)
+            {
+                this.error = true;
+                this.errorMsg = this.conexion.ErrorDescripcion;
             }
             return vehiculos;
         }
@@ -71,57 +75,54 @@ namespace Datos
                 parametros[0].NpgsqlDbType = NpgsqlDbType.Varchar;
                 parametros[0].ParameterName = "@placa";
                 parametros[0].Value = oVehiculo.Placa;
-
                 parametros[1] = new NpgsqlParameter();
                 parametros[1].NpgsqlDbType = NpgsqlDbType.Integer;
                 parametros[1].ParameterName = "@anno";
                 parametros[1].Value = oVehiculo.Anno;
-
                 parametros[2] = new NpgsqlParameter();
                 parametros[2].NpgsqlDbType = NpgsqlDbType.Integer;
                 parametros[2].ParameterName = "@cilindraje";
                 parametros[2].Value = oVehiculo.Cilindraje;
-
                 parametros[3] = new NpgsqlParameter();
                 parametros[3].NpgsqlDbType = NpgsqlDbType.Integer;
                 parametros[3].ParameterName = "@numero_motor";
                 parametros[3].Value = oVehiculo.NumeroMotor;
-
                 parametros[4] = new NpgsqlParameter();
                 parametros[4].NpgsqlDbType = NpgsqlDbType.Integer;
                 parametros[4].ParameterName = "@numero_chazis";
                 parametros[4].Value = oVehiculo.NumeroChazis;
-
                 parametros[5] = new NpgsqlParameter();
                 parametros[5].NpgsqlDbType = NpgsqlDbType.Varchar;
                 parametros[5].ParameterName = "@combustible";
                 parametros[5].Value = oVehiculo.TipoCombustible;
-
                 parametros[6] = new NpgsqlParameter();
                 parametros[6].NpgsqlDbType = NpgsqlDbType.Varchar;
                 parametros[6].ParameterName = "@estado";
                 parametros[6].Value = oVehiculo.Estado;
-
                 parametros[7] = new NpgsqlParameter();
                 parametros[7].NpgsqlDbType = NpgsqlDbType.Integer;
                 parametros[7].ParameterName = "@fk_marca";
                 parametros[7].Value = oVehiculo.Marca.Id;
-
                 parametros[8] = new NpgsqlParameter();
                 parametros[8].NpgsqlDbType = NpgsqlDbType.Integer;
                 parametros[8].ParameterName = "@fk_cliente";
                 parametros[8].Value = oVehiculo.Cliente.Id;
-
                 parametros[9] = new NpgsqlParameter();
                 parametros[9].NpgsqlDbType = NpgsqlDbType.Integer;
                 parametros[9].ParameterName = "@fk_tipo";
                 parametros[9].Value = oVehiculo.Tipo.Id;
 
                 dsetVehiculo = this.conexion.ejecutarDataSetSQL(sql, parametros);
+
+                if (this.conexion.IsError)
+                {
+                    this.error = true;
+                    this.errorMsg = this.conexion.ErrorDescripcion;
+                }
             }
             catch (Exception e)
             {
-                this.error = false;
+                this.error = true;
                 this.ErrorMsg = e.Message;
             }
             return this.error;
@@ -140,62 +141,58 @@ namespace Datos
                 parametros[0].NpgsqlDbType = NpgsqlDbType.Varchar;
                 parametros[0].ParameterName = "@placa";
                 parametros[0].Value = vehiculo.Placa;
-
                 parametros[1] = new NpgsqlParameter();
                 parametros[1].NpgsqlDbType = NpgsqlDbType.Integer;
                 parametros[1].ParameterName = "@anno";
                 parametros[1].Value = vehiculo.Anno;
-
                 parametros[2] = new NpgsqlParameter();
                 parametros[2].NpgsqlDbType = NpgsqlDbType.Integer;
                 parametros[2].ParameterName = "@cilindraje";
                 parametros[2].Value = vehiculo.Cilindraje;
-
                 parametros[3] = new NpgsqlParameter();
                 parametros[3].NpgsqlDbType = NpgsqlDbType.Integer;
                 parametros[3].ParameterName = "@numero_motor";
                 parametros[3].Value = vehiculo.NumeroMotor;
-
                 parametros[4] = new NpgsqlParameter();
                 parametros[4].NpgsqlDbType = NpgsqlDbType.Integer;
                 parametros[4].ParameterName = "@numero_chazis";
                 parametros[4].Value = vehiculo.NumeroChazis;
-
                 parametros[5] = new NpgsqlParameter();
                 parametros[5].NpgsqlDbType = NpgsqlDbType.Varchar;
                 parametros[5].ParameterName = "@combustible";
                 parametros[5].Value = vehiculo.TipoCombustible;
-
                 parametros[6] = new NpgsqlParameter();
                 parametros[6].NpgsqlDbType = NpgsqlDbType.Varchar;
                 parametros[6].ParameterName = "@estado";
                 parametros[6].Value = vehiculo.Estado;
-
                 parametros[7] = new NpgsqlParameter();
                 parametros[7].NpgsqlDbType = NpgsqlDbType.Integer;
                 parametros[7].ParameterName = "@fk_marca";
                 parametros[7].Value = vehiculo.Marca.Id;
-
                 parametros[8] = new NpgsqlParameter();
                 parametros[8].NpgsqlDbType = NpgsqlDbType.Integer;
                 parametros[8].ParameterName = "@fk_cliente";
                 parametros[8].Value = vehiculo.Cliente.Id;
-
                 parametros[9] = new NpgsqlParameter();
                 parametros[9].NpgsqlDbType = NpgsqlDbType.Integer;
                 parametros[9].ParameterName = "@fk_tipo";
                 parametros[9].Value = vehiculo.Tipo.Id;
-
                 parametros[10] = new NpgsqlParameter();
                 parametros[10].NpgsqlDbType = NpgsqlDbType.Integer;
                 parametros[10].ParameterName = "@id_vehiculo";
                 parametros[10].Value = vehiculo.Id;
 
                 dsetVehiculo = this.conexion.ejecutarDataSetSQL(sql, parametros);
+
+                if (this.conexion.IsError)
+                {
+                    this.error = true;
+                    this.errorMsg = this.conexion.ErrorDescripcion;
+                }
             }
             catch (Exception e)
             {
-                error = false;
+                error = true;
                 this.errorMsg = e.Message;
             }
             return error;
@@ -214,17 +211,17 @@ namespace Datos
                 parametros[0].NpgsqlDbType = NpgsqlDbType.Integer;
                 parametros[0].ParameterName = "@id_vehiculo";
                 parametros[0].Value = pVehiculo.Id;
-
                 dsetMarca = this.conexion.ejecutarDataSetSQL(sql, parametros);
+
                 if (this.conexion.IsError)
                 {
-                    this.error = false;
+                    this.error = true;
                     this.errorMsg = this.conexion.ErrorDescripcion;
                 }
             }
             catch (Exception e)
             {
-                this.error = false;
+                this.error = true;
                 this.errorMsg = e.Message;
             }
             return this.error;
@@ -254,6 +251,12 @@ namespace Datos
                 Vehiculo oVehiculo = new Vehiculo(Int32.Parse(tupla["id_vehiculo"].ToString()), tupla["placa"].ToString(), Int32.Parse(tupla["anno"].ToString()), Int32.Parse(tupla["cilindraje"].ToString()), Int32.Parse(tupla["numero_motor"].ToString()), Int32.Parse(tupla["numero_chazis"].ToString()), tupla["combustible"].ToString(), tupla["estado"].ToString(), oMarca, oCliente, oTipo);
                 vehiculos.Add(oVehiculo);
             }
+
+            if (this.conexion.IsError)
+            {
+                this.error = true;
+                this.errorMsg = this.conexion.ErrorDescripcion;
+            }
             return vehiculos;
         }
 
@@ -280,6 +283,11 @@ namespace Datos
                 TipoVehiculo oTipo = new TipoVehiculo(Int32.Parse(tupla["id_tipo"].ToString()), tupla["tipo"].ToString());
                 Vehiculo oVehiculo = new Vehiculo(Int32.Parse(tupla["id_vehiculo"].ToString()), tupla["placa"].ToString(), Int32.Parse(tupla["anno"].ToString()), Int32.Parse(tupla["cilindraje"].ToString()), Int32.Parse(tupla["numero_motor"].ToString()), Int32.Parse(tupla["numero_chazis"].ToString()), tupla["combustible"].ToString(), tupla["estado"].ToString(), oMarca, oCliente, oTipo);
                 vehiculos.Add(oVehiculo);
+            }
+            if (this.conexion.IsError)
+            {
+                this.error = true;
+                this.errorMsg = this.conexion.ErrorDescripcion;
             }
             return vehiculos;
         }

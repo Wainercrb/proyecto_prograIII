@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using Datos;
 using Logica;
 using Vista;
-using Vista;
+
 
 namespace Vista
 
@@ -81,6 +81,17 @@ namespace Vista
         private void registroCatalogoRepuestosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmRepuestos frm = new FrmRepuestos();
+            frm.ShowDialog();
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void registroCatalogoReparacionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RegistroServicio frm = new RegistroServicio();
             frm.ShowDialog();
         }
     }

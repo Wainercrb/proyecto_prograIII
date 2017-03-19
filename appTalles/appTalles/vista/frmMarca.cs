@@ -16,22 +16,21 @@ namespace Vista
     {
 
         private MarcaVehiculo marca;
+        private MarcaD oMarcaD;
         private string marcaAntes;
 
 
         public frmMarca()
         {
             this.marca = new MarcaVehiculo();
+            oMarcaD = new MarcaD();
             InitializeComponent();
             cargarDataGriew();
-            
-
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            MarcaD oMarca = new MarcaD();
-            txtMensaje.Text = "";    
+            txtMensaje.Text = "";
             if (marca.Id > 0)
             {
                 if (!verificarDatos())
@@ -39,7 +38,7 @@ namespace Vista
                     return;
                 }
                 marca.Marca = txtMarca.Text;
-                if (oMarca.editarMarca(marca))
+                if (!oMarcaD.editarMarca(marca))
                 {
                     txtMensaje.Text = "Marca " + marcaAntes + " editada a (" + txtMarca.Text + ") correctamente.";
                     cargarMarcas();
@@ -47,31 +46,43 @@ namespace Vista
                 }
                 else
                 {
-                    txtMensaje.Text = "Error al editar la marca" + oMarca.ErrorMsg;
+                    MessageBox.Show("Error al editar la marca, " + oMarcaD.ErrorMsg, "!Error¡", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
             }
             else
             {
                 MarcaVehiculo marca = new MarcaVehiculo(0, txtMarca.Text);
-                if (!verificarDatos()) {
+                if (!verificarDatos())
+                {
                     return;
                 }
 
-                if (oMarca.agregarMarca(marca))
+                if (!oMarcaD.agregarMarca(marca))
                 {
                     txtMensaje.Text = "Marca " + txtMarca.Text + " agregada.";
                     cargarMarcas();
-                }else {
-
-                    txtMensaje.Text = "Error al agregar la marca, " + oMarca.ErrorMsg;
-                }               
+                }
+                else
+                {
+                    MessageBox.Show("Error al guarda la marca, "+ oMarcaD.ErrorMsg, "!Error¡", MessageBoxButtons.OK,MessageBoxIcon.Error);
+                }
             }
 
-            marca = new MarcaVehiculo();
-            txtMarca.Text = "";
+            limpiarDatos();
         }
 
+        private void Editar(object sender, EventArgs e)
+        {
+            txtMensaje.Text = "";
+            if (this.grdMarcas.Rows.Count > 0)
+            {
+                int fila = this.grdMarcas.CurrentRow.Index;
+                marca.Id = Int32.Parse(this.grdMarcas[0, fila].Value.ToString());
+                txtMarca.Text = this.grdMarcas[1, fila].Value.ToString();
+                marcaAntes = this.grdMarcas[1, fila].Value.ToString();           
+            }
+        }
         private void btnRefrescar_Click(object sender, EventArgs e)
         {
             cargarMarcas();
@@ -80,7 +91,7 @@ namespace Vista
         private void btnElininar_Click(object sender, EventArgs e)
         {
             txtMensaje.Text = "";
-            MarcaD pMarca = new MarcaD();
+
             if (this.grdMarcas.Rows.Count > 0)
             {
                 DialogResult respuesta = MessageBox.Show("¿Está seguro de borrar?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -88,35 +99,15 @@ namespace Vista
                 {
                     int fila = this.grdMarcas.CurrentRow.Index;
                     MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(this.grdMarcas[0, fila].Value.ToString()), this.grdMarcas[1, fila].Value.ToString());
-
-
-                    if (pMarca.borrarMarca(oMarca))
+                    if (!oMarcaD.borrarMarca(oMarca))
                     {
                         txtMensaje.Text = "Marca eliminada correctamente";
                         cargarMarcas();
                     }
-                    else {
-
-                        txtMensaje.Text = "Error al eliminar la marca, " + pMarca.ErrorMsg;
-
-                    }                 
-                }
-            }
-        }
-
-        private void btnEditar_Click(object sender, EventArgs e)
-        {
-            txtMensaje.Text = "";
-            if (this.grdMarcas.Rows.Count > 0)
-            {
-                DialogResult respuesta = MessageBox.Show("¿Está seguro de editar esta marca?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (respuesta == DialogResult.Yes)
-                {
-                    marca = new MarcaVehiculo();
-                    int fila = this.grdMarcas.CurrentRow.Index;
-                    marca = new MarcaVehiculo(Int32.Parse(this.grdMarcas[0, fila].Value.ToString()), txtMarca.Text);
-                    txtMarca.Text = this.grdMarcas[1, fila].Value.ToString();
-                    marcaAntes = this.grdMarcas[1, fila].Value.ToString();
+                    else
+                    {
+                        MessageBox.Show("Error al eliminar el marca, " + oMarcaD.ErrorMsg, "!Error¡", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
@@ -126,9 +117,7 @@ namespace Vista
             if ((int)e.KeyChar == (int)Keys.Enter)
             {
                 txtMensaje.Text = "";
-                MarcaD oMarca = new MarcaD();
-                List<MarcaVehiculo> lsMarca = oMarca.buscarMarcas(txtBuscar.Text);
-
+                List<MarcaVehiculo> lsMarca = oMarcaD.buscarMarcas(txtBuscar.Text);
                 txtCantidadRegistros.Text = "" + lsMarca.Count();
                 if (lsMarca.Count() <= 0)
                 {
@@ -136,7 +125,7 @@ namespace Vista
                 }
                 this.grdMarcas.DataSource = lsMarca;
             }
-        }       
+        }
 
         private bool verificarDatos()
         {
@@ -149,16 +138,13 @@ namespace Vista
         }
         private void limpiarDatos()
         {
-
             txtBuscar.Text = "";
             txtMarca.Text = "";
             txtCantidadRegistros.Text = "";
-            txtMensaje.Text = "";
-
+            marca = new MarcaVehiculo();
         }
         private void cargarMarcas()
         {
-            MarcaD oMarcaD = new MarcaD();
             List<MarcaVehiculo> lsMarcas = oMarcaD.obtenerMarcas();
 
             txtCantidadRegistros.Text = "" + lsMarcas.Count();
@@ -170,15 +156,18 @@ namespace Vista
         }
         private void cargarDataGriew()
         {
-            this.grdMarcas.Columns["Id"].Visible = false;
+            this.grdMarcas.Columns["Id"].Width = 50;
             this.grdMarcas.Columns["MarcaVehiculo"].Width = 225;
-
-
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             limpiarDatos();
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

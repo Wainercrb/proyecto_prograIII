@@ -69,10 +69,10 @@
             // txtUsuario
             // 
             this.txtUsuario.AccessibleRole = System.Windows.Forms.AccessibleRole.TitleBar;
-            this.txtUsuario.Location = new System.Drawing.Point(113, 27);
+            this.txtUsuario.Location = new System.Drawing.Point(131, 27);
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.ReadOnly = true;
-            this.txtUsuario.Size = new System.Drawing.Size(135, 20);
+            this.txtUsuario.Size = new System.Drawing.Size(98, 20);
             this.txtUsuario.TabIndex = 16;
             // 
             // label1
@@ -100,7 +100,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(296, 204);
+            this.ClientSize = new System.Drawing.Size(296, 193);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtUsuario);

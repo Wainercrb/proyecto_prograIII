@@ -36,18 +36,17 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnSalir = new System.Windows.Forms.Button();
             this.grdTipos = new System.Windows.Forms.DataGridView();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tipoVehiculo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.txtMensaje = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnEliminar = new System.Windows.Forms.Button();
-            this.btnEditar = new System.Windows.Forms.Button();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
             this.txtTipo = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tipoVehiculo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdTipos)).BeginInit();
@@ -133,18 +132,7 @@
             this.grdTipos.Name = "grdTipos";
             this.grdTipos.Size = new System.Drawing.Size(277, 218);
             this.grdTipos.TabIndex = 0;
-            // 
-            // Id
-            // 
-            this.Id.DataPropertyName = "Id";
-            this.Id.HeaderText = "Id";
-            this.Id.Name = "Id";
-            // 
-            // tipoVehiculo
-            // 
-            this.tipoVehiculo.DataPropertyName = "Tipo";
-            this.tipoVehiculo.HeaderText = "Tipo Vehículo";
-            this.tipoVehiculo.Name = "tipoVehiculo";
+            this.grdTipos.DoubleClick += new System.EventHandler(this.Editar);
             // 
             // groupBox1
             // 
@@ -152,7 +140,6 @@
             this.groupBox1.Controls.Add(this.txtMensaje);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.btnEliminar);
-            this.groupBox1.Controls.Add(this.btnEditar);
             this.groupBox1.Controls.Add(this.btnActualizar);
             this.groupBox1.Controls.Add(this.btnAgregar);
             this.groupBox1.Controls.Add(this.txtTipo);
@@ -193,31 +180,21 @@
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(127, 62);
+            this.btnEliminar.Location = new System.Drawing.Point(98, 62);
             this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(73, 23);
+            this.btnEliminar.Size = new System.Drawing.Size(83, 23);
             this.btnEliminar.TabIndex = 5;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
-            // btnEditar
-            // 
-            this.btnEditar.Location = new System.Drawing.Point(60, 62);
-            this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(61, 23);
-            this.btnEditar.TabIndex = 4;
-            this.btnEditar.Text = "Editar";
-            this.btnEditar.UseVisualStyleBackColor = true;
-            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
-            // 
             // btnActualizar
             // 
             this.btnActualizar.Location = new System.Drawing.Point(5, 62);
             this.btnActualizar.Name = "btnActualizar";
-            this.btnActualizar.Size = new System.Drawing.Size(49, 23);
+            this.btnActualizar.Size = new System.Drawing.Size(71, 23);
             this.btnActualizar.TabIndex = 3;
-            this.btnActualizar.Text = "Actualizar";
+            this.btnActualizar.Text = "Refrescar";
             this.btnActualizar.UseVisualStyleBackColor = true;
             this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             // 
@@ -247,6 +224,18 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Tipo vehículo:";
             // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "Código";
+            this.Id.Name = "Id";
+            // 
+            // tipoVehiculo
+            // 
+            this.tipoVehiculo.DataPropertyName = "Tipo";
+            this.tipoVehiculo.HeaderText = "Tipo Vehículo";
+            this.tipoVehiculo.Name = "tipoVehiculo";
+            // 
             // FrmTipo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -256,7 +245,7 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "FrmTipo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Tipo de vehículo";
+            this.Text = "Tipo vehículo";
             this.tabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
@@ -274,7 +263,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView grdTipos;
         private System.Windows.Forms.Button btnSalir;
-        private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.Button btnActualizar;
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.TextBox txtTipo;

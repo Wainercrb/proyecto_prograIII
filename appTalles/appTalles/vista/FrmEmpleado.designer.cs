@@ -109,7 +109,7 @@
             this.groupBox1.Size = new System.Drawing.Size(269, 482);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Actualización marcas";
+            this.groupBox1.Text = "Actualización empleado:";
             // 
             // btnLimpiar
             // 
@@ -307,7 +307,7 @@
             this.rbmecanico.Size = new System.Drawing.Size(71, 17);
             this.rbmecanico.TabIndex = 0;
             this.rbmecanico.TabStop = true;
-            this.rbmecanico.Text = "mecanico";
+            this.rbmecanico.Text = "mecánico";
             this.rbmecanico.UseVisualStyleBackColor = true;
             // 
             // txtApellido
@@ -340,7 +340,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(55, 13);
             this.label5.TabIndex = 9;
-            this.label5.Text = "Direccion:";
+            this.label5.Text = "Dirección:";
             // 
             // label1
             // 
@@ -547,7 +547,7 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "FrmEmpleado";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "0";
+            this.Text = "Empleado";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox4.ResumeLayout(false);

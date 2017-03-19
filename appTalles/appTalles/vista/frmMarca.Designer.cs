@@ -34,7 +34,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtMarca = new System.Windows.Forms.TextBox();
             this.btnAgregar = new System.Windows.Forms.Button();
-            this.btnEditar = new System.Windows.Forms.Button();
             this.btnElininar = new System.Windows.Forms.Button();
             this.txtMensaje = new System.Windows.Forms.TextBox();
             this.btnRefrescar = new System.Windows.Forms.Button();
@@ -62,20 +61,24 @@
             this.MarcaVehiculo});
             this.grdMarcas.Location = new System.Drawing.Point(-1, 28);
             this.grdMarcas.Name = "grdMarcas";
+            this.grdMarcas.ReadOnly = true;
             this.grdMarcas.Size = new System.Drawing.Size(269, 203);
             this.grdMarcas.TabIndex = 0;
+            this.grdMarcas.DoubleClick += new System.EventHandler(this.Editar);
             // 
             // Id
             // 
             this.Id.DataPropertyName = "Id";
-            this.Id.HeaderText = "Id";
+            this.Id.HeaderText = "Código";
             this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
             // 
             // MarcaVehiculo
             // 
             this.MarcaVehiculo.DataPropertyName = "Marca";
             this.MarcaVehiculo.HeaderText = "Marca del vehiculo";
             this.MarcaVehiculo.Name = "MarcaVehiculo";
+            this.MarcaVehiculo.ReadOnly = true;
             // 
             // label1
             // 
@@ -103,21 +106,11 @@
             this.btnAgregar.UseVisualStyleBackColor = true;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
-            // btnEditar
-            // 
-            this.btnEditar.Location = new System.Drawing.Point(61, 85);
-            this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(62, 23);
-            this.btnEditar.TabIndex = 4;
-            this.btnEditar.Text = "Editar";
-            this.btnEditar.UseVisualStyleBackColor = true;
-            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
-            // 
             // btnElininar
             // 
-            this.btnElininar.Location = new System.Drawing.Point(129, 85);
+            this.btnElininar.Location = new System.Drawing.Point(91, 85);
             this.btnElininar.Name = "btnElininar";
-            this.btnElininar.Size = new System.Drawing.Size(57, 23);
+            this.btnElininar.Size = new System.Drawing.Size(82, 23);
             this.btnElininar.TabIndex = 5;
             this.btnElininar.Text = "Eliminar";
             this.btnElininar.UseVisualStyleBackColor = true;
@@ -135,9 +128,9 @@
             // 
             // btnRefrescar
             // 
-            this.btnRefrescar.Location = new System.Drawing.Point(6, 85);
+            this.btnRefrescar.Location = new System.Drawing.Point(9, 85);
             this.btnRefrescar.Name = "btnRefrescar";
-            this.btnRefrescar.Size = new System.Drawing.Size(49, 23);
+            this.btnRefrescar.Size = new System.Drawing.Size(65, 23);
             this.btnRefrescar.TabIndex = 7;
             this.btnRefrescar.Text = "Refrescar";
             this.btnRefrescar.UseVisualStyleBackColor = true;
@@ -177,6 +170,7 @@
             this.btnSalir.TabIndex = 5;
             this.btnSalir.Text = "Salir";
             this.btnSalir.UseVisualStyleBackColor = true;
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // txtCantidadRegistros
             // 
@@ -222,13 +216,12 @@
             this.groupBox1.Controls.Add(this.btnRefrescar);
             this.groupBox1.Controls.Add(this.btnElininar);
             this.groupBox1.Controls.Add(this.btnAgregar);
-            this.groupBox1.Controls.Add(this.btnEditar);
             this.groupBox1.Location = new System.Drawing.Point(5, 148);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(267, 152);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Actualización marcas";
+            this.groupBox1.Text = "Actualización marca";
             // 
             // btnLimpiar
             // 
@@ -258,7 +251,7 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "frmMarca";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Marca";
+            this.Text = "Marca vehículo";
             ((System.ComponentModel.ISupportInitialize)(this.grdMarcas)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -275,7 +268,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtMarca;
         private System.Windows.Forms.Button btnAgregar;
-        private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.Button btnElininar;
         private System.Windows.Forms.TextBox txtMensaje;
         private System.Windows.Forms.Button btnRefrescar;

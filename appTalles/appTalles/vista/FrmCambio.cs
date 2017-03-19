@@ -25,7 +25,6 @@ namespace Vista
             InitializeComponent();
             pEmpleado = new EmpledoD();
             txtUsuario.Text = empleado.Usuario;
-
         }
 
         public FrmCambio(Empleado empleado)
@@ -40,11 +39,8 @@ namespace Vista
         {
             ingresar();
         }
-
-   
-
-        private void ingresar() {
-
+        private void ingresar()
+        {
             string nueva = "";
 
             if (btnConfirmar.Text == "CONFIRMAR")
@@ -60,9 +56,7 @@ namespace Vista
                     MessageBox.Show("Contraseña incorrecta");
                     txtActual.Text = "";
                 }
-
                 return;
-
             }
 
             if (btnConfirmar.Text == "CAMBIAR")
@@ -73,14 +67,18 @@ namespace Vista
                     txtActual.Text = "";
                     return;
                 }
-
+                if (txtActual.Text == empleado.Contrasenna)
+                {
+                    MessageBox.Show("La contraseña debe ser diferente a la anterior", "!Error contraseñas iguales¡",MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtActual.Text = "";
+                    return;
+                }
                 nueva = txtActual.Text;
                 contrasenaAntes = txtActual.Text;
                 txtActual.Text = "";
                 txtInformacion.Text = "INGRESE LA VERIFICACIÓN.";
                 btnConfirmar.Text = "VERIFICAR";
                 return;
-
             }
 
             if (btnConfirmar.Text == "VERIFICAR")
@@ -97,11 +95,8 @@ namespace Vista
                     }
                     else
                     {
-
                         MessageBox.Show("Error al actualizar la contraseña " + pEmpleado.ErrorMsg);
-
                     }
-
                 }
                 else
                 {
@@ -113,7 +108,6 @@ namespace Vista
 
                 return;
             }
-
         }
 
         private void ingresarEnte(object sender, KeyPressEventArgs e)

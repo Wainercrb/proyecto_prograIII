@@ -47,7 +47,7 @@ namespace Datos
             }
             catch (Exception e)
             {
-                this.error = false;
+                this.error = true;
                 this.errorMsg = e.Message;
             }
 
@@ -69,10 +69,16 @@ namespace Datos
                 parametros[0].Value = pTipo.Tipo;
                 dsetTipo = this.conexion.ejecutarDataSetSQL(sql, parametros);
 
+                if (this.conexion.IsError)
+                {
+                    this.errorMsg = this.conexion.ErrorDescripcion;
+                    this.error = true;
+                }
+
             }
             catch (Exception e)
             {
-                this.error = false;
+                this.error = true;
                 this.errorMsg = e.Message;
             }
             return this.error;
@@ -92,11 +98,15 @@ namespace Datos
                 parametros[0].ParameterName = "@id_tipo";
                 parametros[0].Value = pTipo.Id;
                 dsetMarca = this.conexion.ejecutarDataSetSQL(sql, parametros);
-
+                if (this.conexion.IsError)
+                {
+                    this.errorMsg = this.conexion.ErrorDescripcion;
+                    this.error = true;
+                }
             }
             catch (Exception e)
             {
-                this.error = false;
+                this.error = true;
                 this.errorMsg = e.Message;
             }
             return this.error;
@@ -113,8 +123,6 @@ namespace Datos
                 parametros[0].NpgsqlDbType = NpgsqlDbType.Varchar;
                 parametros[0].ParameterName = "@tipo";
                 parametros[0].Value = pTipo.Tipo;
-
-
                 parametros[1] = new NpgsqlParameter();
                 parametros[1].NpgsqlDbType = NpgsqlDbType.Integer;
                 parametros[1].ParameterName = "@id_tipo";
@@ -122,17 +130,17 @@ namespace Datos
 
                 DataSet dsetMarca;
                 dsetMarca = this.conexion.ejecutarDataSetSQL(sql, parametros);
-                this.conexion.ejecutarSQL(sql, parametros);
+
                 if (this.conexion.IsError)
                 {
-                    this.error = false;
+                    this.error = true;
                     this.errorMsg = this.conexion.ErrorDescripcion;
                 }
 
             }
             catch (Exception e)
             {
-                this.error = false;
+                this.error = true;
                 this.errorMsg = e.Message;
             }
 
@@ -155,10 +163,15 @@ namespace Datos
                     TipoVehiculo oTipo = new TipoVehiculo(Int32.Parse(tupla["id_tipo"].ToString()), tupla["tipo"].ToString());
                     tipos.Add(oTipo);
                 }
+                if (this.conexion.IsError)
+                {
+                    this.errorMsg = this.conexion.ErrorDescripcion;
+                    this.error = true;
+                }
             }
             catch (Exception e)
             {
-                this.error = false;
+                this.error = true;
                 this.errorMsg = e.Message;
             }
 
@@ -187,10 +200,15 @@ namespace Datos
                     TipoVehiculo oMarca = new TipoVehiculo(Int32.Parse(tupla["id_tipo"].ToString()), tupla["tipo"].ToString());
                     tipos.Add(oMarca);
                 }
+                if (this.conexion.IsError)
+                {
+                    this.errorMsg = this.conexion.ErrorDescripcion;
+                    this.error = true;
+                }
             }
             catch (Exception e)
             {
-                this.error = false;
+                this.error = true;
                 this.errorMsg = e.Message;
             }
 

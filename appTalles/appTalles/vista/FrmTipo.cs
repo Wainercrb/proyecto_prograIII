@@ -15,17 +15,18 @@ namespace Vista
     public partial class FrmTipo : Form
     {
         private TipoVehiculo tipo;
+        private TipoD oTipoD;
         private string tipoAntes;
         public FrmTipo()
         {
             this.tipo = new TipoVehiculo();
+            oTipoD = new TipoD();
             InitializeComponent();
             cargarDataGriw();
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            TipoD oTipo = new TipoD();
             txtMensaje.Text = "";
             if (!verificarDatos())
             {
@@ -35,7 +36,7 @@ namespace Vista
             if (tipo.Id > 0)
             {
                 tipo.Tipo = txtTipo.Text;
-                if (!oTipo.editarTipos(tipo))
+                if (!oTipoD.editarTipos(tipo))
                 {
                     txtMensaje.Text = "Tipo " + tipoAntes + " editada a (" + txtTipo.Text + ") correctamente.";
                     cargarTipos();
@@ -43,33 +44,44 @@ namespace Vista
                 else
                 {
                     txtMensaje.Text = "Error al editar el tipo de vehiculo." + "\n" +
-                        "Detalles: " + oTipo.ErrorMsg;
+                        "Detalles: " + oTipoD.ErrorMsg;
                 }
             }
             else
             {
                 TipoVehiculo tipo = new TipoVehiculo(0, txtTipo.Text);
-                if (!oTipo.agregarTipo(tipo))
+                if (!oTipoD.agregarTipo(tipo))
                 {
-                    txtMensaje.Text = "Marca " + txtTipo.Text + " agregada.";
+                    txtMensaje.Text = "Tipo de vehículo  " + txtTipo.Text + " agregado.";
                     txtTipo.Text = "";
                     cargarTipos();
                 }
                 else
                 {
-                    txtMensaje.Text = "Error al agregar el tipo de vehículo." + "\n" +
-                        "Detalles: " + oTipo.ErrorMsg;
+                    MessageBox.Show("Error al eliminar el tipo de vehículo, " + oTipoD.ErrorMsg, "!Error¡", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
             tipo = new TipoVehiculo();
             txtTipo.Text = "";
         }
+
+
+
+        private void Editar(object sender, EventArgs e)
+        {
+            txtMensaje.Text = "";
+            if (this.grdTipos.Rows.Count > 0)
+            {
+                int fila = this.grdTipos.CurrentRow.Index;
+                tipo.Id = Int32.Parse(this.grdTipos[0, fila].Value.ToString());
+                txtTipo.Text = this.grdTipos[1, fila].Value.ToString();
+                tipoAntes = this.grdTipos[1, fila].Value.ToString();
+            }
+        }
         private void cargarTipos()
         {
-            TipoD oTipoD = new TipoD();
             List<TipoVehiculo> lsTipos = oTipoD.obtenerTipos();
-
             txtCantidadRegistros.Text = "" + lsTipos.Count();
             if (lsTipos.ToString() == "")
             {
@@ -81,7 +93,6 @@ namespace Vista
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             txtMensaje.Text = "";
-            TipoD pTipo = new TipoD();
             if (this.grdTipos.Rows.Count > 0)
             {
                 DialogResult respuesta = MessageBox.Show("¿Está seguro de borrar?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -89,42 +100,19 @@ namespace Vista
                 {
                     int fila = this.grdTipos.CurrentRow.Index;
                     TipoVehiculo oTipo = new TipoVehiculo(Int32.Parse(this.grdTipos[0, fila].Value.ToString()), this.grdTipos[1, fila].Value.ToString());
-                    if (!pTipo.borrarTipo(oTipo))
+                    if (!oTipoD.borrarTipo(oTipo))
                     {
-                        txtMensaje.Text = "Marca eliminada correctamente";
+                        txtMensaje.Text = "Tipo de vehiculo eliminado correctamente";
                         cargarTipos();
 
                     }
-                    else {
-
-                        txtMensaje.Text = "Error al eliminar el tipo de vehículo."+"\n"
-                            +"Detalles: "+ pTipo.ErrorMsg;
+                    else
+                    {
+                        MessageBox.Show("Error al eliminar este tipo de vehículo, " + oTipoD.ErrorMsg, "¡Error al eliminar!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
         }
-
-        private void btnEditar_Click(object sender, EventArgs e)
-        {
-
-            txtMensaje.Text = "";
-            if (this.grdTipos.Rows.Count > 0)
-            {
-                DialogResult respuesta = MessageBox.Show("¿Está seguro de editar este tipo?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (respuesta == DialogResult.Yes)
-                {
-
-                    int fila = this.grdTipos.CurrentRow.Index;
-                    tipo = new TipoVehiculo();
-                    tipo = new TipoVehiculo(Int32.Parse(this.grdTipos[0, fila].Value.ToString()), txtTipo.Text);
-                    txtTipo.Text = this.grdTipos[1, fila].Value.ToString();
-                    tipoAntes = this.grdTipos[1, fila].Value.ToString();
-
-
-                }
-            }
-        }
-
         private void btnActualizar_Click(object sender, EventArgs e)
         {
             cargarTipos();
@@ -140,9 +128,7 @@ namespace Vista
             if ((int)e.KeyChar == (int)Keys.Enter)
             {
                 txtMensaje.Text = "";
-                TipoD oTipo = new TipoD();
-                List<TipoVehiculo> lsTipo = oTipo.buscarTipos(txtBuscar.Text);
-
+                List<TipoVehiculo> lsTipo = oTipoD.buscarTipos(txtBuscar.Text);
                 txtCantidadRegistros.Text = "" + lsTipo.Count();
                 if (lsTipo.Count() <= 0)
                 {
@@ -173,9 +159,10 @@ namespace Vista
             txtTipo.Text = "";
         }
 
-        private void cargarDataGriw() {
+        private void cargarDataGriw()
+        {
 
-            this.grdTipos.Columns["Id"].Visible = false;
+            this.grdTipos.Columns["Id"].Width = 60;
             this.grdTipos.Columns["tipoVehiculo"].Width = 240;
 
         }

@@ -39,7 +39,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnAgregar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
-            this.btnEditar = new System.Windows.Forms.Button();
+            this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnRefrescar = new System.Windows.Forms.Button();
             this.txtMensaje = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -57,6 +57,14 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.TelefonoCelular = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TelefonoOficina = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TelefonoCasa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ApellidoMaterno = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ApellidoPaterno = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cedula = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdClientes)).BeginInit();
@@ -69,7 +77,7 @@
             this.tabControl1.Location = new System.Drawing.Point(329, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(686, 486);
+            this.tabControl1.Size = new System.Drawing.Size(483, 486);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -83,23 +91,24 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(678, 460);
+            this.tabPage1.Size = new System.Drawing.Size(475, 460);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Listado de clientes";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // btnSalir
             // 
-            this.btnSalir.Location = new System.Drawing.Point(530, 391);
+            this.btnSalir.Location = new System.Drawing.Point(321, 414);
             this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(75, 23);
+            this.btnSalir.Size = new System.Drawing.Size(146, 23);
             this.btnSalir.TabIndex = 5;
             this.btnSalir.Text = "Salir";
             this.btnSalir.UseVisualStyleBackColor = true;
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // txtCantidadRegistros
             // 
-            this.txtCantidadRegistros.Location = new System.Drawing.Point(177, 393);
+            this.txtCantidadRegistros.Location = new System.Drawing.Point(176, 417);
             this.txtCantidadRegistros.Name = "txtCantidadRegistros";
             this.txtCantidadRegistros.ReadOnly = true;
             this.txtCantidadRegistros.Size = new System.Drawing.Size(100, 20);
@@ -108,7 +117,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(48, 396);
+            this.label2.Location = new System.Drawing.Point(47, 419);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(109, 13);
             this.label2.TabIndex = 3;
@@ -117,10 +126,22 @@
             // grdClientes
             // 
             this.grdClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdClientes.Location = new System.Drawing.Point(4, 60);
+            this.grdClientes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Id,
+            this.Nombre,
+            this.Cedula,
+            this.ApellidoPaterno,
+            this.ApellidoMaterno,
+            this.TelefonoCasa,
+            this.TelefonoOficina,
+            this.TelefonoCelular});
+            this.grdClientes.Location = new System.Drawing.Point(0, 60);
+            this.grdClientes.MultiSelect = false;
             this.grdClientes.Name = "grdClientes";
-            this.grdClientes.Size = new System.Drawing.Size(671, 307);
+            this.grdClientes.ReadOnly = true;
+            this.grdClientes.Size = new System.Drawing.Size(484, 349);
             this.grdClientes.TabIndex = 2;
+            this.grdClientes.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Editar);
             // 
             // textBox1
             // 
@@ -142,7 +163,7 @@
             // 
             this.groupBox1.Controls.Add(this.btnAgregar);
             this.groupBox1.Controls.Add(this.btnEliminar);
-            this.groupBox1.Controls.Add(this.btnEditar);
+            this.groupBox1.Controls.Add(this.btnLimpiar);
             this.groupBox1.Controls.Add(this.btnRefrescar);
             this.groupBox1.Controls.Add(this.txtMensaje);
             this.groupBox1.Controls.Add(this.label10);
@@ -179,7 +200,7 @@
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(230, 251);
+            this.btnEliminar.Location = new System.Drawing.Point(130, 251);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(75, 23);
             this.btnEliminar.TabIndex = 18;
@@ -187,15 +208,15 @@
             this.btnEliminar.UseVisualStyleBackColor = true;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
-            // btnEditar
+            // btnLimpiar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(133, 251);
-            this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(75, 23);
-            this.btnEditar.TabIndex = 17;
-            this.btnEditar.Text = "Editar";
-            this.btnEditar.UseVisualStyleBackColor = true;
-            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
+            this.btnLimpiar.Location = new System.Drawing.Point(230, 251);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(62, 23);
+            this.btnLimpiar.TabIndex = 17;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // btnRefrescar
             // 
@@ -336,15 +357,72 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "Cédula:";
             // 
+            // TelefonoCelular
+            // 
+            this.TelefonoCelular.DataPropertyName = "TelefonoCelular";
+            this.TelefonoCelular.HeaderText = "Tel Celular";
+            this.TelefonoCelular.Name = "TelefonoCelular";
+            this.TelefonoCelular.ReadOnly = true;
+            // 
+            // TelefonoOficina
+            // 
+            this.TelefonoOficina.DataPropertyName = "TelefonoOficina";
+            this.TelefonoOficina.HeaderText = "Tel Oficina";
+            this.TelefonoOficina.Name = "TelefonoOficina";
+            this.TelefonoOficina.ReadOnly = true;
+            // 
+            // TelefonoCasa
+            // 
+            this.TelefonoCasa.DataPropertyName = "TelefonoCasa";
+            this.TelefonoCasa.HeaderText = "Tel Casa";
+            this.TelefonoCasa.Name = "TelefonoCasa";
+            this.TelefonoCasa.ReadOnly = true;
+            // 
+            // ApellidoMaterno
+            // 
+            this.ApellidoMaterno.DataPropertyName = "ApellidoMaterno";
+            this.ApellidoMaterno.HeaderText = "Apellido Materno";
+            this.ApellidoMaterno.Name = "ApellidoMaterno";
+            this.ApellidoMaterno.ReadOnly = true;
+            // 
+            // ApellidoPaterno
+            // 
+            this.ApellidoPaterno.DataPropertyName = "ApellidoPaterno";
+            this.ApellidoPaterno.HeaderText = "Apellido Paterno";
+            this.ApellidoPaterno.Name = "ApellidoPaterno";
+            this.ApellidoPaterno.ReadOnly = true;
+            // 
+            // Cedula
+            // 
+            this.Cedula.DataPropertyName = "Cedula";
+            this.Cedula.HeaderText = "Cédula";
+            this.Cedula.Name = "Cedula";
+            this.Cedula.ReadOnly = true;
+            // 
+            // Nombre
+            // 
+            this.Nombre.DataPropertyName = "Nombre";
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.Name = "Nombre";
+            this.Nombre.ReadOnly = true;
+            // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "Id";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            // 
             // frmCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1013, 486);
+            this.ClientSize = new System.Drawing.Size(810, 486);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.tabControl1);
             this.Name = "frmCliente";
-            this.Text = "frmCliente";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Cliente";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -367,7 +445,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnEliminar;
-        private System.Windows.Forms.Button btnEditar;
+        private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button btnRefrescar;
         private System.Windows.Forms.TextBox txtMensaje;
         private System.Windows.Forms.Label label10;
@@ -386,5 +464,13 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnAgregar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Cedula;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ApellidoPaterno;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ApellidoMaterno;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TelefonoCasa;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TelefonoOficina;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TelefonoCelular;
     }
 }

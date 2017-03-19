@@ -47,7 +47,7 @@ namespace Datos
             }
             catch (Exception e)
             {
-                this.error = false;
+                this.error = true;
                 this.errorMsg = e.Message;
             }
 
@@ -57,7 +57,7 @@ namespace Datos
         public bool agregarMarca(MarcaVehiculo pMarca)
         {
             DataSet dsetMarca;
-            this.error = true;
+            limpiarError();
             try
             {
                 string sql = "insert into marca(marca) " +
@@ -68,10 +68,15 @@ namespace Datos
                 parametros[0].ParameterName = "@marca";
                 parametros[0].Value = pMarca.Marca;
                 dsetMarca = this.conexion.ejecutarDataSetSQL(sql, parametros);
+                if (this.conexion.IsError)
+                {
+                    this.error = true;
+                    this.errorMsg = this.conexion.ErrorDescripcion;
+                }
             }
             catch (Exception e)
             {
-                this.error = false;
+                this.error = true;
                 this.errorMsg = e.Message;
             }
             return this.error;
@@ -79,8 +84,7 @@ namespace Datos
         }
         public bool borrarMarca(MarcaVehiculo pMarca)
         {
-            this.error = true;
-            this.errorMsg = "";
+            limpiarError();
             try
             {
                 string sql = "delete from marca where marca = @id_marca";
@@ -95,21 +99,20 @@ namespace Datos
                 dsetMarca = this.conexion.ejecutarDataSetSQL(sql, parametros);
                 if (this.conexion.IsError)
                 {
-                    this.error = false;
+                    this.error = true;
                     this.errorMsg = this.conexion.ErrorDescripcion;
                 }
             }
             catch (Exception e)
             {
-                this.error = false;
+                this.error = true;
                 this.errorMsg = e.Message;
             }
             return this.error;
         }
         public bool editarMarca(MarcaVehiculo pMarca)
         {
-            this.error = true;
-            this.errorMsg = "";
+            limpiarError();
             DataSet dsetMarca;
             try
             {
@@ -130,14 +133,14 @@ namespace Datos
 
                 if (this.conexion.IsError)
                 {
-                    this.error = false;
+                    this.error = true;
                     this.errorMsg = this.conexion.ErrorDescripcion;
                 }
 
             }
             catch (Exception e)
             {
-                this.error = false;
+                this.error = true;
                 this.errorMsg = e.Message;
             }
 
@@ -159,10 +162,15 @@ namespace Datos
                     MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(tupla["id_marca"].ToString()), tupla["marca"].ToString());
                     marcas.Add(oMarca);
                 }
+                if (this.conexion.IsError)
+                {
+                    this.error = true;
+                    this.errorMsg = this.conexion.ErrorDescripcion;
+                }
             }
             catch (Exception e)
             {
-                this.error = false;
+                this.error = true;
                 this.errorMsg = e.Message;
             }
 
@@ -192,10 +200,16 @@ namespace Datos
                     MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(tupla["id_marca"].ToString()), tupla["marca"].ToString());
                     marcas.Add(oMarca);
                 }
+
+                if (this.conexion.IsError)
+                {
+                    this.error = true;
+                    this.errorMsg = this.conexion.ErrorDescripcion;
+                }
             }
             catch (Exception e)
             {
-                this.error = false;
+                this.error = true;
                 this.errorMsg = e.Message;
             }
 

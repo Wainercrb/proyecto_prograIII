@@ -116,13 +116,13 @@ namespace Datos
 
                 if (conexion.IsError)
                 {
-                    Error = false;
+                    Error = true;
                     this.ErrorMsg = this.conexion.ErrorDescripcion;
                 }
             }
             catch (Exception e)
             {
-                Error = false;
+                Error = true;
                 ErrorMsg = e.Message;
             }
             return Error;
@@ -152,9 +152,13 @@ namespace Datos
                     pEmpleados.Usuario = tupla["usuario"].ToString();
 
                 }
+
+                if (conexion.IsError)
+                {
+                    Error = true;
+                    this.ErrorMsg = this.conexion.ErrorDescripcion;
+                }
             }
-
-
             catch (Exception e)
             {
                 Error = false;
@@ -183,6 +187,7 @@ namespace Datos
                 empleados.Add(pEmpleados);
 
             }
+
             return empleados;
         }
         public bool borrarEmpleado(Empleado pEmpleado)
@@ -203,13 +208,13 @@ namespace Datos
                 if (conexion.IsError)
                 {
                     errorMsg = this.conexion.ErrorDescripcion;
-                    return false;
+                    return true;
                 }
 
             }
             catch (Exception e)
             {
-                Error = false;
+                Error = true;
                 this.ErrorMsg = e.Message;
             }
             return Error;
@@ -269,13 +274,13 @@ namespace Datos
                 if (conexion.IsError)
                 {
                     errorMsg = this.conexion.ErrorDescripcion;
-                    return false;
+                    return true;
                 }
 
             }
             catch (Exception e)
             {
-                Error = false;
+                Error = true;
                 ErrorMsg = e.Message;
             }
 
@@ -313,7 +318,7 @@ namespace Datos
                 if (conexion.IsError)
                 {
                     ErrorMsg = this.conexion.ErrorDescripcion;
-                    Error = false;
+                    Error = true;
                 }
             }
 
@@ -321,7 +326,7 @@ namespace Datos
 
             catch (Exception e)
             {
-                Error = false;
+                Error = true;
                 ErrorMsg = e.Message;
             }
 
@@ -352,17 +357,16 @@ namespace Datos
                 parametros[2].ParameterName = "@contra";
                 parametros[2].Value = nueva;
 
-
                 this.conexion.ejecutarSQL(sql, parametros);
                 if (this.conexion.IsError)
                 {
-                    Error = false;
+                    Error = true;
                     this.errorMsg = this.conexion.ErrorDescripcion;
                 }
             }
             catch (Exception e)
             {
-                error = false;
+                error = true;
                 errorMsg = e.Message;
             }
 
