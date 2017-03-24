@@ -116,7 +116,7 @@
             this.btnLimpiar.Location = new System.Drawing.Point(203, 418);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(56, 23);
-            this.btnLimpiar.TabIndex = 6;
+            this.btnLimpiar.TabIndex = 10;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
@@ -130,9 +130,9 @@
             this.groupBox4.Location = new System.Drawing.Point(11, 326);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(238, 86);
-            this.groupBox4.TabIndex = 3;
+            this.groupBox4.TabIndex = 6;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Perfil de la emplesa:";
+            this.groupBox4.Text = "Perfil empleado";
             // 
             // label8
             // 
@@ -194,7 +194,7 @@
             this.groupBox3.Location = new System.Drawing.Point(9, 112);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(237, 101);
-            this.groupBox3.TabIndex = 0;
+            this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Teléfonos:";
             // 
@@ -237,7 +237,7 @@
             this.groupBox2.Location = new System.Drawing.Point(15, 274);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(234, 46);
-            this.groupBox2.TabIndex = 2;
+            this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Permiso";
             // 
@@ -272,7 +272,7 @@
             this.grupPuesto.Location = new System.Drawing.Point(12, 221);
             this.grupPuesto.Name = "grupPuesto";
             this.grupPuesto.Size = new System.Drawing.Size(234, 47);
-            this.grupPuesto.TabIndex = 1;
+            this.grupPuesto.TabIndex = 4;
             this.grupPuesto.TabStop = false;
             this.grupPuesto.Text = "Puesto";
             // 
@@ -363,8 +363,8 @@
             this.btnActualizar.Location = new System.Drawing.Point(73, 418);
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Size = new System.Drawing.Size(61, 23);
-            this.btnActualizar.TabIndex = 4;
-            this.btnActualizar.Text = "Actualizar";
+            this.btnActualizar.TabIndex = 8;
+            this.btnActualizar.Text = "Refrescar";
             this.btnActualizar.UseVisualStyleBackColor = true;
             this.btnActualizar.Click += new System.EventHandler(this.btnRefrescar_Click);
             // 
@@ -373,7 +373,7 @@
             this.btnElininar.Location = new System.Drawing.Point(140, 418);
             this.btnElininar.Name = "btnElininar";
             this.btnElininar.Size = new System.Drawing.Size(57, 23);
-            this.btnElininar.TabIndex = 5;
+            this.btnElininar.TabIndex = 9;
             this.btnElininar.Text = "Eliminar";
             this.btnElininar.UseVisualStyleBackColor = true;
             this.btnElininar.Click += new System.EventHandler(this.btnElininar_Click);
@@ -383,7 +383,7 @@
             this.btnAgregar.Location = new System.Drawing.Point(15, 418);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(52, 23);
-            this.btnAgregar.TabIndex = 3;
+            this.btnAgregar.TabIndex = 7;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.UseVisualStyleBackColor = true;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
@@ -499,19 +499,19 @@
             // Direccion
             // 
             this.Direccion.DataPropertyName = "Direccion";
-            this.Direccion.HeaderText = "Direccion";
+            this.Direccion.HeaderText = "Dirección";
             this.Direccion.Name = "Direccion";
             // 
             // TelefonoResidencia
             // 
             this.TelefonoResidencia.DataPropertyName = "TelefonoResidencia";
-            this.TelefonoResidencia.HeaderText = "Tel.Residencia";
+            this.TelefonoResidencia.HeaderText = "Tel. Residencia";
             this.TelefonoResidencia.Name = "TelefonoResidencia";
             // 
             // TelefonoCelular
             // 
             this.TelefonoCelular.DataPropertyName = "TelefonoCelular";
-            this.TelefonoCelular.HeaderText = "Tel.Celular";
+            this.TelefonoCelular.HeaderText = "Tel. Célular";
             this.TelefonoCelular.Name = "TelefonoCelular";
             // 
             // Puesto
@@ -535,7 +535,7 @@
             // Contrasenna
             // 
             this.Contrasenna.DataPropertyName = "Contrasenna";
-            this.Contrasenna.HeaderText = "Contrasenna";
+            this.Contrasenna.HeaderText = "Contraseña";
             this.Contrasenna.Name = "Contrasenna";
             // 
             // FrmEmpleado

@@ -185,20 +185,23 @@ namespace Datos
             List<MarcaVehiculo> marcas = new List<MarcaVehiculo>();
             DataSet dsetMarcas;
 
-            string sql = "select * from marca where marca = " + "'@marca'";
+            string sql = "select * from marca where upper(marca) like upper(@marca)";
             try
             {
                 NpgsqlParameter[] parametros = new NpgsqlParameter[1];
                 parametros[0] = new NpgsqlParameter();
-                parametros[0].NpgsqlDbType = NpgsqlDbType.Varchar;
-                parametros[0].ParameterName = "'@marca'";
-                parametros[0].Value = "'" + valor + "'";
-
+                parametros[0].NpgsqlDbType = NpgsqlDbType.Text;
+                parametros[0].ParameterName = "@marca";
+                parametros[0].Value = valor;
                 dsetMarcas = this.conexion.ejecutarDataSetSQL(sql, parametros);
-                foreach (DataRow tupla in dsetMarcas.Tables[0].Rows)
+
+                if (dsetMarcas.Tables.Count > 0)
                 {
-                    MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(tupla["id_marca"].ToString()), tupla["marca"].ToString());
-                    marcas.Add(oMarca);
+                    foreach (DataRow tupla in dsetMarcas.Tables[0].Rows)
+                    {
+                        MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(tupla["id_marca"].ToString()), tupla["marca"].ToString());
+                        marcas.Add(oMarca);
+                    }
                 }
 
                 if (this.conexion.IsError)

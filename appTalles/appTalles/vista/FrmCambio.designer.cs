@@ -62,6 +62,7 @@
             this.txtActual.Location = new System.Drawing.Point(55, 101);
             this.txtActual.Margin = new System.Windows.Forms.Padding(2);
             this.txtActual.Name = "txtActual";
+            this.txtActual.PasswordChar = '*';
             this.txtActual.Size = new System.Drawing.Size(193, 20);
             this.txtActual.TabIndex = 10;
             this.txtActual.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ingresarEnte);

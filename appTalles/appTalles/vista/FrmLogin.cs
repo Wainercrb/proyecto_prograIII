@@ -18,6 +18,7 @@ namespace Vista
     {
 
         private Empleado empleado;
+        private bool estado = false;
 
         public FrmLogin()
         {
@@ -38,6 +39,12 @@ namespace Vista
                 ingresar();
             }
         }
+
+        internal bool correcto()
+        {
+            return estado;
+        }
+
         private void ingresar()
         {
 
@@ -54,11 +61,13 @@ namespace Vista
                     FrmPrincipal frm = new FrmPrincipal(pEmpleado[i]);
                     frm.ShowDialog();
                     this.Close();
+                    estado = true;
                     return;
+                    
                 }
             }
 
-            MessageBox.Show("Empleado no registrado");
+            MessageBox.Show("Por favor verifique su usuario y contraseña que sean correctos.", "!Error al ingresar¡", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

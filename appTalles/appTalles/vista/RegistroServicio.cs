@@ -139,8 +139,8 @@ namespace Vista
 
 
             this.grdServicios.Columns["Id"].Width = 70;
-            this.grdServicios.Columns["pServicio"].Width = 90;
-            this.grdServicios.Columns["Detalle"].Width = 90;
+            this.grdServicios.Columns["pServicio"].Width = 85;
+            this.grdServicios.Columns["Detalle"].Width = 85;
 
         }
 

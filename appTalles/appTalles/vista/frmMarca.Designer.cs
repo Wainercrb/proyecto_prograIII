@@ -59,10 +59,10 @@
             this.grdMarcas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
             this.MarcaVehiculo});
-            this.grdMarcas.Location = new System.Drawing.Point(-1, 28);
+            this.grdMarcas.Location = new System.Drawing.Point(5, 28);
             this.grdMarcas.Name = "grdMarcas";
             this.grdMarcas.ReadOnly = true;
-            this.grdMarcas.Size = new System.Drawing.Size(269, 203);
+            this.grdMarcas.Size = new System.Drawing.Size(256, 203);
             this.grdMarcas.TabIndex = 0;
             this.grdMarcas.DoubleClick += new System.EventHandler(this.Editar);
             // 
@@ -139,11 +139,11 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Location = new System.Drawing.Point(274, -1);
+            this.tabControl1.Location = new System.Drawing.Point(278, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(277, 301);
-            this.tabControl1.TabIndex = 8;
+            this.tabControl1.Size = new System.Drawing.Size(277, 294);
+            this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
             // 
@@ -157,7 +157,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(269, 275);
+            this.tabPage1.Size = new System.Drawing.Size(269, 268);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Listado de marcas";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -193,7 +193,7 @@
             // 
             this.txtBuscar.Location = new System.Drawing.Point(45, 3);
             this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(220, 20);
+            this.txtBuscar.Size = new System.Drawing.Size(216, 20);
             this.txtBuscar.TabIndex = 0;
             this.txtBuscar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.busquedaMarca);
             // 
@@ -216,10 +216,10 @@
             this.groupBox1.Controls.Add(this.btnRefrescar);
             this.groupBox1.Controls.Add(this.btnElininar);
             this.groupBox1.Controls.Add(this.btnAgregar);
-            this.groupBox1.Location = new System.Drawing.Point(5, 148);
+            this.groupBox1.Location = new System.Drawing.Point(5, 144);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(267, 152);
-            this.groupBox1.TabIndex = 9;
+            this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Actualización marca";
             // 
@@ -246,12 +246,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(549, 302);
+            this.ClientSize = new System.Drawing.Size(558, 298);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.tabControl1);
             this.Name = "frmMarca";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Marca vehículo";
+            this.Text = "Marca";
             ((System.ComponentModel.ISupportInitialize)(this.grdMarcas)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);

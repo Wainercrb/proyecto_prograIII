@@ -144,12 +144,6 @@
     <Compile Include="Vista\FrmTipo.Designer.cs">
       <DependentUpon>FrmTipo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Vista\FrnParametros.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Vista\FrnParametros.Designer.cs">
-      <DependentUpon>FrnParametros.cs</DependentUpon>
-    </Compile>
     <Compile Include="Vista\RegistroServicio.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -191,9 +185,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\FrmTipo.resx">
       <DependentUpon>FrmTipo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Vista\FrnParametros.resx">
-      <DependentUpon>FrnParametros.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\RegistroServicio.resx">
       <DependentUpon>RegistroServicio.cs</DependentUpon>

@@ -35,7 +35,6 @@
             this.txtMensaje = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnEliminar = new System.Windows.Forms.Button();
-            this.btnEditar = new System.Windows.Forms.Button();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
             this.txtServicio = new System.Windows.Forms.TextBox();
@@ -65,23 +64,22 @@
             this.groupBox1.Controls.Add(this.txtMensaje);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.btnEliminar);
-            this.groupBox1.Controls.Add(this.btnEditar);
             this.groupBox1.Controls.Add(this.btnActualizar);
             this.groupBox1.Controls.Add(this.btnAgregar);
             this.groupBox1.Controls.Add(this.txtServicio);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(9, 139);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(318, 215);
+            this.groupBox1.Size = new System.Drawing.Size(271, 215);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Registro Servicios";
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(136, 123);
+            this.btnLimpiar.Location = new System.Drawing.Point(94, 123);
             this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(68, 23);
+            this.btnLimpiar.Size = new System.Drawing.Size(79, 23);
             this.btnLimpiar.TabIndex = 5;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
@@ -89,7 +87,7 @@
             // 
             // txtDetalles
             // 
-            this.txtDetalles.Location = new System.Drawing.Point(90, 76);
+            this.txtDetalles.Location = new System.Drawing.Point(59, 77);
             this.txtDetalles.Name = "txtDetalles";
             this.txtDetalles.Size = new System.Drawing.Size(114, 20);
             this.txtDetalles.TabIndex = 1;
@@ -109,7 +107,7 @@
             this.txtMensaje.Location = new System.Drawing.Point(54, 169);
             this.txtMensaje.Name = "txtMensaje";
             this.txtMensaje.ReadOnly = true;
-            this.txtMensaje.Size = new System.Drawing.Size(238, 20);
+            this.txtMensaje.Size = new System.Drawing.Size(207, 20);
             this.txtMensaje.TabIndex = 7;
             // 
             // label2
@@ -123,7 +121,7 @@
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(217, 123);
+            this.btnEliminar.Location = new System.Drawing.Point(186, 123);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(75, 23);
             this.btnEliminar.TabIndex = 6;
@@ -131,20 +129,11 @@
             this.btnEliminar.UseVisualStyleBackColor = true;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
-            // btnEditar
-            // 
-            this.btnEditar.Location = new System.Drawing.Point(76, 123);
-            this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(52, 23);
-            this.btnEditar.TabIndex = 4;
-            this.btnEditar.Text = "Editar";
-            this.btnEditar.UseVisualStyleBackColor = true;
-            // 
             // btnActualizar
             // 
             this.btnActualizar.Location = new System.Drawing.Point(11, 123);
             this.btnActualizar.Name = "btnActualizar";
-            this.btnActualizar.Size = new System.Drawing.Size(59, 23);
+            this.btnActualizar.Size = new System.Drawing.Size(77, 23);
             this.btnActualizar.TabIndex = 3;
             this.btnActualizar.Text = "Refrescar";
             this.btnActualizar.UseVisualStyleBackColor = true;
@@ -152,7 +141,7 @@
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(217, 73);
+            this.btnAgregar.Location = new System.Drawing.Point(186, 74);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(75, 23);
             this.btnAgregar.TabIndex = 2;
@@ -162,7 +151,7 @@
             // 
             // txtServicio
             // 
-            this.txtServicio.Location = new System.Drawing.Point(90, 33);
+            this.txtServicio.Location = new System.Drawing.Point(59, 34);
             this.txtServicio.Name = "txtServicio";
             this.txtServicio.Size = new System.Drawing.Size(114, 20);
             this.txtServicio.TabIndex = 0;
@@ -179,10 +168,10 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(333, 1);
+            this.tabControl1.Location = new System.Drawing.Point(286, 6);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(313, 353);
+            this.tabControl1.Size = new System.Drawing.Size(313, 348);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage2
@@ -196,7 +185,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(305, 327);
+            this.tabPage2.Size = new System.Drawing.Size(305, 322);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Listado de Servicios";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -280,13 +269,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(647, 358);
+            this.ClientSize = new System.Drawing.Size(601, 358);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.tabControl1);
             this.Name = "RegistroServicio";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Servicios";
-            this.Load += new System.EventHandler(this.RegistroServicio_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
@@ -305,7 +293,6 @@
         private System.Windows.Forms.TextBox txtMensaje;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnEliminar;
-        private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.Button btnActualizar;
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.TextBox txtServicio;

@@ -43,7 +43,7 @@ namespace Vista
                 if (!oEmpledoD.actualizar(getEmpleado()))
                 {
                     cargar();
-                    MessageBox.Show("Marca Actualizada");
+                    txtMensaje.Text = "Marca actualizada";
                 }
                 else
                 {
@@ -184,13 +184,6 @@ namespace Vista
 
             if (grdEmpleado.RowCount > 0)
             {
-                DialogResult respuesta = MessageBox.Show("¿Está seguro de Actualizar?",
-                                                           "Error",
-                                                            MessageBoxButtons.YesNo,
-                                                            MessageBoxIcon.Question);
-                if (respuesta == DialogResult.Yes)
-                {
-
                     empleado.Id = Int32.Parse(grdEmpleado[0, fila].Value.ToString());
                     txtnombre.Text = (grdEmpleado[1, fila].Value.ToString());
                     txtApellido.Text = (grdEmpleado[2, fila].Value.ToString());
@@ -201,7 +194,6 @@ namespace Vista
                     string permiso = (grdEmpleado[7, fila].Value.ToString());
                     string usuario = (grdEmpleado[8, fila].Value.ToString());
                     string contraseña = (grdEmpleado[9, fila].Value.ToString());
-                    MessageBox.Show("id" + empleado.Id);
 
                     if (puesto.Equals("Mecanico"))
                     {
@@ -229,9 +221,6 @@ namespace Vista
                     txtcontraseña.Text = contraseña;
 
                 }
-
-
-            }
         }
 
 

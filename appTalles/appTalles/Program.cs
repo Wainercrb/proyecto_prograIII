@@ -20,7 +20,11 @@ namespace Vista
             conexion = AccesoDatosPostgre.Instance;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmLogin());
+            //Application.Run(new FrmLogin());
+
+            FrmLogin ologin = new FrmLogin();
+            ologin.ShowDialog();
+
         }
     }
 }

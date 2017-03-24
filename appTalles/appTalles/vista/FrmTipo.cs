@@ -163,7 +163,7 @@ namespace Vista
         {
 
             this.grdTipos.Columns["Id"].Width = 60;
-            this.grdTipos.Columns["tipoVehiculo"].Width = 240;
+            this.grdTipos.Columns["tipoVehiculo"].Width = 168;
 
         }
     }

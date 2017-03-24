@@ -87,7 +87,7 @@ namespace Vista
                 {
                     if (!pEmpleado.cambioContrasenna(empleado, txtActual.Text))
                     {
-                        MessageBox.Show("Se combio la contraseña");
+                        MessageBox.Show("Se combio la contraseña", "Infomación", MessageBoxButtons.OK,MessageBoxIcon.Information);
                         txtInformacion.Text = "INGRESE CONTRASEÑA ACTUAL";
                         btnConfirmar.Text = "COMFIRMAR";
                         empleado.Contrasenna = contrasenaAntes;

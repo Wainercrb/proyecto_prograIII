@@ -117,7 +117,8 @@ namespace Vista
             if ((int)e.KeyChar == (int)Keys.Enter)
             {
                 txtMensaje.Text = "";
-                List<MarcaVehiculo> lsMarca = oMarcaD.buscarMarcas(txtBuscar.Text);
+                List<MarcaVehiculo> lsMarca = oMarcaD.obtenerPorDataBUsqueda(txtBuscar.Text);
+                MessageBox.Show(oMarcaD.ErrorMsg);
                 txtCantidadRegistros.Text = "" + lsMarca.Count();
                 if (lsMarca.Count() <= 0)
                 {
@@ -157,7 +158,7 @@ namespace Vista
         private void cargarDataGriew()
         {
             this.grdMarcas.Columns["Id"].Width = 50;
-            this.grdMarcas.Columns["MarcaVehiculo"].Width = 225;
+            this.grdMarcas.Columns["MarcaVehiculo"].Width = 162;
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)

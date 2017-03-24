@@ -153,7 +153,7 @@ namespace Vista
 
             List<RepuestoVehiculo> lsRepuesto = oRepuestoD.obtenerRepesto();
             txtCantidadRepuesto.Text = "" + lsRepuesto.Count();
-            if (lsRepuesto.ToString() == "")
+            if (lsRepuesto.Count <= 0)
             {
                 txtMensaje.Text = "No hay repuestos registrados.";
             }
