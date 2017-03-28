@@ -41,7 +41,14 @@
             this.registroCatalogoRepuestosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registroCatalogoReparacionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ediarOrdenesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.crearOrdenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registrarReparacionesRepuestosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.finalizoOrdenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.facturaOrdenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gestionGerenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.informeOrdenFinalizadaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.informeReparacionesAtendidasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.informeEstadisticoAtendidioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -148,15 +155,67 @@
             // 
             // ediarOrdenesToolStripMenuItem
             // 
+            this.ediarOrdenesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.crearOrdenToolStripMenuItem,
+            this.registrarReparacionesRepuestosToolStripMenuItem,
+            this.finalizoOrdenToolStripMenuItem,
+            this.facturaOrdenToolStripMenuItem});
             this.ediarOrdenesToolStripMenuItem.Name = "ediarOrdenesToolStripMenuItem";
-            this.ediarOrdenesToolStripMenuItem.Size = new System.Drawing.Size(99, 20);
-            this.ediarOrdenesToolStripMenuItem.Text = "Ediar ordenes ";
+            this.ediarOrdenesToolStripMenuItem.Size = new System.Drawing.Size(151, 20);
+            this.ediarOrdenesToolStripMenuItem.Text = "Administración ordenes ";
+            // 
+            // crearOrdenToolStripMenuItem
+            // 
+            this.crearOrdenToolStripMenuItem.Name = "crearOrdenToolStripMenuItem";
+            this.crearOrdenToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
+            this.crearOrdenToolStripMenuItem.Text = "Crear orden";
+            this.crearOrdenToolStripMenuItem.Click += new System.EventHandler(this.crearOrdenToolStripMenuItem_Click);
+            // 
+            // registrarReparacionesRepuestosToolStripMenuItem
+            // 
+            this.registrarReparacionesRepuestosToolStripMenuItem.Name = "registrarReparacionesRepuestosToolStripMenuItem";
+            this.registrarReparacionesRepuestosToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
+            this.registrarReparacionesRepuestosToolStripMenuItem.Text = "Registrar reparaciones y repuestos";
+            // 
+            // finalizoOrdenToolStripMenuItem
+            // 
+            this.finalizoOrdenToolStripMenuItem.Name = "finalizoOrdenToolStripMenuItem";
+            this.finalizoOrdenToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
+            this.finalizoOrdenToolStripMenuItem.Text = "Finaliza orden";
+            // 
+            // facturaOrdenToolStripMenuItem
+            // 
+            this.facturaOrdenToolStripMenuItem.Name = "facturaOrdenToolStripMenuItem";
+            this.facturaOrdenToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
+            this.facturaOrdenToolStripMenuItem.Text = "Factura orden";
             // 
             // gestionGerenciaToolStripMenuItem
             // 
+            this.gestionGerenciaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.informeOrdenFinalizadaToolStripMenuItem,
+            this.informeReparacionesAtendidasToolStripMenuItem,
+            this.informeEstadisticoAtendidioToolStripMenuItem});
             this.gestionGerenciaToolStripMenuItem.Name = "gestionGerenciaToolStripMenuItem";
             this.gestionGerenciaToolStripMenuItem.Size = new System.Drawing.Size(112, 20);
             this.gestionGerenciaToolStripMenuItem.Text = "Gestion gerencia";
+            // 
+            // informeOrdenFinalizadaToolStripMenuItem
+            // 
+            this.informeOrdenFinalizadaToolStripMenuItem.Name = "informeOrdenFinalizadaToolStripMenuItem";
+            this.informeOrdenFinalizadaToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
+            this.informeOrdenFinalizadaToolStripMenuItem.Text = "Informe orden finalizada";
+            // 
+            // informeReparacionesAtendidasToolStripMenuItem
+            // 
+            this.informeReparacionesAtendidasToolStripMenuItem.Name = "informeReparacionesAtendidasToolStripMenuItem";
+            this.informeReparacionesAtendidasToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
+            this.informeReparacionesAtendidasToolStripMenuItem.Text = "Informe reparaciones atendidas";
+            // 
+            // informeEstadisticoAtendidioToolStripMenuItem
+            // 
+            this.informeEstadisticoAtendidioToolStripMenuItem.Name = "informeEstadisticoAtendidioToolStripMenuItem";
+            this.informeEstadisticoAtendidioToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
+            this.informeEstadisticoAtendidioToolStripMenuItem.Text = "Informe estadistico atendidio";
             // 
             // FrmPrincipal
             // 
@@ -192,6 +251,13 @@
         private System.Windows.Forms.ToolStripMenuItem registroVehiculoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem registroCatalogoRepuestosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem registroCatalogoReparacionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem crearOrdenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem registrarReparacionesRepuestosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem finalizoOrdenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem facturaOrdenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem informeOrdenFinalizadaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem informeReparacionesAtendidasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem informeEstadisticoAtendidioToolStripMenuItem;
     }
 }
 

@@ -35,16 +35,17 @@ namespace Vista
         {
 
             txtMensaje.Text = "";
+            if (!verificarDatos())
+            {
+                return;
+            }
+
+            repuesto.Repuesto = txtRepuesto.Text;
+            repuesto.Precio = Int32.Parse(txtPrecio.Text);
+            repuesto.Impuesto = Double.Parse(txtImpuesto.Value.ToString());
+
             if (repuesto.Id > 0)
             {
-                if (!verificarDatos())
-                {
-                    return;
-                }
-                repuesto.Repuesto = txtRepuesto.Text;
-                repuesto.Precio = Int32.Parse(txtPrecio.Text);
-                repuesto.Impuesto = Double.Parse(txtImpuesto.Value.ToString());
-
                 if (!oRepuestoD.editarRepuesto(repuesto))
                 {
                     txtMensaje.Text = "Repuesto editado correctamente.";
@@ -57,12 +58,6 @@ namespace Vista
             }
             else
             {
-                repuesto = new RepuestoVehiculo(0, txtRepuesto.Text, Double.Parse(txtPrecio.Text), Double.Parse(txtImpuesto.Value.ToString()));
-                if (!verificarDatos())
-                {
-                    return;
-                }
-
                 if (!oRepuestoD.agregarRepuesto(repuesto))
                 {
                     txtMensaje.Text = "Marca " + txtRepuesto.Text + " agregado.";
@@ -82,27 +77,10 @@ namespace Vista
             cargarRepuestos();
         }
 
-        private void btnEditar_Click(object sender, EventArgs e)
-        {
-            if (this.grdRepuesto.Rows.Count > 0)
-            {
-                DialogResult respuesta = MessageBox.Show("¿Está seguro de editar esta marca?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (respuesta == DialogResult.Yes)
-                {
-                    int fila = this.grdRepuesto.CurrentRow.Index;
-                    seleccionDataRepuesto();
-                    txtRepuesto.Text = grdRepuesto[1, fila].Value.ToString();
-                    txtPrecio.Text = grdRepuesto[2, fila].Value.ToString();
-                    txtImpuesto.Value = Int32.Parse(grdRepuesto[3, fila].Value.ToString());
-                }
-            }
-        }
-
         private void obtenerMarcas(object sender, MouseEventArgs e)
         {
             seleccioFilaDataDriew();
         }
-        //-----------------------------------------------
         private bool verificarDatos()
         {
 
@@ -142,6 +120,7 @@ namespace Vista
             txtImpuesto.Value = 0;
             txtPrecio.Text = "";
             txtRepuesto.Text = "";
+            repuesto.Id = 0;
             repuesto = new RepuestoVehiculo();
             marca = new MarcaVehiculo();
 
@@ -179,7 +158,7 @@ namespace Vista
                 txtMensaje.Text = "Error al cargar repuestos, " + oRepuestoD.ErrorMsg;
             }
             this.grdMarca.DataSource = lsMarcas;
-
+            limpiarDatos();
         }
 
         public void llenarComboMarca()
@@ -218,8 +197,9 @@ namespace Vista
             }
             else
             {
-                MessageBox.Show("Error al agregar esta marca al repuesto " + oRepuestoD.ErrorMsg, "¡Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No puede agregar esta marca ya que ya existe " + oRepuestoD.ErrorMsg, "¡Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            seleccioFilaDataDriew();
             limpiarDatos();
         }
 
@@ -249,36 +229,31 @@ namespace Vista
             if (this.grdMarca.Rows.Count > 0)
             {
                 int fila = this.grdMarca.CurrentRow.Index;
-                marca = new MarcaVehiculo(Int32.Parse(this.grdRepuesto[0, fila].Value.ToString()), this.grdRepuesto[1, fila].Value.ToString());
+                marca = new MarcaVehiculo(Int32.Parse(this.grdMarca[0, fila].Value.ToString()), this.grdMarca[1, fila].Value.ToString());
             }
         }
 
         private void btnQuitar_Click(object sender, EventArgs e)
         {
-            if (this.grdRepuesto.Rows.Count > 0)
+            if (this.grdMarca.Rows.Count > 0)
             {
+                seleccionDataMarcas();
 
-                DialogResult respuesta = MessageBox.Show("¿Está seguro que desea quitar esta marca al repuesto?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (respuesta == DialogResult.Yes)
+                if (marca.Id <= 0)
                 {
-                    seleccionDataMarcas();
-                    MessageBox.Show(marca.Id+"");
-                    if (marca.Id <= 0)
-                    {
-                        MessageBox.Show("Debes seleccionar una marca para borrar", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
-                    }
-                    if (!oRepuestoD.borrarRepuestoMarca(marca))
-                    {
-                        txtMensaje.Text = "Marca eliminada al repuesto" + repuesto.Repuesto;
-                    }
-                    else
-                    {
-                        MessageBox.Show("No se puedo eliminar esta marca " + oRepuestoD.ErrorMsg, "!Error¡", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    MessageBox.Show("Debes seleccionar una marca para borrar", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                if (!oRepuestoD.borrarRepuestoMarca(marca))
+                {
+                    txtMensaje.Text = "Marca eliminada al repuesto";
+                }
+                else
+                {
+                    MessageBox.Show("No se puedo eliminar esta marca " + oRepuestoD.ErrorMsg, "!Error¡", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+            seleccioFilaDataDriew();
             limpiarDatos();
         }
 
@@ -289,8 +264,10 @@ namespace Vista
             this.grdRepuesto.Columns["RepuestoVehiculo"].Width = 65;
             this.grdRepuesto.Columns["PrecioVehiculo"].Width = 65;
             this.grdRepuesto.Columns["ImpuestoVehiculo"].Width = 65;
-            this.grdMarca.Columns["idMarca"].Visible = false;
-            this.grdMarca.Columns["MarcaVehiculo"].Width = 142;
+            this.grdMarca.Columns["IdMarca"].Width = 20;
+            this.grdMarca.Columns["marcaVehiculo"].Width = 85;
+           
+
 
         }
 
@@ -306,15 +283,16 @@ namespace Vista
                 MessageBox.Show("Debes seleccinar un repuesto", "!Error¡", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if ((!oRepuestoD.borrarRepuesto(repuesto) || (!oRepuestoD.borrarRepuestoMarca(marca))))
+
+            if ((!oRepuestoD.borrarRepuesto(repuesto)))
             {
-                txtMensaje.Text = "Se repuesto se elimino correctamente";
+                txtMensaje.Text = "repuesto eliminado correctamente";
             }
             else
             {
-
-                txtMensaje.Text = "Error al eliminar el repuesto " + oRepuestoD.ErrorMsg;
+                MessageBox.Show(oRepuestoD.ErrorMsg + " debes quitar las marcas al repuesto y luego elimina", "!Error al eliminar!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+           
         }
 
         private void BuscarRepuesto(object sender, KeyPressEventArgs e)
@@ -322,14 +300,14 @@ namespace Vista
             try
             {
                 txtMensaje.Text = "";
-  
-                List<RepuestoVehiculo> lsRepuesto= new List<RepuestoVehiculo >();
+
+                List<RepuestoVehiculo> lsRepuesto = new List<RepuestoVehiculo>();
 
                 if ((int)e.KeyChar == (int)Keys.Enter)
                 {
                     if (rbRepuesto.Checked)
                     {
-                        lsRepuesto =oRepuestoD.buscarStringRepuesto(txtBuscar.Text, "repuesto");
+                        lsRepuesto = oRepuestoD.buscarStringRepuesto(txtBuscar.Text, "repuesto");
 
                     }
                     else if (rbPrecio.Checked)
@@ -342,7 +320,7 @@ namespace Vista
                         lsRepuesto = oRepuestoD.buscarDoublegRepuesto(Double.Parse(txtBuscar.Text), "impuesto");
 
                     }
-                  
+
                     txtCantidadRepuesto.Text = "" + lsRepuesto.Count();
 
                     if (lsRepuesto.Count() <= 0)
@@ -358,5 +336,19 @@ namespace Vista
                 throw;
             }
         }
+
+        private void editarRepuesto(object sender, EventArgs e)
+        {
+            if (this.grdRepuesto.Rows.Count > 0)
+            {
+                int fila = this.grdRepuesto.CurrentRow.Index;
+                seleccionDataRepuesto();
+                txtRepuesto.Text = grdRepuesto[1, fila].Value.ToString();
+                txtPrecio.Text = grdRepuesto[2, fila].Value.ToString();
+                txtImpuesto.Value = Int32.Parse(grdRepuesto[3, fila].Value.ToString());
+                repuesto.Id = Int32.Parse(grdRepuesto[0, fila].Value.ToString());
+            }
+        }
+
     }
 }

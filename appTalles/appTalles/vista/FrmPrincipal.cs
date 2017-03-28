@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using Datos;
 using Logica;
 using Vista;
-
+using appTalles.Vista;
 
 namespace Vista
 
@@ -93,6 +93,13 @@ namespace Vista
         {
             RegistroServicio frm = new RegistroServicio();
             frm.ShowDialog();
+        }
+
+        private void crearOrdenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmOrden frm = new FrmOrden();
+            frm.Show();
+           
         }
     }
 }

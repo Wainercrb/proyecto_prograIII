@@ -40,7 +40,6 @@
             this.txtMensaje = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.btnEliminar = new System.Windows.Forms.Button();
-            this.btnEditar = new System.Windows.Forms.Button();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.txtPrecio = new System.Windows.Forms.TextBox();
             this.txtRepuesto = new System.Windows.Forms.TextBox();
@@ -89,6 +88,7 @@
             this.grdRepuesto.Name = "grdRepuesto";
             this.grdRepuesto.Size = new System.Drawing.Size(239, 306);
             this.grdRepuesto.TabIndex = 0;
+            this.grdRepuesto.DoubleClick += new System.EventHandler(this.editarRepuesto);
             this.grdRepuesto.MouseClick += new System.Windows.Forms.MouseEventHandler(this.obtenerMarcas);
             // 
             // id_repuesto
@@ -123,7 +123,6 @@
             this.groupBox1.Controls.Add(this.txtMensaje);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.btnEliminar);
-            this.groupBox1.Controls.Add(this.btnEditar);
             this.groupBox1.Controls.Add(this.btnActualizar);
             this.groupBox1.Controls.Add(this.txtPrecio);
             this.groupBox1.Controls.Add(this.txtRepuesto);
@@ -147,9 +146,9 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(209, 149);
+            this.btnLimpiar.Location = new System.Drawing.Point(92, 148);
             this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(63, 23);
+            this.btnLimpiar.Size = new System.Drawing.Size(78, 23);
             this.btnLimpiar.TabIndex = 12;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
@@ -183,7 +182,7 @@
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(135, 149);
+            this.btnEliminar.Location = new System.Drawing.Point(195, 148);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(68, 23);
             this.btnEliminar.TabIndex = 8;
@@ -191,23 +190,13 @@
             this.btnEliminar.UseVisualStyleBackColor = true;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click_1);
             // 
-            // btnEditar
-            // 
-            this.btnEditar.Location = new System.Drawing.Point(70, 148);
-            this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(59, 23);
-            this.btnEditar.TabIndex = 7;
-            this.btnEditar.Text = "Editar";
-            this.btnEditar.UseVisualStyleBackColor = true;
-            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
-            // 
             // btnActualizar
             // 
             this.btnActualizar.Location = new System.Drawing.Point(6, 148);
             this.btnActualizar.Name = "btnActualizar";
-            this.btnActualizar.Size = new System.Drawing.Size(58, 23);
+            this.btnActualizar.Size = new System.Drawing.Size(62, 23);
             this.btnActualizar.TabIndex = 6;
-            this.btnActualizar.Text = "Actu";
+            this.btnActualizar.Text = "Actualizar";
             this.btnActualizar.UseVisualStyleBackColor = true;
             this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             // 
@@ -491,7 +480,6 @@
         private System.Windows.Forms.TextBox txtMensaje;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnEliminar;
-        private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.Button btnActualizar;
         private System.Windows.Forms.TextBox txtPrecio;
         private System.Windows.Forms.TextBox txtRepuesto;

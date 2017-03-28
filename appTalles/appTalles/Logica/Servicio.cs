@@ -11,13 +11,13 @@ namespace Logica
     {
         private int id;
         private string servicio;
-        private string detalle;
+        private double precio;
 
-        public Servicio(int id, string servicio, string detalle)
+        public Servicio(int id, string servicio,double precio)
         {
             this.id = id;
             this.servicio = servicio;
-            this.detalle = detalle;
+            this.Precio = precio;
         }
 
         public Servicio()
@@ -51,23 +51,22 @@ namespace Logica
             }
         }
 
-        public string Detalle
+        public double Precio
         {
             get
             {
-                return detalle;
+                return precio;
             }
 
             set
             {
-                detalle = value;
+                precio = value;
             }
         }
 
-
         public override string ToString()
         {
-            return Id + " " + pServicio + " " + Detalle;
+            return Id + " " + pServicio + " " + Precio;
         }
     }
 }

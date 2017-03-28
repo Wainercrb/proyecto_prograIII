@@ -88,6 +88,12 @@
     <Compile Include="Logica\Servicio.cs" />
     <Compile Include="Logica\Tipo.cs" />
     <Compile Include="Logica\Vehiculo.cs" />
+    <Compile Include="Vista\FrmOrden.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\FrmOrden.Designer.cs">
+      <DependentUpon>FrmOrden.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vista\FrmCambio.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,6 +117,12 @@
     </Compile>
     <Compile Include="Vista\FrmLogin.designer.cs">
       <DependentUpon>FrmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Vista\FrmOrdenReparaciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\FrmOrdenReparaciones.Designer.cs">
+      <DependentUpon>FrmOrdenReparaciones.cs</DependentUpon>
     </Compile>
     <Compile Include="Vista\FrmPrincipal.cs">
       <SubType>Form</SubType>
@@ -170,6 +182,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vista\FrmOrden.resx">
+      <DependentUpon>FrmOrden.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vista\FrmOrdenReparaciones.resx">
+      <DependentUpon>FrmOrdenReparaciones.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\FrmPrincipal.resx">
       <DependentUpon>FrmPrincipal.cs</DependentUpon>

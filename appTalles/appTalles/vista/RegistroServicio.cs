@@ -49,7 +49,7 @@ namespace Vista
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            if (txtServicio.Text == "" || txtDetalles.Text == "")
+            if (txtServicio.Text == "" || txtPrecio.Text == "")
             {
                 MessageBox.Show("Debe llenar todos los datos requeridos",
                                 "Error",
@@ -57,7 +57,7 @@ namespace Vista
                 return;
             }
             servicio.pServicio = txtServicio.Text;
-            servicio.Detalle = txtDetalles.Text;
+            servicio.Precio = int.Parse(txtPrecio.Text);
             if (servicio.Id > 0)
             {
 
@@ -95,7 +95,7 @@ namespace Vista
             }
         }
 
-       
+
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             if (this.grdServicios.Rows.Count > 0)
@@ -128,7 +128,7 @@ namespace Vista
         private void limpiarDatos()
         {
 
-            txtDetalles.Text = "";
+            txtPrecio.Text = "";
             txtServicio.Text = "";
             servicio = new Servicio();
 
@@ -140,7 +140,7 @@ namespace Vista
 
             this.grdServicios.Columns["Id"].Width = 70;
             this.grdServicios.Columns["pServicio"].Width = 85;
-            this.grdServicios.Columns["Detalle"].Width = 85;
+            this.grdServicios.Columns["Precio"].Width = 85;
 
         }
 
@@ -152,7 +152,7 @@ namespace Vista
 
                 servicio.Id = Int32.Parse(grdServicios[0, fila].Value.ToString());
                 txtServicio.Text = grdServicios[1, fila].Value.ToString();
-                txtDetalles.Text = grdServicios[2, fila].Value.ToString();
+                txtPrecio.Text = Int32.Parse(grdServicios[2, fila].Value.ToString()) +"";
 
             }
         }
@@ -182,6 +182,15 @@ namespace Vista
             }
         }
 
+        private void validarNumeros(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsLetter(e.KeyChar))
+                e.Handled = true;
+            else if (char.IsSymbol(e.KeyChar))
+                e.Handled = true;
+            else if (char.IsPunctuation(e.KeyChar))
+                e.Handled = true;
+        }
     }
 }
 

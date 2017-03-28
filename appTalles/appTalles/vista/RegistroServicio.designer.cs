@@ -30,7 +30,6 @@
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnLimpiar = new System.Windows.Forms.Button();
-            this.txtDetalles = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txtMensaje = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -49,7 +48,8 @@
             this.grdServicios = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pServicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Detalle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtPrecio = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -58,8 +58,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtPrecio);
             this.groupBox1.Controls.Add(this.btnLimpiar);
-            this.groupBox1.Controls.Add(this.txtDetalles);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.txtMensaje);
             this.groupBox1.Controls.Add(this.label2);
@@ -70,14 +70,14 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(9, 139);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(271, 215);
+            this.groupBox1.Size = new System.Drawing.Size(271, 170);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Registro Servicios";
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(94, 123);
+            this.btnLimpiar.Location = new System.Drawing.Point(94, 102);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(79, 23);
             this.btnLimpiar.TabIndex = 5;
@@ -85,26 +85,19 @@
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
-            // txtDetalles
-            // 
-            this.txtDetalles.Location = new System.Drawing.Point(59, 77);
-            this.txtDetalles.Name = "txtDetalles";
-            this.txtDetalles.Size = new System.Drawing.Size(114, 20);
-            this.txtDetalles.TabIndex = 1;
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(10, 79);
+            this.label6.Location = new System.Drawing.Point(10, 69);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(48, 13);
+            this.label6.Size = new System.Drawing.Size(40, 13);
             this.label6.TabIndex = 9;
-            this.label6.Text = "Detalles:";
+            this.label6.Text = "Precio:";
             // 
             // txtMensaje
             // 
             this.txtMensaje.Enabled = false;
-            this.txtMensaje.Location = new System.Drawing.Point(54, 169);
+            this.txtMensaje.Location = new System.Drawing.Point(54, 131);
             this.txtMensaje.Name = "txtMensaje";
             this.txtMensaje.ReadOnly = true;
             this.txtMensaje.Size = new System.Drawing.Size(207, 20);
@@ -113,7 +106,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 172);
+            this.label2.Location = new System.Drawing.Point(10, 134);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(38, 13);
             this.label2.TabIndex = 6;
@@ -121,7 +114,7 @@
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(186, 123);
+            this.btnEliminar.Location = new System.Drawing.Point(186, 102);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(75, 23);
             this.btnEliminar.TabIndex = 6;
@@ -131,7 +124,7 @@
             // 
             // btnActualizar
             // 
-            this.btnActualizar.Location = new System.Drawing.Point(11, 123);
+            this.btnActualizar.Location = new System.Drawing.Point(11, 102);
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Size = new System.Drawing.Size(77, 23);
             this.btnActualizar.TabIndex = 3;
@@ -141,7 +134,7 @@
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(186, 74);
+            this.btnAgregar.Location = new System.Drawing.Point(186, 64);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(75, 23);
             this.btnAgregar.TabIndex = 2;
@@ -171,7 +164,7 @@
             this.tabControl1.Location = new System.Drawing.Point(286, 6);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(313, 348);
+            this.tabControl1.Size = new System.Drawing.Size(313, 303);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage2
@@ -185,7 +178,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(305, 322);
+            this.tabPage2.Size = new System.Drawing.Size(305, 277);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Listado de Servicios";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -209,7 +202,7 @@
             // 
             // txtCantidadRegistros
             // 
-            this.txtCantidadRegistros.Location = new System.Drawing.Point(108, 288);
+            this.txtCantidadRegistros.Location = new System.Drawing.Point(108, 245);
             this.txtCantidadRegistros.Name = "txtCantidadRegistros";
             this.txtCantidadRegistros.ReadOnly = true;
             this.txtCantidadRegistros.Size = new System.Drawing.Size(100, 20);
@@ -218,7 +211,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 291);
+            this.label3.Location = new System.Drawing.Point(6, 248);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(99, 13);
             this.label3.TabIndex = 2;
@@ -226,7 +219,7 @@
             // 
             // btnSalir
             // 
-            this.btnSalir.Location = new System.Drawing.Point(215, 288);
+            this.btnSalir.Location = new System.Drawing.Point(215, 245);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(75, 23);
             this.btnSalir.TabIndex = 1;
@@ -240,10 +233,10 @@
             this.grdServicios.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
             this.pServicio,
-            this.Detalle});
+            this.Precio});
             this.grdServicios.Location = new System.Drawing.Point(9, 45);
             this.grdServicios.Name = "grdServicios";
-            this.grdServicios.Size = new System.Drawing.Size(287, 232);
+            this.grdServicios.Size = new System.Drawing.Size(287, 191);
             this.grdServicios.TabIndex = 0;
             this.grdServicios.DoubleClick += new System.EventHandler(this.EditarServicio);
             // 
@@ -259,17 +252,25 @@
             this.pServicio.HeaderText = "Servicio";
             this.pServicio.Name = "pServicio";
             // 
-            // Detalle
+            // Precio
             // 
-            this.Detalle.DataPropertyName = "Detalle";
-            this.Detalle.HeaderText = "Detalle";
-            this.Detalle.Name = "Detalle";
+            this.Precio.DataPropertyName = "Precio";
+            this.Precio.HeaderText = "Precio";
+            this.Precio.Name = "Precio";
+            // 
+            // txtPrecio
+            // 
+            this.txtPrecio.Location = new System.Drawing.Point(59, 69);
+            this.txtPrecio.Name = "txtPrecio";
+            this.txtPrecio.Size = new System.Drawing.Size(114, 20);
+            this.txtPrecio.TabIndex = 10;
+            this.txtPrecio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.validarNumeros);
             // 
             // RegistroServicio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(601, 358);
+            this.ClientSize = new System.Drawing.Size(601, 311);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.tabControl1);
             this.Name = "RegistroServicio";
@@ -288,7 +289,6 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox txtDetalles;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtMensaje;
         private System.Windows.Forms.Label label2;
@@ -305,9 +305,10 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnSalir;
         private System.Windows.Forms.DataGridView grdServicios;
+        private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn pServicio;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Detalle;
-        private System.Windows.Forms.Button btnLimpiar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Precio;
+        private System.Windows.Forms.TextBox txtPrecio;
     }
 }
