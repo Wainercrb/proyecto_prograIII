@@ -71,6 +71,7 @@
     <Compile Include="Datos\ClienteD.cs" />
     <Compile Include="Datos\EmpledoD.cs" />
     <Compile Include="Datos\MarcaD.cs" />
+    <Compile Include="Datos\OrdenD.cs" />
     <Compile Include="Datos\ParametroD.cs" />
     <Compile Include="Datos\RepuestoD.cs" />
     <Compile Include="Datos\ServicioD.cs" />

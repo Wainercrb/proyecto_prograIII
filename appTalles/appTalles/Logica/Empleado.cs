@@ -182,7 +182,7 @@ namespace Logica
 
         public override string ToString()
         {
-            return this.Id + " " + this.Nombre + " " + this.Apellido + " " + this.Direccion + " " + this.TelefonoResidencia + " " + this.TelefonoCelular + " " + this.Puesto + " " + this.Permiso + " " + this.Usuario + " " + this.Contrasenna;
+            return  this.Nombre + " " + this.Apellido;
         }
     }
 }

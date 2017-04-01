@@ -34,6 +34,34 @@ namespace Logica
             this.ordenCatalogo = ordenCatalogo;
             this.ordenRepesto = ordenRepesto;
         }
+        public Orden(int id, DateTime fechaIngreso, DateTime fechaSalida, DateTime fechaFacturacion, string estado, double costoTotal, Vehiculo vehiculo, Empleado empleado)
+        {
+            this.id = id;
+            this.fechaIngreso = fechaIngreso;
+            this.fechaSalida = fechaSalida;
+            this.fechaFacturacion = fechaFacturacion;
+            this.estado = estado;
+            this.costoTotal = costoTotal;
+            this.vehiculo = vehiculo;
+            this.empleado = empleado;
+        }
+
+        public Orden(DateTime fechaIngreso, DateTime fechaSalida, DateTime fechaFacturacion, string estado, double costoTotal, Vehiculo vehiculo, Empleado empleado, List<OrdenCatalogo> ordenCatalogo, List<OrdenRepuesto> ordenRepesto)
+        {
+            this.fechaIngreso = fechaIngreso;
+            this.fechaSalida = fechaSalida;
+            this.fechaFacturacion = fechaFacturacion;
+            this.estado = estado;
+            this.costoTotal = costoTotal;
+            this.vehiculo = vehiculo;
+            this.empleado = empleado;
+            this.ordenCatalogo = ordenCatalogo;
+            this.ordenRepesto = ordenRepesto;
+        }
+
+        public Orden()
+        {
+        }
 
         public int Id
         {

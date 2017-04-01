@@ -185,7 +185,7 @@ namespace Logica
 
         public override string ToString()
         {
-            return  this.id +" id" +  this.placa + " " + this.anno + " " +this.cilindraje + " " + this.NumeroMotor +" " + this.numeroChazis + " " + this.tipoCombustible +" "+ this.cliente + " " + this.marca + " " + this.tipo;
+            return "Placa"+ this.placa + " ,año" + this.anno + "." ;
         }
     }
 }
