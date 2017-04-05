@@ -70,14 +70,14 @@ namespace Datos
             estado = true;
             List<Servicio> servicios = new List<Servicio>();
             DataSet dsetEmpleados;
-            string sql = "select p.id_servicio as id_servicio, p.servcio as servcio ,p.precio as precio from servicio p";
+            string sql = "select p.id_servicio as id_servicio, p.servcio as servcio ,p.precio as precio, p.impuesto as impuesto from servicio p";
 
             dsetEmpleados = conexion.ejecutarConsultaSQL(sql);
 
             foreach (DataRow tupla in dsetEmpleados.Tables[0].Rows)
             {
                 Servicio pEmpleados = new Servicio(Convert.ToInt32(tupla["id_servicio"].ToString()), tupla["servcio"].ToString(),
-                    Double.Parse(tupla["precio"].ToString()));
+                    Double.Parse(tupla["precio"].ToString()), Double.Parse(tupla["impuesto"].ToString()));
                 servicios.Add(pEmpleados);
 
             }

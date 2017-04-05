@@ -72,8 +72,11 @@
     <Compile Include="Datos\EmpledoD.cs" />
     <Compile Include="Datos\MarcaD.cs" />
     <Compile Include="Datos\OrdenD.cs" />
+    <Compile Include="Datos\OrdenServicioD.cs" />
+    <Compile Include="Datos\ordenRepuestoD.cs" />
     <Compile Include="Datos\ParametroD.cs" />
     <Compile Include="Datos\RepuestoD.cs" />
+    <Compile Include="Datos\RrepestoD.cs" />
     <Compile Include="Datos\ServicioD.cs" />
     <Compile Include="Datos\TipoD.cs" />
     <Compile Include="Datos\VehiculoD.cs" />
@@ -83,9 +86,11 @@
     <Compile Include="Logica\Marca.cs" />
     <Compile Include="Logica\Orden.cs" />
     <Compile Include="Logica\OrdenCatalogo.cs" />
+    <Compile Include="Logica\OrdenServicio.cs" />
     <Compile Include="Logica\OrdenRepuesto.cs" />
     <Compile Include="Logica\Parametro.cs" />
     <Compile Include="Logica\RepuestoVehiculo.cs" />
+    <Compile Include="Logica\Rrepuesto.cs" />
     <Compile Include="Logica\Servicio.cs" />
     <Compile Include="Logica\Tipo.cs" />
     <Compile Include="Logica\Vehiculo.cs" />
@@ -163,6 +168,12 @@
     <Compile Include="Vista\RegistroServicio.designer.cs">
       <DependentUpon>RegistroServicio.cs</DependentUpon>
     </Compile>
+    <Compile Include="Vista\SeleccionEmpleado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\SeleccionEmpleado.Designer.cs">
+      <DependentUpon>SeleccionEmpleado.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -207,6 +218,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\RegistroServicio.resx">
       <DependentUpon>RegistroServicio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vista\SeleccionEmpleado.resx">
+      <DependentUpon>SeleccionEmpleado.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

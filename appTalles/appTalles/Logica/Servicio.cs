@@ -12,6 +12,7 @@ namespace Logica
         private int id;
         private string servicio;
         private double precio;
+        private double impuesto;
 
         public Servicio(int id, string servicio,double precio)
         {
@@ -19,6 +20,14 @@ namespace Logica
             this.servicio = servicio;
             this.Precio = precio;
         }
+        public Servicio(int id, string servicio, double precio, double impuesto)
+        {
+            this.id = id;
+            this.servicio = servicio;
+            this.Precio = precio;
+            this.Impuesto = impuesto;
+        }
+
 
         public Servicio()
         {
@@ -61,6 +70,19 @@ namespace Logica
             set
             {
                 precio = value;
+            }
+        }
+
+        public double Impuesto
+        {
+            get
+            {
+                return impuesto;
+            }
+
+            set
+            {
+                impuesto = value;
             }
         }
 

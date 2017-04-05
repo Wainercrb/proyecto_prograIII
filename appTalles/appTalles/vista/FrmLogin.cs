@@ -10,13 +10,14 @@ using System.Windows.Forms;
 using Datos;
 using Vista;
 using Logica;
+using System.Threading;
 
 
 namespace Vista
 {
     public partial class FrmLogin : Form
     {
-
+        private Thread cierre;
         private Empleado empleado;
         private bool estado = false;
 
@@ -24,6 +25,10 @@ namespace Vista
         {
             empleado = new Empleado();
             InitializeComponent();
+        }
+        private void llamar_segundo(Object obj)
+        {
+            Application.Run(new FrmPrincipal(empleado));
         }
 
 
@@ -58,9 +63,11 @@ namespace Vista
             {
                 if (pEmpleado[i].Usuario.Equals(empleado.Usuario) && pEmpleado[i].Contrasenna.Equals(empleado.Contrasenna))
                 {
-                    FrmPrincipal frm = new FrmPrincipal(pEmpleado[i]);
-                    frm.ShowDialog();
+                    empleado = pEmpleado[i];
                     this.Close();
+                    cierre = new Thread(llamar_segundo);
+                    cierre.SetApartmentState(ApartmentState.STA);
+                    cierre.Start();
                     estado = true;
                     return;
                     
