@@ -10,6 +10,8 @@ namespace BLL
 {
     public class Marca
     {
+        //Metodo agrega o actualiza una marca que ingresa
+        //por parametros
         public void insertarMarca(ENT.MarcaVehiculo marca)
         {
             DAL.Marca DalMarca = new DAL.Marca();
@@ -19,59 +21,56 @@ namespace BLL
                 {
                     throw new Exception("No agregado una marca");
                 }
-                if (marca.Id < 0)
+                if (marca.Id <= 0)
                 {
                     DalMarca.agregarMarca(marca);
-                    if (DalMarca.IsError)
+                    if (DalMarca.Error)
                     {
-                        throw new Exception("Error al agregar " + DalMarca.ErrorMsg);
+                        throw new Exception("Error al agregar la marca, " + DalMarca.ErrorMsg);
                     }
-
                 }
                 else
                 {
                     if (marca.Id > 0)
                     {
                         DalMarca.editarMarca(marca);
-                        if (DalMarca.IsError)
+                        if (DalMarca.Error)
                         {
-                            throw new Exception("Error al editar " + DalMarca.ErrorMsg);
+                            throw new Exception("Error al editar la marca, " + DalMarca.ErrorMsg);
                         }
-
                     }
                 }
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }
 
-
+        //Metodo elimina la marca que ingresa por parametros
         public void eliminarMarca(ENT.MarcaVehiculo marca)
         {
-            DAL.Marca DalMarca = new DAL.Marca();
-
             try
             {
-                if (marca.Marca == string.Empty)
+                DAL.Marca DalMarca = new DAL.Marca();
+                if (marca.Id <= 0)
                 {
-                    throw new Exception("No se ha ingresado una marca");
+                    throw new Exception("Debes seleccionar una marca");
                 }
 
                 DalMarca.borrarMarca(marca);
-                if (DalMarca.IsError)
+                if (DalMarca.Error)
                 {
                     throw new Exception("Error al editar " + DalMarca.ErrorMsg);
                 }
-
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
+        //Metodo carga todad las marcas y la agrega a la lista
+        //para retornarlas
         public List<ENT.MarcaVehiculo> cargarMarca()
         {
             DAL.Marca DalMarca = new DAL.Marca();
@@ -89,16 +88,24 @@ namespace BLL
                 throw ex;
             }
             return marcas;
-
         }
-
-        public List<ENT.MarcaVehiculo> buscarMarca(ENT.MarcaVehiculo marca) {
-
+        //Metodo busca un valor de la marca para retornarla
+        //en una lista
+        public List<ENT.MarcaVehiculo> buscarMarca(string valor)
+        {
             DAL.Marca DalMarca = new DAL.Marca();
             List<ENT.MarcaVehiculo> marcas = new List<ENT.MarcaVehiculo>();
             try
             {
-                marcas = DalMarca.buscarMarcas(marca);
+                if (valor == string.Empty)
+                {
+                    throw new Exception("Debes ingresar un valor valido");
+                }
+                marcas = DalMarca.buscarMarcas(valor);
+                if (DalMarca.Error)
+                {
+                    throw new Exception("Error al buscar las marcas");
+                }
                 if (marcas.Count <= 0)
                 {
                     throw new Exception("No hay marcas registradas");
@@ -109,8 +116,34 @@ namespace BLL
                 throw ex;
             }
             return marcas;
-
-
+        }
+        //Metodo busca un valor de la marca para retornarla
+        //en una lista
+        public List<ENT.MarcaVehiculo> buscaIntrMarca(int valor)
+        {
+            DAL.Marca DalMarca = new DAL.Marca();
+            List<ENT.MarcaVehiculo> marcas = new List<ENT.MarcaVehiculo>();
+            try
+            {
+                if (valor <= 0)
+                {
+                    throw new Exception("Debes ingresar un valor valido");
+                }
+                marcas = DalMarca.buscarIntMarcas(valor);
+                if (DalMarca.Error)
+                {
+                    throw new Exception("Error al buscar las marcas");
+                }
+                if (marcas.Count <= 0)
+                {
+                    throw new Exception("No hay marcas registradas");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return marcas;
         }
     }
 }

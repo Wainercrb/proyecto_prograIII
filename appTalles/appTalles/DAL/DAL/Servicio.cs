@@ -15,167 +15,144 @@ namespace DAL
         private AccesoDatosPostgre conexion;
         private bool error;
         private string errorMsg;
-
-
-
         public Servicio()
         {
             this.conexion = AccesoDatosPostgre.Instance;
             this.limpiarError();
         }
-
+        //Metodo limpia los errores de las variables
         public void limpiarError()
         {
             this.Error = false;
             this.ErrorMsg = "";
         }
-
-        public bool agregarservicio(ENT.Servicio server)
+        //Metodo inserta los valores que recibe por parametros a la base de datos
+        public void agregarservicio(ENT.Servicio servicio)
         {
             limpiarError();
-            try
-            {
-
-                string sql = "insert into servicio (servcio, precio) values(@servicio, @precio)";
-                NpgsqlParameter[] parametros = new NpgsqlParameter[2];
-                parametros[0] = new NpgsqlParameter();
-                parametros[0].NpgsqlDbType = NpgsqlDbType.Varchar;
-                parametros[0].ParameterName = "@servicio";
-                parametros[0].Value = server.pServicio;
-                parametros[1] = new NpgsqlParameter();
-                parametros[1].NpgsqlDbType = NpgsqlDbType.Double;
-                parametros[1].ParameterName = "@precio";
-                parametros[1].Value = server.Precio;
-
-                this.conexion.ejecutarSQL(sql, parametros);
-
-                if (conexion.IsError)
-                {
-                    this.Error = true;
-                    this.ErrorMsg = this.conexion.ErrorDescripcion;
-                }
-            }
-            catch (Exception e)
+            string sql = "INSERT INTO " + this.conexion.Schema + "servicio (servcio, precio, impuesto) values(@servicio, @precio, @impuesto)";
+            Parametro prm = new Parametro();
+            prm.agregarParametro("@servicio", NpgsqlDbType.Varchar, servicio.pServicio);
+            prm.agregarParametro("@precio", NpgsqlDbType.Double, servicio.Precio);
+            prm.agregarParametro("@impuesto", NpgsqlDbType.Double, servicio.Impuesto);
+            this.conexion.ejecutarSQL(sql, prm.obtenerParametros());
+            if (this.conexion.IsError)
             {
                 this.Error = true;
-                this.ErrorMsg = e.Message;
+                this.ErrorMsg = this.conexion.ErrorDescripcion;
             }
-            return this.Error;
         }
-
-
-        public List<ENT.Servicio> Obtenerservicios(ref bool estado)
+        //Metodo carga todos los servicios a la lista
+        //para retornarlos
+        public List<ENT.Servicio> cargarServicios()
         {
-            estado = true;
+            limpiarError();
             List<ENT.Servicio> servicios = new List<ENT.Servicio>();
             DataSet dsetEmpleados;
             string sql = "select p.id_servicio as id_servicio, p.servcio as servcio ,p.precio as precio, p.impuesto as impuesto from servicio p";
-
             dsetEmpleados = conexion.ejecutarConsultaSQL(sql);
-
             foreach (DataRow tupla in dsetEmpleados.Tables[0].Rows)
             {
                 ENT.Servicio pEmpleados = new ENT.Servicio(Convert.ToInt32(tupla["id_servicio"].ToString()), tupla["servcio"].ToString(),
-                    double.Parse(tupla["precio"].ToString()), double.Parse(tupla["impuesto"].ToString()));
+                double.Parse(tupla["precio"].ToString()), double.Parse(tupla["impuesto"].ToString()));
                 servicios.Add(pEmpleados);
-
+            }
+            if (this.conexion.IsError)
+            {
+                this.Error = true;
+                this.ErrorMsg = this.conexion.ErrorDescripcion;
             }
             return servicios;
         }
-        public bool borrarservicio(ENT.Servicio server)
+        //Metodo elimina al servicio que recibe por parametro
+        public void borrarservicio(ENT.Servicio servicio)
         {
             limpiarError();
-            try
-            {
-                string sql = "delete from servicio where id_servicio = @id_servicio";
-
-                NpgsqlParameter[] parametros = new NpgsqlParameter[1];
-
-                parametros[0] = new NpgsqlParameter();
-                parametros[0].NpgsqlDbType = NpgsqlDbType.Integer;
-                parametros[0].ParameterName = "@id_servicio";
-                parametros[0].Value = server.Id;
-
-                this.conexion.ejecutarSQL(sql, parametros);
-                if (this.conexion.IsError)
-                {
-                    this.Error = true;
-                    this.ErrorMsg = this.conexion.ErrorDescripcion;
-                }
-            }
-            catch (Exception e)
+            string sql = "DELETE FROM " + this.conexion.Schema + "servicio where id_servicio = @id_servicio";
+            Parametro prm = new Parametro();
+            prm.agregarParametro("@id_servicio", NpgsqlDbType.Integer, servicio.Id);
+            this.conexion.ejecutarSQL(sql, prm.obtenerParametros());
+            if (this.conexion.IsError)
             {
                 this.Error = true;
-                this.ErrorMsg = e.Message;
+                this.ErrorMsg = this.conexion.ErrorDescripcion;
             }
-            return this.Error;
         }
-        public bool actualizarServicio(ENT.Servicio server)
+        //Metodo actualiza el servicio por los datos que recibe por parametro
+        public void actualizarServicio(ENT.Servicio servicio)
         {
             limpiarError();
-
-            try
-            {
-                string sql = " update  servicio set servcio = @servicio ,precio = @precio  where id_servicio = @id_servicio";
-                NpgsqlParameter[] parametros = new NpgsqlParameter[3];
-                parametros[0] = new NpgsqlParameter();
-                parametros[0].NpgsqlDbType = NpgsqlDbType.Varchar;
-                parametros[0].ParameterName = "@servicio";
-                parametros[0].Value = server.pServicio;
-                parametros[1] = new NpgsqlParameter();
-                parametros[1].NpgsqlDbType = NpgsqlDbType.Double;
-                parametros[1].ParameterName = "@precio";
-                parametros[1].Value = server.Precio;
-                parametros[2] = new NpgsqlParameter();
-                parametros[2].NpgsqlDbType = NpgsqlDbType.Integer;
-                parametros[2].ParameterName = "@id_servicio";
-                parametros[2].Value = server.Id;
-
-                this.conexion.ejecutarSQL(sql, parametros);
-                if (this.conexion.IsError)
-                {
-                    this.Error = true;
-                    this.ErrorMsg = this.conexion.ErrorDescripcion;
-                }
-            }
-            catch (Exception e)
+            string sql = "UPDATE " + this.conexion.Schema + "servicio set servcio = @servicio ,precio = @precio, impuesto = @impuesto where id_servicio = @id_servicio";
+            Parametro prm = new Parametro();
+            prm.agregarParametro("@servicio", NpgsqlDbType.Varchar, servicio.pServicio);
+            prm.agregarParametro("@precio", NpgsqlDbType.Double, servicio.Precio);
+            prm.agregarParametro("@impuesto", NpgsqlDbType.Double, servicio.Impuesto);
+            prm.agregarParametro("@id_servicio", NpgsqlDbType.Integer, servicio.Id);
+            this.conexion.ejecutarSQL(sql, prm.obtenerParametros());
+            if (this.conexion.IsError)
             {
                 this.Error = true;
-                ErrorMsg = e.Message;
+                this.ErrorMsg = this.conexion.ErrorDescripcion;
             }
-
-            return this.Error;
         }
-        public List<ENT.Servicio> buscarServicios(string valor1)
+        //Metodo busca un valor string que rebibe por parametro, tambien busca la columna 
+        //que recibe por parametro
+        public List<ENT.Servicio> buscarStringServicio(string cadena, string columna)
         {
-
-            limpiarError();
-            List<ENT.Servicio> empleados = new List<ENT.Servicio>();
-            DataSet dsetEmpleados;
-            string sql = "select * from servicio where servcio ='" + valor1 + "'";
-            try
+            this.limpiarError();
+            List<ENT.Servicio> servicios = new List<ENT.Servicio>();
+            Parametro oParametro = new Parametro();
+            oParametro.agregarParametro("@" + columna, NpgsqlDbType.Varchar, cadena);
+            string sql = "SELECT * FROM " + this.conexion.Schema + "servicio WHERE " + columna + " = @" + columna;
+            DataSet dset = this.conexion.ejecutarConsultaSQL(sql, "servicio", oParametro.obtenerParametros());
+            if (!this.conexion.IsError)
             {
-                dsetEmpleados = this.conexion.ejecutarConsultaSQL(sql);
-
-                foreach (DataRow tupla in dsetEmpleados.Tables[0].Rows)
+                if (dset.Tables[0].Rows.Count > 0)
                 {
-                    ENT.Servicio pEmpleados = new ENT.Servicio(Convert.ToInt32(tupla["id_servicio"].ToString()), tupla["servcio"].ToString(),
+                    foreach (DataRow tupla in dset.Tables[0].Rows)
+                    {
+                        ENT.Servicio sr = new ENT.Servicio(Convert.ToInt32(tupla["id_servicio"].ToString()), tupla["servcio"].ToString(),
                         int.Parse(tupla["precio"].ToString()));
-                    empleados.Add(pEmpleados);
+                        servicios.Add(sr);
+                    }
                 }
             }
-
-            catch (Exception e)
+            else
             {
-                this.Error = false;
-                this.ErrorMsg = e.Message;
+                this.error = true;
+                this.errorMsg = this.conexion.ErrorDescripcion;
             }
-
-            return empleados;
-
+            return servicios;
         }
-
-
+        //Metodo busca un valor int que rebibe por parametro, tambien busca la columna 
+        //que recibe por parametro
+        public List<ENT.Servicio> buscarIntServicio(int cadena, string columna)
+        {
+            this.limpiarError();
+            List<ENT.Servicio> servicios = new List<ENT.Servicio>();
+            Parametro oParametro = new Parametro();
+            oParametro.agregarParametro("@" + columna, NpgsqlDbType.Integer, cadena);
+            string sql = "SELECT * FROM " + this.conexion.Schema + "servicio WHERE " + columna + " = @" + columna;
+            DataSet dset = this.conexion.ejecutarConsultaSQL(sql, "servicio", oParametro.obtenerParametros());
+            if (!this.conexion.IsError)
+            {
+                if (dset.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow tupla in dset.Tables[0].Rows)
+                    {
+                        ENT.Servicio sr = new ENT.Servicio(Convert.ToInt32(tupla["id_servicio"].ToString()), tupla["servcio"].ToString(),
+                        int.Parse(tupla["precio"].ToString()));
+                        servicios.Add(sr);
+                    }
+                }
+            }
+            else
+            {
+                this.error = true;
+                this.errorMsg = this.conexion.ErrorDescripcion;
+            }
+            return servicios;
+        }
         public bool Error
         {
             get
@@ -188,14 +165,12 @@ namespace DAL
                 error = value;
             }
         }
-
         public string ErrorMsg
         {
             get
             {
                 return errorMsg;
             }
-
             set
             {
                 errorMsg = value;

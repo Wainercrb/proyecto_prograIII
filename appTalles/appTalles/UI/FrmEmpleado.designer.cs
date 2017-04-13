@@ -55,17 +55,6 @@
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.grdEmpleado = new System.Windows.Forms.DataGridView();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtCantidadRegistros = new System.Windows.Forms.TextBox();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.btnAgregar = new System.Windows.Forms.ToolStripButton();
-            this.btnEliminar = new System.Windows.Forms.ToolStripButton();
-            this.btnRegrescar = new System.Windows.Forms.ToolStripButton();
-            this.brnLimpiar = new System.Windows.Forms.ToolStripButton();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rbBuscarPermiso = new System.Windows.Forms.RadioButton();
-            this.rbBuscarPuesto = new System.Windows.Forms.RadioButton();
-            this.rbBuscarNombre = new System.Windows.Forms.RadioButton();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -76,6 +65,17 @@
             this.Permiso = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Contrasenna = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtCantidadRegistros = new System.Windows.Forms.TextBox();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.btnAgregar = new System.Windows.Forms.ToolStripButton();
+            this.btnEliminar = new System.Windows.Forms.ToolStripButton();
+            this.btnRegrescar = new System.Windows.Forms.ToolStripButton();
+            this.brnLimpiar = new System.Windows.Forms.ToolStripButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rbBuscarNombre = new System.Windows.Forms.RadioButton();
+            this.rbBuscarPuesto = new System.Windows.Forms.RadioButton();
+            this.rbBuscarPermiso = new System.Windows.Forms.RadioButton();
             this.txtSeleccion = new System.Windows.Forms.TextBox();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -342,6 +342,77 @@
             this.grdEmpleado.MouseClick += new System.Windows.Forms.MouseEventHandler(this.seleccionEmpleado);
             this.grdEmpleado.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.grdEmpleado_MouseDoubleClick);
             // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "Id";
+            this.Id.Name = "Id";
+            this.Id.Visible = false;
+            this.Id.Width = 50;
+            // 
+            // Nombre
+            // 
+            this.Nombre.DataPropertyName = "Nombre";
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.Name = "Nombre";
+            this.Nombre.Width = 65;
+            // 
+            // Apellido
+            // 
+            this.Apellido.DataPropertyName = "Apellido";
+            this.Apellido.HeaderText = "Apellido";
+            this.Apellido.Name = "Apellido";
+            this.Apellido.Width = 65;
+            // 
+            // Direccion
+            // 
+            this.Direccion.DataPropertyName = "Direccion";
+            this.Direccion.HeaderText = "Dirección";
+            this.Direccion.Name = "Direccion";
+            this.Direccion.Width = 80;
+            // 
+            // TelefonoResidencia
+            // 
+            this.TelefonoResidencia.DataPropertyName = "TelefonoResidencia";
+            this.TelefonoResidencia.HeaderText = "Tel. Residencia";
+            this.TelefonoResidencia.Name = "TelefonoResidencia";
+            this.TelefonoResidencia.Width = 65;
+            // 
+            // TelefonoCelular
+            // 
+            this.TelefonoCelular.DataPropertyName = "TelefonoCelular";
+            this.TelefonoCelular.HeaderText = "Tel. Célular";
+            this.TelefonoCelular.Name = "TelefonoCelular";
+            this.TelefonoCelular.Width = 65;
+            // 
+            // Puesto
+            // 
+            this.Puesto.DataPropertyName = "Puesto";
+            this.Puesto.HeaderText = "Puesto";
+            this.Puesto.Name = "Puesto";
+            this.Puesto.Width = 65;
+            // 
+            // Permiso
+            // 
+            this.Permiso.DataPropertyName = "Permiso";
+            this.Permiso.HeaderText = "Permiso";
+            this.Permiso.Name = "Permiso";
+            this.Permiso.Width = 65;
+            // 
+            // Usuario
+            // 
+            this.Usuario.DataPropertyName = "Usuario";
+            this.Usuario.HeaderText = "Usuario";
+            this.Usuario.Name = "Usuario";
+            this.Usuario.Width = 65;
+            // 
+            // Contrasenna
+            // 
+            this.Contrasenna.DataPropertyName = "Contrasenna";
+            this.Contrasenna.HeaderText = "Contraseña";
+            this.Contrasenna.Name = "Contrasenna";
+            this.Contrasenna.Width = 65;
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -426,28 +497,6 @@
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             // 
-            // rbBuscarPermiso
-            // 
-            this.rbBuscarPermiso.AutoSize = true;
-            this.rbBuscarPermiso.Location = new System.Drawing.Point(117, 12);
-            this.rbBuscarPermiso.Name = "rbBuscarPermiso";
-            this.rbBuscarPermiso.Size = new System.Drawing.Size(62, 17);
-            this.rbBuscarPermiso.TabIndex = 2;
-            this.rbBuscarPermiso.TabStop = true;
-            this.rbBuscarPermiso.Text = "Permiso";
-            this.rbBuscarPermiso.UseVisualStyleBackColor = true;
-            // 
-            // rbBuscarPuesto
-            // 
-            this.rbBuscarPuesto.AutoSize = true;
-            this.rbBuscarPuesto.Location = new System.Drawing.Point(185, 11);
-            this.rbBuscarPuesto.Name = "rbBuscarPuesto";
-            this.rbBuscarPuesto.Size = new System.Drawing.Size(58, 17);
-            this.rbBuscarPuesto.TabIndex = 3;
-            this.rbBuscarPuesto.TabStop = true;
-            this.rbBuscarPuesto.Text = "Puesto";
-            this.rbBuscarPuesto.UseVisualStyleBackColor = true;
-            // 
             // rbBuscarNombre
             // 
             this.rbBuscarNombre.AutoSize = true;
@@ -460,82 +509,34 @@
             this.rbBuscarNombre.Text = "Nombre";
             this.rbBuscarNombre.UseVisualStyleBackColor = true;
             // 
-            // Id
+            // rbBuscarPuesto
             // 
-            this.Id.DataPropertyName = "Id";
-            this.Id.HeaderText = "Id";
-            this.Id.Name = "Id";
-            this.Id.Visible = false;
-            this.Id.Width = 50;
+            this.rbBuscarPuesto.AutoSize = true;
+            this.rbBuscarPuesto.Location = new System.Drawing.Point(185, 11);
+            this.rbBuscarPuesto.Name = "rbBuscarPuesto";
+            this.rbBuscarPuesto.Size = new System.Drawing.Size(58, 17);
+            this.rbBuscarPuesto.TabIndex = 3;
+            this.rbBuscarPuesto.TabStop = true;
+            this.rbBuscarPuesto.Text = "Puesto";
+            this.rbBuscarPuesto.UseVisualStyleBackColor = true;
             // 
-            // Nombre
+            // rbBuscarPermiso
             // 
-            this.Nombre.DataPropertyName = "Nombre";
-            this.Nombre.HeaderText = "Nombre";
-            this.Nombre.Name = "Nombre";
-            this.Nombre.Width = 65;
-            // 
-            // Apellido
-            // 
-            this.Apellido.DataPropertyName = "Apellido";
-            this.Apellido.HeaderText = "Apellido";
-            this.Apellido.Name = "Apellido";
-            this.Apellido.Width = 65;
-            // 
-            // Direccion
-            // 
-            this.Direccion.DataPropertyName = "Direccion";
-            this.Direccion.HeaderText = "Dirección";
-            this.Direccion.Name = "Direccion";
-            this.Direccion.Width = 80;
-            // 
-            // TelefonoResidencia
-            // 
-            this.TelefonoResidencia.DataPropertyName = "TelefonoResidencia";
-            this.TelefonoResidencia.HeaderText = "Tel. Residencia";
-            this.TelefonoResidencia.Name = "TelefonoResidencia";
-            this.TelefonoResidencia.Width = 65;
-            // 
-            // TelefonoCelular
-            // 
-            this.TelefonoCelular.DataPropertyName = "TelefonoCelular";
-            this.TelefonoCelular.HeaderText = "Tel. Célular";
-            this.TelefonoCelular.Name = "TelefonoCelular";
-            this.TelefonoCelular.Width = 65;
-            // 
-            // Puesto
-            // 
-            this.Puesto.DataPropertyName = "Puesto";
-            this.Puesto.HeaderText = "Puesto";
-            this.Puesto.Name = "Puesto";
-            this.Puesto.Width = 65;
-            // 
-            // Permiso
-            // 
-            this.Permiso.DataPropertyName = "Permiso";
-            this.Permiso.HeaderText = "Permiso";
-            this.Permiso.Name = "Permiso";
-            this.Permiso.Width = 65;
-            // 
-            // Usuario
-            // 
-            this.Usuario.DataPropertyName = "Usuario";
-            this.Usuario.HeaderText = "Usuario";
-            this.Usuario.Name = "Usuario";
-            this.Usuario.Width = 65;
-            // 
-            // Contrasenna
-            // 
-            this.Contrasenna.DataPropertyName = "Contrasenna";
-            this.Contrasenna.HeaderText = "Contraseña";
-            this.Contrasenna.Name = "Contrasenna";
-            this.Contrasenna.Width = 65;
+            this.rbBuscarPermiso.AutoSize = true;
+            this.rbBuscarPermiso.Location = new System.Drawing.Point(117, 12);
+            this.rbBuscarPermiso.Name = "rbBuscarPermiso";
+            this.rbBuscarPermiso.Size = new System.Drawing.Size(62, 17);
+            this.rbBuscarPermiso.TabIndex = 2;
+            this.rbBuscarPermiso.TabStop = true;
+            this.rbBuscarPermiso.Text = "Permiso";
+            this.rbBuscarPermiso.UseVisualStyleBackColor = true;
             // 
             // txtSeleccion
             // 
+            this.txtSeleccion.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtSeleccion.Location = new System.Drawing.Point(10, 549);
             this.txtSeleccion.Name = "txtSeleccion";
-            this.txtSeleccion.Size = new System.Drawing.Size(333, 20);
+            this.txtSeleccion.Size = new System.Drawing.Size(333, 13);
             this.txtSeleccion.TabIndex = 14;
             // 
             // FrmEmpleado

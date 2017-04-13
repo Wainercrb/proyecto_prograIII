@@ -114,43 +114,43 @@
             // registroClienteToolStripMenuItem
             // 
             this.registroClienteToolStripMenuItem.Name = "registroClienteToolStripMenuItem";
-            this.registroClienteToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.registroClienteToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             this.registroClienteToolStripMenuItem.Text = "Registro cliente";
             this.registroClienteToolStripMenuItem.Click += new System.EventHandler(this.registroClienteToolStripMenuItem_Click);
             // 
             // registroMarcasToolStripMenuItem
             // 
             this.registroMarcasToolStripMenuItem.Name = "registroMarcasToolStripMenuItem";
-            this.registroMarcasToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
-            this.registroMarcasToolStripMenuItem.Text = "Registro marcas y modulos ";
+            this.registroMarcasToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.registroMarcasToolStripMenuItem.Text = "Mantenimiento marcas";
             this.registroMarcasToolStripMenuItem.Click += new System.EventHandler(this.registroMarcasToolStripMenuItem_Click);
             // 
             // registroClasesVehiculoToolStripMenuItem
             // 
             this.registroClasesVehiculoToolStripMenuItem.Name = "registroClasesVehiculoToolStripMenuItem";
-            this.registroClasesVehiculoToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
-            this.registroClasesVehiculoToolStripMenuItem.Text = "Registro Clases Vehiculo";
+            this.registroClasesVehiculoToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.registroClasesVehiculoToolStripMenuItem.Text = "Mantenimineto tipos vehículos";
             this.registroClasesVehiculoToolStripMenuItem.Click += new System.EventHandler(this.registroClasesVehiculoToolStripMenuItem_Click);
             // 
             // registroVehiculoToolStripMenuItem
             // 
             this.registroVehiculoToolStripMenuItem.Name = "registroVehiculoToolStripMenuItem";
-            this.registroVehiculoToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
-            this.registroVehiculoToolStripMenuItem.Text = "Registro Vehiculo";
+            this.registroVehiculoToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.registroVehiculoToolStripMenuItem.Text = "Mantenimiento Vehiculo";
             this.registroVehiculoToolStripMenuItem.Click += new System.EventHandler(this.registroVehiculoToolStripMenuItem_Click);
             // 
             // registroCatalogoRepuestosToolStripMenuItem
             // 
             this.registroCatalogoRepuestosToolStripMenuItem.Name = "registroCatalogoRepuestosToolStripMenuItem";
-            this.registroCatalogoRepuestosToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
-            this.registroCatalogoRepuestosToolStripMenuItem.Text = "Registro Catalogo Repuestos";
+            this.registroCatalogoRepuestosToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.registroCatalogoRepuestosToolStripMenuItem.Text = "Catalogo Repuestos";
             this.registroCatalogoRepuestosToolStripMenuItem.Click += new System.EventHandler(this.registroCatalogoRepuestosToolStripMenuItem_Click);
             // 
             // registroCatalogoReparacionToolStripMenuItem
             // 
             this.registroCatalogoReparacionToolStripMenuItem.Name = "registroCatalogoReparacionToolStripMenuItem";
-            this.registroCatalogoReparacionToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
-            this.registroCatalogoReparacionToolStripMenuItem.Text = "Registro Catalogo Reparacion";
+            this.registroCatalogoReparacionToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.registroCatalogoReparacionToolStripMenuItem.Text = "Catalogo Reparaciones";
             this.registroCatalogoReparacionToolStripMenuItem.Click += new System.EventHandler(this.registroCatalogoReparacionToolStripMenuItem_Click);
             // 
             // ediarOrdenesToolStripMenuItem

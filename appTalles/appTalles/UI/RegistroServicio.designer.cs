@@ -28,67 +28,49 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnLimpiar = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegistroServicio));
+            this.txtPrecio = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txtMensaje = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.btnEliminar = new System.Windows.Forms.Button();
-            this.btnActualizar = new System.Windows.Forms.Button();
-            this.btnAgregar = new System.Windows.Forms.Button();
             this.txtServicio = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.txtBuscar = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtCantidadRegistros = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.btnSalir = new System.Windows.Forms.Button();
             this.grdServicios = new System.Windows.Forms.DataGridView();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtCantidadRegistros = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtBuscar = new System.Windows.Forms.TextBox();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.btnAgregar = new System.Windows.Forms.ToolStripButton();
+            this.btnEliminar = new System.Windows.Forms.ToolStripButton();
+            this.btnRefrescar = new System.Windows.Forms.ToolStripButton();
+            this.btnLimpiar = new System.Windows.Forms.ToolStripButton();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtImpuesto = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rbBuscarCodigo = new System.Windows.Forms.RadioButton();
+            this.rbBuscarServicio = new System.Windows.Forms.RadioButton();
+            this.rbBuscaPrecio = new System.Windows.Forms.RadioButton();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pServicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.impuesto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txtPrecio = new System.Windows.Forms.TextBox();
-            this.groupBox1.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdServicios)).BeginInit();
+            this.toolStrip1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // groupBox1
+            // txtPrecio
             // 
-            this.groupBox1.Controls.Add(this.txtPrecio);
-            this.groupBox1.Controls.Add(this.btnLimpiar);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.txtMensaje);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.btnEliminar);
-            this.groupBox1.Controls.Add(this.btnActualizar);
-            this.groupBox1.Controls.Add(this.btnAgregar);
-            this.groupBox1.Controls.Add(this.txtServicio);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(9, 139);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(271, 170);
-            this.groupBox1.TabIndex = 3;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Registro Servicios";
-            // 
-            // btnLimpiar
-            // 
-            this.btnLimpiar.Location = new System.Drawing.Point(94, 102);
-            this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(79, 23);
-            this.btnLimpiar.TabIndex = 5;
-            this.btnLimpiar.Text = "Limpiar";
-            this.btnLimpiar.UseVisualStyleBackColor = true;
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            this.txtPrecio.Location = new System.Drawing.Point(66, 38);
+            this.txtPrecio.Name = "txtPrecio";
+            this.txtPrecio.Size = new System.Drawing.Size(114, 20);
+            this.txtPrecio.TabIndex = 10;
+            this.txtPrecio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.validarNumeros);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(10, 69);
+            this.label6.Location = new System.Drawing.Point(20, 41);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(40, 13);
             this.label6.TabIndex = 9;
@@ -96,55 +78,18 @@
             // 
             // txtMensaje
             // 
+            this.txtMensaje.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtMensaje.Enabled = false;
-            this.txtMensaje.Location = new System.Drawing.Point(54, 131);
+            this.txtMensaje.Location = new System.Drawing.Point(15, 348);
+            this.txtMensaje.Multiline = true;
             this.txtMensaje.Name = "txtMensaje";
             this.txtMensaje.ReadOnly = true;
-            this.txtMensaje.Size = new System.Drawing.Size(207, 20);
+            this.txtMensaje.Size = new System.Drawing.Size(268, 20);
             this.txtMensaje.TabIndex = 7;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 134);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 13);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Tarea:";
-            // 
-            // btnEliminar
-            // 
-            this.btnEliminar.Location = new System.Drawing.Point(186, 102);
-            this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(75, 23);
-            this.btnEliminar.TabIndex = 6;
-            this.btnEliminar.Text = "Eliminar";
-            this.btnEliminar.UseVisualStyleBackColor = true;
-            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
-            // 
-            // btnActualizar
-            // 
-            this.btnActualizar.Location = new System.Drawing.Point(11, 102);
-            this.btnActualizar.Name = "btnActualizar";
-            this.btnActualizar.Size = new System.Drawing.Size(77, 23);
-            this.btnActualizar.TabIndex = 3;
-            this.btnActualizar.Text = "Refrescar";
-            this.btnActualizar.UseVisualStyleBackColor = true;
-            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
-            // 
-            // btnAgregar
-            // 
-            this.btnAgregar.Location = new System.Drawing.Point(186, 64);
-            this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(75, 23);
-            this.btnAgregar.TabIndex = 2;
-            this.btnAgregar.Text = "Agregar";
-            this.btnAgregar.UseVisualStyleBackColor = true;
-            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // txtServicio
             // 
-            this.txtServicio.Location = new System.Drawing.Point(59, 34);
+            this.txtServicio.Location = new System.Drawing.Point(66, 12);
             this.txtServicio.Name = "txtServicio";
             this.txtServicio.Size = new System.Drawing.Size(114, 20);
             this.txtServicio.TabIndex = 0;
@@ -152,44 +97,45 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 36);
+            this.label1.Location = new System.Drawing.Point(12, 15);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(48, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Servicio:";
             // 
-            // tabControl1
+            // grdServicios
             // 
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(286, 6);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(313, 303);
-            this.tabControl1.TabIndex = 2;
+            this.grdServicios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdServicios.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Id,
+            this.pServicio,
+            this.impuesto,
+            this.Precio});
+            this.grdServicios.Location = new System.Drawing.Point(9, 131);
+            this.grdServicios.Name = "grdServicios";
+            this.grdServicios.Size = new System.Drawing.Size(445, 211);
+            this.grdServicios.TabIndex = 0;
+            this.grdServicios.DoubleClick += new System.EventHandler(this.EditarServicio);
+            this.grdServicios.MouseClick += new System.Windows.Forms.MouseEventHandler(this.seleccionServicio);
             // 
-            // tabPage2
+            // label3
             // 
-            this.tabPage2.Controls.Add(this.txtBuscar);
-            this.tabPage2.Controls.Add(this.label4);
-            this.tabPage2.Controls.Add(this.txtCantidadRegistros);
-            this.tabPage2.Controls.Add(this.label3);
-            this.tabPage2.Controls.Add(this.btnSalir);
-            this.tabPage2.Controls.Add(this.grdServicios);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(305, 277);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Listado de Servicios";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(333, 351);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(54, 13);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Registros:";
             // 
-            // txtBuscar
+            // txtCantidadRegistros
             // 
-            this.txtBuscar.Location = new System.Drawing.Point(55, 13);
-            this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(235, 20);
-            this.txtBuscar.TabIndex = 0;
-            this.txtBuscar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.enterSeleccion);
+            this.txtCantidadRegistros.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtCantidadRegistros.Location = new System.Drawing.Point(393, 351);
+            this.txtCantidadRegistros.Multiline = true;
+            this.txtCantidadRegistros.Name = "txtCantidadRegistros";
+            this.txtCantidadRegistros.ReadOnly = true;
+            this.txtCantidadRegistros.Size = new System.Drawing.Size(61, 20);
+            this.txtCantidadRegistros.TabIndex = 3;
             // 
             // label4
             // 
@@ -200,115 +146,212 @@
             this.label4.TabIndex = 4;
             this.label4.Text = "Buscar:";
             // 
-            // txtCantidadRegistros
+            // txtBuscar
             // 
-            this.txtCantidadRegistros.Location = new System.Drawing.Point(108, 245);
-            this.txtCantidadRegistros.Name = "txtCantidadRegistros";
-            this.txtCantidadRegistros.ReadOnly = true;
-            this.txtCantidadRegistros.Size = new System.Drawing.Size(100, 20);
-            this.txtCantidadRegistros.TabIndex = 3;
+            this.txtBuscar.Location = new System.Drawing.Point(232, 13);
+            this.txtBuscar.Name = "txtBuscar";
+            this.txtBuscar.Size = new System.Drawing.Size(100, 20);
+            this.txtBuscar.TabIndex = 0;
+            this.txtBuscar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.enterSeleccion);
             // 
-            // label3
+            // toolStrip1
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 248);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(99, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Cantidad Registros:";
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnAgregar,
+            this.btnEliminar,
+            this.btnRefrescar,
+            this.btnLimpiar});
+            this.toolStrip1.Location = new System.Drawing.Point(9, 103);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(104, 25);
+            this.toolStrip1.TabIndex = 11;
+            this.toolStrip1.Text = "toolStrip1";
             // 
-            // btnSalir
+            // btnAgregar
             // 
-            this.btnSalir.Location = new System.Drawing.Point(215, 245);
-            this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(75, 23);
-            this.btnSalir.TabIndex = 1;
-            this.btnSalir.Text = "Salir";
-            this.btnSalir.UseVisualStyleBackColor = true;
-            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
+            this.btnAgregar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnAgregar.Image = ((System.Drawing.Image)(resources.GetObject("btnAgregar.Image")));
+            this.btnAgregar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.Size = new System.Drawing.Size(23, 22);
+            this.btnAgregar.Text = "Agregar";
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click_1);
             // 
-            // grdServicios
+            // btnEliminar
             // 
-            this.grdServicios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdServicios.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Id,
-            this.pServicio,
-            this.Precio});
-            this.grdServicios.Location = new System.Drawing.Point(9, 45);
-            this.grdServicios.Name = "grdServicios";
-            this.grdServicios.Size = new System.Drawing.Size(287, 191);
-            this.grdServicios.TabIndex = 0;
-            this.grdServicios.DoubleClick += new System.EventHandler(this.EditarServicio);
+            this.btnEliminar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnEliminar.Image = ((System.Drawing.Image)(resources.GetObject("btnEliminar.Image")));
+            this.btnEliminar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(23, 22);
+            this.btnEliminar.Text = "Eliminar";
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click_1);
+            // 
+            // btnRefrescar
+            // 
+            this.btnRefrescar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnRefrescar.Image = ((System.Drawing.Image)(resources.GetObject("btnRefrescar.Image")));
+            this.btnRefrescar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnRefrescar.Name = "btnRefrescar";
+            this.btnRefrescar.Size = new System.Drawing.Size(23, 22);
+            this.btnRefrescar.Text = "Refrescar";
+            this.btnRefrescar.Click += new System.EventHandler(this.btnRefrescar_Click);
+            // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnLimpiar.Image = ((System.Drawing.Image)(resources.GetObject("btnLimpiar.Image")));
+            this.btnLimpiar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(23, 22);
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click_1);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(7, 67);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(53, 13);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Impuesto:";
+            // 
+            // txtImpuesto
+            // 
+            this.txtImpuesto.Location = new System.Drawing.Point(66, 64);
+            this.txtImpuesto.Name = "txtImpuesto";
+            this.txtImpuesto.Size = new System.Drawing.Size(114, 20);
+            this.txtImpuesto.TabIndex = 13;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.rbBuscarServicio);
+            this.groupBox1.Controls.Add(this.rbBuscaPrecio);
+            this.groupBox1.Controls.Add(this.txtBuscar);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.rbBuscarCodigo);
+            this.groupBox1.Location = new System.Drawing.Point(116, 90);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(338, 39);
+            this.groupBox1.TabIndex = 14;
+            this.groupBox1.TabStop = false;
+            // 
+            // rbBuscarCodigo
+            // 
+            this.rbBuscarCodigo.AutoSize = true;
+            this.rbBuscarCodigo.Checked = true;
+            this.rbBuscarCodigo.Location = new System.Drawing.Point(55, 16);
+            this.rbBuscarCodigo.Name = "rbBuscarCodigo";
+            this.rbBuscarCodigo.Size = new System.Drawing.Size(58, 17);
+            this.rbBuscarCodigo.TabIndex = 15;
+            this.rbBuscarCodigo.TabStop = true;
+            this.rbBuscarCodigo.Text = "Codigo";
+            this.rbBuscarCodigo.UseVisualStyleBackColor = true;
+            // 
+            // rbBuscarServicio
+            // 
+            this.rbBuscarServicio.AutoSize = true;
+            this.rbBuscarServicio.Location = new System.Drawing.Point(163, 16);
+            this.rbBuscarServicio.Name = "rbBuscarServicio";
+            this.rbBuscarServicio.Size = new System.Drawing.Size(63, 17);
+            this.rbBuscarServicio.TabIndex = 16;
+            this.rbBuscarServicio.Text = "Servicio";
+            this.rbBuscarServicio.UseVisualStyleBackColor = true;
+            // 
+            // rbBuscaPrecio
+            // 
+            this.rbBuscaPrecio.AutoSize = true;
+            this.rbBuscaPrecio.Location = new System.Drawing.Point(109, 16);
+            this.rbBuscaPrecio.Name = "rbBuscaPrecio";
+            this.rbBuscaPrecio.Size = new System.Drawing.Size(55, 17);
+            this.rbBuscaPrecio.TabIndex = 17;
+            this.rbBuscaPrecio.Text = "Precio";
+            this.rbBuscaPrecio.UseVisualStyleBackColor = true;
             // 
             // Id
             // 
             this.Id.DataPropertyName = "Id";
             this.Id.HeaderText = "Código";
             this.Id.Name = "Id";
+            this.Id.Width = 90;
             // 
             // pServicio
             // 
             this.pServicio.DataPropertyName = "pServicio";
             this.pServicio.HeaderText = "Servicio";
             this.pServicio.Name = "pServicio";
+            this.pServicio.Width = 130;
+            // 
+            // impuesto
+            // 
+            this.impuesto.DataPropertyName = "impuesto";
+            this.impuesto.HeaderText = "I.V.I";
+            this.impuesto.Name = "impuesto";
+            this.impuesto.Width = 90;
             // 
             // Precio
             // 
             this.Precio.DataPropertyName = "Precio";
             this.Precio.HeaderText = "Precio";
             this.Precio.Name = "Precio";
-            // 
-            // txtPrecio
-            // 
-            this.txtPrecio.Location = new System.Drawing.Point(59, 69);
-            this.txtPrecio.Name = "txtPrecio";
-            this.txtPrecio.Size = new System.Drawing.Size(114, 20);
-            this.txtPrecio.TabIndex = 10;
-            this.txtPrecio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.validarNumeros);
+            this.Precio.Width = 90;
             // 
             // RegistroServicio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(601, 311);
+            this.ClientSize = new System.Drawing.Size(461, 373);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.txtImpuesto);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.txtMensaje);
+            this.Controls.Add(this.txtCantidadRegistros);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.txtPrecio);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.grdServicios);
+            this.Controls.Add(this.txtServicio);
+            this.Controls.Add(this.label1);
             this.Name = "RegistroServicio";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Servicios";
+            ((System.ComponentModel.ISupportInitialize)(this.grdServicios)).EndInit();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdServicios)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtMensaje;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button btnEliminar;
-        private System.Windows.Forms.Button btnActualizar;
-        private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.TextBox txtServicio;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TextBox txtBuscar;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtCantidadRegistros;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button btnSalir;
         private System.Windows.Forms.DataGridView grdServicios;
-        private System.Windows.Forms.Button btnLimpiar;
+        private System.Windows.Forms.TextBox txtPrecio;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtCantidadRegistros;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtBuscar;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton btnAgregar;
+        private System.Windows.Forms.ToolStripButton btnEliminar;
+        private System.Windows.Forms.ToolStripButton btnRefrescar;
+        private System.Windows.Forms.ToolStripButton btnLimpiar;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtImpuesto;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton rbBuscarServicio;
+        private System.Windows.Forms.RadioButton rbBuscaPrecio;
+        private System.Windows.Forms.RadioButton rbBuscarCodigo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn pServicio;
+        private System.Windows.Forms.DataGridViewTextBoxColumn impuesto;
         private System.Windows.Forms.DataGridViewTextBoxColumn Precio;
-        private System.Windows.Forms.TextBox txtPrecio;
     }
 }

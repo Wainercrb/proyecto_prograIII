@@ -30,8 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMarca));
             this.grdMarcas = new System.Windows.Forms.DataGridView();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MarcaVehiculo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.txtMarca = new System.Windows.Forms.TextBox();
             this.txtMensaje = new System.Windows.Forms.TextBox();
@@ -44,6 +42,8 @@
             this.btnEliminar = new System.Windows.Forms.ToolStripButton();
             this.btnRefrescar = new System.Windows.Forms.ToolStripButton();
             this.btnLimpiar = new System.Windows.Forms.ToolStripButton();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MarcaVehiculo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grdMarcas)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -57,23 +57,10 @@
             this.grdMarcas.Location = new System.Drawing.Point(5, 74);
             this.grdMarcas.Name = "grdMarcas";
             this.grdMarcas.ReadOnly = true;
-            this.grdMarcas.Size = new System.Drawing.Size(321, 186);
-            this.grdMarcas.TabIndex = 0;
+            this.grdMarcas.Size = new System.Drawing.Size(316, 186);
+            this.grdMarcas.TabIndex = 3;
             this.grdMarcas.DoubleClick += new System.EventHandler(this.Editar);
-            // 
-            // Id
-            // 
-            this.Id.DataPropertyName = "Id";
-            this.Id.HeaderText = "Código";
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
-            // 
-            // MarcaVehiculo
-            // 
-            this.MarcaVehiculo.DataPropertyName = "Marca";
-            this.MarcaVehiculo.HeaderText = "Marca del vehiculo";
-            this.MarcaVehiculo.Name = "MarcaVehiculo";
-            this.MarcaVehiculo.ReadOnly = true;
+            this.grdMarcas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.seleccionMarca);
             // 
             // label1
             // 
@@ -88,22 +75,22 @@
             // 
             this.txtMarca.Location = new System.Drawing.Point(52, 14);
             this.txtMarca.Name = "txtMarca";
-            this.txtMarca.Size = new System.Drawing.Size(274, 20);
+            this.txtMarca.Size = new System.Drawing.Size(99, 20);
             this.txtMarca.TabIndex = 0;
             // 
             // txtMensaje
             // 
             this.txtMensaje.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtMensaje.Location = new System.Drawing.Point(5, 270);
+            this.txtMensaje.Location = new System.Drawing.Point(12, 270);
             this.txtMensaje.Multiline = true;
             this.txtMensaje.Name = "txtMensaje";
             this.txtMensaje.ReadOnly = true;
-            this.txtMensaje.Size = new System.Drawing.Size(203, 20);
+            this.txtMensaje.Size = new System.Drawing.Size(185, 20);
             this.txtMensaje.TabIndex = 6;
             // 
             // txtCantidadRegistros
             // 
-            this.txtCantidadRegistros.Location = new System.Drawing.Point(277, 270);
+            this.txtCantidadRegistros.Location = new System.Drawing.Point(272, 270);
             this.txtCantidadRegistros.Name = "txtCantidadRegistros";
             this.txtCantidadRegistros.ReadOnly = true;
             this.txtCantidadRegistros.Size = new System.Drawing.Size(49, 20);
@@ -112,7 +99,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(217, 273);
+            this.label4.Location = new System.Drawing.Point(203, 273);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(54, 13);
             this.label4.TabIndex = 3;
@@ -122,8 +109,8 @@
             // 
             this.txtBuscar.Location = new System.Drawing.Point(157, 48);
             this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(169, 20);
-            this.txtBuscar.TabIndex = 0;
+            this.txtBuscar.Size = new System.Drawing.Size(164, 20);
+            this.txtBuscar.TabIndex = 2;
             this.txtBuscar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.busquedaMarca);
             // 
             // label2
@@ -146,8 +133,8 @@
             this.toolStrip1.Location = new System.Drawing.Point(1, 46);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.toolStrip1.Size = new System.Drawing.Size(135, 25);
-            this.toolStrip1.TabIndex = 9;
+            this.toolStrip1.Size = new System.Drawing.Size(104, 25);
+            this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // btnAgregar
@@ -190,11 +177,27 @@
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click_1);
             // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "Código";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            this.Id.Width = 120;
+            // 
+            // MarcaVehiculo
+            // 
+            this.MarcaVehiculo.DataPropertyName = "Marca";
+            this.MarcaVehiculo.HeaderText = "Marca del vehiculo";
+            this.MarcaVehiculo.Name = "MarcaVehiculo";
+            this.MarcaVehiculo.ReadOnly = true;
+            this.MarcaVehiculo.Width = 150;
+            // 
             // frmMarca
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(333, 298);
+            this.ClientSize = new System.Drawing.Size(326, 298);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.txtCantidadRegistros);
             this.Controls.Add(this.label1);
@@ -225,12 +228,12 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtCantidadRegistros;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MarcaVehiculo;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton btnAgregar;
         private System.Windows.Forms.ToolStripButton btnEliminar;
         private System.Windows.Forms.ToolStripButton btnRefrescar;
         private System.Windows.Forms.ToolStripButton btnLimpiar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MarcaVehiculo;
     }
 }

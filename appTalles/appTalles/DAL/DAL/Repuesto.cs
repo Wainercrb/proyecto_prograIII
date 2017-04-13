@@ -16,77 +16,44 @@ namespace DAL
         private AccesoDatosPostgre conexion;
         private bool error;
         private string errorMsg;
-
-
         public Repuesto()
         {
             this.conexion = AccesoDatosPostgre.Instance;
             this.limpiarError();
         }
-
         public void limpiarError()
         {
             this.error = false;
             this.errorMsg = "";
         }
-
+        //Metodo carga un dataset con los repuesto y los agrega
+        //a la lista para luego retornarlos
         public List<ENT.RepuestoVehiculo> obtenerRepesto()
         {
             List<RepuestoVehiculo> repuestos = new List<RepuestoVehiculo>();
-            try
-            {
-                this.limpiarError();
-                DataSet dsetRepuesto;
-                string sql = "select * from repuesto";
-
-                dsetRepuesto = this.conexion.ejecutarConsultaSQL(sql);
-                foreach (DataRow tupla in dsetRepuesto.Tables[0].Rows)
-                {
-                    RepuestoVehiculo repuesto = new RepuestoVehiculo(Int32.Parse(tupla["id_repuesto"].ToString()), tupla["repuesto"].ToString(), Double.Parse(tupla["precio"].ToString()), Double.Parse(tupla["impuesto"].ToString()));
-                    repuestos.Add(repuesto);
-                }
-                if (this.conexion.IsError)
-                {
-                    this.error = true;
-                    this.errorMsg = this.conexion.ErrorDescripcion;
-                }
-            }
-            catch (Exception e)
-            {
-                this.error = false;
-                this.errorMsg = e.Message;
-            }
-
-            return repuestos;
-        }
-
-
-        public List<MarcaVehiculo> obtenerMarcaRepuesto(RepuestoVehiculo pRepuesto)
-        {
-            List<MarcaVehiculo> marcas = new List<MarcaVehiculo>();
             this.limpiarError();
             DataSet dsetRepuesto;
-            string sql = "select m.id_marca as id_marca, m.marca as marca from marca m, repuesto_marca mr, repuesto r where mr.fk_marca = m.id_marca and mr.fk_repuesto = r.id_repuesto and fk_repuesto = " + pRepuesto.Id;
+            string sql = "select * from " + this.conexion.Schema + "repuesto";
             dsetRepuesto = this.conexion.ejecutarConsultaSQL(sql);
             foreach (DataRow tupla in dsetRepuesto.Tables[0].Rows)
             {
-                MarcaVehiculo marca = new MarcaVehiculo(Int32.Parse(tupla["id_marca"].ToString()), tupla["marca"].ToString());
-                marcas.Add(marca);
+                RepuestoVehiculo repuesto = new RepuestoVehiculo(Int32.Parse(tupla["id_repuesto"].ToString()), tupla["repuesto"].ToString(), Double.Parse(tupla["precio"].ToString()), Double.Parse(tupla["impuesto"].ToString()));
+                repuestos.Add(repuesto);
             }
             if (this.conexion.IsError)
             {
                 this.error = true;
                 this.errorMsg = this.conexion.ErrorDescripcion;
             }
-
-            return marcas;
+            return repuestos;
         }
 
+        //Metodo agrega los la entidad que recibe por parametos
+        //a la base de datos
         public void agregarRepuesto(RepuestoVehiculo pRepuesto)
         {
             limpiarError();
-            string sql = "INSER INTO " + this.conexion.Schema + "repuesto(repuesto, precio, impuesto) " +
-                         "values(@repuesto, @precio, @impuesto)";
+            string sql = "INSER INTO " + this.conexion.Schema + "repuesto(repuesto, precio, impuesto) " + "values(@repuesto, @precio, @impuesto)";
             Parametro prm = new Parametro();
             prm.agregarParametro("@repuesto", NpgsqlDbType.Varchar, pRepuesto.Repuesto);
             prm.agregarParametro("@precio", NpgsqlDbType.Double, pRepuesto.Precio);
@@ -98,7 +65,7 @@ namespace DAL
                 this.errorMsg = this.conexion.ErrorDescripcion;
             }
         }
-
+        //Metodo agrega los varoles que recible por parametro a la db
         public void agregarMarcasRepuesto(MarcaVehiculo pMarcas, RepuestoVehiculo pRepuesto)
         {
             limpiarError();
@@ -114,7 +81,7 @@ namespace DAL
                 this.errorMsg = this.conexion.ErrorDescripcion;
             }
         }
-
+        //Metodo borra la marca  que recibe por parametro
         public void borrarRepuestoMarca(MarcaVehiculo pMarca)
         {
             limpiarError();
@@ -128,12 +95,14 @@ namespace DAL
                 this.errorMsg = this.conexion.ErrorDescripcion;
             }
         }
+        //Metodo elimina el repuesto que recibe por parametro
+        //de la base de datos
         public void borrarRepuesto(RepuestoVehiculo pRepuesto)
         {
             limpiarError();
-            string sql = "DELETE FROM " + this.conexion.Schema + "repuesto where id_repuesto = @id_repuesto";
+            string sql = "DELETE FROM " + this.conexion.Schema + "repuesto WHERE id_repuesto = @id_repuesto";
             Parametro prm = new Parametro();
-            prm.agregarParametro("@id_parametro", NpgsqlDbType.Integer, pRepuesto.Id);
+            prm.agregarParametro("@id_repuesto", NpgsqlDbType.Integer, pRepuesto.Id);
             this.conexion.ejecutarSQL(sql, prm.obtenerParametros());
             if (this.conexion.IsError)
             {
@@ -141,6 +110,8 @@ namespace DAL
                 this.errorMsg = this.conexion.ErrorDescripcion;
             }
         }
+        //Metodo actualiza por los nuevos valores que recibe
+        //por parametro
         public void editarRepuesto(RepuestoVehiculo pRepuesto)
         {
             limpiarError();
@@ -157,104 +128,62 @@ namespace DAL
                 this.errorMsg = this.conexion.ErrorDescripcion;
             }
         }
-
+      //Metodo busca el valor que recibe por parametro en la base de datos
         public List<RepuestoVehiculo> buscarStringRepuesto(string valor, string columna)
         {
             List<RepuestoVehiculo> repuestos = new List<RepuestoVehiculo>();
-            try
+            this.limpiarError();
+            List<ENT.Servicio> servicios = new List<ENT.Servicio>();
+            Parametro oParametro = new Parametro();
+            oParametro.agregarParametro("@" + columna, NpgsqlDbType.Varchar, valor);
+            string sql = "SELECT * FROM " + this.conexion.Schema + "repuesto WHERE " + columna + " = @" + columna;
+            DataSet dset = this.conexion.ejecutarConsultaSQL(sql, "repuesto", oParametro.obtenerParametros());
+            if (!this.conexion.IsError)
             {
-                this.limpiarError();
-                DataSet dsetMarcas;
-                string sql = "select * from repuesto where " + columna + " = " + "'" + valor + "'";
-                dsetMarcas = this.conexion.ejecutarConsultaSQL(sql);
-
-                foreach (DataRow tupla in dsetMarcas.Tables[0].Rows)
+                if (dset.Tables[0].Rows.Count > 0)
                 {
-                    RepuestoVehiculo repuesto = new RepuestoVehiculo(Int32.Parse(tupla["id_repuesto"].ToString()), tupla["repuesto"].ToString(), Double.Parse(tupla["precio"].ToString()), Double.Parse(tupla["impuesto"].ToString()));
-                    repuestos.Add(repuesto);
-                }
 
-                if (this.conexion.IsError)
-                {
-                    this.error = true;
-                    this.errorMsg = this.conexion.ErrorDescripcion;
+                    foreach (DataRow tupla in dset.Tables[0].Rows)
+                    {
+                        RepuestoVehiculo repuesto = new RepuestoVehiculo(Int32.Parse(tupla["id_repuesto"].ToString()), tupla["repuesto"].ToString(), Double.Parse(tupla["precio"].ToString()), Double.Parse(tupla["impuesto"].ToString()));
+                        repuestos.Add(repuesto);
+                    }
                 }
             }
-
-            catch (Exception e)
+            else
             {
-                this.error = false;
-                this.errorMsg = e.Message;
+                this.error = true;
+                this.errorMsg = this.conexion.ErrorDescripcion;
             }
-
             return repuestos;
         }
-
-        public List<RepuestoVehiculo> buscarDoublegRepuesto(double valor, string columna)
+        //Metodo buscar los valores que recibe por parametro a la base de db
+        public List<RepuestoVehiculo> buscarDoubleRepuesto(double valor, string columna)
         {
             List<RepuestoVehiculo> repuestos = new List<RepuestoVehiculo>();
-            try
+            this.limpiarError();
+            List<ENT.Servicio> servicios = new List<ENT.Servicio>();
+            Parametro oParametro = new Parametro();
+            oParametro.agregarParametro("@" + columna, NpgsqlDbType.Double, valor);
+            string sql = "SELECT * FROM " + this.conexion.Schema + "repuesto WHERE " + columna + " = @" + columna;
+            DataSet dset = this.conexion.ejecutarConsultaSQL(sql, "repuesto", oParametro.obtenerParametros());
+            if (!this.conexion.IsError)
             {
-                this.limpiarError();
-                DataSet dsetMarcas;
-                string sql = "select * from repuesto where " + columna + " = " + valor;
+                if (dset.Tables[0].Rows.Count > 0)
+                {
 
-                dsetMarcas = this.conexion.ejecutarConsultaSQL(sql);
-                foreach (DataRow tupla in dsetMarcas.Tables[0].Rows)
-                {
-                    RepuestoVehiculo repuesto = new RepuestoVehiculo(Int32.Parse(tupla["id_repuesto"].ToString()), tupla["repuesto"].ToString(), Double.Parse(tupla["precio"].ToString()), Double.Parse(tupla["impuesto"].ToString()));
-                    repuestos.Add(repuesto);
-                }
-                if (this.conexion.IsError)
-                {
-                    this.error = true;
-                    this.errorMsg = this.conexion.ErrorDescripcion;
+                    foreach (DataRow tupla in dset.Tables[0].Rows)
+                    {
+                        RepuestoVehiculo repuesto = new RepuestoVehiculo(Int32.Parse(tupla["id_repuesto"].ToString()), tupla["repuesto"].ToString(), Double.Parse(tupla["precio"].ToString()), Double.Parse(tupla["impuesto"].ToString()));
+                        repuestos.Add(repuesto);
+                    }
                 }
             }
-            catch (Exception e)
+            else
             {
-                this.error = false;
-                this.errorMsg = e.Message;
+                this.error = true;
+                this.errorMsg = this.conexion.ErrorDescripcion;
             }
-
-            return repuestos;
-        }
-
-
-        public List<RepuestoVehiculo> obtenerPorDataBUsqueda(string valor)
-        {
-
-            List<RepuestoVehiculo> repuestos = new List<RepuestoVehiculo>();
-            //try
-            //{
-            //    DataSet dsetRepuesto;
-            //    string sql = "select * from repuesto where id_repuesto = " + "'id_repuesto'";
-
-            //    NpgsqlParameter[] parametros = new NpgsqlParameter[1];
-            //    parametros[0] = new NpgsqlParameter();
-            //    parametros[0].NpgsqlDbType = NpgsqlDbType.Integer;
-            //    parametros[0].ParameterName = "@idRepuesto";
-            //    parametros[0].Value = "'" + valor + "'";
-
-            //    dsetRepuesto = this.conexion.ejecutarDataSetSQL(sql, parametros);
-            //    foreach (DataRow tupla in dsetRepuesto.Tables[0].Rows)
-            //    {
-            //        //MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(tupla["id_marca"].ToString()), tupla["marca"].ToString());
-            //        //repuestos.Add(oMarca);
-            //    }
-
-            //    if (this.conexion.IsError)
-            //    {
-            //        this.error = true;
-            //        this.errorMsg = this.conexion.ErrorDescripcion;
-            //    }
-            //}
-            //catch (Exception e)
-            //{
-            //    this.error = false;
-            //    this.errorMsg = e.Message;
-            //}
-
             return repuestos;
         }
 

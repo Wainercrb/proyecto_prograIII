@@ -15,20 +15,19 @@ namespace DAL
         private AccesoDatosPostgre conexion;
         private bool error;
         private string errorMsg;
-
-
         public Tipo()
         {
             this.conexion = AccesoDatosPostgre.Instance;
             this.limpiarError();
         }
-
+        //Metodo limpia el error de las varibles error y errrMsg
         public void limpiarError()
         {
             this.error = false;
             this.errorMsg = "";
         }
-
+        //Metodo cargar el dataset con los tipos de vehículos
+        //y los agrega a la lista para retornarlos
         public List<TipoVehiculo> obtenerTiposVehiculo()
         {
             this.limpiarError();
@@ -54,10 +53,11 @@ namespace DAL
             return tipos;
         }
 
+        //Metodo agrega a la base de datos el valor que recibe por parametro
         public void agregarTipo(TipoVehiculo pTipo)
         {
             limpiarError();
-            string sql = "INSERT " + this.conexion.Schema + "INTO tipo(tipo) VALUES(@tipo)";
+            string sql = "INSERT INTO " + this.conexion.Schema + "tipo(tipo)VALUES(@tipo)";
             Parametro prm = new Parametro();
             prm.agregarParametro("@tipo", NpgsqlDbType.Varchar, pTipo.Tipo);
             this.conexion.ejecutarSQL(sql, prm.obtenerParametros());
@@ -67,6 +67,8 @@ namespace DAL
                 this.error = true;
             }
         }
+        //Metodo elimina el tipo de vehículo que recibe
+        //por la base de datos
         public void borrarTipo(TipoVehiculo pTipo)
         {
             limpiarError();
@@ -80,7 +82,8 @@ namespace DAL
                 this.error = true;
             }
         }
-
+        //Metodo actualiza los valores de la base de datos
+        //por los nuevos que recibe por parametro
         public void editarTipos(TipoVehiculo pTipo)
         {
             limpiarError();
@@ -95,76 +98,34 @@ namespace DAL
                 this.errorMsg = this.conexion.ErrorDescripcion;
             }
         }
-
-
-        public List<TipoVehiculo> buscarTipos(string valor)
+        //Metodo busca un valor que recibel por parametro
+        //y carga los tipos de vehículo similar con ese valor
+        public List<ENT.TipoVehiculo> buscarStringTipo(string valor)
         {
             this.limpiarError();
-            List<TipoVehiculo> tipos = new List<TipoVehiculo>();
-            DataSet dsetTipos;
-
-            string sql = "select * from tipo where tipo = " + "'" + valor + "'";
-            try
+            List<ENT.TipoVehiculo> tipos= new List<ENT.TipoVehiculo>();
+            Parametro oParametro = new Parametro();
+            oParametro.agregarParametro("@tipo", NpgsqlDbType.Varchar, valor);
+            string sql = "SELECT * FROM " + this.conexion.Schema + "tipo WHERE tipo = @tipo";
+            DataSet dset = this.conexion.ejecutarConsultaSQL(sql, "tipo", oParametro.obtenerParametros());
+            if (!this.conexion.IsError)
             {
-                dsetTipos = this.conexion.ejecutarConsultaSQL(sql);
-                foreach (DataRow tupla in dsetTipos.Tables[0].Rows)
+                if (dset.Tables[0].Rows.Count > 0)
                 {
-                    TipoVehiculo oTipo = new TipoVehiculo(Int32.Parse(tupla["id_tipo"].ToString()), tupla["tipo"].ToString());
-                    tipos.Add(oTipo);
-                }
-                if (this.conexion.IsError)
-                {
-                    this.errorMsg = this.conexion.ErrorDescripcion;
-                    this.error = true;
+                    foreach (DataRow tupla in dset.Tables[0].Rows)
+                    {
+                        TipoVehiculo oTipo = new TipoVehiculo(Int32.Parse(tupla["id_tipo"].ToString()), tupla["tipo"].ToString());
+                        tipos.Add(oTipo);
+                    }
                 }
             }
-            catch (Exception e)
+            else
             {
                 this.error = true;
-                this.errorMsg = e.Message;
+                this.errorMsg = this.conexion.ErrorDescripcion;
             }
-
             return tipos;
         }
-
-
-        public List<TipoVehiculo> obtenerPorDataBUsqueda(string valor)
-        {
-            //this.limpiarError();
-            List<TipoVehiculo> tipos = new List<TipoVehiculo>();
-            //DataSet dsetTipos;
-
-            //string sql = "select * from tipo where tipo = " + "'@tipo'";
-            //try
-            //{
-            //    NpgsqlParameter[] parametros = new NpgsqlParameter[1];
-            //    parametros[0] = new NpgsqlParameter();
-            //    parametros[0].NpgsqlDbType = NpgsqlDbType.Integer;
-            //    parametros[0].ParameterName = "'@tipo'";
-            //    parametros[0].Value = "'" + valor + "'";
-            //    dsetTipos = this.conexion.ejecutarDataSetSQL(sql, parametros);
-
-            //    foreach (DataRow tupla in dsetTipos.Tables[0].Rows)
-            //    {
-            //        TipoVehiculo oMarca = new TipoVehiculo(Int32.Parse(tupla["id_tipo"].ToString()), tupla["tipo"].ToString());
-            //        tipos.Add(oMarca);
-            //    }
-            //    if (this.conexion.IsError)
-            //    {
-            //        this.errorMsg = this.conexion.ErrorDescripcion;
-            //        this.error = true;
-            //    }
-            //}
-            //catch (Exception e)
-            //{
-            //    this.error = true;
-            //    this.errorMsg = e.Message;
-            //}
-
-            return tipos;
-
-        }
-
         public bool Error
         {
             get { return error; }

@@ -14,174 +14,151 @@ namespace Vista
 {
     public partial class RegistroServicio : Form
     {
-
-        private DAL.Servicio oServicioD;
-        private ENT.Servicio servicio;
-
+        private BLL.Servicio BllServicio;
+        private ENT.Servicio EntServicio;
+        private List<ENT.Servicio> servicios;
         public RegistroServicio()
         {
             InitializeComponent();
-            oServicioD = new DAL.Servicio();
-            servicio = new ENT.Servicio();
-            cargarDataGriew();
+            BllServicio = new BLL.Servicio();
+            EntServicio = new ENT.Servicio();
+            servicios = new List<ENT.Servicio>();
+        }
+        private void btnAgregar_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                EntServicio.pServicio = txtServicio.Text;
+                EntServicio.Precio = int.Parse(txtPrecio.Text);
+                EntServicio.Impuesto = Double.Parse(txtImpuesto.Text);
+                BllServicio.agregarServicio(EntServicio);
+                limpiarDatos();
+                cargar();
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK, 
+                MessageBoxIcon.Error);
+            }
         }
 
-        private void btnSalir_Click(object sender, EventArgs e)
+        private void btnEliminar_Click_1(object sender, EventArgs e)
         {
-            this.Close();
+            try
+            {
+                DialogResult respuesta = MessageBox.Show("¿Está seguro de borrar?","Error", MessageBoxButtons.YesNo, 
+                MessageBoxIcon.Question);
+                if (respuesta == DialogResult.Yes)
+                {
+                    BllServicio.eliminarServicio(EntServicio);
+                    limpiarDatos();
+                    cargar();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK, 
+                MessageBoxIcon.Error);
+            }
+        }
+        private void btnRefrescar_Click(object sender, EventArgs e)
+        {
+            cargar();
+        }
+        private void btnLimpiar_Click_1(object sender, EventArgs e)
+        {
+            limpiarDatos();
         }
         public void cargar()
         {
-            bool estado = false;
-
-            List<ENT.Servicio> lsServicios = oServicioD.Obtenerservicios(ref estado);
-
-            if (estado)
+            try
             {
-                this.grdServicios.DataSource = lsServicios;
-                txtCantidadRegistros.Text = "" + lsServicios.Count();
+                servicios = BllServicio.cargarServicio();
+                grdServicios.DataSource = servicios;
+                txtCantidadRegistros.Text = ""+servicios.Count;
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Detalles: " + oServicioD.Error, "¡Error al cargar los servicios", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK, 
+                MessageBoxIcon.Error);
             }
         }
-
-        private void btnAgregar_Click(object sender, EventArgs e)
-        {
-            if (txtServicio.Text == "" || txtPrecio.Text == "")
-            {
-                MessageBox.Show("Debe llenar todos los datos requeridos",
-                                "Error",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            servicio.pServicio = txtServicio.Text;
-            servicio.Precio = int.Parse(txtPrecio.Text);
-            if (servicio.Id > 0)
-            {
-
-                if (!oServicioD.actualizarServicio(servicio))
-                {
-                    txtMensaje.Text = "Se agrego la marca correctamente";
-                    limpiarDatos();
-                    cargar();
-                }
-                else
-                {
-
-                    MessageBox.Show("Detalles: " + oServicioD.ErrorMsg, "!Error al agregar el servicio¡", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-            }
-            else
-            {
-
-                if (!oServicioD.agregarservicio(servicio))
-                {
-                    txtMensaje.Text = "Empleado Agregado Correctamente";
-                    limpiarDatos();
-                    cargar();
-
-
-                }
-                else
-                {
-                    MessageBox.Show("Detalles: " +
-                                        oServicioD.ErrorMsg, "!Error al agregar el servicio¡",
-                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-
-        private void btnEliminar_Click(object sender, EventArgs e)
-        {
-            if (this.grdServicios.Rows.Count > 0)
-            {
-                DialogResult respuesta = MessageBox.Show("¿Está seguro de borrar?",
-                                                         "Error",
-                                                          MessageBoxButtons.YesNo,
-                                                          MessageBoxIcon.Question);
-                if (respuesta == DialogResult.Yes)
-                {
-
-                    int fila = this.grdServicios.CurrentRow.Index;
-                    servicio.Id = Convert.ToInt32(this.grdServicios[0, fila].Value.ToString());
-
-                    if (!oServicioD.borrarservicio(servicio))
-                    {
-                        cargar();
-                        txtMensaje.Text = "Empleado borrado";
-                    }
-                    else
-                    {
-                        MessageBox.Show("Error borrando Empleado: " +
-                                   oServicioD.ErrorMsg, "Error",
-                                   MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-            }
-        }
-
-        private void limpiarDatos()
-        {
-
-            txtPrecio.Text = "";
-            txtServicio.Text = "";
-            servicio = new ENT.Servicio();
-
-        }
-
-        private void cargarDataGriew()
-        {
-
-
-            this.grdServicios.Columns["Id"].Width = 70;
-            this.grdServicios.Columns["pServicio"].Width = 85;
-            this.grdServicios.Columns["Precio"].Width = 85;
-
-        }
-
         private void EditarServicio(object sender, EventArgs e)
         {
             if (this.grdServicios.Rows.Count > 0)
             {
                 int fila = this.grdServicios.CurrentRow.Index;
-
-                servicio.Id = Int32.Parse(grdServicios[0, fila].Value.ToString());
-                txtServicio.Text = grdServicios[1, fila].Value.ToString();
-                txtPrecio.Text = Int32.Parse(grdServicios[2, fila].Value.ToString()) +"";
-
+                EntServicio.Id = Int32.Parse(this.grdServicios[0, fila].Value.ToString());
+                txtServicio.Text = this.grdServicios[1, fila].Value.ToString();
+                txtPrecio.Text = this.grdServicios[2, fila].Value.ToString();
+                txtImpuesto.Text = this.grdServicios[3, fila].Value.ToString();
             }
         }
-
-        private void btnActualizar_Click(object sender, EventArgs e)
+        private void seleccionServicio(object sender, MouseEventArgs e)
         {
-            cargar();
+            if (this.grdServicios.Rows.Count > 0)
+            {
+                int fila = this.grdServicios.CurrentRow.Index;
+                EntServicio.Id = Int32.Parse(grdServicios[0, fila].Value.ToString());
+                txtMensaje.Text = "Codigo, " + grdServicios[0, fila].Value.ToString() + ", servicio " + grdServicios[1, fila].Value.ToString();
+            }
         }
-
-        private void btnLimpiar_Click(object sender, EventArgs e)
+        private void limpiarDatos()
         {
-            limpiarDatos();
+            txtPrecio.Text = "";
+            txtServicio.Text = "";
+            txtImpuesto.Text = "";
+            txtMensaje.Text = "";
+            EntServicio = new ENT.Servicio();
         }
-
+     
         private void enterSeleccion(object sender, KeyPressEventArgs e)
         {
-            if ((int)e.KeyChar == (int)Keys.Enter)
+            try
             {
-                txtMensaje.Text = "";
-                List<ENT.Servicio> lsServicos = oServicioD.buscarServicios(txtBuscar.Text);
-                txtCantidadRegistros.Text = "" + lsServicos.Count();
-                if (lsServicos.Count() <= 0)
+                if ((int)e.KeyChar == (int)Keys.Enter)
                 {
-                    txtMensaje.Text = "No hay tipos registrados";
+                    if (rbBuscarCodigo.Checked)
+                    {
+                        buscar("", Int32.Parse(txtBuscar.Text), "id_servicio");
+                    }
+                    if (rbBuscarServicio.Checked)
+                    {
+                        buscar(txtBuscar.Text, 0, "servcio");
+                    }
+                    if (rbBuscaPrecio.Checked)
+                    {
+                        buscar("", Int32.Parse(txtBuscar.Text), "precio");
+                    }
                 }
-                this.grdServicios.DataSource = lsServicos;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al ingresar datos",MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
             }
         }
-
+        private void buscar(string cadena, int numero, string columna) {
+            try
+            {              
+                if (cadena == "" && numero > 0)
+                {
+                    servicios = BllServicio.buscarIntServicio(numero, columna);
+                }
+                if (numero == 0 && cadena != "")
+                {
+                    servicios = BllServicio.buscarStringServicio(cadena, columna);
+                }
+                grdServicios.DataSource = servicios;
+                txtCantidadRegistros.Text = servicios.Count+"";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+            }       
+        }
         private void validarNumeros(object sender, KeyPressEventArgs e)
         {
             if (char.IsLetter(e.KeyChar))

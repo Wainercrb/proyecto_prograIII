@@ -22,206 +22,14 @@ namespace Vista
         private List<ENT.RepuestoVehiculo> repuestos;
         public FrmRepuestos()
         {
-            InitializeComponent();        
+            InitializeComponent();
             marcas = new List<ENT.MarcaVehiculo>();
             repuestos = new List<ENT.RepuestoVehiculo>();
             EntRepuesto = new ENT.RepuestoVehiculo();
             EntMarca = new ENT.MarcaVehiculo();
             BllRepuesto = new BLL.Repuesto();
             BllMarca = new BLL.Marca();
-            cargarDataGriew();
             llenarComboMarca();
-        }
-
-        private void obtenerMarcas(object sender, MouseEventArgs e)
-        {
-            cargarMarcas();
-        }
-        private void limpiarDatos()
-        {
-            txtPrecio.Text = "";
-            txtImpuesto.Value = 0;
-            txtPrecio.Text = "";
-            txtRepuesto.Text = "";
-            EntRepuesto = new RepuestoVehiculo();
-            EntMarca = new MarcaVehiculo();
-            marcas.Clear();
-            repuestos.Clear();
-        }
-
-        private void cargarRepuestos()
-        {
-            try
-            {
-                repuestos = BllRepuesto.cargarRepuestos();
-                this.grdRepuesto.DataSource = repuestos;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            } 
-        }
-
-        private void cargarMarcas()
-        {
-            try
-            {
-                marcas = BllMarca.cargarMarca();
-                grdMarca.DataSource = marcas;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        public void llenarComboMarca()
-        {
-            this.cbMarca.Items.Clear();
-            marcas = BllMarca.cargarMarca();
-            foreach (MarcaVehiculo oMarcaL in marcas)
-            {
-                this.cbMarca.Items.Add(oMarcaL);
-            }
-        }
-
-        private void selecionMarca(object sender, EventArgs e)
-        {
-            if (cbMarca.SelectedIndex != -1)
-            {
-                int selectedIndex = cbMarca.SelectedIndex;
-                MarcaVehiculo selectedItem = (MarcaVehiculo)cbMarca.SelectedItem;
-                EntMarca = new MarcaVehiculo(selectedItem.Id, selectedItem.Marca);
-            }
-        }
-
-        private void btnTipoMarca_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                seleccionDataRepuesto();
-                seleccionCbMarcas();
-                cargarMarcas();
-                limpiarDatos();
-                BllRepuesto.agregarRepuestoMarca(EntMarca, EntRepuesto);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }         
-        }
-
-        private void seleccionCbMarcas()
-        {
-            if (cbMarca.SelectedIndex != -1)
-            {
-                int selectedIndex = cbMarca.SelectedIndex;
-                MarcaVehiculo selectedItem = (MarcaVehiculo)cbMarca.SelectedItem;
-                EntMarca = new MarcaVehiculo(selectedItem.Id, selectedItem.Marca);
-            }
-        }
-
-        private void seleccionDataRepuesto()
-        {
-            if (this.grdRepuesto.Rows.Count < 0)
-            {
-                return;
-            }
-            int fila = this.grdRepuesto.CurrentRow.Index;
-            EntRepuesto = new RepuestoVehiculo(Int32.Parse(this.grdRepuesto[0, fila].Value.ToString()), this.grdRepuesto[1, fila].Value.ToString(), Double.Parse(this.grdRepuesto[2, fila].Value.ToString()), Double.Parse(this.grdRepuesto[3, fila].Value.ToString()));
-
-        }
-
-        private void seleccionDataMarcas()
-        {
-            if (this.grdMarca.Rows.Count > 0)
-            {
-                int fila = this.grdMarca.CurrentRow.Index;
-                EntMarca = new MarcaVehiculo(Int32.Parse(this.grdMarca[0, fila].Value.ToString()), this.grdMarca[1, fila].Value.ToString());
-            }
-        }
-
-        private void btnQuitar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (this.grdMarca.Rows.Count > 0)
-                {
-                    BllRepuesto.borrarRepuestoMarca(EntMarca);
-                }
-                cargarMarcas();
-                limpiarDatos();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-
-        private void cargarDataGriew()
-        {
-            this.grdRepuesto.Columns["id_repuesto"].Visible = false;
-            this.grdRepuesto.Columns["RepuestoVehiculo"].Width = 65;
-            this.grdRepuesto.Columns["PrecioVehiculo"].Width = 65;
-            this.grdRepuesto.Columns["ImpuestoVehiculo"].Width = 65;
-            this.grdMarca.Columns["IdMarca"].Width = 20;
-            this.grdMarca.Columns["marcaVehiculo"].Width = 85;
-        }
-
-        private void BuscarRepuesto(object sender, KeyPressEventArgs e)
-        {
-            //try
-            //{
-            //txtMensaje.Text = "";
-
-            //List<RepuestoVehiculo> lsRepuesto = new List<RepuestoVehiculo>();
-
-            //if ((int)e.KeyChar == (int)Keys.Enter)
-            //{
-            //    if (rbRepuesto.Checked)
-            //    {
-            //        lsRepuesto = oRepuestoD.buscarStringRepuesto(txtBuscar.Text, "repuesto");
-
-            //    }
-            //    else if (rbPrecio.Checked)
-            //    {
-            //        lsRepuesto = oRepuestoD.buscarDoublegRepuesto(Double.Parse(txtBuscar.Text), "precio");
-            //    }
-            //    else if (rbImpuesto.Checked)
-            //    {
-
-            //        lsRepuesto = oRepuestoD.buscarDoublegRepuesto(Double.Parse(txtBuscar.Text), "impuesto");
-
-            //    }
-
-            //    txtCantidadRepuesto.Text = "" + lsRepuesto.Count();
-
-            //    if (lsRepuesto.Count() <= 0)
-            //    {
-            //        txtMensaje.Text = "No hay marcas registrados";
-            //    }
-            //    this.grdRepuesto.DataSource = lsRepuesto;
-            //    }
-            //}
-            //catch (FormatException ex)
-            //{
-            //    MessageBox.Show("Tipo error" + ex.Message, "¡Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    throw;
-            //}
-        }
-
-        private void editarRepuesto(object sender, EventArgs e)
-        {
-            if (this.grdRepuesto.Rows.Count > 0)
-            {
-                int fila = this.grdRepuesto.CurrentRow.Index;
-                seleccionDataRepuesto();
-                txtRepuesto.Text = grdRepuesto[1, fila].Value.ToString();
-                txtPrecio.Text = grdRepuesto[2, fila].Value.ToString();
-                txtImpuesto.Value = Int32.Parse(grdRepuesto[3, fila].Value.ToString());
-                EntRepuesto.Id = Int32.Parse(grdRepuesto[0, fila].Value.ToString());
-            }
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -233,35 +41,248 @@ namespace Vista
                 EntRepuesto.Impuesto = Double.Parse(txtImpuesto.Value.ToString());
                 BllRepuesto.agregarRepuesto(EntRepuesto);
                 limpiarDatos();
+                cargarRepuestos();
             }
             catch (Exception ex)
             {
-
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
             }
         }
-
         private void btnEliminar_Click_1(object sender, EventArgs e)
         {
             try
             {
                 BllRepuesto.eliminarRepuesto(EntRepuesto);
                 limpiarDatos();
+                cargarRepuestos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
+        }
+        private void btnRefrescar_Click(object sender, EventArgs e)
+        {
+            cargarRepuestos();
+        }
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            limpiarDatos();
+        }
+        private void btnTipoMarca_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                seleccionCbMarcas();
+                BllRepuesto.agregarRepuestoMarca(EntMarca, EntRepuesto);
+                limpiarDatos();
+                cargarRepuestos();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
-
-        private void btnRefrescar_Click(object sender, EventArgs e)
+        private void btnQuitar_Click(object sender, EventArgs e)
         {
-            cargarRepuestos();
+            try
+            {
+                if (this.grdMarca.Rows.Count > 0)
+                {
+                    BllRepuesto.borrarRepuestoMarca(EntMarca);
+                }
+                limpiarDatos();
+                cargarRepuestos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
+        }
+        private void seleccionRepuesto(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                if (this.grdRepuesto.Rows.Count > 0)
+                {
+                    int fila = this.grdRepuesto.CurrentRow.Index;
+                    EntRepuesto = new ENT.RepuestoVehiculo(Int32.Parse(this.grdRepuesto[0, fila].Value.ToString()),
+                    this.grdRepuesto[1, fila].Value.ToString(), Double.Parse(this.grdRepuesto[2, fila].Value.ToString()), Double.Parse(this.grdRepuesto[3, fila].Value.ToString()));
+                    txtMensaje.Text = "Repuesto: " + this.grdRepuesto[1, fila].Value.ToString();
+                    cargarIntMarcas(Int32.Parse(this.grdRepuesto[0, fila].Value.ToString()));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
+
+        }
+        private void seleccionMarca(object sender, MouseEventArgs e)
+        {
+            if (this.grdMarca.Rows.Count > 0)
+            {
+                int fila = this.grdMarca.CurrentRow.Index;
+                EntMarca = new MarcaVehiculo(Int32.Parse(this.grdMarca[0, fila].Value.ToString()),
+                this.grdMarca[1, fila].Value.ToString());
+                txtMarca.Text = "Marca: " + this.grdMarca[1, fila].Value.ToString();
+            }
+        }
+        private void editarRepuesto(object sender, EventArgs e)
+        {
+            if (this.grdRepuesto.Rows.Count > 0)
+            {
+                int fila = this.grdRepuesto.CurrentRow.Index;
+                txtRepuesto.Text = grdRepuesto[1, fila].Value.ToString();
+                txtPrecio.Text = grdRepuesto[2, fila].Value.ToString();
+                txtImpuesto.Value = Int32.Parse(grdRepuesto[3, fila].Value.ToString());
+                EntRepuesto.Id = Int32.Parse(grdRepuesto[0, fila].Value.ToString());
+            }
         }
 
-        private void btnLimpiar_Click(object sender, EventArgs e)
+        //Metodo limpia todos los componetes
+        //y variables utilizados
+        private void limpiarDatos()
         {
-            limpiarDatos();
+            txtPrecio.Text = "";
+            txtImpuesto.Value = 0;
+            txtPrecio.Text = "";
+            txtRepuesto.Text = "";
+            txtMensaje.Text = "";
+            txtMarca.Text = "";
+            EntRepuesto = new RepuestoVehiculo();
+            EntMarca = new MarcaVehiculo();
+            repuestos.Clear();
+            this.grdRepuesto.DataSource = repuestos;
+            repuestos.Clear();
+            cargarRepuestos();
+        }
+        //Metodo carga los repuestos a la lista
+        //y los agrega al DataGriew
+        private void cargarRepuestos()
+        {
+            try
+            {
+                repuestos = BllRepuesto.cargarRepuestos();
+                this.grdRepuesto.DataSource = repuestos;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                 MessageBoxIcon.Information);
+            }
+        }
+        //Metodo carga las marcas a la lista
+        //y los agrega al DataGriew
+        private void cargarMarcas()
+        {
+            try
+            {
+                marcas = BllMarca.cargarMarca();
+                grdMarca.DataSource = marcas;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
+        }
+        //Metodo carga las marcas a la lista
+        //y los agrega al DataGriew
+        private void cargarIntMarcas(int valor)
+        {
+            try
+            {
+                marcas = BllMarca.buscaIntrMarca(valor);
+                grdMarca.DataSource = marcas;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
+        }
+        //Metodo llena el combo marca
+        //con los  con las marca de la db
+        public void llenarComboMarca()
+        {
+            try
+            {
+                this.cbMarca.Items.Clear();
+                marcas = BllMarca.cargarMarca();
+                foreach (MarcaVehiculo oMarcaL in marcas)
+                {
+                    this.cbMarca.Items.Add(oMarcaL);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
+        }
+        //Metodo selecciona los un datos del cb marca
+        private void seleccionCbMarcas()
+        {
+            if (cbMarca.SelectedIndex != -1)
+            {
+                int selectedIndex = cbMarca.SelectedIndex;
+                MarcaVehiculo selectedItem = (MarcaVehiculo)cbMarca.SelectedItem;
+                EntMarca = new MarcaVehiculo(selectedItem.Id, selectedItem.Marca);
+            }
+        }
+        private void BuscarRepuesto(object sender, KeyPressEventArgs e)
+        {
+            try
+            {
+                if ((int)e.KeyChar == (int)Keys.Enter)
+                {
+                    if (rbBuscarPrecio.Checked)
+                    {
+                        buscar("", Double.Parse(txtBuscar.Text), "precio");
+                    }
+                    if (rbBuscarRepuesto.Checked)
+                    {
+                        buscar(txtBuscar.Text, 0, "repuesto");
+                    }
+                    if (rbBuscarImpuesto.Checked)
+                    {
+                        buscar("", Double.Parse(txtBuscar.Text), "impuesto");
+                    }
+                }
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
+        }
+        //Metodo busca un valor string o int y se lo manda a bll
+        //para retornar una lista con los valores y agregarlos al daragrew
+        private void buscar(string valor, double numero, string columna)
+        {
+            try
+            {
+                if (valor == "")
+                {
+                    repuestos = BllRepuesto.buscarDoubleRepuesto(numero, columna);
+                }
+                if (valor != "")
+                {
+                    repuestos = BllRepuesto.buscarStringRepuesto(valor, columna);
+                }
+                this.grdRepuesto.DataSource = repuestos;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
+
         }
     }
 }

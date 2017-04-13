@@ -119,9 +119,7 @@ namespace Vista
             txtusuario.Text = "";
             txtSeleccion.Text = "";
             EntEmpleado = new ENT.Empleado();
-
         }
-
         private void btnAgregar_Click_1(object sender, EventArgs e)
         {
             try
@@ -135,7 +133,6 @@ namespace Vista
                 MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
         private void btnRegrescar_Click(object sender, EventArgs e)
         {
             cargar();
@@ -167,7 +164,6 @@ namespace Vista
             limpiarDatos();
             cargar();
         }
-
         private void seleccionEmpleado(object sender, MouseEventArgs e)
         {
             if (this.grdEmpleado.Rows.Count > 0)
@@ -190,7 +186,6 @@ namespace Vista
                 MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         public ENT.Empleado getEmpleado()
         {
             string puesto = "";

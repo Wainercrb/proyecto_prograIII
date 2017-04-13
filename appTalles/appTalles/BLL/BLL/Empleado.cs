@@ -71,10 +71,8 @@ namespace BLL
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
-
         }
         //Metodo carga los empledos de la base de datos
         //y los agrega a la lista
@@ -94,11 +92,9 @@ namespace BLL
                 {
                     throw new Exception("No hay empleados en los registros");
                 }
-
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
             return empleados;
@@ -184,7 +180,6 @@ namespace BLL
 
                 throw ex;
             }
-
         }
     }
 }

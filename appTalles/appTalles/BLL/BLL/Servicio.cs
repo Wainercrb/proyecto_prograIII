@@ -8,10 +8,10 @@ namespace BLL
 {
     public class Servicio
     {
-
+        //Metodo valida los datos que recibe por parametro
+        //para posteriormente insertarlos o actualizarlos desde DAL
         public void agregarServicio(ENT.Servicio servicio)
         {
-
             DAL.Servicio DalServicio = new DAL.Servicio();
             try
             {
@@ -37,7 +37,6 @@ namespace BLL
                 }
                 else
                 {
-
                     DalServicio.actualizarServicio(servicio);
                     if (DalServicio.Error)
                     {
@@ -47,16 +46,20 @@ namespace BLL
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }
-
+        //Metodo valida los datos y comprueva cualquier error  
+        //para posteriormente pasarlos a DAL
         public void eliminarServicio(ENT.Servicio servicio)
         {
             DAL.Servicio DalServicio = new DAL.Servicio();
             try
             {
+                if (servicio.Id<=0)
+                {
+                    throw new Exception("Debes de seleccionar un servicio");
+                }
                 DalServicio.borrarservicio(servicio);
                 if (DalServicio.Error)
                 {
@@ -65,17 +68,18 @@ namespace BLL
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }
+        //Metodo verifica que los datos se cargaran correctamente
+        //para retornarlos exitosamente
         public List<ENT.Servicio> cargarServicio()
         {
             DAL.Servicio DalServicio = new DAL.Servicio();
             List<ENT.Servicio> servicios = new List<ENT.Servicio>();
             try
             {
-                //servicios = DalServicio.Obtenerservicios();
+                servicios = DalServicio.cargarServicios();
                 if (DalServicio.Error)
                 {
                     throw new Exception("Error al cargar los servicios " + DalServicio.ErrorMsg);
@@ -87,12 +91,67 @@ namespace BLL
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
-
             return servicios;
         }
 
+        //Metodo verifica los datos a busca para id al DAL a buscar el servicio
+        //con esta columna y con el valor
+        public List<ENT.Servicio> buscarStringServicio(string valor, string columna) {
+
+            DAL.Servicio DalServicio = new DAL.Servicio();
+            List<ENT.Servicio> servicios = new List<ENT.Servicio>();
+            try
+            {
+                if (valor == string.Empty)
+                {
+                    throw new Exception("Debes ingresar un valor a buscar valido");
+                }           
+                servicios = DalServicio.buscarStringServicio(valor, columna);
+                if (DalServicio.Error)
+                {
+                    throw new Exception("Error al cargar los servicios, "+ DalServicio.ErrorMsg);
+                }
+                if (servicios.Count<= 0)
+                {
+                    throw new Exception("No hay servicios en la base de datos");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return servicios;
+        }
+        //Metodo verifica los datos a busca para id al DAL a buscar el servicio
+        //con esta columna y con el valor
+        public List<ENT.Servicio> buscarIntServicio(int valor, string columna)
+        {
+
+            DAL.Servicio DalServicio = new DAL.Servicio();
+            List<ENT.Servicio> servicios = new List<ENT.Servicio>();
+            try
+            {
+                if (valor<= 0)
+                {
+                    throw new Exception("Debes ingresar un valor a buscar valido");
+                }
+                servicios = DalServicio.buscarIntServicio(valor, columna);
+                if (DalServicio.Error)
+                {
+                    throw new Exception("Error al cargar los servicios, " + DalServicio.ErrorMsg);
+                }
+                if (servicios.Count <= 0)
+                {
+                    throw new Exception("No hay servicios en la base de datos");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return servicios;
+        }
     }
 }

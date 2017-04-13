@@ -22,6 +22,7 @@ namespace DAL
             this.limpiarError();
         }
 
+        //Metodo limpoar las variable de error
         public void limpiarError()
         {
             this.Error = false;
@@ -49,7 +50,7 @@ namespace DAL
                 this.ErrorMsg = this.conexion.ErrorDescripcion;
             }
         }
-       //Metodo carga a todos los empleados de la base de datos y lo agrega a lista
+        //Metodo carga a todos los empleados de la base de datos y lo agrega a lista
         public List<ENT.Empleado> ObtenerEmpleados()
         {
             List<ENT.Empleado> empleados = new List<ENT.Empleado>();
@@ -115,13 +116,14 @@ namespace DAL
                 Error = true;
             }
         }
+        //Metodo buscar un valor string en la base de datos
         public List<ENT.Empleado> buscarStringEmpleado(string valor, string columna)
         {
             limpiarError();
             List<ENT.Empleado> empleados = new List<ENT.Empleado>();
             Parametro prm = new Parametro();
-            prm.agregarParametro("@"+columna+"", NpgsqlDbType.Varchar, valor);
-            string sql = "SELECT * FROM " + this.conexion.Schema + "empleado WHERE "+columna+" LIKE @"+columna+"";
+            prm.agregarParametro("@" + columna + "", NpgsqlDbType.Varchar, valor);
+            string sql = "SELECT * FROM " + this.conexion.Schema + "empleado WHERE " + columna + " LIKE @" + columna + "";
             DataSet dsetEmpleados = this.conexion.ejecutarConsultaSQL(sql, "empleado", prm.obtenerParametros());
             if (!this.conexion.IsError)
             {
@@ -144,8 +146,7 @@ namespace DAL
             }
             return empleados;
         }
-
-
+        //Metodo buscar un valor int en la base de datos
         public List<ENT.Empleado> buscarIntEmpleado(int valor, string columna)
         {
             limpiarError();
@@ -175,8 +176,6 @@ namespace DAL
             }
             return empleados;
         }
-
-
         //Metodo actualiza la contrasena del empleado
         public void cambioContrasenna(ENT.Empleado empleado, string nueva)
         {

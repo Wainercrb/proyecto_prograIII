@@ -8,7 +8,8 @@ namespace BLL
 {
     public class Tipo
     {
-
+        //Metodo valida los datos y para agregarlos a la base de
+        //datos o actualiarlos
         public void agregarTipoVehiculo(ENT.TipoVehiculo tipo)
         {
             DAL.Tipo DalTipo = new DAL.Tipo();
@@ -41,7 +42,7 @@ namespace BLL
                 throw ex;
             }
         }
-
+        //Metodo valida los datos necesarios para eliminar este tipo de vehículo
         public void eliminarTipoVehiculo(ENT.TipoVehiculo tipo)
         {
 
@@ -63,9 +64,9 @@ namespace BLL
 
                 throw ex;
             }
-
         }
-
+        //Metodo cargar los tipos de vehículos y los agregar
+        //a la lista para retornarlos a la interfaz
         public List<ENT.TipoVehiculo> cargarTiposVehiculos()
         {
             DAL.Tipo DalTipo = new DAL.Tipo();
@@ -73,6 +74,10 @@ namespace BLL
             try
             {
                 tipos = DalTipo.obtenerTiposVehiculo();
+                if (DalTipo.Error)
+                {
+                    throw new Exception("Error al cargar los tipos de vehículos");
+                }
                 if (tipos.Count <= 0)
                 {
                     throw new Exception("No se encotraron tipo de vehículos en la base de datos");
@@ -80,11 +85,37 @@ namespace BLL
             }
             catch (Exception ex)
             {
-
+                throw ex;
+            }
+            return tipos;
+        }
+        //Metodo valida los datos a buscar para cargar los tipos 
+        //de vehículos similares con esos datos
+        public List<ENT.TipoVehiculo> buscarStringTipo(string valor)
+        {
+            DAL.Tipo DalTipo = new DAL.Tipo();
+            List<ENT.TipoVehiculo> tipos = new List<ENT.TipoVehiculo>();
+            try
+            {
+                if (valor == string.Empty)
+                {
+                    throw new Exception("Debes ingresar un un valor a buscar");
+                }
+                tipos = DalTipo.buscarStringTipo(valor);
+                if (DalTipo.Error)
+                {
+                    throw new Exception("Error al buscar el tipo de vehículo");
+                }
+                if (tipos.Count <= 0)
+                {
+                    throw new Exception("No hay tipos de vehículo registrados con el dato " + valor);
+                }
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
             return tipos;
         }
     }
-
 }
