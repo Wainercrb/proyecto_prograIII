@@ -10,7 +10,8 @@ namespace BLL
 {
     public class Cliente
     {
-
+        //Metodo verifica que los datos que recibe esten correctos
+        //para pasarlo a dal y insetarlos
         public void insertarCliente(ENT.Cliente cli)
         {
             DAL.Cliente DalCliente = new DAL.Cliente();
@@ -79,10 +80,10 @@ namespace BLL
             }
         }
 
-
+        //Metodo vefica que la entidad cliente este correcta y poder eliminarlo
+        //si hay error mostrarlo en interfaz
         public void eliminarCliente(ENT.Cliente cliente)
         {
-
             try
             {
                 DAL.Cliente DalCliente = new DAL.Cliente();
@@ -91,14 +92,17 @@ namespace BLL
                     throw new Exception("Debes seleccionar un cliente valido");
                 }
                 DalCliente.borrarCliente(cliente);
+                if (DalCliente.Error)
+                {
+                    throw new Exception("Error al eliminar el vehíclo, " + DalCliente.ErrorMsg);
+                }
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }
-
+        //Metodo verifica errores, cuando se cargqa los cliente 
         public List<ENT.Cliente> cargarClientes()
         {
             DAL.Cliente DalCliente = new DAL.Cliente();

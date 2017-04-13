@@ -282,7 +282,6 @@ namespace Vista
                 MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
             }
-
         }
     }
 }

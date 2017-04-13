@@ -34,6 +34,7 @@ namespace Vista
             EntCliente = new ENT.Cliente();
             BLLVehiculo = new BLL.Vehiculo();
             BllMarca = new BLL.Marca();
+            BllClinete = new BLL.Cliente();
             BllTipo = new BLL.Tipo();
             vehiculos = new List<ENT.Vehiculo>();
             marcas = new List<MarcaVehiculo>();
@@ -43,36 +44,61 @@ namespace Vista
             llenarComboMarca();
             llenarComboTipo();
             llenarComboCliente();
-            cargarDataGriew();
-            grbEstado.Enabled = false;
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            cargarVehiculos();
-        }
-
-        private void cargarVehiculos()
+        private void btnAgregar_Click_1(object sender, EventArgs e)
         {
             try
             {
-                vehiculos = BLLVehiculo.cargarVehiculos();
-                grdVehiculos.DataSource = vehiculos;
+                seleccionComboMarca();
+                seleccionComboTipo();
+                seleccionComboCliente();
+                EntVehiculo.NumeroChazis = Int32.Parse(nubChazis.Value.ToString());
+                EntVehiculo.NumeroMotor = Int32.Parse(nubMotor.Value.ToString());
+                EntVehiculo.Placa = txtPlacaa.Text;
+                EntVehiculo.Cilindraje = Int32.Parse(nudCilindraje.Value.ToString());
+                EntVehiculo.Anno = Int32.Parse(nubAnno.Value.ToString());
+                EntVehiculo.Cliente = EntCliente;
+                EntVehiculo.Marca = EntMarca;
+                EntVehiculo.Tipo = EntTipo;
+                EntVehiculo.TipoCombustible = seleccionCombustible();
+                EntVehiculo.Estado = seleccionEstado();
+                BLLVehiculo.agregarVehiculo(EntVehiculo);
+                limpiarDatos();
+                cargarVehiculos();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
             }
         }
-
-
-
+        private void btnEliminar_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                BLLVehiculo.eliminarVehiculo(EntVehiculo);
+                limpiarDatos();
+                cargarVehiculos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
+        }
+        private void btnRefrecar_Click(object sender, EventArgs e)
+        {
+            cargarVehiculos();
+        }
+        private void btnLimpiar_Click_1(object sender, EventArgs e)
+        {
+            limpiarDatos();
+        }
         private void Editar(object sender, MouseEventArgs e)
         {
             txtTarea.Text = "";
             if (this.grdVehiculos.Rows.Count > 0)
             {
-                grbEstado.Enabled = true;
                 int fila = this.grdVehiculos.CurrentRow.Index;
                 EntVehiculo.Id = Int32.Parse(this.grdVehiculos[0, fila].Value.ToString());
                 txtPlacaa.Text = this.grdVehiculos[1, fila].Value.ToString();
@@ -133,50 +159,23 @@ namespace Vista
                 seleccionEstado();
             }
         }
-        private void cbClienteSeleccion(object sender, EventArgs e)
+        private void seleccionVehiculo(object sender, MouseEventArgs e)
         {
-            if (cbCliente.SelectedIndex != -1)
+            if (this.grdVehiculos.Rows.Count > 0)
             {
-                int selectedIndex = cbCliente.SelectedIndex;
-                ENT.Cliente selectedItem = (ENT.Cliente)cbCliente.SelectedItem;
-                EntCliente = new ENT.Cliente();
-                EntCliente = new ENT.Cliente(selectedItem.Id, selectedItem.Nombre, selectedItem.Cedula, selectedItem.ApellidoPaterno, selectedItem.ApellidoMaterno, selectedItem.TelefonoCasa, selectedItem.TelefonoOficina, selectedItem.TelefonoCelular);
-
+                int fila = this.grdVehiculos.CurrentRow.Index;
+                EntVehiculo.Id = Int32.Parse(this.grdVehiculos[0, fila].Value.ToString());
+                txtTarea.Text = "Placa: " + this.grdVehiculos[1, fila].Value.ToString();
             }
         }
-        private void seleccionCbMarca(object sender, EventArgs e)
-        {
-            if (cbMarca.SelectedIndex != -1)
-            {
-                int selectedIndex = cbMarca.SelectedIndex;
-                MarcaVehiculo selectedItem = (MarcaVehiculo)cbMarca.SelectedItem;
-                EntMarca = new MarcaVehiculo();
-                EntMarca = new MarcaVehiculo(selectedItem.Id, selectedItem.Marca);
-            }
-        }
-
-        private void btnSalir_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void seleccionCbTipo(object sender, EventArgs e)
-        {
-            if (cbTipo.SelectedIndex != -1)
-            {
-                int selectedIndex = cbTipo.SelectedIndex;
-                TipoVehiculo selectedItem = (TipoVehiculo)cbTipo.SelectedItem;
-                EntTipo = new TipoVehiculo();
-                EntTipo = new TipoVehiculo(selectedItem.Id, selectedItem.Tipo);
-            }
-        }
+        //Metodo limpia todos los datos de las variables
+        //utilizadas 
         private void limpiarDatos()
         {
             EntCliente = new ENT.Cliente();
-            EntMarca = new MarcaVehiculo();
-            EntTipo = new TipoVehiculo();
+            EntMarca = new ENT.MarcaVehiculo();
+            EntTipo = new ENT.TipoVehiculo();
             EntVehiculo = new ENT.Vehiculo();
-            grbEstado.Enabled = false;
             txtPlacaa.Text = "";
             nubAnno.Value = 0;
             nubMotor.Value = 0;
@@ -186,47 +185,14 @@ namespace Vista
             cbMarca.SelectedIndex = -1;
             cbTipo.SelectedIndex = -1;
             cbTipoCombustible.SelectedIndex = -1;
+            rbDanado.Checked = true;
+            txtTarea.Text = "";
+            txtCantidad.Text = "";
+            txtBuscar.Text = "";
+            txtPlacaa.Text = "";
+            vehiculos.Clear();
         }
-
-        private void seleccionCbs()
-        {
-            if (cbCliente.SelectedIndex != -1)
-            {
-                int selectedIndex = cbCliente.SelectedIndex;
-                ENT.Cliente selectedItem = (ENT.Cliente)cbCliente.SelectedItem;
-                EntCliente = new ENT.Cliente(selectedItem.Id, selectedItem.Nombre, selectedItem.Cedula, selectedItem.ApellidoPaterno,
-                selectedItem.ApellidoMaterno, selectedItem.TelefonoCasa, selectedItem.TelefonoOficina, selectedItem.TelefonoCelular);
-            }
-
-            if (cbMarca.SelectedIndex != -1)
-            {
-                int selectedIndex = cbMarca.SelectedIndex;
-                MarcaVehiculo selectedItem = (MarcaVehiculo)cbMarca.SelectedItem;
-                EntMarca = new MarcaVehiculo(selectedItem.Id, selectedItem.Marca);
-            }
-
-            if (cbTipo.SelectedIndex != -1)
-            {
-                int selectedIndex = cbTipo.SelectedIndex;
-                TipoVehiculo selectedItem = (TipoVehiculo)cbTipo.SelectedItem;
-                EntTipo = new TipoVehiculo(selectedItem.Id, selectedItem.Tipo);
-            }
-        }
-
-        private string seleccionCombustible()
-        {
-
-            string combustible = "";
-            if (cbTipoCombustible.SelectedIndex != -1)
-            {
-                int selectedIndex = -1;
-                selectedIndex = cbTipoCombustible.SelectedIndex;
-                combustible = cbTipoCombustible.Items[selectedIndex].ToString();
-
-            }
-            return combustible;
-        }
-
+        //Metodo seleccion en los radio button 
         private string seleccionEstado()
         {
             string estado = "";
@@ -242,82 +208,135 @@ namespace Vista
             {
                 estado = "Finalizado";
             }
-
             return estado;
         }
-
-        private void btnEliminar_Click(object sender, EventArgs e)
+        private void BusquedaVehiculo(object sender, KeyPressEventArgs e)
         {
+
             try
             {
-                BLLVehiculo.eliminarVehiculo(EntVehiculo);
+                if ((int)e.KeyChar == (int)Keys.Enter)
+                {
+                    if (rbBuscarPlaca.Checked)
+                    {
+                        buscar(txtBuscar.Text, 0, "placa");
+                    }
+                    if (rbBuscarChazis.Checked)
+                    {
+                        buscar("", Int32.Parse(txtBuscar.Text), "numero_chazis");
+                    }
+                    if (rbBuscarAnno.Checked)
+                    {
+                        buscar("", Int32.Parse(txtBuscar.Text), "anno");
+                    }
+                    if (rbBuscarMotor.Checked)
+                    {
+                        buscar("", Int32.Parse(txtBuscar.Text), "numero_motor");
+                    }
+                    if (rbBuscarCilindraje.Checked)
+                    {
+                        buscar("", Int32.Parse(txtBuscar.Text), "cilindraje");
+                    }
+                    if (rbBuscarCombustible.Checked)
+                    {
+                        buscar(txtBuscar.Text, 0, "combustible");
+                    }
+                }
             }
             catch (Exception ex)
             {
-
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
             }
         }
 
-        private void btnLimpiar_Click(object sender, EventArgs e)
+        //Metodo busca un valor por columna y los carga al data griew
+        private void buscar(string valor, int numero, string columna)
         {
-            limpiarDatos();
+            try
+            {
+                if (valor == "")
+                {
+                    vehiculos = BLLVehiculo.buscarIntVehiculos(numero, columna);
+                }
+                if (valor != "")
+                {
+                    vehiculos = BLLVehiculo.buscarStringVehiculos(valor, columna);
+                }
+                this.grdVehiculos.DataSource = vehiculos;
+                txtCantidad.Text = "" + vehiculos.Count;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
+        }
+        //Metodo selecciona en los combo de marca
+        private void seleccionComboMarca()
+        {
+            if (cbMarca.SelectedIndex != -1)
+            {
+                int selectedIndex = cbMarca.SelectedIndex;
+                MarcaVehiculo selectedItem = (MarcaVehiculo)cbMarca.SelectedItem;
+                EntMarca = new MarcaVehiculo();
+                EntMarca = new MarcaVehiculo(selectedItem.Id, selectedItem.Marca);
+            }
+        }
+        //Metodo selecciona el combo tipo de vehículo
+        private void seleccionComboTipo()
+        {
+            if (cbTipo.SelectedIndex != -1)
+            {
+                int selectedIndex = cbTipo.SelectedIndex;
+                TipoVehiculo selectedItem = (TipoVehiculo)cbTipo.SelectedItem;
+                EntTipo = new TipoVehiculo();
+                EntTipo = new TipoVehiculo(selectedItem.Id, selectedItem.Tipo);
+            }
+        }
+        //Metodo selecciona el combo de cliente
+        private void seleccionComboCliente()
+        {
+
+            if (cbCliente.SelectedIndex != -1)
+            {
+                int selectedIndex = cbCliente.SelectedIndex;
+                ENT.Cliente selectedItem = (ENT.Cliente)cbCliente.SelectedItem;
+                EntCliente = new ENT.Cliente();
+                EntCliente = new ENT.Cliente(selectedItem.Id, selectedItem.Nombre, selectedItem.Cedula, selectedItem.ApellidoPaterno, selectedItem.ApellidoMaterno, selectedItem.TelefonoCasa, selectedItem.TelefonoOficina, selectedItem.TelefonoCelular);
+            }
+        }
+        //Metodo selecciona el combo de combustible
+        private string seleccionCombustible()
+        {
+            string combustible = "";
+            if (cbTipoCombustible.SelectedIndex != -1)
+            {
+                int selectedIndex = -1;
+                selectedIndex = cbTipoCombustible.SelectedIndex;
+                combustible = cbTipoCombustible.Items[selectedIndex].ToString();
+            }
+            return combustible;
         }
 
-        private void BusquedaVehiculo(object sender, KeyPressEventArgs e)
+        //Metodo carga los vehículos en una lista  y los agrega
+        //al data griew
+        private void cargarVehiculos()
         {
-            //try
-            //{
-            //    txtTarea.Text = "";
-            //    List<ENT.Vehiculo> lsVehiculos = new List<ENT.Vehiculo>();
-
-            //    if ((int)e.KeyChar == (int)Keys.Enter)
-            //    {
-            //        if (rbBuscarAnno.Checked)
-            //        {
-            //            lsVehiculos = pVehiculoD.BuscarIntVehiculo(Int32.Parse(txtBuscar.Text), "v.anno");
-
-            //        }
-            //        else if (rbBuscarCilindraje.Checked)
-            //        {
-            //            lsVehiculos = pVehiculoD.BuscarIntVehiculo(Int32.Parse(txtBuscar.Text), "v.cilindraje");
-            //        }
-            //        else if (rbBuscarPlaca.Checked)
-            //        {
-
-            //            lsVehiculos = pVehiculoD.BuscarStringVehiculo(txtBuscar.Text, "v.placa");
-
-            //        }
-            //        else if (rbBuscarCombustible.Checked)
-            //        {
-            //            lsVehiculos = pVehiculoD.BuscarStringVehiculo(txtBuscar.Text, "v.combustible");
-            //        }
-            //        else if (rbBuscarMotor.Checked)
-            //        {
-
-            //            lsVehiculos = pVehiculoD.BuscarIntVehiculo(Int32.Parse(txtBuscar.Text), " v.numero_motor");
-
-            //        }
-            //        else if (rbBuscarChazis.Checked)
-            //        {
-            //            lsVehiculos = pVehiculoD.BuscarIntVehiculo(Int32.Parse(txtBuscar.Text), "v.numero_chazis");
-            //        }
-            //        txtCantidad.Text = "" + lsVehiculos.Count();
-
-            //        if (lsVehiculos.Count() <= 0)
-            //        {
-            //            txtTarea.Text = "No hay marcas registrados";
-            //        }
-            //        this.grdVehiculos.DataSource = lsVehiculos;
-            //    }
-            //}
-            //catch (FormatException ex)
-            //{
-            //    MessageBox.Show("Tipo error: " + ex.Message, "¡Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return;
-            //    throw;
-            //}
+            try
+            {
+                vehiculos = BLLVehiculo.cargarVehiculos();
+                grdVehiculos.DataSource = vehiculos;
+                txtCantidad.Text = vehiculos.Count + "";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
         }
+        //Metodo carga en un lista las marcas de la base de 
+        //datos y los agrega al combo box
         public void llenarComboMarca()
         {
             try
@@ -331,11 +350,12 @@ namespace Vista
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
             }
         }
-
-
+        //Metodo carga en un lista los tipos devehiculos, de la base de 
+        //datos y los agrega al combo box
         public void llenarComboTipo()
         {
             try
@@ -349,10 +369,12 @@ namespace Vista
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information); ;
             }
         }
-
+        //Metodo carga en un lista los clientes de la base de 
+        //datos y los agrega al combo box
         private void llenarComboCliente()
         {
             try
@@ -366,45 +388,8 @@ namespace Vista
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
-            }
-        }
-        private void cargarDataGriew()
-        {
-            this.grdVehiculos.Columns["Id"].Visible = false;
-            this.grdVehiculos.Columns["Placa"].Width = 45;
-            this.grdVehiculos.Columns["Año"].Width = 40;
-            this.grdVehiculos.Columns["Cilindraje"].Width = 60;
-            this.grdVehiculos.Columns["Motor"].Width = 50;
-            this.grdVehiculos.Columns["Chazis"].Width = 40;
-            this.grdVehiculos.Columns["Combustible"].Width = 70;
-            this.grdVehiculos.Columns["Estado"].Width = 65;
-            this.grdVehiculos.Columns["Marca_Vehiculo"].Width = 70;
-            this.grdVehiculos.Columns["Tipo_"].Width = 70;
-            this.grdVehiculos.Columns["Cliente_"].Width = 200;
-
-        }
-
-        private void btnAgregar_Click_1(object sender, EventArgs e)
-        {
-            try
-            {
-                seleccionCbs();
-                EntVehiculo.NumeroChazis = Int32.Parse(nubChazis.Value.ToString());
-                EntVehiculo.NumeroMotor = Int32.Parse(nubMotor.Value.ToString());
-                EntVehiculo.Placa = txtPlacaa.Text;
-                EntVehiculo.Cilindraje = Int32.Parse(nudCilindraje.Value.ToString());
-                EntVehiculo.Anno = Int32.Parse(nubAnno.Value.ToString());
-                EntVehiculo.Cliente = EntCliente;
-                EntVehiculo.Marca = EntMarca;
-                EntVehiculo.Tipo = EntTipo;
-                EntVehiculo.TipoCombustible = seleccionCombustible();
-                EntVehiculo.Estado = seleccionEstado();
-                BLLVehiculo.agregarVehiculo(EntVehiculo);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
             }
         }
     }

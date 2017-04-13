@@ -8,6 +8,8 @@ namespace BLL
 {
     public class Vehiculo
     {
+        //Metodo verica que los datos que recibe por parametro
+        //esten correctos para pasarlos a DAL y insertarlos
         public void agregarVehiculo(ENT.Vehiculo vehiculo)
         {
             DAL.Vehiculo DalVehiculo = new DAL.Vehiculo();
@@ -58,15 +60,15 @@ namespace BLL
                     DalVehiculo.agregarVehiculo(vehiculo);
                     if (DalVehiculo.Error)
                     {
-                        throw new Exception("Error al guardar el vehículo "+ DalVehiculo.ErrorMsg);
+                        throw new Exception("Error al guardar el vehículo " + DalVehiculo.ErrorMsg);
                     }
                 }
                 else
                 {
-                   DalVehiculo.editarVehiculo(vehiculo);
+                    DalVehiculo.editarVehiculo(vehiculo);
                     if (DalVehiculo.Error)
                     {
-                        throw new Exception("Error al editar el vehículo "+ DalVehiculo.ErrorMsg);
+                        throw new Exception("Error al editar el vehículo " + DalVehiculo.ErrorMsg);
                     }
                 }
             }
@@ -75,28 +77,32 @@ namespace BLL
                 throw ex;
             }
         }
-
-        public void eliminarVehiculo(ENT.Vehiculo vehiculo) {
+        //Metodo verifica la entidad vehículo que este correcta,
+        //que para cuando se elimine no cause error
+        public void eliminarVehiculo(ENT.Vehiculo vehiculo)
+        {
             DAL.Vehiculo DalVehiculo = new DAL.Vehiculo();
             try
             {
-                if (vehiculo.Id<= 0)
+                if (vehiculo.Id <= 0)
                 {
                     throw new Exception("Debes seleccionar un vehículo, para eliminarlo");
                 }
                 DalVehiculo.borrarVehiculo(vehiculo);
                 if (DalVehiculo.Error)
                 {
-                    throw new Exception("Error al eliminar el vehículo "+ DalVehiculo.ErrorMsg);
+                    throw new Exception("Error al eliminar el vehículo " + DalVehiculo.ErrorMsg);
                 }
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }
-        public List<ENT.Vehiculo> cargarVehiculos() {
+        //Metodo verifica, que la carga de los vehículos sea correcta
+        //si hay error que los muestre en interfaz
+        public List<ENT.Vehiculo> cargarVehiculos()
+        {
             DAL.Vehiculo DalVehiculo = new DAL.Vehiculo();
             List<ENT.Vehiculo> vehiculos = new List<ENT.Vehiculo>();
             try
@@ -118,6 +124,55 @@ namespace BLL
             }
             return vehiculos;
         }
-       
+        //Metodo verifica la busqueda de una valor, para que sea exitosa
+        //si hay error que los muestre en interfaz
+        public List<ENT.Vehiculo> buscarStringVehiculos(string valor, string columna)
+        {
+            DAL.Vehiculo DalVehiculo = new DAL.Vehiculo();
+            List<ENT.Vehiculo> vehiculos = new List<ENT.Vehiculo>();
+            try
+            {
+                vehiculos = DalVehiculo.BuscarStringVehiculo(valor, columna);
+                if (DalVehiculo.Error)
+                {
+                    throw new Exception("Error al cargar los vehiculos " + DalVehiculo.ErrorMsg);
+                }
+                if (vehiculos.Count <= 0)
+                {
+                    throw new Exception("No hay vehículos registrados en la base de datos");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return vehiculos;
+        }
+        //Metodo verifica la busqueda de una valor, para que sea exitosa
+        //si hay error que los muestre en interfaz
+        public List<ENT.Vehiculo> buscarIntVehiculos(int valor, string columna)
+        {
+            DAL.Vehiculo DalVehiculo = new DAL.Vehiculo();
+            List<ENT.Vehiculo> vehiculos = new List<ENT.Vehiculo>();
+            try
+            {
+                vehiculos = DalVehiculo.BuscarIntVehiculo(valor, columna);
+                if (DalVehiculo.Error)
+                {
+                    throw new Exception("Error al cargar los vehiculos " + DalVehiculo.ErrorMsg);
+                }
+                if (vehiculos.Count <= 0)
+                {
+                    throw new Exception("No hay vehículos registrados en la base de datos");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return vehiculos;
+        }
     }
 }
