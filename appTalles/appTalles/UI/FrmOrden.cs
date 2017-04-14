@@ -16,152 +16,117 @@ namespace Vista
     public partial class FrmOrden : Form
     {
         private ENT.Cliente cliente;
-        private DAL.Cliente clienteD;
         private ENT.Vehiculo vehiculo;
-        private DAL.Vehiculo vehiculoD;
         private ENT.Empleado empleado;
-        private DAL.Empleado empleadoD;
-        private DAL.Orden ordenD;
         private ENT.Orden orden;
+        private BLL.Cliente BllCliente;
+        private BLL.Vehiculo BllVehiculo;
+        private BLL.Empleado BllEmpleado;
+        private BLL.Orden BllOrden;
+        private List<ENT.Cliente> clientes;
+        private List<ENT.Vehiculo> vehiculos;
+        private List<ENT.Empleado> empleados;
+        private List<ENT.Orden> ordenes;
 
         public FrmOrden()
         {
             InitializeComponent();
             cliente = new ENT.Cliente();
-            clienteD = new DAL.Cliente();
+            BllCliente = new BLL.Cliente();
             vehiculo = new ENT.Vehiculo();
-            vehiculoD = new DAL.Vehiculo();
+            BllVehiculo = new BLL.Vehiculo();
             empleado = new ENT.Empleado();
-            empleadoD = new DAL.Empleado();
-            ordenD = new DAL.Orden();
+            BllEmpleado = new BLL.Empleado();
+            BllOrden = new BLL.Orden();
             orden = new ENT.Orden();
+            clientes = new List<ENT.Cliente>();
+            vehiculos = new List<ENT.Vehiculo>();
+            empleados = new List<ENT.Empleado>();
+            ordenes = new List<ENT.Orden>();
             cargarCombos();
-        }
+            anadirItemsEstado();
 
+        }
         private void cargarCombos()
         {
-
             llenarComboCliente();
             llenarComboVehiculo();
             llenarComboEncargado();
-
         }
-
-
-        private void llenarComboCliente()
-        {
-            this.cbCliente.Items.Clear();
-            List<ENT.Cliente> clientes = clienteD.obtenerClientes();
-            foreach (ENT.Cliente oClienteL in clientes)
-            {
-                this.cbCliente.Items.Add(oClienteL);
-            }
-        }
-        private void llenarComboVehiculo()
-        {
-            this.cbVehiculo.Items.Clear();
-            List<ENT.Vehiculo> vehiculos = vehiculoD.obtenerVehiculos();
-            foreach (ENT.Vehiculo oVehiculos in vehiculos)
-            {
-                this.cbVehiculo.Items.Add(oVehiculos);
-            }
-        }
-
-        private void llenarComboEncargado()
-        {
-            {
-                //bool estado = true;
-                //this.cbEncargado.Items.Clear();
-                //List<Empleado> empleados = empleadoD.ObtenerEmpleados(ref estado);
-                //foreach (Empleado oEmpleados in empleados)
-                //{
-                //    this.cbEncargado.Items.Add(oEmpleados.Nombre + " " + oEmpleados.Apellido);
-                //}
-            }
-        }
-
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
-            List<ENT.Orden> lsOrdenes = new List<ENT.Orden>(); ;
+            try
+            {
+                if (txtCodigo.Text != "")
+                {
+                    buscar("", Int32.Parse(txtCodigo.Text), "id_orden");
+                    return;
+                }
+                if (cbCliente.SelectedIndex >= 0)
+                {
+                    seleccionComboCliente();
+                    buscar("", cliente.Id, "id_cliente");
+                    return;
+                }
+                if (cbEncargado.SelectedIndex >= 0)
+                {
+                    seleccionComboEncargado();
+                    buscar("", empleado.Id, "id_empleado");
+                    return;
+                }
+                if (cbEsatado.SelectedIndex >= 0)
+                {  
+                    buscar(seleccionEstado(), 0, "estado");
+                    return;
+                }
+                if (cbVehiculo.SelectedIndex >= 0)
+                {
+                    seleccionComboVehiculo();
+                    buscar("", vehiculo.Id, "id_vehiculo");
+                    return;
+                }
+                if (dtIngreso.Checked && dtSalida.Checked)
+                {
 
-            if (txtCodigo.Text != "")
-            {
-                lsOrdenes = ordenD.obtenerOrdenString(Int32.Parse(txtCodigo.Text), "o.id_orden");
-
-            }
-            else if (cbCliente.SelectedIndex != -1)
-            {
-                ENT.Cliente selectedItem = (ENT.Cliente)cbCliente.SelectedItem;
-                cliente = new ENT.Cliente();
-                cliente = new ENT.Cliente(selectedItem.Id, selectedItem.Nombre, selectedItem.Cedula, selectedItem.ApellidoPaterno, selectedItem.ApellidoMaterno, selectedItem.TelefonoCasa, selectedItem.TelefonoOficina, selectedItem.TelefonoCelular);
-                lsOrdenes = ordenD.obtenerOrdenString(cliente.Id, "c.id_cliente");
-
-            }
-            else if (cbVehiculo.SelectedIndex > -1)
-            {
-                ENT.Vehiculo selectedItem = (ENT.Vehiculo)cbVehiculo.SelectedItem;
-                vehiculo = new ENT.Vehiculo(selectedItem.Id, selectedItem.Placa, selectedItem.Anno, selectedItem.Cilindraje, selectedItem.NumeroMotor, selectedItem.NumeroChazis, selectedItem.TipoCombustible, selectedItem.Estado, new MarcaVehiculo(), new ENT.Cliente(), new TipoVehiculo());
-                lsOrdenes = ordenD.obtenerOrdenString(vehiculo.Id, "v.id_vehiculo");
-            }
-            else if (cbEsatado.SelectedIndex > -1)
-            {
-
-            }
-            else if (cbEncargado.SelectedIndex > -1)
-            {
-                lsOrdenes = ordenD.obtenerOrdenFecha(dtIngreso.Value, dtIngreso.Value, "o.fecha_ingreso", "o.fecha_salida");
-            }
-            else if (dtIngreso.Checked == true)
-            {
-
-            }
-            else
-            {
-
+                }
                 cargarOrdenes();
-                return;
-
             }
-
-            txtMensaje.Text = "" + lsOrdenes.Count();
-            if (lsOrdenes.Count <= 0)
+            catch (Exception ex)
             {
-                txtMensaje.Text = "No hay Vehiculos registrados.";
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
             }
-            else if (!ordenD.ErrorMsg.Equals(""))
-            {
-                txtMensaje.Text = "Error al cargar los vehículos, " + ordenD.ErrorMsg;
-            }
-            this.dgOrdenes.DataSource = lsOrdenes;
+
         }
-
-
-        private void cargarOrdenes()
+        private void buscar(string valor, int numero, string columna)
         {
-            List<ENT.Orden> lsOrdenes = ordenD.obtenerOrden();
-            txtMensaje.Text = "" + lsOrdenes.Count();
-            if (lsOrdenes.Count <= 0)
+            try
             {
-                txtMensaje.Text = "No hay Vehiculos registrados.";
+                if (valor == "")
+                {
+                    ordenes = BllOrden.cargarIntOrden(numero, columna);
+                }
+                if (valor != "")
+                {
+                    ordenes = BllOrden.cargarStringOrden(valor, columna);
+                }
+                this.dgOrdenes.DataSource = ordenes;
+                txtNumero.Text = "" + ordenes.Count;
+                limpiarDatos();
             }
-            else if (!ordenD.ErrorMsg.Equals(""))
+            catch (Exception ex)
             {
-                txtMensaje.Text = "Error al cargar los vehículos, " + ordenD.ErrorMsg;
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
             }
-            this.dgOrdenes.DataSource = lsOrdenes;
         }
-
-
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             FrmOrdenReparaciones frm = new FrmOrdenReparaciones();
             frm.ShowDialog();
         }
-
         private void MateniminetoOrden(object sender, EventArgs e)
         {
-
-            txtMensaje.Text = "";
             if (this.dgOrdenes.Rows.Count > 0)
             {
 
@@ -176,11 +141,141 @@ namespace Vista
                 orden.Vehiculo = (ENT.Vehiculo)this.dgOrdenes[6, fila].Value;
                 FrmOrdenReparaciones frm = new FrmOrdenReparaciones(orden);
                 frm.ShowDialog();
-
-                List<ENT.Orden> lsOrdenes = ordenD.obtenerOrdenId((ENT.Orden)frm.EntOrden1);
-
-                this.dgOrdenes.DataSource = lsOrdenes;
             }
+        }
+        private void limpiarDatos()
+        {
+            txtCodigo.Text = "";
+            cbCliente.SelectedIndex = -1;
+            cbEncargado.SelectedIndex = -1;
+            cbEsatado.SelectedIndex = -1;
+            cbVehiculo.SelectedIndex = -1;
+            dtIngreso.Value = DateTime.Today;
+            dtSalida.Value = DateTime.Today;
+        }
+        //Metodo carga la lista de ordenes y las agrega al 
+        //data griew view
+        private void cargarOrdenes()
+        {
+            try
+            {
+                ordenes = BllOrden.cargarOrden();
+                this.dgOrdenes.DataSource = ordenes;
+                txtNumero.Text = "" + ordenes.Count;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
+        }
+        //Metodo retorna una lista de cliente que las agrega
+        //al combobox de clientes
+        private void llenarComboCliente()
+        {
+            try
+            {
+                this.cbCliente.Items.Clear();
+                clientes = BllCliente.cargarClientes();
+                foreach (ENT.Cliente oClienteL in clientes)
+                {
+                    this.cbCliente.Items.Add(oClienteL);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
+        }
+        //Metodo retorna una lista de vehículos que las
+        //retorna y las agrega al combo de vehículo
+        private void llenarComboVehiculo()
+        {
+            try
+            {
+                this.cbVehiculo.Items.Clear();
+                vehiculos = BllVehiculo.cargarVehiculos();
+                foreach (ENT.Vehiculo oVehiculos in vehiculos)
+                {
+                    this.cbVehiculo.Items.Add(oVehiculos);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
+        }
+        //Metodo retorna una lista de empleados
+        //y las agrega el combobox de encargado
+        private void llenarComboEncargado()
+        {
+            try
+            {
+                this.cbEncargado.Items.Clear();
+                empleados = BllEmpleado.cargarEmpleados();
+                foreach (ENT.Empleado oEmpleados in empleados)
+                {
+                    this.cbEncargado.Items.Add(oEmpleados);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
+        }
+        //Metodo selecciona un vehiculo del combobox y lo agrega
+        //a la entidad vehículo
+        private void seleccionComboVehiculo()
+        {
+            if (cbVehiculo.SelectedIndex != -1)
+            {
+                int selectedIndex = cbVehiculo.SelectedIndex;
+                ENT.Vehiculo selectedItem = (ENT.Vehiculo)cbVehiculo.SelectedItem;
+                vehiculo.Id = selectedItem.Id;
+            }
+        }
+        //Metodo selecciona un encargado del combobox y lo agrega
+        //a la entidad encargado
+        private void seleccionComboEncargado()
+        {
+            if (cbEncargado.SelectedIndex != -1)
+            {
+                int selectedIndex = cbEncargado.SelectedIndex;
+                ENT.Empleado selectedItem = (ENT.Empleado)cbEncargado.SelectedItem;
+                empleado.Id = selectedItem.Id;
+            }
+        }
+        //Metodo selecciona un cliente del combobox y lo agrega
+        //a la entidad cliente
+        private void seleccionComboCliente()
+        {
+            if (cbCliente.SelectedIndex != -1)
+            {
+                int selectedIndex = cbCliente.SelectedIndex;
+                ENT.Cliente selectedItem = (ENT.Cliente)cbCliente.SelectedItem;
+                cliente.Id = selectedItem.Id;
+            }
+        }
+        //Metodo selecciona un vehiculo del combobox y lo agrega
+        //a la entidad vehículo
+        private string seleccionEstado()
+        {
+            string estado = "";
+            if (cbEsatado.SelectedIndex != -1)
+            {
+                int selectedIndex;
+                selectedIndex = cbEsatado.SelectedIndex;
+                estado = (string)cbEsatado.SelectedItem;
+            }
+            return estado;
+        }
+        private void anadirItemsEstado() {
+            cbEsatado.Items.Add("Dañado");
+            cbEsatado.Items.Add("Pendiente");
+            cbEsatado.Items.Add("Finalizado");
         }
     }
 }

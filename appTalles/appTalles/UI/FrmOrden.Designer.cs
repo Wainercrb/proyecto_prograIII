@@ -51,6 +51,17 @@
             this.label8 = new System.Windows.Forms.Label();
             this.dtSalida = new System.Windows.Forms.DateTimePicker();
             this.txtMensaje = new System.Windows.Forms.TextBox();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtNumero = new System.Windows.Forms.TextBox();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FechaIngreso = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FechaSalida = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FechaFacturacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CostoTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Vehiculos_ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Empleado_ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgOrdenes)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -102,9 +113,18 @@
             // dgOrdenes
             // 
             this.dgOrdenes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgOrdenes.Location = new System.Drawing.Point(0, 116);
+            this.dgOrdenes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Id,
+            this.FechaIngreso,
+            this.FechaSalida,
+            this.FechaFacturacion,
+            this.Estado,
+            this.CostoTotal,
+            this.Vehiculos_,
+            this.Empleado_});
+            this.dgOrdenes.Location = new System.Drawing.Point(12, 116);
             this.dgOrdenes.Name = "dgOrdenes";
-            this.dgOrdenes.Size = new System.Drawing.Size(787, 248);
+            this.dgOrdenes.Size = new System.Drawing.Size(763, 248);
             this.dgOrdenes.TabIndex = 11;
             this.dgOrdenes.DoubleClick += new System.EventHandler(this.MateniminetoOrden);
             // 
@@ -121,10 +141,6 @@
             // 
             this.cbEsatado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbEsatado.FormattingEnabled = true;
-            this.cbEsatado.Items.AddRange(new object[] {
-            "Dañado\t",
-            "Pendiente",
-            "Filalizado"});
             this.cbEsatado.Location = new System.Drawing.Point(359, 27);
             this.cbEsatado.Name = "cbEsatado";
             this.cbEsatado.Size = new System.Drawing.Size(108, 21);
@@ -253,10 +269,83 @@
             // 
             this.txtMensaje.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtMensaje.Location = new System.Drawing.Point(0, 371);
+            this.txtMensaje.Multiline = true;
             this.txtMensaje.Name = "txtMensaje";
             this.txtMensaje.ReadOnly = true;
-            this.txtMensaje.Size = new System.Drawing.Size(787, 13);
+            this.txtMensaje.Size = new System.Drawing.Size(353, 20);
             this.txtMensaje.TabIndex = 29;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(631, 371);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(44, 13);
+            this.label9.TabIndex = 30;
+            this.label9.Text = "Ordnes:";
+            // 
+            // txtNumero
+            // 
+            this.txtNumero.Location = new System.Drawing.Point(675, 368);
+            this.txtNumero.Name = "txtNumero";
+            this.txtNumero.Size = new System.Drawing.Size(100, 20);
+            this.txtNumero.TabIndex = 31;
+            // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "Codigo";
+            this.Id.Name = "Id";
+            this.Id.Width = 60;
+            // 
+            // FechaIngreso
+            // 
+            this.FechaIngreso.DataPropertyName = "FechaIngreso";
+            this.FechaIngreso.HeaderText = "Ingreso";
+            this.FechaIngreso.Name = "FechaIngreso";
+            this.FechaIngreso.Width = 80;
+            // 
+            // FechaSalida
+            // 
+            this.FechaSalida.DataPropertyName = "FechaSalida";
+            this.FechaSalida.HeaderText = "Salida";
+            this.FechaSalida.Name = "FechaSalida";
+            this.FechaSalida.Width = 80;
+            // 
+            // FechaFacturacion
+            // 
+            this.FechaFacturacion.DataPropertyName = "FechaFacturacion";
+            this.FechaFacturacion.HeaderText = "Facturación";
+            this.FechaFacturacion.Name = "FechaFacturacion";
+            this.FechaFacturacion.Width = 80;
+            // 
+            // Estado
+            // 
+            this.Estado.DataPropertyName = "Estado";
+            this.Estado.HeaderText = "Estado";
+            this.Estado.Name = "Estado";
+            this.Estado.Width = 60;
+            // 
+            // CostoTotal
+            // 
+            this.CostoTotal.DataPropertyName = "CostoTotal";
+            this.CostoTotal.HeaderText = "Costo Total";
+            this.CostoTotal.Name = "CostoTotal";
+            this.CostoTotal.Width = 80;
+            // 
+            // Vehiculos_
+            // 
+            this.Vehiculos_.DataPropertyName = "Vehiculo";
+            this.Vehiculos_.HeaderText = "Vehículo";
+            this.Vehiculos_.Name = "Vehiculos_";
+            this.Vehiculos_.Width = 140;
+            // 
+            // Empleado_
+            // 
+            this.Empleado_.DataPropertyName = "Empleado";
+            this.Empleado_.HeaderText = "Empleado";
+            this.Empleado_.Name = "Empleado_";
+            this.Empleado_.Width = 140;
             // 
             // FrmOrden
             // 
@@ -264,6 +353,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(787, 396);
+            this.Controls.Add(this.txtNumero);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.txtMensaje);
             this.Controls.Add(this.dtSalida);
             this.Controls.Add(this.label8);
@@ -318,5 +409,16 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.DateTimePicker dtSalida;
         private System.Windows.Forms.TextBox txtMensaje;
+        private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txtNumero;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FechaIngreso;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FechaSalida;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FechaFacturacion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Estado;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CostoTotal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Vehiculos_;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Empleado_;
     }
 }

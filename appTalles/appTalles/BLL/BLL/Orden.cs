@@ -57,16 +57,18 @@ namespace BLL
                 throw ex;
             }
         }
-
-        public void eliminarOrden(ENT.Orden orden) {
+        //Metodo valida los datos para que se eliminen correctamente
+        //si hay error mostrarlo en interfaz
+        public void eliminarOrden(ENT.Orden orden)
+        {
             DAL.Orden DalOrden = new DAL.Orden();
             try
             {
-                if (orden.Id<= 0)
+                if (orden.Id <= 0)
                 {
                     throw new Exception("Debes seccionar una orden");
                 }
-            
+
             }
             catch (Exception ex)
             {
@@ -74,8 +76,10 @@ namespace BLL
                 throw ex;
             }
         }
-
-        public List<ENT.Orden> cargarOrden() {
+        //Metodo carga las ordenes y verifica que si hay 
+        //un error cuando se cargan las ordenes
+        public List<ENT.Orden> cargarOrden()
+        {
             DAL.Orden DalOrden = new DAL.Orden();
             List<ENT.Orden> ordenes = new List<ENT.Orden>();
             try
@@ -83,15 +87,95 @@ namespace BLL
                 ordenes = DalOrden.obtenerOrden();
                 if (DalOrden.Error)
                 {
-                    throw new Exception("Error al cargar las ordenes "+ DalOrden.ErrorMsg);
+                    throw new Exception("Error al cargar las ordenes " + DalOrden.ErrorMsg);
                 }
-                if (ordenes.Count<= 0)
+                if (ordenes.Count <= 0)
                 {
                     throw new Exception("No hay ordenes en la base de datos");
                 }
             }
             catch (Exception ex)
-            {            
+            {
+                throw ex;
+            }
+            return ordenes;
+        }
+        //Metodo  busca un valor int y carga las ordenes y verifica que si hay 
+        //un error cuando se cargan las ordenes
+        public List<ENT.Orden> cargarIntOrden(int valor, string columna)
+        {
+            DAL.Orden DalOrden = new DAL.Orden();
+            List<ENT.Orden> ordenes = new List<ENT.Orden>();
+            try
+            {
+                if (valor <= 0)
+                {
+                    throw new Exception("Debes ingresar un valor valido a buscar");
+                }
+                ordenes = DalOrden.obtenerIntOrden(valor, columna);
+                if (DalOrden.Error)
+                {
+                    throw new Exception("Error al cargar las ordenes " + DalOrden.ErrorMsg);
+                }
+                if (ordenes.Count <= 0)
+                {
+                    throw new Exception("No hay ordenes en la base de datos");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ordenes;
+        }
+        //Metodo  busca un valor string y carga las ordenes y verifica que si hay 
+        //un error cuando se cargan las ordenes
+        public List<ENT.Orden> cargarStringOrden(string valor, string columna)
+        {
+            DAL.Orden DalOrden = new DAL.Orden();
+            List<ENT.Orden> ordenes = new List<ENT.Orden>();
+            try
+            {
+                if (valor == "")
+                {
+                    throw new Exception("Debes ingresar un valor valido a buscar");
+                }
+                ordenes = DalOrden.obtenerStringOrden(valor, columna);
+                if (DalOrden.Error)
+                {
+                    throw new Exception("Error al cargar las ordenes " + DalOrden.ErrorMsg);
+                }
+                if (ordenes.Count <= 0)
+                {
+                    throw new Exception("No hay ordenes en la base de datos");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ordenes;
+        }
+        //Metodo  busca un valor por fechas y carga las ordenes y verifica que si hay 
+        //un error cuando se cargan las ordenes
+        public List<ENT.Orden> cargarStringOrden(DateTime ingreso, DateTime salida)
+        {
+            DAL.Orden DalOrden = new DAL.Orden();
+            List<ENT.Orden> ordenes = new List<ENT.Orden>();
+            try
+            {
+                ordenes = DalOrden.obtenerFechaOrden(ingreso, salida);
+                if (DalOrden.Error)
+                {
+                    throw new Exception("Error al cargar las ordenes " + DalOrden.ErrorMsg);
+                }
+                if (ordenes.Count <= 0)
+                {
+                    throw new Exception("No hay ordenes en la base de datos");
+                }
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
             return ordenes;
