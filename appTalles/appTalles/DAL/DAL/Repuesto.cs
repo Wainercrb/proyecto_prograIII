@@ -53,7 +53,7 @@ namespace DAL
         public void agregarRepuesto(RepuestoVehiculo pRepuesto)
         {
             limpiarError();
-            string sql = "INSER INTO " + this.conexion.Schema + "repuesto(repuesto, precio, impuesto) " + "values(@repuesto, @precio, @impuesto)";
+            string sql = "INSERT INTO " + this.conexion.Schema + "repuesto(repuesto, precio, impuesto) " + "values(@repuesto, @precio, @impuesto)";
             Parametro prm = new Parametro();
             prm.agregarParametro("@repuesto", NpgsqlDbType.Varchar, pRepuesto.Repuesto);
             prm.agregarParametro("@precio", NpgsqlDbType.Double, pRepuesto.Precio);
@@ -186,6 +186,83 @@ namespace DAL
             }
             return repuestos;
         }
+
+        public List<ENT.RepuestoVehiculo> obtenerReporteRepuesto(int valor)
+        {
+            List<RepuestoVehiculo> repuestos = new List<RepuestoVehiculo>();
+            Parametro prm = new Parametro();
+            prm.agregarParametro("@consecutivo", NpgsqlDbType.Numeric, valor);
+            string sql = " select rp.id_repuesto as id_repuesto, rp.repuesto as repuesto, rp.precio as precio, rp.impuesto  as impuesto from repuesto rp, orden o, orden_repuesto ore where ore.fk_repuesto = rp.id_repuesto and ore.fk_orden = o.id_orden and o.id_orden = @consecutivo;";
+            DataSet dset = this.conexion.ejecutarConsultaSQL(sql, "repuesto", prm.obtenerParametros());
+            if (!this.conexion.IsError)
+            {
+                if (dset.Tables[0].Rows.Count > 0)
+                {
+
+                    foreach (DataRow tupla in dset.Tables[0].Rows)
+                    {
+                        RepuestoVehiculo repuesto = new RepuestoVehiculo(Int32.Parse(tupla["id_repuesto"].ToString()), tupla["repuesto"].ToString(), Double.Parse(tupla["precio"].ToString()), Double.Parse(tupla["impuesto"].ToString()));
+                        repuestos.Add(repuesto);
+                    }
+                }
+            }
+            else
+            {
+                this.error = true;
+                this.errorMsg = this.conexion.ErrorDescripcion;
+            }
+            return repuestos;
+
+
+        }
+
+
+        public DataTable obtenerRepestoDataset()
+        {
+            DataTable tabla = null;
+            this.limpiarError();
+
+            string sql = "select * from " + this.conexion.Schema + "repuesto";
+            DataSet dset = this.conexion.ejecutarConsultaSQL(sql,
+                                                      "servicio");
+            if (!conexion.IsError)
+            {
+
+                tabla = dset.Tables[0].Copy();
+            }
+            else
+            {
+                this.errorMsg = this.conexion.ErrorDescripcion;
+                this.error = true;
+
+            }
+
+            return tabla;
+        }
+
+        public DataTable obtenerServiioDataset()
+        {
+            DataTable tabla = null;
+            this.limpiarError();
+
+            string sql = "SELECT id_servicio as repuesto FROM public.servicio;";
+            DataSet dset = this.conexion.ejecutarConsultaSQL(sql,
+                                                      "servicio");
+            if (!conexion.IsError)
+            {
+
+                tabla = dset.Tables[0].Copy();
+            }
+            else
+            {
+                this.errorMsg = this.conexion.ErrorDescripcion;
+                this.error = true;
+
+            }
+
+            return tabla;
+        }
+
 
         public bool Error
         {

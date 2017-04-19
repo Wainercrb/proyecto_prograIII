@@ -141,6 +141,7 @@ namespace Vista
                 orden.Vehiculo = (ENT.Vehiculo)this.dgOrdenes[6, fila].Value;
                 FrmOrdenReparaciones frm = new FrmOrdenReparaciones(orden);
                 frm.ShowDialog();
+                buscar("", orden.Id, "id_orden");
             }
         }
         private void limpiarDatos()

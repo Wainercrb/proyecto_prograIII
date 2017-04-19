@@ -12,6 +12,7 @@ using ENT;
 using Vista;
 using appTalles.Vista;
 using ENT;
+using appTalles.UI;
 
 namespace Vista
 
@@ -99,9 +100,38 @@ namespace Vista
 
         private void crearOrdenToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            FrmOrdenReparaciones frm = new FrmOrdenReparaciones();
+            frm.Show();           
+        }
+        private void registrarReparacionesRepuestosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             FrmOrden frm = new FrmOrden();
-            frm.Show();
-           
+            frm.ShowDialog();
+        }
+
+        private void finalizoOrdenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmOrdenFinalizada frm = new FrmOrdenFinalizada();
+            frm.ShowDialog();
+        }
+
+        private void facturaOrdenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            repor frm = new repor();
+            frm.ShowDialog();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DAL.Orden or = new DAL.Orden();
+            
+            this.grdPrueba.DataSource = or.cargarDataTableOrden(DateTime.Today);
+        }
+
+        private void informeOrdenFinalizadaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmInformeOrdenFinalizada frm = new FrmInformeOrdenFinalizada();
+            frm.ShowDialog();
         }
     }
 }

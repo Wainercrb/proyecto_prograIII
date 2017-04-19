@@ -14,38 +14,50 @@ namespace Vista
 {
     public partial class SeleccionEmpleado : Form
     {
-        private ENT.Empleado empleado;
-        private DAL.Empleado empleadoD;
+        private ENT.Empleado EntEmpleado;
+        private BLL.Empleado BllEmpleado;
+
+        public ENT.Empleado EntEmpleado1
+        {
+            get
+            {
+                return EntEmpleado;
+            }
+
+            set
+            {
+                EntEmpleado = value;
+            }
+        }
+
         public SeleccionEmpleado()
         {
             InitializeComponent();
-            empleado = new ENT.Empleado();
-            empleadoD = new DAL.Empleado();
+            EntEmpleado = new ENT.Empleado();
+            BllEmpleado = new BLL.Empleado();
             cargar();
         }
 
         private void cargar()
         {
-            //bool estado = true;
-            //Empledo pEmpleado = new Empledo();
-            //List<Empleado> lsMarcas = pEmpleado.ObtenerEmpleados(ref estado);
-            //if (estado)
-            //{
-            //    this.grdEmpleado.DataSource = lsMarcas;
-            //}
-        }
-
-        public ENT.Empleado getEmpleado() {
-            return empleado;
+            try
+            {
+                List<ENT.Empleado> lsMarcas = BllEmpleado.cargarEmpleados();
+                this.grdEmpleado.DataSource = lsMarcas;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void seleccion(object sender, EventArgs e)
         {
-            int fila = this.grdEmpleado.CurrentRow.Index;
 
-            if (grdEmpleado.RowCount > 0)
+            if (this.grdEmpleado.RowCount >= 0)
             {
-                empleado.Id = Int32.Parse(grdEmpleado[0, fila].Value.ToString());
+                int fila = this.grdEmpleado.CurrentRow.Index;
+                EntEmpleado.Id = Int32.Parse(this.grdEmpleado[1, fila].Value.ToString());
                 this.Close();
             }
         }

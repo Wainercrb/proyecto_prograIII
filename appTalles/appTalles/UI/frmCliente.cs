@@ -27,15 +27,13 @@ namespace Vista
             EntCliente = new ENT.Cliente();
             BllCliente = new BLL.Cliente();
             clientes = new List<ENT.Cliente>();
-            cargarDataGriew();
         }
 
 
 
         private void Editar(object sender, MouseEventArgs e)
         {
-            txtMensaje.Text = "";
-            if (this.grdClientes.Rows.Count > 0)
+            if (this.grdClientes.Rows.Count >= 0)
             {
                 int fila = this.grdClientes.CurrentRow.Index;
                 txtNombre.Text = grdClientes[2, fila].Value.ToString();
@@ -54,24 +52,13 @@ namespace Vista
             {
                 clientes = BllCliente.cargarClientes();
                 grdClientes.DataSource = clientes;
+                txtCantidadRegistros.Text = "" + clientes.Count;
             }
             catch (Exception ex)
             {
 
                 MessageBox.Show(ex.Message);
             }
-        }
- 
-        private void cargarDataGriew()
-        {
-            this.grdClientes.Columns["Id"].Visible = false;
-            this.grdClientes.Columns["Cedula"].Width = 65;
-            this.grdClientes.Columns["Nombre"].Width = 65;
-            this.grdClientes.Columns["ApellidoPaterno"].Width = 60;
-            this.grdClientes.Columns["ApellidoMaterno"].Width = 60;
-            this.grdClientes.Columns["TelefonoCasa"].Width = 60;
-            this.grdClientes.Columns["TelefonoOficina"].Width = 60;
-            this.grdClientes.Columns["TelefonoCelular"].Width = 60;
         }
 
         private void limpiarDatos()
@@ -84,12 +71,13 @@ namespace Vista
             txtTelefono_casa.Text = "";
             txtTelefono_celular.Text = "";
             txtTelefono_oficina.Text = "";
+            txtMensaje.Text = "";
+            txtCantidadRegistros.Text = "";
         }
         private void btnAgregar_Click_1(object sender, EventArgs e)
         {
             try
             {
-                txtMensaje.Text = "";
                 EntCliente.Cedula = txtNombre.Text;
                 EntCliente.Nombre = txtCedula.Text;
                 EntCliente.ApellidoPaterno = txtApellidoPaterno.Text;
@@ -99,6 +87,7 @@ namespace Vista
                 EntCliente.TelefonoOficina = txtTelefono_oficina.Text;
                 BllCliente.insertarCliente(EntCliente);
                 limpiarDatos();
+                cargarClientes();
             }
             catch (Exception ex)
             {
@@ -111,6 +100,8 @@ namespace Vista
             try
             {
                 BllCliente.eliminarCliente(EntCliente);
+                cargarClientes();
+                limpiarDatos();
             }
             catch (Exception ex)
             {
@@ -126,6 +117,50 @@ namespace Vista
         private void btnLimpiar_Click_1(object sender, EventArgs e)
         {
             limpiarDatos();
+        }
+
+        private void buscasCliente(string valor, string valor2){
+            try
+            {
+                clientes = BllCliente.buscarCliente(valor, valor2 );
+                this.grdClientes.DataSource = clientes;
+                txtCantidadRegistros.Text = "" + clientes.Count;
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void BuscarEnter(object sender, KeyPressEventArgs e)
+        {
+            if ((int)e.KeyChar == (int)Keys.Enter)
+            {
+                if (rbBuscarCedula.Checked)
+                {
+                    buscasCliente(txtBuscar.Text, "cedula");
+                }
+                if (rbBuscarNombre.Checked)
+                {
+                    buscasCliente(txtBuscar.Text, "nombre");
+                }
+                if (rbBuscaApellido.Checked)
+                {
+                    buscasCliente(txtBuscar.Text, "apellido");
+
+                } 
+            }
+        }
+
+        private void seleccion(object sender, MouseEventArgs e)
+        {
+            if (this.grdClientes.Rows.Count >= 0)
+            {
+                int fila = this.grdClientes.CurrentRow.Index;
+                EntCliente.Id = Int32.Parse(grdClientes[0, fila].Value.ToString());
+                txtMensaje.Text = "Seleccion a: " + grdClientes[2, fila].Value.ToString() + " " + this.grdClientes[3, fila].Value.ToString();
+            }
         }
     }
 }

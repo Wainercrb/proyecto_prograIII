@@ -156,10 +156,6 @@ namespace Vista
             txtMarca.Text = "";
             EntRepuesto = new RepuestoVehiculo();
             EntMarca = new MarcaVehiculo();
-            repuestos.Clear();
-            this.grdRepuesto.DataSource = repuestos;
-            repuestos.Clear();
-            cargarRepuestos();
         }
         //Metodo carga los repuestos a la lista
         //y los agrega al DataGriew

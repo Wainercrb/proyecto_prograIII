@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsetOrden" targetNamespace="http://tempuri.org/dsetOrden.xsd" xmlns:mstns="http://tempuri.org/dsetOrden.xsd" xmlns="http://tempuri.org/dsetOrden.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsetOrden" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsetOrden" msprop:Generator_UserDSName="dsetOrden">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="repuesto" msprop:Generator_TableClassName="repuestoDataTable" msprop:Generator_TableVarName="tablerepuesto" msprop:Generator_TablePropName="repuesto" msprop:Generator_RowDeletingName="repuestoRowDeleting" msprop:Generator_RowChangingName="repuestoRowChanging" msprop:Generator_RowEvHandlerName="repuestoRowChangeEventHandler" msprop:Generator_RowDeletedName="repuestoRowDeleted" msprop:Generator_UserTableName="repuesto" msprop:Generator_RowChangedName="repuestoRowChanged" msprop:Generator_RowEvArgName="repuestoRowChangeEvent" msprop:Generator_RowClassName="repuestoRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="repuesto" msprop:Generator_ColumnVarNameInTable="columnrepuesto" msprop:Generator_ColumnPropNameInRow="repuesto" msprop:Generator_ColumnPropNameInTable="repuestoColumn" msprop:Generator_UserColumnName="repuesto" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

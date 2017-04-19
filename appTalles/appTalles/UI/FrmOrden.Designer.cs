@@ -35,6 +35,14 @@
             this.cbVehiculo = new System.Windows.Forms.ComboBox();
             this.cbEncargado = new System.Windows.Forms.ComboBox();
             this.dgOrdenes = new System.Windows.Forms.DataGridView();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FechaIngreso = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FechaSalida = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FechaFacturacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CostoTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Vehiculos_ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Empleado_ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label6 = new System.Windows.Forms.Label();
             this.cbEsatado = new System.Windows.Forms.ComboBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -54,14 +62,6 @@
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.label9 = new System.Windows.Forms.Label();
             this.txtNumero = new System.Windows.Forms.TextBox();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FechaIngreso = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FechaSalida = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FechaFacturacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CostoTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Vehiculos_ = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Empleado_ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgOrdenes)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -112,6 +112,9 @@
             // 
             // dgOrdenes
             // 
+            this.dgOrdenes.AllowUserToAddRows = false;
+            this.dgOrdenes.AllowUserToDeleteRows = false;
+            this.dgOrdenes.AllowUserToOrderColumns = true;
             this.dgOrdenes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgOrdenes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
@@ -124,9 +127,74 @@
             this.Empleado_});
             this.dgOrdenes.Location = new System.Drawing.Point(12, 116);
             this.dgOrdenes.Name = "dgOrdenes";
+            this.dgOrdenes.ReadOnly = true;
             this.dgOrdenes.Size = new System.Drawing.Size(763, 248);
             this.dgOrdenes.TabIndex = 11;
             this.dgOrdenes.DoubleClick += new System.EventHandler(this.MateniminetoOrden);
+            // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "Codigo";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            this.Id.Width = 60;
+            // 
+            // FechaIngreso
+            // 
+            this.FechaIngreso.DataPropertyName = "FechaIngreso";
+            this.FechaIngreso.HeaderText = "Ingreso";
+            this.FechaIngreso.Name = "FechaIngreso";
+            this.FechaIngreso.ReadOnly = true;
+            this.FechaIngreso.Width = 80;
+            // 
+            // FechaSalida
+            // 
+            this.FechaSalida.DataPropertyName = "FechaSalida";
+            this.FechaSalida.HeaderText = "Salida";
+            this.FechaSalida.Name = "FechaSalida";
+            this.FechaSalida.ReadOnly = true;
+            this.FechaSalida.Width = 80;
+            // 
+            // FechaFacturacion
+            // 
+            this.FechaFacturacion.DataPropertyName = "FechaFacturacion";
+            this.FechaFacturacion.HeaderText = "Facturación";
+            this.FechaFacturacion.Name = "FechaFacturacion";
+            this.FechaFacturacion.ReadOnly = true;
+            this.FechaFacturacion.Width = 80;
+            // 
+            // Estado
+            // 
+            this.Estado.DataPropertyName = "Estado";
+            this.Estado.HeaderText = "Estado";
+            this.Estado.Name = "Estado";
+            this.Estado.ReadOnly = true;
+            this.Estado.Width = 60;
+            // 
+            // CostoTotal
+            // 
+            this.CostoTotal.DataPropertyName = "CostoTotal";
+            this.CostoTotal.HeaderText = "Costo Total";
+            this.CostoTotal.Name = "CostoTotal";
+            this.CostoTotal.ReadOnly = true;
+            this.CostoTotal.Width = 80;
+            // 
+            // Vehiculos_
+            // 
+            this.Vehiculos_.DataPropertyName = "Vehiculo";
+            this.Vehiculos_.HeaderText = "Vehículo";
+            this.Vehiculos_.Name = "Vehiculos_";
+            this.Vehiculos_.ReadOnly = true;
+            this.Vehiculos_.Width = 140;
+            // 
+            // Empleado_
+            // 
+            this.Empleado_.DataPropertyName = "Empleado";
+            this.Empleado_.HeaderText = "Empleado";
+            this.Empleado_.Name = "Empleado_";
+            this.Empleado_.ReadOnly = true;
+            this.Empleado_.Width = 140;
             // 
             // label6
             // 
@@ -290,62 +358,6 @@
             this.txtNumero.Name = "txtNumero";
             this.txtNumero.Size = new System.Drawing.Size(100, 20);
             this.txtNumero.TabIndex = 31;
-            // 
-            // Id
-            // 
-            this.Id.DataPropertyName = "Id";
-            this.Id.HeaderText = "Codigo";
-            this.Id.Name = "Id";
-            this.Id.Width = 60;
-            // 
-            // FechaIngreso
-            // 
-            this.FechaIngreso.DataPropertyName = "FechaIngreso";
-            this.FechaIngreso.HeaderText = "Ingreso";
-            this.FechaIngreso.Name = "FechaIngreso";
-            this.FechaIngreso.Width = 80;
-            // 
-            // FechaSalida
-            // 
-            this.FechaSalida.DataPropertyName = "FechaSalida";
-            this.FechaSalida.HeaderText = "Salida";
-            this.FechaSalida.Name = "FechaSalida";
-            this.FechaSalida.Width = 80;
-            // 
-            // FechaFacturacion
-            // 
-            this.FechaFacturacion.DataPropertyName = "FechaFacturacion";
-            this.FechaFacturacion.HeaderText = "Facturación";
-            this.FechaFacturacion.Name = "FechaFacturacion";
-            this.FechaFacturacion.Width = 80;
-            // 
-            // Estado
-            // 
-            this.Estado.DataPropertyName = "Estado";
-            this.Estado.HeaderText = "Estado";
-            this.Estado.Name = "Estado";
-            this.Estado.Width = 60;
-            // 
-            // CostoTotal
-            // 
-            this.CostoTotal.DataPropertyName = "CostoTotal";
-            this.CostoTotal.HeaderText = "Costo Total";
-            this.CostoTotal.Name = "CostoTotal";
-            this.CostoTotal.Width = 80;
-            // 
-            // Vehiculos_
-            // 
-            this.Vehiculos_.DataPropertyName = "Vehiculo";
-            this.Vehiculos_.HeaderText = "Vehículo";
-            this.Vehiculos_.Name = "Vehiculos_";
-            this.Vehiculos_.Width = 140;
-            // 
-            // Empleado_
-            // 
-            this.Empleado_.DataPropertyName = "Empleado";
-            this.Empleado_.HeaderText = "Empleado";
-            this.Empleado_.Name = "Empleado_";
-            this.Empleado_.Width = 140;
             // 
             // FrmOrden
             // 

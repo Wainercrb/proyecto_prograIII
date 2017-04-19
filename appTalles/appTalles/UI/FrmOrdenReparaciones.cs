@@ -33,8 +33,11 @@ namespace appTalles.Vista
         private List<ENT.OrdenRepuesto> ordenRepuestos;
         private List<ENT.Servicio> servicios;
         private List<ENT.OrdenServicio> ordenServicios;
+        private List<ENT.Vehiculo> vehiculos;
+        private List<ENT.Empleado> empleados;
         private double agregado;
         private double quito;
+        private bool modificio = false;
 
         public ENT.Orden EntOrden1
         {
@@ -70,19 +73,18 @@ namespace appTalles.Vista
             servicios = new List<ENT.Servicio>();
             ordenRepuestos = new List<OrdenRepuesto>();
             ordenServicios = new List<ENT.OrdenServicio>();
-            cargarCombos();
-            agregarGrdSeleccionados();
-            cargarGrdServicios();
-
+            vehiculos = new List<ENT.Vehiculo>();
+            empleados = new List<ENT.Empleado>();
+            vehiculos = new List<ENT.Vehiculo>();
+            llenarComboEncargado();
+            llenarComboVehiculo();
         }
 
         public FrmOrdenReparaciones(ENT.Orden orden)
         {
-            this.EntOrden = orden;
             InitializeComponent();
-            configurarGrd();
-            EntVehiculo = new ENT.Vehiculo();
             EntOrdenServicio = new ENT.OrdenServicio();
+            EntVehiculo = new ENT.Vehiculo();
             EntOrden = new ENT.Orden();
             EntRepuesto = new ENT.RepuestoVehiculo();
             EntOrdenRepuesto = new ENT.OrdenRepuesto();
@@ -99,427 +101,175 @@ namespace appTalles.Vista
             servicios = new List<ENT.Servicio>();
             ordenRepuestos = new List<OrdenRepuesto>();
             ordenServicios = new List<ENT.OrdenServicio>();
-            cargarCombos();
-            cargarComponentes();
-            agregarGrdSeleccionados();
-            cargarGrdServicios();
-
-        }
-        private void cargarComponentes()
-        {
-            configurarGrd();
-            txtCodigo.Text = "" + EntOrden.Id;
-            dtIngreso.Value = EntOrden.FechaIngreso;
-            dtFechaSalida.Value = EntOrden.FechaSalida;
-            dtFechaFacturacion.Value = EntOrden.FechaFacturacion;
-            for (int j = 0; j < cbEncargado.Items.Count; j++)
-            {
-                if (cbEncargado.Items[j].ToString() == EntOrden.Empleado.ToString())
-                {
-                    cbEncargado.SelectedIndex = j;
-                    break;
-                }
-            }
-            for (int j = 0; j < cbVehiculo.Items.Count; j++)
-            {
-                if (cbVehiculo.Items[j].ToString() == EntOrden.Vehiculo.ToString())
-                {
-                    cbVehiculo.SelectedIndex = j;
-                    break;
-                }
-            }
-            for (int j = 0; j < cbEstado.Items.Count; j++)
-            {
-                if (cbEstado.Items[j].ToString() == EntOrden.Estado)
-                {
-                    cbEstado.SelectedIndex = j;
-                    break;
-                }
-            }
-        }
-
-        private void cargarCombos()
-        {
+            vehiculos = new List<ENT.Vehiculo>();
+            empleados = new List<ENT.Empleado>();
+            this.EntOrden = orden;
             llenarComboEncargado();
             llenarComboVehiculo();
-        }
-        private void llenarComboVehiculo()
-        {
-            try
-            {
-                this.cbVehiculo.Items.Clear();
-                List<ENT.Vehiculo> vehiculos = BllVehiculo.cargarVehiculos();
-                foreach (ENT.Vehiculo oVehiculos in vehiculos)
-                {
-                    this.cbVehiculo.Items.Add(oVehiculos);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
+            cargarComponentesOrden(orden);
+            cargarRepuestosOrden();
+            cargarServicioOrden();
 
-        private void llenarComboEncargado()
-        {
-            try
-            {
-                cbEncargado.Items.Clear();
-                this.cbEncargado.Items.Clear();
-                List<ENT.Empleado> empleados = BllEmpleado.cargarEmpleados();
-                foreach (ENT.Empleado oEmpleados in empleados)
-                {
-                    this.cbEncargado.Items.Add(oEmpleados);
-                }
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message);
-            }
-        }
-        private string seleccionEstado()
-        {
-            string estado = "";
-            if (cbEstado.SelectedIndex != -1)
-            {
-                int selectedIndex = -1;
-                selectedIndex = cbEstado.SelectedIndex;
-                estado = cbEstado.Items[selectedIndex].ToString();
-            }
-            return estado;
-        }
-
-        private void seleccionarCombos()
-        {
-            if (cbEncargado.SelectedIndex != -1)
-            {
-                int selectedIndex = cbEncargado.SelectedIndex;
-                ENT.Empleado selectedItem = (ENT.Empleado)cbEncargado.SelectedItem;
-                EntEmpleado.Id = selectedItem.Id;
-                EntEmpleado.Nombre = selectedItem.Nombre;
-            }
-            if (cbVehiculo.SelectedIndex != -1)
-            {
-                int selectedIndex = cbVehiculo.SelectedIndex;
-                ENT.Vehiculo selectedItem = (ENT.Vehiculo)cbVehiculo.SelectedItem;
-                EntVehiculo.Id = selectedItem.Id;
-            }
         }
         private void toolStripButton4_Click(object sender, EventArgs e)
         {
+
+            seleccionComboEmpleado();
+            seleccionComboVehiculo();
+            EntOrden.FechaIngreso = dtIngreso.Value;
+            EntOrden.FechaSalida = dtFechaSalida.Value;
+            EntOrden.FechaFacturacion = dtFechaFacturacion.Value;
+            EntOrden.Empleado = EntEmpleado;
+            EntOrden.Vehiculo = EntVehiculo;
+            EntOrden.Estado = seleccionEstado();
+            int consecutivo = BllOrden.consecutivogAregarOrden(EntOrden);
+            //EntOrden = BllOrden.buscarConsecutivoOrden(consecutivo);
+            limpiarDatos();
+
+        }
+        private void btnAgregarServicio_Click(object sender, EventArgs e)
+        {
             try
             {
-                seleccionarCombos();
-                EntOrden.FechaIngreso = dtIngreso.Value;
-                EntOrden.FechaSalida = dtFechaSalida.Value;
-                EntOrden.FechaFacturacion = dtFechaFacturacion.Value;
-                EntOrden.Empleado = EntEmpleado;
-                EntOrden.Vehiculo = EntVehiculo;
-                EntOrden.Estado = seleccionEstado();
-                limpiarDatos();
+                modificio = true;
+                double montoAgregadoUno;
+                if (EntOrdenServicio.Id <= 0)
+                {
+                    SeleccionEmpleado frm = new SeleccionEmpleado();
+                    frm.ShowDialog();
+                    EntEmpleado = frm.EntEmpleado1;
+                    EntOrdenServicio.Empleado = EntEmpleado;
+                    EntOrdenServicio.Servicio = EntServicio;
+                    EntOrdenServicio.Orden = EntOrden;
+                }
+
+                EntOrdenServicio.Cantidad = EntOrdenServicio.Cantidad + Int32.Parse(npAgregarServicio.Value.ToString());
+                montoAgregadoUno = EntOrdenServicio.totalServicio(EntOrdenServicio, Int32.Parse(npAgregarServicio.Value.ToString()));
+                EntOrdenServicio.Costo += montoAgregadoUno;
+                agregado += montoAgregadoUno;
+                BllOrdenServicio.agregarOrdenServicio(EntOrdenServicio);
+                limpiarDatosServicios();
+
             }
             catch (Exception ex)
             {
-
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
             }
         }
-        private bool verificarDatos()
-        {
 
-            if (cbEncargado.SelectedIndex == -1 || cbVehiculo.SelectedIndex == -1)
+        private void btnQuitarServicio_Click(object sender, EventArgs e)
+        {
+            try
             {
-                return false;
-            }
-            return true;
-        }
-
-        private void limpiarDatos()
-        {
-            cbEncargado.SelectedIndex = -1;
-            cbEstado.SelectedIndex = -1;
-            cbVehiculo.SelectedIndex = -1;
-            dtIngreso.Value = DateTime.Today;
-            dtFechaSalida.Value = DateTime.Today;
-            dtFechaFacturacion.Value = DateTime.Today;
-        }
-        private void btnAgregar_Click(object sender, EventArgs e)
-        {
-
-            //double montoUno;
-            //double montoDos;
-
-            //if (ordenRepuesto.Id > 0)
-            //{
-            //    ordenRepuesto.Cantidad = ordenRepuesto.Cantidad + Int32.Parse(npCantidadAgregar.Value.ToString());
-            //    montoUno = ordenRepuesto.totalRepuesto(ordenRepuesto, Int32.Parse(npCantidadAgregar.Value.ToString()));
-            //    ordenRepuesto.TotalRepuestos += montoUno;
-            //    agregado += montoUno;
-            //    if (!ordenRepuestoD.editarOrdenRepuesto(ordenRepuesto))
-            //    {
-            //        txtMensaje.Text = "Se agregaron más repuestos";
-            //    }
-            //    else
-            //    {
-
-            //        MessageBox.Show("Error al agreagar el repuesto, " + ordenRepuestoD.ErrorMsg);
-
-            //    }
-            //}
-            //else
-            //{
-            //    //if (!validadDatos())
-            //    //{
-            //    //    return;
-            //    //}
-            //    ordenRepuesto.Repuesto1 = repuesto;
-            //    ordenRepuesto.Orden = Orden;
-            //    ordenRepuesto.Cantidad = Int32.Parse(npCantidadAgregar.Value.ToString());
-            //    montoDos = ordenRepuesto.totalRepuesto(ordenRepuesto, Int32.Parse(npCantidadAgregar.Value.ToString()));
-            //    ordenRepuesto.TotalRepuestos += montoDos;
-            //    agregado += montoDos;
-            //    SeleccionEmpleado frm = new SeleccionEmpleado();
-            //    frm.ShowDialog();
-            //    empleado = frm.getEmpleado();
-            //    ordenRepuesto.Empleado = empleado;
-            //    if (!ordenRepuestoD.agregarOrdenRepuesto(ordenRepuesto))
-            //    {
-            //        txtMensaje.Text = "Se agrego a la orden el repuesto";
-
-            //    }
-            //    else
-            //    {
-
-            //        MessageBox.Show("Error al agregar el repuesto, " + ordenRepuestoD.ErrorMsg);
-            //    }
-            //}
-            //npCantidadAgregar.Value = 1;
-            //txtAgregarServicio.Text = "";
-            //agregarGrdSeleccionados();
-        }
-
-             
-        private void limpiarEntidades()
-        {
-            EntOrdenRepuesto = new OrdenRepuesto();
-            EntRepuesto = new RepuestoVehiculo();
-            EntEmpleado = new ENT.Empleado();
-        }
-
-        private bool verificarLista(List<RepuestoVehiculo> repu, int valor)
-        {
-
-            for (int i = 0; i < repu.Count; i++)
-            {
-                if (repu[i].Id == valor)
+                modificio = true;
+                if (EntOrdenServicio.Id > 0)
                 {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-        private void agregarGrdSeleccionados()
-        {
-            cargarRepuestos();
-            List<RepuestoVehiculo> temporal1 = new List<RepuestoVehiculo>();
-            for (int i = 0; i < repuestos.Count; i++)
-            {
-                for (int k = 0; k < ordenRepuestos.Count; k++)
-                {
-                    if (repuestos[i].Id != ordenRepuestos[k].Repuesto1.Id)
+                    double monto;
+                    if (npQuitarServicio.Value == npQuitarServicio.Maximum)
                     {
-                        if (!verificarLista(temporal1, repuestos[i].Id))
-                        {
-                            temporal1.Add(repuestos[i]);
-                        }
+                        BllOrdenServicio.eliminarOrdenServicio(EntOrdenServicio);
+                        quito = EntOrdenServicio.Costo;
+                        limpiarDatosServicios();
+                        return;
+                    }
+                    else
+                    {
+                        EntOrdenServicio.Cantidad = EntOrdenServicio.Cantidad - Int32.Parse(npQuitarServicio.Value.ToString());
+                        monto = EntOrdenServicio.quitarServicio(EntOrdenServicio, Int32.Parse(npQuitarServicio.Value.ToString()));
+                        EntOrdenServicio.Costo = monto;
+                        quito += monto;
+                        BllOrdenServicio.agregarOrdenServicio(EntOrdenServicio);
+                        limpiarDatosServicios();
                     }
                 }
             }
-            this.grdRepuesto.DataSource = repuestos;
-            this.grdRepuestoDos.DataSource = ordenRepuestos;
-        }
-
-        private void cargarGrdServicios()
-        {
-            cargarServicio();
-
-
-            this.grdServicioUno.DataSource = servicios;
-            this.grdServiciosDos.DataSource = ordenServicios;
-        }
-        private void cargarServicio()
-        {
-            bool estado = true;
-
-            servicios = BllServicio.cargarServicio();
-            //ordenServicios = BllServicio.buscarOrdenServicioPorID((int)Orden.Id);
-
-        }
-        private void cargarRepuestos()
-        {
-
-            repuestos = BllRepesto.cargarRepuestos();
-           // ordenRepuestos = ordenRepuestoD.buscarOrdenRepuestoPorID((int)Orden.Id);
-        }
-        private void configurarGrd()
-        {
-            this.grdRepuestoDos.Columns["Id"].Width = 50;
-            this.grdRepuestoDos.Columns["Cantidad"].Width = 50;
-            this.grdRepuestoDos.Columns["TotalRepuestos"].Width = 50;
-            this.grdRepuestoDos.Columns["Orden_d"].Visible = false;
-            this.grdRepuestoDos.Columns["Empleado_D"].Width = 100;
-            this.grdRepuestoDos.Columns["TotalRepuestos"].Width = 50;
-            this.grdRepuestoDos.Columns["Repuesto1"].Width = 100;
-            this.grdRepuesto.Columns["id_repuesto"].Visible = false;
-            this.grdRepuesto.Columns["RepuestoVehiculo"].Width = 65;
-            this.grdRepuesto.Columns["PrecioVehiculo"].Width = 65;
-            this.grdRepuesto.Columns["ImpuestoVehiculo"].Width = 65;
-            this.grdServicioUno.Columns["codigo"].Visible = false;
-            this.grdServicioUno.Columns["servicio_s"].Width = 65;
-            this.grdServicioUno.Columns["precio_s"].Width = 65;
-            this.grdServicioUno.Columns["impuesto"].Width = 65;
-            this.grdServiciosDos.Columns["id_servicio"].Width = 50;
-            this.grdServiciosDos.Columns["cantidad_servicio"].Width = 50;
-            this.grdServiciosDos.Columns["costo_servicio"].Width = 50;
-            this.grdServiciosDos.Columns["empleado_servicio"].Width = 100;
-            this.grdServiciosDos.Columns["servicio_servicio"].Width = 100;
-            this.grdServiciosDos.Columns["orden_servicio"].Visible = false;
-        }
-
-        private void seleccionOrdenRepuest(object sender, MouseEventArgs e)
-        {
-            int fila = this.grdRepuestoDos.CurrentRow.Index;
-            if (fila >= 0)
+            catch (Exception ex)
             {
-                EntOrdenRepuesto.Id = Int32.Parse(this.grdRepuestoDos[5, fila].Value.ToString());
-                EntOrdenRepuesto.Cantidad = Int32.Parse(this.grdRepuestoDos[0, fila].Value.ToString());
-                npQuitar.Maximum = Int32.Parse(this.grdRepuestoDos[0, fila].Value.ToString());
-                EntOrdenRepuesto.TotalRepuestos = Double.Parse(this.grdRepuestoDos[1, fila].Value.ToString());
-                EntOrdenRepuesto.Empleado = (ENT.Empleado)this.grdRepuestoDos[3, fila].Value;
-                EntOrdenRepuesto.Repuesto1 = (RepuestoVehiculo)this.grdRepuestoDos[4, fila].Value;
-                txtQuitar.Text = "Repuesto: " + EntOrdenRepuesto.Repuesto1.Repuesto + " aplicado por: " + EntOrdenRepuesto.Empleado.Nombre + " " + EntOrdenRepuesto.Empleado.Apellido;
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK);
             }
         }
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                modificio = true;
+                double monto;
+                if (EntOrdenServicio.Id <= 0)
+                {
+                    SeleccionEmpleado frm = new SeleccionEmpleado();
+                    frm.ShowDialog();
+                    EntEmpleado = frm.EntEmpleado1;
+                    EntOrdenRepuesto.Empleado = EntEmpleado;
+                    EntOrdenRepuesto.Repuesto1 = EntRepuesto;
+                    EntOrdenRepuesto.Orden = EntOrden;
+                }
 
+                EntOrdenRepuesto.Cantidad = EntOrdenRepuesto.Cantidad + Int32.Parse(npRepuestoAgregar.Value.ToString());
+                monto = EntOrdenRepuesto.totalRepuesto(EntOrdenRepuesto, Int32.Parse(npRepuestoAgregar.Value.ToString()));
+                EntOrdenRepuesto.TotalRepuestos += monto;
+                agregado += monto;
+                BllOrdenRepuesto.agregarOrdenRepuesto(EntOrdenRepuesto);
+                limpiarDatosRepuesto();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
+        }
         private void btnQuitar_Click(object sender, EventArgs e)
         {
-            //double monto;
-            //if (npQuitar.Value == npQuitar.Maximum)
-            //{
-            //    if (!ordenRepuestoD.borraOrdenRepuesto(ordenRepuesto))
-            //    {
-            //        txtMensaje.Text = "Se elimino el repuesto de la orden";
-            //        agregarGrdSeleccionados();
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("Error al elimina " + ordenRepuestoD.ErrorMsg);
-            //    }
-            //}
-            //else
-            //{
-            //    monto = ordenRepuesto.quitarRepuestos(ordenRepuesto, Int32.Parse(npQuitar.Value.ToString()));
-            //    ordenRepuesto.TotalRepuestos = monto;
-            //    quito = monto;
-            //    ordenRepuesto.Cantidad = ordenRepuesto.Cantidad - Int32.Parse(npQuitar.Value.ToString());
-            //    if (ordenRepuestoD.editarOrdenRepuesto(ordenRepuesto))
-            //    {
-            //        MessageBox.Show("Error al editar ", ordenRepuestoD.ErrorMsg);
-            //        return;
-            //    }
-            //    else
-            //    {
-            //        txtMensaje.Text = "se le quitaron " + npQuitar.Value + " repuestos";
-            //        agregarGrdSeleccionados();
-            //        npQuitar.Value = 1;
-
-            //    }
-            //}
-            //npQuitar.Value = 1;
-            //txtQuitar.Text = "";
-        }
-
-        private void selectRepuesto(object sender, MouseEventArgs e)
-        {
-            int fila = this.grdRepuesto.CurrentRow.Index;
-            if (fila >= 0)
+            try
             {
-                npCantidadAgregar.Enabled = true;
-                EntRepuesto.Id = Int32.Parse(this.grdRepuesto[0, fila].Value.ToString());
-                EntRepuesto.Repuesto = this.grdRepuesto[1, fila].Value.ToString();
-                EntRepuesto.Precio = Double.Parse(this.grdRepuesto[2, fila].Value.ToString());
-                EntRepuesto.Impuesto = Double.Parse(this.grdRepuesto[3, fila].Value.ToString());
-                txtRepuestoUno.Text = EntRepuesto.Repuesto;
+                modificio = true;
+                if (EntOrdenRepuesto.Id > 0)
+                {
+                    double monto;
+                    if (npQuitarRepuesto.Value == npQuitarRepuesto.Maximum)
+                    {
+                        BllOrdenRepuesto.eliminarOrdenRepuesto(EntOrdenRepuesto);
+                        quito = EntOrdenRepuesto.TotalRepuestos;
+                        limpiarDatosRepuesto();
+                        return;
+                    }
+                    else
+                    {
+                        EntOrdenRepuesto.Cantidad = EntOrdenRepuesto.Cantidad - Int32.Parse(npQuitarRepuesto.Value.ToString());
+                        monto = EntOrdenRepuesto.quitarRepuestos(EntOrdenRepuesto, Int32.Parse(npQuitarRepuesto.Value.ToString()));
+                        EntOrdenRepuesto.TotalRepuestos = monto;
+                        quito += monto;
+                        BllOrdenRepuesto.agregarOrdenRepuesto(EntOrdenRepuesto);
+                        limpiarDatosRepuesto();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
-        private void grdServicioUno_MouseClick(object sender, MouseEventArgs e)
+        private void btnMasRepuestos_Click(object sender, EventArgs e)
         {
-            int fila = this.grdServicioUno.CurrentRow.Index;
-            if (fila >= 0)
+            try
             {
-                EntServicio.Id = Int32.Parse(this.grdServicioUno[0, fila].Value.ToString());
-                EntServicio.pServicio = this.grdServicioUno[1, fila].Value.ToString();
-                EntServicio.Precio = Double.Parse(this.grdServicioUno[2, fila].Value.ToString());
-                EntServicio.Impuesto = Double.Parse(this.grdServicioUno[3, fila].Value.ToString());
-                txtAgregarServicio.Text = EntServicio.pServicio;
+                if (EntOrdenRepuesto.Id > 0)
+                {
+                    modificio = true;
+                    double monto;
+                    EntOrdenRepuesto.Cantidad = EntOrdenRepuesto.Cantidad + Int32.Parse(npMasRepuesto.Value.ToString());
+                    monto = EntOrdenRepuesto.totalRepuesto(EntOrdenRepuesto, Int32.Parse(npMasRepuesto.Value.ToString()));
+                    EntOrdenRepuesto.TotalRepuestos += monto;
+                    agregado += monto;
+                    BllOrdenRepuesto.agregarOrdenRepuesto(EntOrdenRepuesto);
+                    limpiarDatosRepuesto();
+                }
             }
-        }
-
-        private void btnAgregarServicio_Click(object sender, EventArgs e)
-        {
-            //double montoAgregadoUno;
-            //double montoAgregadoDos;
-            //if (ordenServicio.Id > 0)
-            //{
-            //    ordenServicio.Cantidad = ordenServicio.Cantidad + Int32.Parse(npAgregarServicio.Value.ToString());
-            //    montoAgregadoUno = ordenServicio.totalServicio(ordenServicio, Int32.Parse(npAgregarServicio.Value.ToString()));
-            //    ordenServicio.Costo += montoAgregadoUno;
-            //    agregado += montoAgregadoUno;
-            //    if (!ordenServicioD.editarOrdenServicio(ordenServicio))
-            //    {
-            //        txtMensaje.Text = "Se agregaron más servicios";
-            //    }
-            //    else
-            //    {
-
-            //        MessageBox.Show("Error al agreagar el servicio, " + servicioD.ErrorMsg);
-
-            //    }
-            //}
-            //else
-            //{
-
-            //    //if (!validadDatosServicio())
-            //    //{
-            //    //    return;
-            //    //}
-            //    ordenServicio.Servicio = servicio;
-            //    ordenServicio.Orden = Orden;
-            //    ordenServicio.Cantidad = Int32.Parse(npAgregarServicio.Value.ToString());
-            //    montoAgregadoDos = ordenServicio.totalServicio(ordenServicio, Int32.Parse(npAgregarServicio.Value.ToString()));
-            //    ordenServicio.Costo += montoAgregadoDos;
-            //    agregado += montoAgregadoDos;
-            //    SeleccionEmpleado frm = new SeleccionEmpleado();
-            //    frm.ShowDialog();
-            //    empleado = frm.getEmpleado();
-            //    ordenServicio.Empleado = empleado;
-
-            //    if (!ordenServicioD.agregarOrdenServicio(ordenServicio))
-            //    {
-            //        txtMensaje.Text = "Se agrego a la orden un servicio a la orden";
-            //    }
-            //    else
-            //    {
-
-            //        MessageBox.Show("Error al agregar el servicio, " + ordenServicioD.ErrorMsg);
-            //    }
-            //}
-
-            //cargarGrdServicios();
-            //npAgregarServicio.Value = 1;
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void seleccionOrdenServicio(object sender, MouseEventArgs e)
@@ -527,71 +277,381 @@ namespace appTalles.Vista
             int fila = this.grdServiciosDos.CurrentRow.Index;
             if (fila >= 0)
             {
+                modificio = true;
                 EntOrdenServicio.Id = Int32.Parse(this.grdServiciosDos[0, fila].Value.ToString());
                 EntOrdenServicio.Cantidad = Int32.Parse(this.grdServiciosDos[1, fila].Value.ToString());
                 npQuitarServicio.Maximum = Int32.Parse(this.grdServiciosDos[1, fila].Value.ToString());
                 EntOrdenServicio.Costo = Double.Parse(this.grdServiciosDos[2, fila].Value.ToString());
                 EntOrdenServicio.Empleado = (ENT.Empleado)this.grdServiciosDos[3, fila].Value;
                 EntOrdenServicio.Servicio = (ENT.Servicio)this.grdServiciosDos[4, fila].Value;
+                EntOrdenServicio.Orden = (ENT.Orden)this.grdServiciosDos[5, fila].Value;
                 txtQuitarServicio.Text = "Repuesto: " + EntOrdenServicio.Servicio + " aplicado por: " + EntOrdenServicio.Empleado.Nombre + " " + EntOrdenServicio.Empleado.Apellido;
             }
         }
-
-        private void btnQuitarServicio_Click(object sender, EventArgs e)
+        private void grdServicioUno_MouseClick(object sender, MouseEventArgs e)
         {
-            //double monto;
-            //if (npQuitarServicio.Value == npQuitarServicio.Maximum)
-            //{
-            //    if (!ordenServicioD.borraOrdenServicio(ordenServicio))
-            //    {
-            //        quito = ordenServicio.Costo;
-            //        txtMensaje.Text = "Se elimino el servicio de la orden";
-            //        cargarGrdServicios();
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("Error al eliminar " + ordenServicioD.ErrorMsg);
-            //    }
-            //}
-            //else
-            //{
-            //    ordenServicio.Cantidad = ordenServicio.Cantidad - Int32.Parse(npQuitarServicio.Value.ToString());
-            //    monto = ordenServicio.quitarServicio(ordenServicio, Int32.Parse(npQuitarServicio.Value.ToString()));
-            //    ordenServicio.Costo -= monto;
-            //    quito += monto;
-            //    if (ordenServicioD.editarOrdenServicio(ordenServicio))
-            //    {
-            //        MessageBox.Show("Error al editar ", ordenServicioD.ErrorMsg);
-            //    }
-            //    else
-            //    {
-            //        txtMensaje.Text = "se le quitaron " + npQuitarServicio.Value + " servicios";
-            //        cargarGrdServicios();
-            //        npQuitarServicio.Value = 1;
-            //        return;
-            //    }
-            //}
-            //npQuitarServicio.Enabled = false;
-            //npQuitarServicio.Value = 1;
-            //txtQuitarServicio.Text = "";
+            int fila = this.grdServicioUno.CurrentRow.Index;
+            if (fila >= 0)
+            {
+                modificio = true;
+                EntServicio.Id = Int32.Parse(this.grdServicioUno[0, fila].Value.ToString());
+                EntServicio.pServicio = this.grdServicioUno[1, fila].Value.ToString();
+                EntServicio.Precio = Double.Parse(this.grdServicioUno[2, fila].Value.ToString());
+                EntServicio.Impuesto = Double.Parse(this.grdServicioUno[3, fila].Value.ToString());
+                txtAgregarServicio.Text = "Codigo: " + EntServicio.Id + ", servicio: " + EntServicio.pServicio;
+            }
+        }
+        private void selectRepuesto(object sender, MouseEventArgs e)
+        {
+            int fila = this.grdRepuesto.CurrentRow.Index;
+            if (fila >= 0)
+            {
+                modificio = true;
+                npRepuestoAgregar.Enabled = true;
+                EntRepuesto.Id = Int32.Parse(this.grdRepuesto[0, fila].Value.ToString());
+                EntRepuesto.Repuesto = this.grdRepuesto[1, fila].Value.ToString();
+                EntRepuesto.Precio = Double.Parse(this.grdRepuesto[2, fila].Value.ToString());
+                EntRepuesto.Impuesto = Double.Parse(this.grdRepuesto[3, fila].Value.ToString());
+                txtRepuestoUno.Text = "Codigo: " + EntRepuesto.Id + ", Repuesto: " + EntRepuesto.Repuesto;
+            }
+        }
+        private void seleccionOrdenRepuest(object sender, MouseEventArgs e)
+        {
+            int fila = this.grdRepuestoDos.CurrentRow.Index;
+            if (fila >= 0)
+            {
+                modificio = true;
+                EntOrdenRepuesto.Id = Int32.Parse(this.grdRepuestoDos[5, fila].Value.ToString());
+                EntOrdenRepuesto.Cantidad = Int32.Parse(this.grdRepuestoDos[0, fila].Value.ToString());
+                npQuitarRepuesto.Maximum = Int32.Parse(this.grdRepuestoDos[0, fila].Value.ToString());
+                EntOrdenRepuesto.TotalRepuestos = Double.Parse(this.grdRepuestoDos[1, fila].Value.ToString());
+                EntOrdenRepuesto.Empleado = (ENT.Empleado)this.grdRepuestoDos[3, fila].Value;
+                EntOrdenRepuesto.Repuesto1 = (RepuestoVehiculo)this.grdRepuestoDos[4, fila].Value;
+                EntOrdenRepuesto.Orden = (ENT.Orden)this.grdRepuestoDos[2, fila].Value;
+                txtQuitar.Text = "Repuesto: " + EntOrdenRepuesto.Repuesto1.Repuesto + " aplicado por: " + EntOrdenRepuesto.Empleado.Nombre + " " + EntOrdenRepuesto.Empleado.Apellido;
+            }
+        }
+
+        private void cargarComponentesOrden(ENT.Orden orden)
+        {
+            txtCodigo.Text = orden.Id + "";
+            dtIngreso.Value = orden.FechaIngreso;
+            dtFechaSalida.Value = orden.FechaSalida;
+            dtFechaFacturacion.Value = orden.FechaFacturacion;
+            for (int j = 0; j < cbEncargado.Items.Count; j++)
+            {
+                if (cbEncargado.Items[j].ToString() == orden.Empleado.ToString())
+                {
+                    cbEncargado.SelectedIndex = j;
+                    break;
+                }
+            }
+            for (int j = 0; j < cbVehiculo.Items.Count; j++)
+            {
+                if (cbVehiculo.Items[j].ToString() == orden.Vehiculo.ToString())
+                {
+                    cbVehiculo.SelectedIndex = j;
+                    break;
+                }
+            }
+            for (int j = 0; j < cbEstado.Items.Count; j++)
+            {
+                if (cbEstado.Items[j].ToString() == orden.Estado)
+                {
+                    cbEstado.SelectedIndex = j;
+                    break;
+                }
+            }
+        }
+        //Metodo limpia los componentes de las identidades
+        private void limpiarDatos()
+        {
+            cbEncargado.SelectedIndex = -1;
+            cbEstado.SelectedIndex = -1;
+            cbVehiculo.SelectedIndex = -1;
+            EntOrdenRepuesto = new ENT.OrdenRepuesto();
+            EntRepuesto = new ENT.RepuestoVehiculo();
+            EntEmpleado = new ENT.Empleado();
+            dtIngreso.Value = DateTime.Today;
+            dtFechaSalida.Value = DateTime.Today;
+            dtFechaFacturacion.Value = DateTime.Today;
+        }
+        //Metodo selecciona un item del combobox estado
+        //y lo retorna en valor de string
+        private string seleccionEstado()
+        {
+            string estado = "";
+            if (cbEstado.SelectedIndex != -1)
+            {
+                modificio = true;
+                int selectedIndex = -1;
+                selectedIndex = cbEstado.SelectedIndex;
+                estado = cbEstado.Items[selectedIndex].ToString();
+            }
+            return estado;
+        }
+        //Metodo seleccioa un item del combobox
+        //vehiculo y lo agrega a la entidad vehiculo
+        private void seleccionComboVehiculo()
+        {
+            if (cbVehiculo.SelectedIndex != -1)
+            {
+                modificio = true;
+                int selectedIndex = -1;
+                selectedIndex = cbVehiculo.SelectedIndex;
+                ENT.Vehiculo selectedItem = (ENT.Vehiculo)cbVehiculo.SelectedItem;
+                EntVehiculo.Id = selectedItem.Id;
+            }
+        }
+        //Metodo selecciona el item de empleado y le agrega 
+        //los valares a la entidad empleado
+        private void seleccionComboEmpleado()
+        {
+            if (cbEncargado.SelectedIndex != -1)
+            {
+                modificio = true;
+                int selectedIndex = cbEncargado.SelectedIndex;
+                ENT.Empleado selectedItem = (ENT.Empleado)cbEncargado.SelectedItem;
+                EntEmpleado.Id = selectedItem.Id;
+                EntEmpleado.Nombre = selectedItem.Nombre;
+            }
+        }
+        //Metodo carga una lista y las agrega al datagriew
+        //y las agrega al datagriew de servicio
+        private void cargarServicio(List<ENT.OrdenServicio> Ordenservicios)
+        {
+            try
+            {
+                bool esta = false;
+                List<ENT.Servicio> tem = new List<ENT.Servicio>();
+                servicios = BllServicio.cargarServicio();
+                if (ordenServicios.Count <= 0)
+                {
+                    this.grdServicioUno.DataSource = servicios;
+                    return;
+                }
+                esta = false;
+                foreach (ENT.Servicio oServicio in servicios)
+                {
+                    foreach (ENT.OrdenServicio oOrdenServicio in Ordenservicios)
+                    {
+                        if (oServicio.Id != oOrdenServicio.Servicio.Id)
+                        {
+                            tem.Add(oServicio);
+                        }
+                        if (esta)
+                        {
+                            break;
+                        }
+                    }
+                }
+
+                this.grdServicioUno.DataSource = tem;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
+        }
+        //Metodo carga una lista y las agrega al datagriew
+        //de repuestos
+        private void cargarRepuestos(List<ENT.OrdenRepuesto> Ordenrepuestos)
+        {
+            try
+            {
+                bool esta = false;
+                List<ENT.RepuestoVehiculo> tem = new List<ENT.RepuestoVehiculo>();
+                repuestos = BllRepesto.cargarRepuestos();
+                if (Ordenrepuestos.Count <= 0)
+                {
+                    this.grdRepuesto.DataSource = repuestos;
+                    return;
+                }
+               
+                     
+                foreach (ENT.RepuestoVehiculo oRepuesto in repuestos)
+                {
+                    esta = false;
+                    foreach (ENT.OrdenRepuesto oOrdenRepusto in Ordenrepuestos)
+                    {
+                        if (oRepuesto.Id != oOrdenRepusto.Repuesto1.Id)
+                        {
+                            esta = false;
+
+                            foreach (ENT.RepuestoVehiculo item in tem)
+                            {
+                                if (item.Id == oOrdenRepusto.Repuesto1.Id)
+                                {
+                                    esta = true;
+                                }
+                                
+                            }
+
+
+                            if (esta == false)
+                            {
+                                tem.Add(oOrdenRepusto.Repuesto1);
+                            }
+                        }
+                       
+                   
+
+      
+                    }
+
+                }
+                           
+                this.grdRepuesto.DataSource = tem;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
+        }
+        //Metodo retorna un lista y las agrega
+        //al combobox de empleado
+        private void llenarComboEncargado()
+        {
+            try
+            {
+                this.cbEncargado.Items.Clear();
+                empleados = BllEmpleado.cargarEmpleados();
+                foreach (ENT.Empleado oEmpleados in empleados)
+                {
+                    this.cbEncargado.Items.Add(oEmpleados);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
+        }
+        //Metodo retorna una lista de vehiculos
+        //y las agrega al combobox de vehiculos
+        private void llenarComboVehiculo()
+        {
+            try
+            {
+                this.cbVehiculo.Items.Clear();
+                vehiculos = BllVehiculo.cargarVehiculos();
+                foreach (ENT.Vehiculo oVehiculos in vehiculos)
+                {
+                    this.cbVehiculo.Items.Add(oVehiculos);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
+        }
+        //Metodo carga los repuestos de una orden
+        //y los agrega al grd de repuestos
+        private void cargarRepuestosOrden()
+        {
+            try
+            {
+                ordenRepuestos = BllOrdenRepuesto.cargarOrdenRepuesto(Int32.Parse(txtCodigo.Text));
+                this.grdRepuestoDos.DataSource = ordenRepuestos;
+                cargarRepuestos(ordenRepuestos);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
+        }
+        //Metodo carga los servcios de una orden
+        //y los agrega al grd de servicios agregados
+        private void cargarServicioOrden()
+        {
+            try
+            {
+                ordenServicios = BllOrdenServicio.cargarOrdenServicio(Int32.Parse(txtCodigo.Text));
+                this.grdServiciosDos.DataSource = ordenServicios;
+                cargarServicio(ordenServicios);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
+        }
+        private void limpiarDatosServicios()
+        {
+            cargarServicioOrden();
+            npQuitarServicio.Value = 1;
+            npAgregarServicio.Value = 1;
+            txtAgregarServicio.Text = "";
+            txtQuitarServicio.Text = "";
+            EntServicio = new ENT.Servicio();
+            EntOrdenServicio = new ENT.OrdenServicio();
+        }
+        private void limpiarDatosRepuesto()
+        {
+            cargarRepuestosOrden();
+            npQuitarRepuesto.Value = 1;
+            npRepuestoAgregar.Value = 1;
+            txtRepuestoUno.Text = "";
+            txtQuitar.Text = "";
+            EntRepuesto = new ENT.RepuestoVehiculo();
+            EntOrdenRepuesto = new ENT.OrdenRepuesto();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (EntOrdenServicio.Id > 0)
+                {
+                    modificio = true;
+                    double monto;
+                    EntOrdenServicio.Cantidad = EntOrdenServicio.Cantidad + Int32.Parse(npMasServicio.Value.ToString());
+                    monto = EntOrdenServicio.totalServicio(EntOrdenServicio, Int32.Parse(npMasServicio.Value.ToString()));
+                    EntOrdenServicio.Costo += monto;
+                    agregado += monto;
+                    BllOrdenServicio.agregarOrdenServicio(EntOrdenServicio);
+                    limpiarDatosServicios();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void FrmOrdenReparaciones_FormClosed(object sender, FormClosedEventArgs e)
         {
-
-            //if (agregado > 0)
-            //{
-            //    Orden.CostoTotal = orden.CostoTotal + agregado;
-            //}
-            //if (quito > 0)
-            //{
-            //    Orden.CostoTotal = orden.CostoTotal - quito;
-            //}
-            //if (ordenD.actualizarTotal((ENT.Orden)Orden))
-            //{
-            //    MessageBox.Show("Error al guardar el total de las repuesto y servicios, " + ordenD.ErrorMsg);
-            //}
+            try
+            {
+                if (modificio)
+                {
+                    if (agregado > 0)
+                    {
+                        EntOrden.CostoTotal = EntOrden.CostoTotal + agregado;
+                    }
+                    if (quito > 0)
+                    {
+                        EntOrden.CostoTotal = EntOrden.CostoTotal - quito;
+                    }
+                    seleccionComboEmpleado();
+                    seleccionComboVehiculo();
+                    EntOrden.FechaIngreso = dtIngreso.Value;
+                    EntOrden.FechaSalida = dtFechaSalida.Value;
+                    EntOrden.FechaFacturacion = dtFechaFacturacion.Value;
+                    EntOrden.Empleado = EntEmpleado;
+                    EntOrden.Vehiculo = EntVehiculo;
+                    EntOrden.Estado = seleccionEstado();
+                    BllOrden.agregarOrden(EntOrden);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
-
     }
 }

@@ -122,6 +122,7 @@ namespace ENT
 
         public double quitarServicio(OrdenServicio ordenServicio, int cantidad)
         {
+
             double total = (((ordenServicio.servicio.Precio * ordenServicio.servicio.Impuesto / 100) + (ordenServicio.servicio.Precio)) * cantidad);
             return ordenServicio.costo - total;
 

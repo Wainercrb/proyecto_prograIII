@@ -27,7 +27,7 @@ namespace BLL
                 {
                     throw new Exception("No se ha seleccionado un precio para este repuesto");
                 }
-                if (repuesto.Id < 0)
+                if (repuesto.Id <= 0)
                 {
                     DalRepesto.agregarRepuesto(repuesto);
                     if (DalRepesto.Error)

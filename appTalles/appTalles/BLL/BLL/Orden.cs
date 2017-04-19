@@ -3,21 +3,57 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using DAL;
 namespace BLL
 {
     public class Orden
     {
+
+        public int consecutivogAregarOrden(ENT.Orden orden)
+        {
+
+            int consecutivo = 0;
+            DAL.Orden DalOrden = new DAL.Orden();
+
+
+            if (orden.FechaFacturacion == null)
+            {
+                throw new Exception("Fecha de la facturació de la orden requerida");
+            }
+            if (orden.FechaIngreso.Date == null)
+            {
+                throw new Exception("Fecha de ingreso de la orden requerida");
+            }
+            if (orden.FechaSalida.Date == null)
+            {
+                throw new Exception("Fecha de salida de la orden requerido");
+            }
+            if (orden.Empleado.Id <= 0)
+            {
+                throw new Exception("Debes seleccionar el empleado que creo esta orden");
+            }
+            if (orden.Estado == string.Empty)
+            {
+                throw new Exception("Debes seleccionar un estado para esta orden");
+            }
+            if (orden.Id <= 0)
+            {
+                consecutivo = DalOrden.agregarOrden(orden);
+                if (DalOrden.Error)
+                {
+                    throw new Exception("Error al guardar la orden " + DalOrden.ErrorMsg);
+                }
+            }
+
+            return consecutivo;
+        }
         public void agregarOrden(ENT.Orden orden)
         {
 
             DAL.Orden DalOrden = new DAL.Orden();
             try
             {
-                if (orden.CostoTotal <= 0)
-                {
-                    throw new Exception("Costo total de la orden requerido");
-                }
+
                 if (orden.FechaFacturacion == null)
                 {
                     throw new Exception("Fecha de la facturació de la orden requerida");
@@ -34,6 +70,10 @@ namespace BLL
                 {
                     throw new Exception("Debes seleccionar el empleado que creo esta orden");
                 }
+                if (orden.Estado == string.Empty)
+                {
+                    throw new Exception("Debes seleccionar un estado para esta orden");
+                }
                 if (orden.Id <= 0)
                 {
                     DalOrden.agregarOrden(orden);
@@ -44,11 +84,21 @@ namespace BLL
                 }
                 else
                 {
+                    AccesoDatosPostgre cnx = AccesoDatosPostgre.Instance;
+                    cnx.iniciarTransaccion();
                     DalOrden.actualizarOrden(orden);
                     if (DalOrden.Error)
                     {
+                        cnx.rollbackTransaccion();
                         throw new Exception("Error al actualizar la orden " + DalOrden.ErrorMsg);
                     }
+                    DalOrden.actualizarTotal(orden);
+                    if (DalOrden.Error)
+                    {
+                        cnx.rollbackTransaccion();
+                        throw new Exception("Error al agregar el total de reparaciónes y servicios");
+                    }
+                    cnx.commitTransaccion();
                 }
             }
             catch (Exception ex)
@@ -179,6 +229,38 @@ namespace BLL
                 throw ex;
             }
             return ordenes;
+        }
+        public ENT.Orden buscarConsecutivoOrden(int valor)
+        {
+            ENT.Orden orden = new ENT.Orden();
+            try
+            {
+                orden = buscarConsecutivoOrden(valor);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return orden;
+        }
+        public void actualizarEstadoOrden(ENT.Orden EntOrden) {
+            DAL.Orden DalOrden = new DAL.Orden();
+            try
+            {
+                DalOrden.actualizarEstadoOrden(EntOrden);
+                if (DalOrden.Error)
+                {
+                    throw new Exception("Error al actualizar el estado de la orden");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+
         }
     }
 }

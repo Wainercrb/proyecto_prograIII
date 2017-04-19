@@ -48,6 +48,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="FlashControlV71, Version=1.0.3187.32366, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
     <Reference Include="Mono.Security">
       <HintPath>..\..\..\..\..\Desktop\Periodo2017\ProgramaciónIII\Clase 5\Mono.Security.dll</HintPath>
     </Reference>
@@ -56,6 +61,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -67,6 +74,40 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Reportes\CrystalReport1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CrystalReport1.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\CyOrdenFinalizada.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CyOrdenFinalizada.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\dsetOrden.cs">
+      <DependentUpon>dsetOrden.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\dsetOrden.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsetOrden.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\DsetOrdenFinalizada.cs">
+      <DependentUpon>DsetOrdenFinalizada.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\DsetOrdenFinalizada.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DsetOrdenFinalizada.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FrmInformeOrdenFinalizada.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FrmInformeOrdenFinalizada.Designer.cs">
+      <DependentUpon>FrmInformeOrdenFinalizada.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\FrmOrden.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +137,12 @@
     </Compile>
     <Compile Include="UI\FrmLogin.designer.cs">
       <DependentUpon>FrmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FrmOrdenFinalizada.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FrmOrdenFinalizada.Designer.cs">
+      <DependentUpon>FrmOrdenFinalizada.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\FrmOrdenReparaciones.cs">
       <SubType>Form</SubType>
@@ -135,11 +182,23 @@
     <Compile Include="UI\FrmTipo.Designer.cs">
       <DependentUpon>FrmTipo.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\FromReporteOrden.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FromReporteOrden.Designer.cs">
+      <DependentUpon>FromReporteOrden.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\RegistroServicio.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\RegistroServicio.designer.cs">
       <DependentUpon>RegistroServicio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\repor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\repor.Designer.cs">
+      <DependentUpon>repor.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\SeleccionEmpleado.cs">
       <SubType>Form</SubType>
@@ -156,6 +215,14 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Reportes\CrystalReport1.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CrystalReport1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\CyOrdenFinalizada.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CyOrdenFinalizada.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\FrmCambio.resx">
       <DependentUpon>FrmCambio.cs</DependentUpon>
     </EmbeddedResource>
@@ -165,11 +232,17 @@
     <EmbeddedResource Include="UI\FrmEmpleado.resx">
       <DependentUpon>FrmEmpleado.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\FrmInformeOrdenFinalizada.resx">
+      <DependentUpon>FrmInformeOrdenFinalizada.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FrmOrden.resx">
       <DependentUpon>FrmOrden.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FrmOrdenFinalizada.resx">
+      <DependentUpon>FrmOrdenFinalizada.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FrmOrdenReparaciones.resx">
       <DependentUpon>FrmOrdenReparaciones.cs</DependentUpon>
@@ -189,8 +262,14 @@
     <EmbeddedResource Include="UI\FrmTipo.resx">
       <DependentUpon>FrmTipo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\FromReporteOrden.resx">
+      <DependentUpon>FromReporteOrden.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\RegistroServicio.resx">
       <DependentUpon>RegistroServicio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\repor.resx">
+      <DependentUpon>repor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\SeleccionEmpleado.resx">
       <DependentUpon>SeleccionEmpleado.cs</DependentUpon>
@@ -204,6 +283,28 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Reportes\dsetOrden.xsc">
+      <DependentUpon>dsetOrden.xsd</DependentUpon>
+    </None>
+    <None Include="Reportes\dsetOrden.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsetOrden.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Reportes\dsetOrden.xss">
+      <DependentUpon>dsetOrden.xsd</DependentUpon>
+    </None>
+    <None Include="Reportes\DsetOrdenFinalizada.xsc">
+      <DependentUpon>DsetOrdenFinalizada.xsd</DependentUpon>
+    </None>
+    <None Include="Reportes\DsetOrdenFinalizada.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DsetOrdenFinalizada.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Reportes\DsetOrdenFinalizada.xss">
+      <DependentUpon>DsetOrdenFinalizada.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -237,6 +338,10 @@
       <Name>ENT</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

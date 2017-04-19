@@ -136,7 +136,7 @@ namespace BLL
                 }
                 if (marcas.Count <= 0)
                 {
-                    throw new Exception("No hay marcas registradas");
+                    throw new Exception("No hay marcas registradas para este repuesto");
                 }
             }
             catch (Exception ex)

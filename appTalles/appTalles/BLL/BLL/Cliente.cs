@@ -56,7 +56,7 @@ namespace BLL
 
                     throw new Exception("Se debe ingresar el Telefono cedular");
                 }
-                if (cli.Id < 0)
+                if (cli.Id <= 0)
                 {
                     DalCliente.agregarCliente(cli);
                     if (DalCliente.IsError)
@@ -110,9 +110,13 @@ namespace BLL
             try
             {
                 clientes = DalCliente.obtenerClientes();
+                if (DalCliente.Error)
+                {
+                    throw new Exception("Error al cargar los clientes, " + DalCliente.ErrorMsg);
+                }
                 if (clientes.Count <= 0)
                 {
-                    throw new Exception("No hay quientes registrados");
+                    throw new Exception("No hay clientes registrados");
                 }
             }
             catch (Exception ex)
@@ -121,5 +125,30 @@ namespace BLL
             }
             return clientes;
         }
+
+        //Metodo verifica errores, cuando se cargqa los cliente 
+        public List<ENT.Cliente> buscarCliente(string valor, string columna)
+        {
+            DAL.Cliente DalCliente = new DAL.Cliente();
+            List<ENT.Cliente> clientes = new List<ENT.Cliente>();
+            try
+            {
+                clientes = DalCliente.buscarClientes(valor, columna);
+                if (DalCliente.Error)
+                {
+                    throw new Exception("Error al buscar los clientes, "+ DalCliente.ErrorMsg);
+                }
+                if (clientes.Count <= 0)
+                {
+                    throw new Exception("No hay clientes registrados");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return clientes;
+        }
+
     }
 }
