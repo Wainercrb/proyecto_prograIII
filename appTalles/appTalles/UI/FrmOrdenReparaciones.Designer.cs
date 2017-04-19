@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmOrdenReparaciones));
-            this.grdRepara = new System.Windows.Forms.TabControl();
+            this.tabComponentes = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.btnMasServicio = new System.Windows.Forms.Button();
             this.npMasServicio = new System.Windows.Forms.NumericUpDown();
@@ -94,7 +94,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.cbEstado = new System.Windows.Forms.ComboBox();
             this.grdMarca = new System.Windows.Forms.DataGridView();
-            this.grdRepara.SuspendLayout();
+            this.tabComponentes.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.npMasServicio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.npQuitarServicio)).BeginInit();
@@ -111,15 +111,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.grdMarca)).BeginInit();
             this.SuspendLayout();
             // 
-            // grdRepara
+            // tabComponentes
             // 
-            this.grdRepara.Controls.Add(this.tabPage1);
-            this.grdRepara.Controls.Add(this.tabPage2);
-            this.grdRepara.Location = new System.Drawing.Point(2, 161);
-            this.grdRepara.Name = "grdRepara";
-            this.grdRepara.SelectedIndex = 0;
-            this.grdRepara.Size = new System.Drawing.Size(741, 335);
-            this.grdRepara.TabIndex = 0;
+            this.tabComponentes.Controls.Add(this.tabPage1);
+            this.tabComponentes.Controls.Add(this.tabPage2);
+            this.tabComponentes.Location = new System.Drawing.Point(2, 161);
+            this.tabComponentes.Name = "tabComponentes";
+            this.tabComponentes.SelectedIndex = 0;
+            this.tabComponentes.Size = new System.Drawing.Size(741, 335);
+            this.tabComponentes.TabIndex = 0;
             // 
             // tabPage1
             // 
@@ -799,12 +799,12 @@
             this.Controls.Add(this.dtIngreso);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.grdRepara);
+            this.Controls.Add(this.tabComponentes);
             this.Name = "FrmOrdenReparaciones";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmOrdenReparaciones";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmOrdenReparaciones_FormClosed);
-            this.grdRepara.ResumeLayout(false);
+            this.tabComponentes.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.npMasServicio)).EndInit();
@@ -829,7 +829,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TabControl grdRepara;
+        private System.Windows.Forms.TabControl tabComponentes;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.DataGridView dataGridView1;

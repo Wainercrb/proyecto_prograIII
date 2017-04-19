@@ -76,6 +76,8 @@ namespace appTalles.Vista
             vehiculos = new List<ENT.Vehiculo>();
             empleados = new List<ENT.Empleado>();
             vehiculos = new List<ENT.Vehiculo>();
+            cbEstado.Enabled = false;
+            tabComponentes.Enabled = false;
             llenarComboEncargado();
             llenarComboVehiculo();
         }
@@ -113,19 +115,33 @@ namespace appTalles.Vista
         }
         private void toolStripButton4_Click(object sender, EventArgs e)
         {
-
-            seleccionComboEmpleado();
-            seleccionComboVehiculo();
-            EntOrden.FechaIngreso = dtIngreso.Value;
-            EntOrden.FechaSalida = dtFechaSalida.Value;
-            EntOrden.FechaFacturacion = dtFechaFacturacion.Value;
-            EntOrden.Empleado = EntEmpleado;
-            EntOrden.Vehiculo = EntVehiculo;
-            EntOrden.Estado = seleccionEstado();
-            int consecutivo = BllOrden.consecutivogAregarOrden(EntOrden);
-            //EntOrden = BllOrden.buscarConsecutivoOrden(consecutivo);
-            limpiarDatos();
-
+            try
+            {
+                seleccionComboEmpleado();
+                seleccionComboVehiculo();
+                EntOrden.FechaIngreso = dtIngreso.Value;
+                EntOrden.FechaSalida = dtFechaSalida.Value;
+                EntOrden.FechaFacturacion = dtFechaFacturacion.Value;
+                EntOrden.Empleado = EntEmpleado;
+                EntOrden.Vehiculo = EntVehiculo;
+                EntOrden.Estado = "Dañado";
+                limpiarDatos();              
+                int consecutivo = BllOrden.consecutivogAregarOrden(EntOrden);
+                if (consecutivo > 0)
+                {
+                    List<ENT.Orden> ordenes = BllOrden.cargarIntOrden(consecutivo, "id_orden");
+                    EntOrden = ordenes[0];
+                    cargarComponentesOrden(EntOrden);
+                }
+                tabComponentes.Enabled = true;
+                cargarRepuestosOrden();
+                cargarServicioOrden();
+            }
+            catch (Exception ex)
+            {
+              MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+              MessageBoxIcon.Information);
+            }          
         }
         private void btnAgregarServicio_Click(object sender, EventArgs e)
         {

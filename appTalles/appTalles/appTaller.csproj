@@ -74,6 +74,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Reportes\CryRepuestos.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CryRepuestos.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reportes\CrystalReport1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -84,6 +90,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CyOrdenFinalizada.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\CyServicio.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CyServicio.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reportes\dsetOrden.cs">
@@ -102,10 +114,32 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DsetOrdenFinalizada.xsd</DependentUpon>
     </Compile>
-    <Compile Include="UI\FrmInformeOrdenFinalizada.cs">
+    <Compile Include="Reportes\dsetRepuesto.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsetRepuesto.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\dsetServicioEmpleado.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsetServicioEmpleado.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\FrmReporteRepuestos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmInformeOrdenFinalizada.Designer.cs">
+    <Compile Include="Reportes\FrmReporteRepuestos.Designer.cs">
+      <DependentUpon>FrmReporteRepuestos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\FrmReporteServicios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reportes\FrmReporteServicios.Designer.cs">
+      <DependentUpon>FrmReporteServicios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\FrmInformeOrdenFinalizada.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reportes\FrmInformeOrdenFinalizada.Designer.cs">
       <DependentUpon>FrmInformeOrdenFinalizada.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\FrmOrden.cs">
@@ -182,10 +216,10 @@
     <Compile Include="UI\FrmTipo.Designer.cs">
       <DependentUpon>FrmTipo.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FromReporteOrden.cs">
+    <Compile Include="Reportes\FromReporteOrden.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FromReporteOrden.Designer.cs">
+    <Compile Include="Reportes\FromReporteOrden.Designer.cs">
       <DependentUpon>FromReporteOrden.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\RegistroServicio.cs">
@@ -194,10 +228,10 @@
     <Compile Include="UI\RegistroServicio.designer.cs">
       <DependentUpon>RegistroServicio.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\repor.cs">
+    <Compile Include="Reportes\repor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\repor.Designer.cs">
+    <Compile Include="Reportes\repor.Designer.cs">
       <DependentUpon>repor.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\SeleccionEmpleado.cs">
@@ -215,6 +249,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Reportes\CryRepuestos.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryRepuestos.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reportes\CrystalReport1.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CrystalReport1.cs</LastGenOutput>
@@ -222,6 +260,16 @@
     <EmbeddedResource Include="Reportes\CyOrdenFinalizada.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CyOrdenFinalizada.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\CyServicio.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CyServicio.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\FrmReporteRepuestos.resx">
+      <DependentUpon>FrmReporteRepuestos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\FrmReporteServicios.resx">
+      <DependentUpon>FrmReporteServicios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FrmCambio.resx">
       <DependentUpon>FrmCambio.cs</DependentUpon>
@@ -232,7 +280,7 @@
     <EmbeddedResource Include="UI\FrmEmpleado.resx">
       <DependentUpon>FrmEmpleado.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\FrmInformeOrdenFinalizada.resx">
+    <EmbeddedResource Include="Reportes\FrmInformeOrdenFinalizada.resx">
       <DependentUpon>FrmInformeOrdenFinalizada.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FrmLogin.resx">
@@ -262,13 +310,13 @@
     <EmbeddedResource Include="UI\FrmTipo.resx">
       <DependentUpon>FrmTipo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\FromReporteOrden.resx">
+    <EmbeddedResource Include="Reportes\FromReporteOrden.resx">
       <DependentUpon>FromReporteOrden.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\RegistroServicio.resx">
       <DependentUpon>RegistroServicio.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\repor.resx">
+    <EmbeddedResource Include="Reportes\repor.resx">
       <DependentUpon>repor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\SeleccionEmpleado.resx">
@@ -304,6 +352,28 @@
     </None>
     <None Include="Reportes\DsetOrdenFinalizada.xss">
       <DependentUpon>DsetOrdenFinalizada.xsd</DependentUpon>
+    </None>
+    <None Include="Reportes\dsetRepuesto.xsc">
+      <DependentUpon>dsetRepuesto.xsd</DependentUpon>
+    </None>
+    <None Include="Reportes\dsetRepuesto.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsetRepuesto.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Reportes\dsetRepuesto.xss">
+      <DependentUpon>dsetRepuesto.xsd</DependentUpon>
+    </None>
+    <None Include="Reportes\dsetServicioEmpleado.xsc">
+      <DependentUpon>dsetServicioEmpleado.xsd</DependentUpon>
+    </None>
+    <None Include="Reportes\dsetServicioEmpleado.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsetServicioEmpleado.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Reportes\dsetServicioEmpleado.xss">
+      <DependentUpon>dsetServicioEmpleado.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>

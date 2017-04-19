@@ -16,17 +16,27 @@ namespace appTalles.UI
         public FrmInformeOrdenFinalizada()
         {
             InitializeComponent();
-            cargar();
         }
 
         private void cargar() {
 
-            DAL.Orden orden = new DAL.Orden();
+            BLL.Orden BllOrden = new BLL.Orden();
             CyOrdenFinalizada oOrdenes = new CyOrdenFinalizada();
-            oOrdenes.SetDataSource(orden.cargarDataTableOrden(DateTime.Today));
+            oOrdenes.SetDataSource(BllOrden.cargarInformeOrdenFinalizada(dtBuscar.Value));
             this.ReporteOrdenFinalizada.ReportSource = oOrdenes;
+        }
 
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                cargar();
+            }
+            catch (Exception ex)
+            {
 
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

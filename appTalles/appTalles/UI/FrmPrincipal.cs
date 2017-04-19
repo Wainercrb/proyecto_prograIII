@@ -13,6 +13,7 @@ using Vista;
 using appTalles.Vista;
 using ENT;
 using appTalles.UI;
+using appTalles.Reportes;
 
 namespace Vista
 
@@ -131,6 +132,18 @@ namespace Vista
         private void informeOrdenFinalizadaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmInformeOrdenFinalizada frm = new FrmInformeOrdenFinalizada();
+            frm.ShowDialog();
+        }
+
+        private void informeReparacionesAtendidasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmReporteServicios frm = new FrmReporteServicios();
+            frm.ShowDialog();
+        }
+
+        private void informeEstadisticoAtendidioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmReporteRepuestos frm = new FrmReporteRepuestos();
             frm.ShowDialog();
         }
     }

@@ -217,12 +217,14 @@
             this.informeReparacionesAtendidasToolStripMenuItem.Name = "informeReparacionesAtendidasToolStripMenuItem";
             this.informeReparacionesAtendidasToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
             this.informeReparacionesAtendidasToolStripMenuItem.Text = "Informe reparaciones atendidas";
+            this.informeReparacionesAtendidasToolStripMenuItem.Click += new System.EventHandler(this.informeReparacionesAtendidasToolStripMenuItem_Click);
             // 
             // informeEstadisticoAtendidioToolStripMenuItem
             // 
             this.informeEstadisticoAtendidioToolStripMenuItem.Name = "informeEstadisticoAtendidioToolStripMenuItem";
             this.informeEstadisticoAtendidioToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
             this.informeEstadisticoAtendidioToolStripMenuItem.Text = "Informe estadistico atendidio";
+            this.informeEstadisticoAtendidioToolStripMenuItem.Click += new System.EventHandler(this.informeEstadisticoAtendidioToolStripMenuItem_Click);
             // 
             // button1
             // 

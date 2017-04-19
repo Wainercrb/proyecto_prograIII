@@ -31,9 +31,9 @@ namespace DAL
         public int agregarOrden(ENT.Orden orden)
         {
             limpiarError();
-            string consecutivo = "0";
+            string id_orden = "0";
             string sql = "INSERT INTO " + this.conexion.Schema + "orden(fecha_ingreso, fecha_salida, fecha_facturacion, estado, costo_total, fk_vehiculo, pk_empleado) "
-                       + "VALUES (@fecha_ingreso, @fecha_salida, @fecha_facturacion, @estado, @costo_total, @fk_vehiculo, @pk_empleado) returning consecutivo";
+                       + "VALUES (@fecha_ingreso, @fecha_salida, @fecha_facturacion, @estado, @costo_total, @fk_vehiculo, @pk_empleado) returning id_orden";
 
             Parametro prm = new Parametro();
             prm.agregarParametro("@fecha_ingreso", NpgsqlDbType.Date, orden.FechaIngreso);
@@ -43,14 +43,13 @@ namespace DAL
             prm.agregarParametro("@costo_total", NpgsqlDbType.Double, orden.CostoTotal);
             prm.agregarParametro("@fk_vehiculo", NpgsqlDbType.Integer, orden.Vehiculo.Id);
             prm.agregarParametro("@pk_empleado", NpgsqlDbType.Integer, orden.Empleado.Id);
-            this.conexion.ejecutarSQL(sql, prm.obtenerParametros(), ref consecutivo);
+            this.conexion.ejecutarSQL(sql, prm.obtenerParametros(), ref id_orden);
             if (this.conexion.IsError)
             {
                 this.error = true;
                 this.errorMsg = this.conexion.ErrorDescripcion;
             }
-            MessageBox.Show(consecutivo);
-            return 1;
+            return Int32.Parse(id_orden);
         }
         //Metodo carga un dataset con las ordenes y los retorna en una lista
         //de ordenes
@@ -382,48 +381,73 @@ namespace DAL
             }
 
             return tabla;
-
-
-
         }
-
-
         public DataTable cargarDataTableOrden(DateTime valor)
         {
             DataTable tabla = null;
-
             Parametro oParametro = new Parametro();
             oParametro.agregarParametro("@fecha_facturacion", NpgsqlDbType.Date, valor);
             string sql = "select o.id_orden, o.fecha_ingreso, o.fecha_salida, o.fecha_facturacion, o.costo_total, v.placa from orden o, vehiculo v " +
-            "where v.id_vehiculo = o.fk_vehiculo and cast(o.fecha_ingreso as date) = @fecha_facturacion";
+            "where v.id_vehiculo = o.fk_vehiculo and cast(o.fecha_facturacion as date) = @fecha_facturacion";
             DataSet dset = this.conexion.ejecutarConsultaSQL(sql,
                                                         "orden",
                                                         oParametro.obtenerParametros());
             if (!conexion.IsError)
             {
-                double suma = 0;
-              
-
                 tabla = dset.Tables[0].Copy();
-                foreach (DataRow dr in tabla.Rows)
-                {
-                    suma += Int32.Parse(dr["costo_total"].ToString());
-                }
-
-           
-                tabla.Columns.Add("total_final");
-                tabla.Columns["total_final"].DefaultValue = suma;
-
-
             }
             else
             {
                 this.ErrorMsg = this.conexion.ErrorDescripcion;
                 this.Error = true;
-
-            }         
+            }
             return tabla;
         }
+
+        string sql = "select e.nombre, e.apellido,s.servcio, orse.cantidad from empleado e, orden_servicio orse, servicio s, orden o where orse.fk_empleado = e.id_empleado " +
+                     "and orse.fk_servicio = s.id_servicio and o.id_orden = orse.fk_orden and e.id_empleado = @id_empleado and cast(o.fecha_ingreso as date) between @fecha_ingreso_uno and @fecha_ingreso_dos";
+
+        public DataTable cargarDataTableServicios(int id_empleado, DateTime fecha_uno, DateTime fecha_dos)
+        {
+            DataTable tabla = null;
+            Parametro oParametro = new Parametro();
+            oParametro.agregarParametro("@id_empleado", NpgsqlDbType.Numeric, id_empleado);
+            oParametro.agregarParametro("@fecha_ingreso_uno", NpgsqlDbType.Date, fecha_uno);
+            oParametro.agregarParametro("@fecha_ingreso_dos", NpgsqlDbType.Date, fecha_dos);
+            string sql = "select e.nombre, e.apellido,s.servcio, orse.cantidad, o.id_orden from empleado e, orden_servicio orse, servicio s, orden o where orse.fk_empleado = e.id_empleado " +
+                    "and orse.fk_servicio = s.id_servicio and o.id_orden = orse.fk_orden and e.id_empleado = @id_empleado and cast(o.fecha_ingreso as date) between @fecha_ingreso_uno and @fecha_ingreso_dos";
+            DataSet dset = this.conexion.ejecutarConsultaSQL(sql,"orden", oParametro.obtenerParametros());
+            if (!conexion.IsError)
+            {
+                tabla = dset.Tables[0].Copy();
+            }
+            else
+            {
+                this.ErrorMsg = this.conexion.ErrorDescripcion;
+                this.Error = true;
+            }
+            return tabla;
+        }
+
+        public DataTable cargarDataTableRepuesto()
+        {
+            DataTable tabla = null;
+            Parametro oParametro = new Parametro();
+            string sql = "select r.repuesto, orre.cantidad, e.nombre, e.apellido, o.id_orden from empleado e, orden_repuesto orre, repuesto r, orden o "+
+                          "where orre.fk_orden = o.id_orden and orre.fk_repuesto = r.id_repuesto and orre.pk_empleado = e.id_empleado order by orre.cantidad desc";
+            DataSet dset = this.conexion.ejecutarConsultaSQL(sql, "orden", oParametro.obtenerParametros());
+            if (!conexion.IsError)
+            {
+                tabla = dset.Tables[0].Copy();
+            }
+            else
+            {
+                this.ErrorMsg = this.conexion.ErrorDescripcion;
+                this.Error = true;
+            }
+            return tabla;
+        }
+
         public bool Error
         {
             get

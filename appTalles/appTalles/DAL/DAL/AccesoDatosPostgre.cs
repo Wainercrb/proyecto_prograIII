@@ -290,13 +290,13 @@ namespace DAL
                     cmd.Transaction = this.transaccion;
                 }
 
-                //cmd.ExecuteNonQuery();
-                //try
-                //{
+                cmd.ExecuteNonQuery();
+                try
+                {
                     pNumero = "";
                     pNumero = cmd.ExecuteScalar().ToString();
-                //}
-                //catch { }
+                }
+                catch { }
             }
             catch (NpgsqlException error)
             {

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAL;
+using System.Data;
+
 namespace BLL
 {
     public class Orden
@@ -244,7 +246,8 @@ namespace BLL
             }
             return orden;
         }
-        public void actualizarEstadoOrden(ENT.Orden EntOrden) {
+        public void actualizarEstadoOrden(ENT.Orden EntOrden)
+        {
             DAL.Orden DalOrden = new DAL.Orden();
             try
             {
@@ -259,8 +262,78 @@ namespace BLL
 
                 throw ex;
             }
+        }
+        //Metodo verifica que la buscar del datatable sea correcta, de lo
+        // contrarrio que dispare los errores a la interfaz
+        public DataTable cargarInformeOrdenFinalizada(DateTime valor)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                DAL.Orden DalOrden = new DAL.Orden();
+                tabla = DalOrden.cargarDataTableOrden(valor);
+                if (DalOrden.Error)
+                {
+                    throw new Exception("Error al buscar y cargar la orden, " + DalOrden.ErrorMsg);
+                }
+                if (tabla.Rows.Count <= 0)
+                {
+                    throw new Exception("No se encontraron ordenes finalizada en la fecha: " + valor);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return tabla;
+        }
 
+        //Metodo verifica que la buscar del datatable sea correcta, de lo
+        // contrarrio que dispare los errores a la interfaz
+        public DataTable cargarInformeOrdenServicios(int id_empleado, DateTime valor_uno, DateTime valor_dos)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                DAL.Orden DalOrden = new DAL.Orden();
+                tabla = DalOrden.cargarDataTableServicios(id_empleado, valor_uno, valor_dos);
+                if (DalOrden.Error)
+                {
+                    throw new Exception("Error al buscar y cargar los servicios, " + DalOrden.ErrorMsg);
+                }
+                if (tabla.Rows.Count <= 0)
+                {
+                    throw new Exception("No se encontraron servicios para este empleado");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return tabla;
+        }
 
+        public DataTable cargarInformeOrdenRepuesto()
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                DAL.Orden DalOrden = new DAL.Orden();
+                tabla = DalOrden.cargarDataTableRepuesto();
+                if (DalOrden.Error)
+                {
+                    throw new Exception("Error al buscar y cargar los repuestos, " + DalOrden.ErrorMsg);
+                }
+                if (tabla.Rows.Count <= 0)
+                {
+                    throw new Exception("No se encontraron servicios para este empleado");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return tabla;
         }
     }
 }
