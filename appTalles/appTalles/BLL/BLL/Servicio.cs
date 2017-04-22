@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -152,6 +153,29 @@ namespace BLL
                 throw ex;
             }
             return servicios;
+        }
+
+        public DataTable cargarServiciosPorEmpleadoConFecha(int id_empleado, DateTime fecha_uno, DateTime fecha_dos) {
+
+            DataTable tabla = null;
+            DAL.Servicio DalServicio = new DAL.Servicio();
+            try
+            {
+                if (id_empleado <= 0)
+                {
+                    throw new Exception("Debes seleccionar un empleado");
+                }
+                tabla = DalServicio.cargarDataTableServicios(id_empleado, fecha_uno, fecha_dos);
+                if (DalServicio.Error)
+                {
+                    throw new Exception("Error al cargar los servicios, "+DalServicio.ErrorMsg);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex; 
+            }
+            return tabla;
         }
     }
 }

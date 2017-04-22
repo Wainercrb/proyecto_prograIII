@@ -302,39 +302,10 @@ namespace BLL
             try
             {
                 DAL.Orden DalOrden = new DAL.Orden();
-                tabla = DalOrden.cargarDataTableOrden(valor);
+                tabla = DalOrden.cargarReporteOrdenFinalizada(valor);
                 if (DalOrden.Error)
                 {
                     throw new Exception("Error al buscar y cargar la orden, " + DalOrden.ErrorMsg);
-                }
-                if (tabla.Rows.Count <= 0)
-                {
-                    throw new Exception("No se encontraron ordenes finalizada en la fecha: " + valor);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return tabla;
-        }
-
-        //Metodo verifica que la buscar del datatable sea correcta, de lo
-        // contrarrio que dispare los errores a la interfaz
-        public DataTable cargarInformeOrdenServicios(int id_empleado, DateTime valor_uno, DateTime valor_dos)
-        {
-            DataTable tabla = new DataTable();
-            try
-            {
-                DAL.Orden DalOrden = new DAL.Orden();
-                tabla = DalOrden.cargarDataTableServicios(id_empleado, valor_uno, valor_dos);
-                if (DalOrden.Error)
-                {
-                    throw new Exception("Error al buscar y cargar los servicios, " + DalOrden.ErrorMsg);
-                }
-                if (tabla.Rows.Count <= 0)
-                {
-                    throw new Exception("No se encontraron servicios para este empleado");
                 }
             }
             catch (Exception ex)
@@ -345,20 +316,18 @@ namespace BLL
         }
         //Metodo verifica cuando se carga un informe, que la carga 
         //se correcto, si hay error mostrarlos en interfaz
-        public DataTable cargarInformeOrdenRepuesto()
+
+
+        public DataTable cargarInformeOrdenPorId(int valor)
         {
             DataTable tabla = new DataTable();
             try
             {
                 DAL.Orden DalOrden = new DAL.Orden();
-                tabla = DalOrden.cargarDataTableRepuesto();
+                tabla = DalOrden.cargarReporteOrdenPorId(valor);
                 if (DalOrden.Error)
                 {
                     throw new Exception("Error al buscar y cargar los repuestos, " + DalOrden.ErrorMsg);
-                }
-                if (tabla.Rows.Count <= 0)
-                {
-                    throw new Exception("No se encontraron servicios para este empleado");
                 }
             }
             catch (Exception ex)
@@ -368,13 +337,13 @@ namespace BLL
             return tabla;
         }
 
-        public DataTable cargarInformeOrdenPorId(int valor)
+        public DataTable cargarInformeOrdenPendiente(DateTime valor)
         {
             DataTable tabla = new DataTable();
             try
             {
                 DAL.Orden DalOrden = new DAL.Orden();
-                tabla = DalOrden.cargarReporteOrdenPorId(valor);
+                tabla = DalOrden.cargarReporteOrdenPendiente(valor);
                 if (DalOrden.Error)
                 {
                     throw new Exception("Error al buscar y cargar los repuestos, " + DalOrden.ErrorMsg);

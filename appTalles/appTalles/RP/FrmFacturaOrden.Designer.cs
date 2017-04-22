@@ -50,12 +50,12 @@
             this.cbComboOrden.FormattingEnabled = true;
             this.cbComboOrden.Location = new System.Drawing.Point(0, 60);
             this.cbComboOrden.Name = "cbComboOrden";
-            this.cbComboOrden.Size = new System.Drawing.Size(199, 21);
+            this.cbComboOrden.Size = new System.Drawing.Size(185, 21);
             this.cbComboOrden.TabIndex = 1;
             // 
             // btnCargar
             // 
-            this.btnCargar.Location = new System.Drawing.Point(54, 104);
+            this.btnCargar.Location = new System.Drawing.Point(54, 110);
             this.btnCargar.Name = "btnCargar";
             this.btnCargar.Size = new System.Drawing.Size(75, 23);
             this.btnCargar.TabIndex = 2;

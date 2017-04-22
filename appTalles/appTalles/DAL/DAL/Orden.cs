@@ -370,14 +370,10 @@ namespace DAL
         public DataTable cargarReporteOrdenPorId(int valor)
         {
             DataTable tabla = null;
-
             Parametro oParametro = new Parametro();
             oParametro.agregarParametro("@consecutivo", NpgsqlDbType.Numeric, valor);
             string sql = "select * from "+this.conexion.Schema+"orden WHERE id_orden = @consecutivo;";
-
-            DataSet dset = this.conexion.ejecutarConsultaSQL(sql,
-                                                        "orden",
-                                                        oParametro.obtenerParametros());
+            DataSet dset = this.conexion.ejecutarConsultaSQL(sql,"orden", oParametro.obtenerParametros());
             if (!conexion.IsError)
             {
 
@@ -387,44 +383,22 @@ namespace DAL
             {
                 this.ErrorMsg = this.conexion.ErrorDescripcion;
                 this.Error = true;
-
             }
-
             return tabla;
         }
-        public DataTable cargarDataTableOrden(DateTime valor)
+
+        public DataTable cargarReporteOrdenPendiente(DateTime valor)
         {
             DataTable tabla = null;
             Parametro oParametro = new Parametro();
+            oParametro.agregarParametro("@estado", NpgsqlDbType.Varchar, "Pendiente");
             oParametro.agregarParametro("@fecha_facturacion", NpgsqlDbType.Date, valor);
-            string sql = "select o.id_orden, o.fecha_ingreso, o.fecha_salida, o.fecha_facturacion, o.costo_total, v.placa from orden o, vehiculo v " +
-            "where v.id_vehiculo = o.fk_vehiculo and cast(o.fecha_facturacion as date) = @fecha_facturacion";
-            DataSet dset = this.conexion.ejecutarConsultaSQL(sql,
-                                                        "orden",
-                                                        oParametro.obtenerParametros());
-            if (!conexion.IsError)
-            {
-                tabla = dset.Tables[0].Copy();
-            }
-            else
-            {
-                this.ErrorMsg = this.conexion.ErrorDescripcion;
-                this.Error = true;
-            }
-            return tabla;
-        }
-        public DataTable cargarDataTableServicios(int id_empleado, DateTime fecha_uno, DateTime fecha_dos)
-        {
-            DataTable tabla = null;
-            Parametro oParametro = new Parametro();
-            oParametro.agregarParametro("@id_empleado", NpgsqlDbType.Numeric, id_empleado);
-            oParametro.agregarParametro("@fecha_ingreso_uno", NpgsqlDbType.Date, fecha_uno);
-            oParametro.agregarParametro("@fecha_ingreso_dos", NpgsqlDbType.Date, fecha_dos);
-            string sql = "select e.nombre, e.apellido,s.servcio, orse.cantidad, o.id_orden from empleado e, orden_servicio orse, servicio s, orden o where orse.fk_empleado = e.id_empleado " +
-                    "and orse.fk_servicio = s.id_servicio and o.id_orden = orse.fk_orden and e.id_empleado = @id_empleado and cast(o.fecha_ingreso as date) between @fecha_ingreso_uno and @fecha_ingreso_dos";
+            string sql = "select o.id_orden, o.fecha_ingreso, o.fecha_salida, o.fecha_facturacion, o.estado, o.costo_total, v.placa "+
+                          "from orden o, vehiculo v where o.fk_vehiculo = v.id_vehiculo and (o.estado = @estado) and cast(o.fecha_ingreso as date) = @fecha_facturacion;";
             DataSet dset = this.conexion.ejecutarConsultaSQL(sql, "orden", oParametro.obtenerParametros());
             if (!conexion.IsError)
             {
+
                 tabla = dset.Tables[0].Copy();
             }
             else
@@ -434,16 +408,19 @@ namespace DAL
             }
             return tabla;
         }
-
-        public DataTable cargarDataTableRepuesto()
+        public DataTable cargarReporteOrdenFinalizada(DateTime valor)
         {
             DataTable tabla = null;
             Parametro oParametro = new Parametro();
-            string sql = "select r.repuesto, orre.cantidad, e.nombre, e.apellido, o.id_orden from empleado e, orden_repuesto orre, repuesto r, orden o " +
-                          "where orre.fk_orden = o.id_orden and orre.fk_repuesto = r.id_repuesto and orre.pk_empleado = e.id_empleado order by orre.cantidad desc";
+            oParametro.agregarParametro("@estadoUno", NpgsqlDbType.Varchar, "Pendiente");
+            oParametro.agregarParametro("@estadoDos", NpgsqlDbType.Varchar, "Finalizado");
+            oParametro.agregarParametro("@fecha_facturacion", NpgsqlDbType.Date, valor);
+            string sql = "select o.id_orden, o.fecha_ingreso, o.fecha_salida, o.fecha_facturacion, o.estado, o.costo_total, v.placa " +
+                          "from orden o, vehiculo v where o.fk_vehiculo = v.id_vehiculo and (o.estado = @estadoUno or o.estado = @estadoDos) AND cast(o.fecha_facturacion as date) = @fecha_facturacion"; 
             DataSet dset = this.conexion.ejecutarConsultaSQL(sql, "orden", oParametro.obtenerParametros());
             if (!conexion.IsError)
             {
+
                 tabla = dset.Tables[0].Copy();
             }
             else
@@ -453,7 +430,7 @@ namespace DAL
             }
             return tabla;
         }
-
+      
         public bool Error
         {
             get

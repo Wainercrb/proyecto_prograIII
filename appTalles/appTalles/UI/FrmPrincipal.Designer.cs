@@ -62,6 +62,7 @@
             this.Empleado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Vehiculo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.informeOrdenPendienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdOrdenes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -212,7 +213,8 @@
             this.gestionGerenciaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.informeOrdenFinalizadaToolStripMenuItem,
             this.informeReparacionesAtendidasToolStripMenuItem,
-            this.informeEstadisticoAtendidioToolStripMenuItem});
+            this.informeEstadisticoAtendidioToolStripMenuItem,
+            this.informeOrdenPendienteToolStripMenuItem});
             this.gestionGerenciaToolStripMenuItem.Name = "gestionGerenciaToolStripMenuItem";
             this.gestionGerenciaToolStripMenuItem.Size = new System.Drawing.Size(112, 20);
             this.gestionGerenciaToolStripMenuItem.Text = "Gestion gerencia";
@@ -354,6 +356,13 @@
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
             // 
+            // informeOrdenPendienteToolStripMenuItem
+            // 
+            this.informeOrdenPendienteToolStripMenuItem.Name = "informeOrdenPendienteToolStripMenuItem";
+            this.informeOrdenPendienteToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
+            this.informeOrdenPendienteToolStripMenuItem.Text = "Informe orden pendiente";
+            this.informeOrdenPendienteToolStripMenuItem.Click += new System.EventHandler(this.informeOrdenPendienteToolStripMenuItem_Click);
+            // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -413,6 +422,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Empleado;
         private System.Windows.Forms.DataGridViewTextBoxColumn Vehiculo;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ToolStripMenuItem informeOrdenPendienteToolStripMenuItem;
     }
 }
 

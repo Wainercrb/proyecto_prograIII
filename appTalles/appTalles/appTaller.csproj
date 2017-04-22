@@ -98,16 +98,74 @@
       <DependentUpon>CryFacuraServicio.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="RP\CryOrdenPendiente.cs">
+      <DependentUpon>CryOrdenPendiente.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="RP\CryOrdenFinalizada.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CryOrdenFinalizada.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RP\CryRepuestoFrecuente.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CryRepuestoFrecuente.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RP\CryServicioPorEmpleado.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CryServicioPorEmpleado.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="RP\DsetFacturaOrden.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DsetFacturaOrden.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="RP\DsetOrdenFinalizada.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DsetOrdenFinalizada.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="RP\DsetServicioRepuesto.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DsetServicioRepuesto.xsd</DependentUpon>
     </Compile>
     <Compile Include="RP\FrmFacturaOrden.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="RP\FrmFacturaOrden.Designer.cs">
       <DependentUpon>FrmFacturaOrden.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RP\FrmInformeOrdenFinalizada.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RP\FrmInformeOrdenFinalizada.Designer.cs">
+      <DependentUpon>FrmInformeOrdenFinalizada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RP\FrmInformeOrdenPendiente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RP\FrmInformeOrdenPendiente.Designer.cs">
+      <DependentUpon>FrmInformeOrdenPendiente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RP\FrmRepuestoFrecuente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RP\FrmRepuestoFrecuente.Designer.cs">
+      <DependentUpon>FrmRepuestoFrecuente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RP\FrmServicioPorEmpleado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RP\FrmServicioPorEmpleado.Designer.cs">
+      <DependentUpon>FrmServicioPorEmpleado.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\FrmOrden.cs">
       <SubType>Form</SubType>
@@ -220,8 +278,36 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CryFacuraServicio.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="RP\CryOrdenPendiente.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryOrdenPendiente.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RP\CryOrdenFinalizada.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryOrdenFinalizada.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RP\CryRepuestoFrecuente.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryRepuestoFrecuente.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RP\CryServicioPorEmpleado.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryServicioPorEmpleado.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="RP\FrmFacturaOrden.resx">
       <DependentUpon>FrmFacturaOrden.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RP\FrmInformeOrdenFinalizada.resx">
+      <DependentUpon>FrmInformeOrdenFinalizada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RP\FrmInformeOrdenPendiente.resx">
+      <DependentUpon>FrmInformeOrdenPendiente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RP\FrmRepuestoFrecuente.resx">
+      <DependentUpon>FrmRepuestoFrecuente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RP\FrmServicioPorEmpleado.resx">
+      <DependentUpon>FrmServicioPorEmpleado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FrmCambio.resx">
       <DependentUpon>FrmCambio.cs</DependentUpon>
@@ -284,6 +370,28 @@
     </None>
     <None Include="RP\DsetFacturaOrden.xss">
       <DependentUpon>DsetFacturaOrden.xsd</DependentUpon>
+    </None>
+    <None Include="RP\DsetOrdenFinalizada.xsc">
+      <DependentUpon>DsetOrdenFinalizada.xsd</DependentUpon>
+    </None>
+    <None Include="RP\DsetOrdenFinalizada.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DsetOrdenFinalizada.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="RP\DsetOrdenFinalizada.xss">
+      <DependentUpon>DsetOrdenFinalizada.xsd</DependentUpon>
+    </None>
+    <None Include="RP\DsetServicioRepuesto.xsc">
+      <DependentUpon>DsetServicioRepuesto.xsd</DependentUpon>
+    </None>
+    <None Include="RP\DsetServicioRepuesto.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DsetServicioRepuesto.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="RP\DsetServicioRepuesto.xss">
+      <DependentUpon>DsetServicioRepuesto.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>

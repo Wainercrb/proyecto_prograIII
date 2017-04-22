@@ -173,25 +173,22 @@ namespace Vista
         {
             if (EntEmpleado.Puesto == "Cajero" || EntEmpleado.Puesto == "Jefe")
             {
-               //FromReporteOrden frm = new FromReporteOrden();
-               // frm.ShowDialog();
+                FrmFacturaOrden frm = new FrmFacturaOrden();
+                frm.ShowDialog();
                 return;
             }
             MessageBox.Show("No tienes permisos para acceder a esta función", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            DAL.Orden or = new DAL.Orden();
 
-            this.grdOrdenes.DataSource = or.cargarDataTableOrden(DateTime.Today);
         }
 
         private void informeOrdenFinalizadaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-
-            FrmFacturaOrden frm = new FrmFacturaOrden();
+            FrmInformeOrdenFinalizada frm = new FrmInformeOrdenFinalizada();
             frm.ShowDialog();
+
             //FrmRepuestoFrecuentes frm = new FrmRepuestoFrecuentes();
             //frm.ShowDialog();
 
@@ -199,12 +196,14 @@ namespace Vista
 
         private void informeReparacionesAtendidasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           
+            FrmServicioPorEmpleado frm = new FrmServicioPorEmpleado();
+            frm.ShowDialog();
         }
 
         private void informeEstadisticoAtendidioToolStripMenuItem_Click(object sender, EventArgs e)
         {
-         
+            FrmRepuestoFrecuente frm = new FrmRepuestoFrecuente();
+            frm.ShowDialog();
         }
 
         private void cargarOrden()
@@ -241,6 +240,12 @@ namespace Vista
                 frm.ShowDialog();
                 cargarOrden();
             }
+        }
+
+        private void informeOrdenPendienteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmInformeOrdenPendiente frm = new FrmInformeOrdenPendiente();
+            frm.ShowDialog();
         }
     }
 }

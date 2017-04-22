@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -200,6 +201,26 @@ namespace BLL
                 throw ex;
             }
             return repuestos;
+        }
+
+        public DataTable cargarRepuestoFrecuentes() {
+
+            DAL.Repuesto DalRepuesto = new DAL.Repuesto();
+            DataTable tabla = null;
+            try
+            {
+                tabla = DalRepuesto.cargarInformeRepuestoFrecuente();
+                if (DalRepuesto.Error)
+                {
+                    throw new Exception("Error al cargar los repuestos frecuentes, "+DalRepuesto.ErrorMsg);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return tabla;
         }
     }
 }

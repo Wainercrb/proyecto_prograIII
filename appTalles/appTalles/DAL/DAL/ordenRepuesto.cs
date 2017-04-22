@@ -138,6 +138,31 @@ namespace DAL
 
             return tabla;
         }
+
+        //public DataTable cargarInformeRepuestoFrecuentes()
+        //{
+        //    DataTable tabla = null;
+        //    string sql = "SELECT r.id_repuesto, r.repuesto, r.precio as precio_repuesto, r.impuesto as impuesto_repuesto " +
+        //    "FROM " + this.conexion.Schema + "orden_repuesto orre, " + this.conexion.Schema + "orden o, " + this.conexion.Schema + "repuesto r " +
+        //    "WHERE orre.fk_orden = o.id_orden and orre.fk_repuesto = r.id_repuesto and id_orden = @id_orden;";
+        //    DataSet dset = this.conexion.ejecutarConsultaSQL(sql,
+        //                                                "repuesto",
+        //                                                oParametro.obtenerParametros());
+        //    if (!conexion.IsError)
+        //    {
+
+        //        tabla = dset.Tables[0].Copy();
+        //    }
+        //    else
+        //    {
+        //        this.ErrorMsg = this.conexion.ErrorDescripcion;
+        //        this.Error = true;
+
+        //    }
+
+        //    return tabla;
+        //}
+
         public bool Error
         {
             get

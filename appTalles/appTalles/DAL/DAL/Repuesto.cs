@@ -213,52 +213,24 @@ namespace DAL
             }
             return repuestos;
         }
-        public DataTable obtenerRepestoDataset()
+
+        public DataTable cargarInformeRepuestoFrecuente()
         {
             DataTable tabla = null;
-            this.limpiarError();
-
-            string sql = "select * from " + this.conexion.Schema + "repuesto";
-            DataSet dset = this.conexion.ejecutarConsultaSQL(sql,
-                                                      "servicio");
+            Parametro oParametro = new Parametro();
+            string sql = "select r.repuesto, orre.cantidad from  repuesto r, orden_repuesto orre where orre.fk_repuesto = r.id_repuesto; ";
+            DataSet dset = this.conexion.ejecutarConsultaSQL(sql, "orden", oParametro.obtenerParametros());
             if (!conexion.IsError)
             {
-
                 tabla = dset.Tables[0].Copy();
             }
             else
             {
                 this.errorMsg = this.conexion.ErrorDescripcion;
                 this.error = true;
-
             }
-
             return tabla;
         }
-        public DataTable obtenerServiioDataset()
-        {
-            DataTable tabla = null;
-            this.limpiarError();
-
-            string sql = "SELECT id_servicio as repuesto FROM public.servicio;";
-            DataSet dset = this.conexion.ejecutarConsultaSQL(sql,
-                                                      "servicio");
-            if (!conexion.IsError)
-            {
-
-                tabla = dset.Tables[0].Copy();
-            }
-            else
-            {
-                this.errorMsg = this.conexion.ErrorDescripcion;
-                this.error = true;
-
-            }
-
-            return tabla;
-        }
-
-
         public bool Error
         {
             get { return error; }

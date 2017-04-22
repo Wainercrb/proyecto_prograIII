@@ -153,6 +153,28 @@ namespace DAL
             }
             return servicios;
         }
+
+        public DataTable cargarDataTableServicios(int id_empleado, DateTime fecha_uno, DateTime fecha_dos)
+        {
+            DataTable tabla = null;
+            Parametro oParametro = new Parametro();
+            oParametro.agregarParametro("@id_empleado", NpgsqlDbType.Numeric, id_empleado);
+            oParametro.agregarParametro("@fecha_ingreso_uno", NpgsqlDbType.Date, fecha_uno);
+            oParametro.agregarParametro("@fecha_ingreso_dos", NpgsqlDbType.Date, fecha_dos);
+            string sql = "select e.nombre, e.apellido, s.id_servicio, s.servcio, s.precio, s.impuesto, orse.cantidad, o.id_orden from empleado e, orden_servicio orse, servicio s, orden o where orse.fk_empleado = e.id_empleado " +
+                    "and orse.fk_servicio = s.id_servicio and o.id_orden = orse.fk_orden and e.id_empleado = @id_empleado and cast(o.fecha_ingreso as date) between @fecha_ingreso_uno and @fecha_ingreso_dos";
+            DataSet dset = this.conexion.ejecutarConsultaSQL(sql, "orden", oParametro.obtenerParametros());
+            if (!conexion.IsError)
+            {
+                tabla = dset.Tables[0].Copy();
+            }
+            else
+            {
+                this.ErrorMsg = this.conexion.ErrorDescripcion;
+                this.Error = true;
+            }
+            return tabla;
+        }
         public bool Error
         {
             get
