@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace appTalles.Reportes {
+namespace appTalles.RP {
     using System;
     using System.ComponentModel;
     using CrystalDecisions.Shared;
@@ -16,14 +16,14 @@ namespace appTalles.Reportes {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class CyRepuestos : ReportClass {
+    public class CryFacturaOrdenOrden : ReportClass {
         
-        public CyRepuestos() {
+        public CryFacturaOrdenOrden() {
         }
         
         public override string ResourceName {
             get {
-                return "CyRepuestos.rpt";
+                return "CryFacturaOrdenOrden.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace appTalles.Reportes {
         
         public override string FullResourceName {
             get {
-                return "appTalles.Reportes.CyRepuestos.rpt";
+                return "appTalles.RP.CryFacturaOrdenOrden.rpt";
             }
             set {
                 // Do nothing
@@ -90,9 +90,9 @@ namespace appTalles.Reportes {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedCyRepuestos : Component, ICachedReport {
+    public class CachedCryFacturaOrdenOrden : Component, ICachedReport {
         
-        public CachedCyRepuestos() {
+        public CachedCryFacturaOrdenOrden() {
         }
         
         [Browsable(false)]
@@ -129,7 +129,7 @@ namespace appTalles.Reportes {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            CyRepuestos rpt = new CyRepuestos();
+            CryFacturaOrdenOrden rpt = new CryFacturaOrdenOrden();
             rpt.Site = this.Site;
             return rpt;
         }

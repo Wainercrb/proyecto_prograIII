@@ -9,7 +9,7 @@ namespace BLL
     public class Tipo
     {
         //Metodo valida los datos y para agregarlos a la base de
-        //datos o actualiarlos
+        //datos o actualizarlos
         public void agregarTipoVehiculo(ENT.TipoVehiculo tipo)
         {
             DAL.Tipo DalTipo = new DAL.Tipo();
@@ -45,7 +45,6 @@ namespace BLL
         //Metodo valida los datos necesarios para eliminar este tipo de vehículo
         public void eliminarTipoVehiculo(ENT.TipoVehiculo tipo)
         {
-
             DAL.Tipo DalTipo = new DAL.Tipo();
             try
             {
@@ -61,7 +60,6 @@ namespace BLL
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }

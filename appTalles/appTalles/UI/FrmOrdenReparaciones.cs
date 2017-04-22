@@ -37,21 +37,7 @@ namespace appTalles.Vista
         private List<ENT.Empleado> empleados;
         private double agregado;
         private double quito;
-        private bool modificio = false;
-
-        public ENT.Orden EntOrden1
-        {
-            get
-            {
-                return EntOrden;
-            }
-
-            set
-            {
-                EntOrden = value;
-            }
-        }
-
+        private bool modifico = false;
         public FrmOrdenReparaciones()
         {
             InitializeComponent();
@@ -71,7 +57,7 @@ namespace appTalles.Vista
             BllOrdenServicio = new BLL.OrdenServicio();
             repuestos = new List<ENT.RepuestoVehiculo>();
             servicios = new List<ENT.Servicio>();
-            ordenRepuestos = new List<OrdenRepuesto>();
+            ordenRepuestos = new List<ENT.OrdenRepuesto>();
             ordenServicios = new List<ENT.OrdenServicio>();
             vehiculos = new List<ENT.Vehiculo>();
             empleados = new List<ENT.Empleado>();
@@ -101,7 +87,7 @@ namespace appTalles.Vista
             BllOrdenServicio = new BLL.OrdenServicio();
             repuestos = new List<ENT.RepuestoVehiculo>();
             servicios = new List<ENT.Servicio>();
-            ordenRepuestos = new List<OrdenRepuesto>();
+            ordenRepuestos = new List<ENT.OrdenRepuesto>();
             ordenServicios = new List<ENT.OrdenServicio>();
             vehiculos = new List<ENT.Vehiculo>();
             empleados = new List<ENT.Empleado>();
@@ -147,7 +133,6 @@ namespace appTalles.Vista
         {
             try
             {
-                modificio = true;
                 double montoAgregadoUno;
                 if (EntOrdenServicio.Id <= 0)
                 {
@@ -158,14 +143,13 @@ namespace appTalles.Vista
                     EntOrdenServicio.Servicio = EntServicio;
                     EntOrdenServicio.Orden = EntOrden;
                 }
-
                 EntOrdenServicio.Cantidad = EntOrdenServicio.Cantidad + Int32.Parse(npAgregarServicio.Value.ToString());
                 montoAgregadoUno = EntOrdenServicio.totalServicio(EntOrdenServicio, Int32.Parse(npAgregarServicio.Value.ToString()));
                 EntOrdenServicio.Costo += montoAgregadoUno;
                 agregado += montoAgregadoUno;
                 BllOrdenServicio.agregarOrdenServicio(EntOrdenServicio);
                 limpiarDatosServicios();
-
+                modifico = true;
             }
             catch (Exception ex)
             {
@@ -173,12 +157,10 @@ namespace appTalles.Vista
                 MessageBoxIcon.Information);
             }
         }
-
         private void btnQuitarServicio_Click(object sender, EventArgs e)
         {
             try
             {
-                modificio = true;
                 if (EntOrdenServicio.Id > 0)
                 {
                     double monto;
@@ -197,6 +179,7 @@ namespace appTalles.Vista
                         quito += monto;
                         BllOrdenServicio.agregarOrdenServicio(EntOrdenServicio);
                         limpiarDatosServicios();
+                        modifico = true;
                     }
                 }
             }
@@ -209,7 +192,6 @@ namespace appTalles.Vista
         {
             try
             {
-                modificio = true;
                 double monto;
                 if (EntOrdenServicio.Id <= 0)
                 {
@@ -227,6 +209,7 @@ namespace appTalles.Vista
                 agregado += monto;
                 BllOrdenRepuesto.agregarOrdenRepuesto(EntOrdenRepuesto);
                 limpiarDatosRepuesto();
+                modifico = true;
 
             }
             catch (Exception ex)
@@ -239,7 +222,6 @@ namespace appTalles.Vista
         {
             try
             {
-                modificio = true;
                 if (EntOrdenRepuesto.Id > 0)
                 {
                     double monto;
@@ -258,6 +240,7 @@ namespace appTalles.Vista
                         quito += monto;
                         BllOrdenRepuesto.agregarOrdenRepuesto(EntOrdenRepuesto);
                         limpiarDatosRepuesto();
+                        modifico = true;
                     }
                 }
             }
@@ -272,7 +255,6 @@ namespace appTalles.Vista
             {
                 if (EntOrdenRepuesto.Id > 0)
                 {
-                    modificio = true;
                     double monto;
                     EntOrdenRepuesto.Cantidad = EntOrdenRepuesto.Cantidad + Int32.Parse(npMasRepuesto.Value.ToString());
                     monto = EntOrdenRepuesto.totalRepuesto(EntOrdenRepuesto, Int32.Parse(npMasRepuesto.Value.ToString()));
@@ -293,7 +275,6 @@ namespace appTalles.Vista
             int fila = this.grdServiciosDos.CurrentRow.Index;
             if (fila >= 0)
             {
-                modificio = true;
                 EntOrdenServicio.Id = Int32.Parse(this.grdServiciosDos[0, fila].Value.ToString());
                 EntOrdenServicio.Cantidad = Int32.Parse(this.grdServiciosDos[1, fila].Value.ToString());
                 npQuitarServicio.Maximum = Int32.Parse(this.grdServiciosDos[1, fila].Value.ToString());
@@ -309,7 +290,6 @@ namespace appTalles.Vista
             int fila = this.grdServicioUno.CurrentRow.Index;
             if (fila >= 0)
             {
-                modificio = true;
                 EntServicio.Id = Int32.Parse(this.grdServicioUno[0, fila].Value.ToString());
                 EntServicio.pServicio = this.grdServicioUno[1, fila].Value.ToString();
                 EntServicio.Precio = Double.Parse(this.grdServicioUno[2, fila].Value.ToString());
@@ -321,8 +301,7 @@ namespace appTalles.Vista
         {
             int fila = this.grdRepuesto.CurrentRow.Index;
             if (fila >= 0)
-            {
-                modificio = true;
+            {     
                 npRepuestoAgregar.Enabled = true;
                 EntRepuesto.Id = Int32.Parse(this.grdRepuesto[0, fila].Value.ToString());
                 EntRepuesto.Repuesto = this.grdRepuesto[1, fila].Value.ToString();
@@ -336,7 +315,6 @@ namespace appTalles.Vista
             int fila = this.grdRepuestoDos.CurrentRow.Index;
             if (fila >= 0)
             {
-                modificio = true;
                 EntOrdenRepuesto.Id = Int32.Parse(this.grdRepuestoDos[5, fila].Value.ToString());
                 EntOrdenRepuesto.Cantidad = Int32.Parse(this.grdRepuestoDos[0, fila].Value.ToString());
                 npQuitarRepuesto.Maximum = Int32.Parse(this.grdRepuestoDos[0, fila].Value.ToString());
@@ -347,7 +325,8 @@ namespace appTalles.Vista
                 txtQuitar.Text = "Repuesto: " + EntOrdenRepuesto.Repuesto1.Repuesto + " aplicado por: " + EntOrdenRepuesto.Empleado.Nombre + " " + EntOrdenRepuesto.Empleado.Apellido;
             }
         }
-
+        //Metodo agrega los datos de la orden proveniente
+        //desde la base de datos a los componentes de la interfaz
         private void cargarComponentesOrden(ENT.Orden orden)
         {
             txtCodigo.Text = orden.Id + "";
@@ -399,7 +378,6 @@ namespace appTalles.Vista
             string estado = "";
             if (cbEstado.SelectedIndex != -1)
             {
-                modificio = true;
                 int selectedIndex = -1;
                 selectedIndex = cbEstado.SelectedIndex;
                 estado = cbEstado.Items[selectedIndex].ToString();
@@ -412,7 +390,6 @@ namespace appTalles.Vista
         {
             if (cbVehiculo.SelectedIndex != -1)
             {
-                modificio = true;
                 int selectedIndex = -1;
                 selectedIndex = cbVehiculo.SelectedIndex;
                 ENT.Vehiculo selectedItem = (ENT.Vehiculo)cbVehiculo.SelectedItem;
@@ -425,7 +402,6 @@ namespace appTalles.Vista
         {
             if (cbEncargado.SelectedIndex != -1)
             {
-                modificio = true;
                 int selectedIndex = cbEncargado.SelectedIndex;
                 ENT.Empleado selectedItem = (ENT.Empleado)cbEncargado.SelectedItem;
                 EntEmpleado.Id = selectedItem.Id;
@@ -596,6 +572,8 @@ namespace appTalles.Vista
                 MessageBoxIcon.Information);
             }
         }
+        //Metodo limpia las variables utilizadas
+        //en todo el frame
         private void limpiarDatosServicios()
         {
             cargarServicioOrden();
@@ -623,7 +601,6 @@ namespace appTalles.Vista
             {
                 if (EntOrdenServicio.Id > 0)
                 {
-                    modificio = true;
                     double monto;
                     EntOrdenServicio.Cantidad = EntOrdenServicio.Cantidad + Int32.Parse(npMasServicio.Value.ToString());
                     monto = EntOrdenServicio.totalServicio(EntOrdenServicio, Int32.Parse(npMasServicio.Value.ToString()));
@@ -638,12 +615,11 @@ namespace appTalles.Vista
                 MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
         private void FrmOrdenReparaciones_FormClosed(object sender, FormClosedEventArgs e)
         {
             try
             {
-                if (modificio)
+                if (modifico)
                 {
                     if (agregado > 0)
                     {
@@ -667,6 +643,18 @@ namespace appTalles.Vista
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+        public ENT.Orden EntOrden1
+        {
+            get
+            {
+                return EntOrden;
+            }
+
+            set
+            {
+                EntOrden = value;
             }
         }
     }

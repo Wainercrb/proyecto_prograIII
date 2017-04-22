@@ -10,12 +10,12 @@ using System.Data;
 
 namespace DAL
 {
-    public class ordenRepuesto
+    public class OrdenRepuesto
     {
         private AccesoDatosPostgre conexion;
         private bool error;
         private string errorMsg;
-        public ordenRepuesto()
+        public OrdenRepuesto()
         {
             this.conexion = AccesoDatosPostgre.Instance;
             this.limpiarError();
@@ -46,10 +46,10 @@ namespace DAL
                 this.ErrorMsg = this.conexion.ErrorDescripcion;
             }
         }
-        public List<OrdenRepuesto> buscarOrdenRepuestoPorID(int valor)
+        public List<ENT.OrdenRepuesto> buscarOrdenRepuestoPorID(int valor)
         {
             this.limpiarError();
-            List<OrdenRepuesto> ordenRepuestos = new List<OrdenRepuesto>();
+            List<ENT.OrdenRepuesto> ordenRepuestos = new List<ENT.OrdenRepuesto>();
             Parametro prm = new Parametro();
             prm.agregarParametro("@fk_orden", NpgsqlDbType.Integer, valor);
             string sql = "SELECT orp.id_orden_repuesto AS id_orden_repuesto, orp.cantidad AS cantidad, orp.costo AS costo," +
@@ -57,7 +57,7 @@ namespace DAL
        "e.contrasenna AS contrasenna_empleado, e.usuario AS usuario_empleado, o.id_orden AS id_orden, o.fecha_ingreso AS fecha_ingreso, o.fecha_salida AS fecha_salida, o.fecha_facturacion AS fecha_facturacion, " +
        "o.estado AS estado, o.costo_total AS costo_total, o.fk_vehiculo AS fk_vehiculo, o.pk_empleado AS pk_empleado, r.id_repuesto AS id_repuestoR, r.repuesto AS repuestoR, " +
        "r.precio AS precioR, r.impuesto AS impuestoR " +
-       "FROM "+this.conexion.Schema+"orden_repuesto orp, "+this.conexion.Schema+"empleado e, "+this.conexion.Schema+"orden o, "+this.conexion.Schema+"repuesto r " +
+       "FROM " + this.conexion.Schema + "orden_repuesto orp, " + this.conexion.Schema + "empleado e, " + this.conexion.Schema + "orden o, " + this.conexion.Schema + "repuesto r " +
        "WHERE  orp.pk_empleado = e.id_empleado AND orp.fk_orden = o.id_orden AND orp.fk_repuesto = r.id_repuesto AND orp.fk_orden = @fk_orden";
             DataSet dset = this.conexion.ejecutarConsultaSQL(sql, "orden_repuesto", prm.obtenerParametros());
             if (!this.conexion.IsError)
@@ -69,7 +69,7 @@ namespace DAL
                         RepuestoVehiculo Orepuesto = new RepuestoVehiculo(Int32.Parse(tupla["id_repuestor"].ToString()), tupla["repuestor"].ToString(), Double.Parse(tupla["precior"].ToString()), Double.Parse(tupla["impuestor"].ToString()));
                         ENT.Orden oOrden = new ENT.Orden(int.Parse(tupla["id_orden"].ToString()), DateTime.Parse(tupla["fecha_ingreso"].ToString()), DateTime.Parse(tupla["fecha_salida"].ToString()), DateTime.Parse(tupla["fecha_facturacion"].ToString()), tupla["estado"].ToString(), double.Parse(tupla["costo_total"].ToString()), new ENT.Vehiculo(), new ENT.Empleado());
                         ENT.Empleado OEmpleado = new ENT.Empleado(int.Parse(tupla["id_empleado"].ToString()), tupla["nombre_empleado"].ToString(), tupla["apellido_empleado"].ToString(), tupla["direccion_empleado"].ToString(), tupla["telefono1_empleado"].ToString(), tupla["telefono2_empleado"].ToString(), tupla["trabajo_empleado"].ToString(), tupla["permiso_empleado"].ToString(), tupla["usuario_empleado"].ToString(), tupla["contrasenna_empleado"].ToString());
-                        OrdenRepuesto ordenRepuesto = new OrdenRepuesto(Int32.Parse(tupla["id_orden_repuesto"].ToString()), Int32.Parse(tupla["cantidad"].ToString()), Double.Parse(tupla["costo"].ToString()), oOrden, OEmpleado, Orepuesto);
+                        ENT.OrdenRepuesto ordenRepuesto = new ENT.OrdenRepuesto(Int32.Parse(tupla["id_orden_repuesto"].ToString()), Int32.Parse(tupla["cantidad"].ToString()), Double.Parse(tupla["costo"].ToString()), oOrden, OEmpleado, Orepuesto);
                         ordenRepuestos.Add(ordenRepuesto);
                     }
                 }
@@ -112,6 +112,31 @@ namespace DAL
                 this.error = true;
                 this.errorMsg = this.conexion.ErrorDescripcion;
             }
+        }
+        public DataTable cargarInformeRepuestoPorId(int valor)
+        {
+            DataTable tabla = null;
+            Parametro oParametro = new Parametro();
+            oParametro.agregarParametro("@id_orden", NpgsqlDbType.Numeric, valor);
+            string sql = "SELECT r.id_repuesto, r.repuesto, r.precio as precio_repuesto, r.impuesto as impuesto_repuesto " +
+            "FROM " + this.conexion.Schema + "orden_repuesto orre, " + this.conexion.Schema + "orden o, " + this.conexion.Schema + "repuesto r " +
+            "WHERE orre.fk_orden = o.id_orden and orre.fk_repuesto = r.id_repuesto and id_orden = @id_orden;";
+            DataSet dset = this.conexion.ejecutarConsultaSQL(sql,
+                                                        "repuesto",
+                                                        oParametro.obtenerParametros());
+            if (!conexion.IsError)
+            {
+
+                tabla = dset.Tables[0].Copy();
+            }
+            else
+            {
+                this.ErrorMsg = this.conexion.ErrorDescripcion;
+                this.Error = true;
+
+            }
+
+            return tabla;
         }
         public bool Error
         {

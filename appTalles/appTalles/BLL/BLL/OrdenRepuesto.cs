@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace BLL
         //Metodo verifica que los datos esten correctos y verifica si hay 
         //error para mostrarlo en interfaz
         public void agregarOrdenRepuesto(ENT.OrdenRepuesto ordenRepuesto) {
-            DAL.ordenRepuesto DalOrdenRepuesto = new DAL.ordenRepuesto();
+            DAL.OrdenRepuesto DalOrdenRepuesto = new DAL.OrdenRepuesto();
          
                 if (ordenRepuesto.Orden.Id<=0)
                 {
@@ -42,7 +43,7 @@ namespace BLL
         //para que den error  y si hay error mostrarlo en interfaz
         public List<ENT.OrdenRepuesto> cargarOrdenRepuesto(int valor) {
             List<ENT.OrdenRepuesto> ordenRepuestos = new List<ENT.OrdenRepuesto>();
-            DAL.ordenRepuesto DalOrdenRepuesto = new DAL.ordenRepuesto();
+            DAL.OrdenRepuesto DalOrdenRepuesto = new DAL.OrdenRepuesto();
             try
             {
                 if (valor <= 0)
@@ -66,7 +67,7 @@ namespace BLL
         //si hay error mostrarlos en interfaz
         public void eliminarOrdenRepuesto(ENT.OrdenRepuesto ordenRepuesto)
         {
-            DAL.ordenRepuesto DalOrdenRepuesto = new DAL.ordenRepuesto();
+            DAL.OrdenRepuesto DalOrdenRepuesto = new DAL.OrdenRepuesto();
             try
             {
                 if (ordenRepuesto.Id <= 0)
@@ -83,6 +84,27 @@ namespace BLL
             {
                 throw ex;
             }
+        }
+
+        public DataTable cargarInformeRepuestoPorId(int valor) {
+
+            DataTable tabla = new DataTable();
+            try
+            {
+                DAL.OrdenRepuesto DalOrden = new DAL.OrdenRepuesto();
+                tabla = DalOrden.cargarInformeRepuestoPorId(valor);
+                if (DalOrden.Error)
+                {
+                    throw new Exception("Error al cargar los repuestos");
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return tabla;
         }
     }
 }

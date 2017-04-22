@@ -47,7 +47,7 @@
             this.cbEsatado = new System.Windows.Forms.ComboBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.btnEliminar = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.label4 = new System.Windows.Forms.Label();
             this.txtCodigo = new System.Windows.Forms.TextBox();
@@ -125,12 +125,13 @@
             this.CostoTotal,
             this.Vehiculos_,
             this.Empleado_});
-            this.dgOrdenes.Location = new System.Drawing.Point(12, 116);
+            this.dgOrdenes.Location = new System.Drawing.Point(0, 114);
             this.dgOrdenes.Name = "dgOrdenes";
             this.dgOrdenes.ReadOnly = true;
-            this.dgOrdenes.Size = new System.Drawing.Size(763, 248);
+            this.dgOrdenes.Size = new System.Drawing.Size(768, 248);
             this.dgOrdenes.TabIndex = 11;
             this.dgOrdenes.DoubleClick += new System.EventHandler(this.MateniminetoOrden);
+            this.dgOrdenes.MouseClick += new System.Windows.Forms.MouseEventHandler(this.seleccionMause);
             // 
             // Id
             // 
@@ -218,12 +219,12 @@
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButton1,
-            this.toolStripButton2,
+            this.btnEliminar,
             this.toolStripButton3});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.toolStrip1.Size = new System.Drawing.Size(787, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(773, 25);
             this.toolStrip1.TabIndex = 19;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -237,14 +238,15 @@
             this.toolStripButton1.Text = "toolStripButton1";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
-            // toolStripButton2
+            // btnEliminar
             // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton2.Text = "toolStripButton2";
+            this.btnEliminar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnEliminar.Image = ((System.Drawing.Image)(resources.GetObject("btnEliminar.Image")));
+            this.btnEliminar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(23, 22);
+            this.btnEliminar.Text = "Eliminar";
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // toolStripButton3
             // 
@@ -254,6 +256,7 @@
             this.toolStripButton3.Name = "toolStripButton3";
             this.toolStripButton3.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton3.Text = "toolStripButton3";
+            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
             // 
             // label4
             // 
@@ -330,7 +333,7 @@
             this.dtSalida.Checked = false;
             this.dtSalida.Location = new System.Drawing.Point(581, 82);
             this.dtSalida.Name = "dtSalida";
-            this.dtSalida.Size = new System.Drawing.Size(194, 20);
+            this.dtSalida.Size = new System.Drawing.Size(187, 20);
             this.dtSalida.TabIndex = 28;
             // 
             // txtMensaje
@@ -340,13 +343,13 @@
             this.txtMensaje.Multiline = true;
             this.txtMensaje.Name = "txtMensaje";
             this.txtMensaje.ReadOnly = true;
-            this.txtMensaje.Size = new System.Drawing.Size(353, 20);
+            this.txtMensaje.Size = new System.Drawing.Size(543, 20);
             this.txtMensaje.TabIndex = 29;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(631, 371);
+            this.label9.Location = new System.Drawing.Point(626, 371);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(44, 13);
             this.label9.TabIndex = 30;
@@ -354,7 +357,7 @@
             // 
             // txtNumero
             // 
-            this.txtNumero.Location = new System.Drawing.Point(675, 368);
+            this.txtNumero.Location = new System.Drawing.Point(668, 368);
             this.txtNumero.Name = "txtNumero";
             this.txtNumero.Size = new System.Drawing.Size(100, 20);
             this.txtNumero.TabIndex = 31;
@@ -364,7 +367,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(787, 396);
+            this.ClientSize = new System.Drawing.Size(773, 396);
             this.Controls.Add(this.txtNumero);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.txtMensaje);
@@ -409,7 +412,7 @@
         private System.Windows.Forms.ComboBox cbEsatado;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripButton btnEliminar;
         private System.Windows.Forms.ToolStripButton toolStripButton3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtCodigo;

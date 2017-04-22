@@ -52,7 +52,6 @@ namespace DAL
             }
             return tipos;
         }
-
         //Metodo agrega a la base de datos el valor que recibe por parametro
         public void agregarTipo(TipoVehiculo pTipo)
         {

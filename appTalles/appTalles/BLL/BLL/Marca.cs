@@ -61,7 +61,7 @@ namespace BLL
                 DalMarca.borrarMarca(marca);
                 if (DalMarca.Error)
                 {
-                    throw new Exception("Error al editar " + DalMarca.ErrorMsg);
+                    throw new Exception("Error al elimar la marca " + DalMarca.ErrorMsg);
                 }
             }
             catch (Exception ex)
@@ -78,6 +78,10 @@ namespace BLL
             try
             {
                 marcas = DalMarca.obtenerMarcas();
+                if (DalMarca.Error)
+                {
+                    throw new Exception("Error al cargar las marcas, "+ DalMarca.ErrorMsg);
+                }
                 if (marcas.Count <= 0)
                 {
                     throw new Exception("No hay marcas registradas");

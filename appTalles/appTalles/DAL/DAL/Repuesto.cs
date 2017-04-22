@@ -12,7 +12,6 @@ namespace DAL
 {
     public class Repuesto
     {
-
         private AccesoDatosPostgre conexion;
         private bool error;
         private string errorMsg;
@@ -21,6 +20,7 @@ namespace DAL
             this.conexion = AccesoDatosPostgre.Instance;
             this.limpiarError();
         }
+        //Metodo limpia las variables de error
         public void limpiarError()
         {
             this.error = false;
@@ -47,7 +47,6 @@ namespace DAL
             }
             return repuestos;
         }
-
         //Metodo agrega los la entidad que recibe por parametos
         //a la base de datos
         public void agregarRepuesto(RepuestoVehiculo pRepuesto)
@@ -186,7 +185,8 @@ namespace DAL
             }
             return repuestos;
         }
-
+        //Metodo carga un vehiculo segun su el valor que recibe por 
+        //parametro
         public List<ENT.RepuestoVehiculo> obtenerReporteRepuesto(int valor)
         {
             List<RepuestoVehiculo> repuestos = new List<RepuestoVehiculo>();
@@ -212,11 +212,7 @@ namespace DAL
                 this.errorMsg = this.conexion.ErrorDescripcion;
             }
             return repuestos;
-
-
         }
-
-
         public DataTable obtenerRepestoDataset()
         {
             DataTable tabla = null;
@@ -239,7 +235,6 @@ namespace DAL
 
             return tabla;
         }
-
         public DataTable obtenerServiioDataset()
         {
             DataTable tabla = null;

@@ -55,16 +55,6 @@
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.grdEmpleado = new System.Windows.Forms.DataGridView();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Direccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TelefonoResidencia = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TelefonoCelular = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Puesto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Permiso = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Contrasenna = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label4 = new System.Windows.Forms.Label();
             this.txtCantidadRegistros = new System.Windows.Forms.TextBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -77,6 +67,16 @@
             this.rbBuscarPuesto = new System.Windows.Forms.RadioButton();
             this.rbBuscarPermiso = new System.Windows.Forms.RadioButton();
             this.txtSeleccion = new System.Windows.Forms.TextBox();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Direccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TelefonoResidencia = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TelefonoCelular = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Puesto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Permiso = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Contrasenna = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -92,7 +92,7 @@
             this.groupBox4.Controls.Add(this.txtusuario);
             this.groupBox4.Controls.Add(this.txtcontraseña);
             this.groupBox4.Controls.Add(this.label10);
-            this.groupBox4.Location = new System.Drawing.Point(263, 6);
+            this.groupBox4.Location = new System.Drawing.Point(312, 6);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(231, 86);
             this.groupBox4.TabIndex = 6;
@@ -137,7 +137,7 @@
             this.groupBox3.Controls.Add(this.txtTelefonoCelular);
             this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Controls.Add(this.txtTelefonoResodencia);
-            this.groupBox3.Location = new System.Drawing.Point(257, 99);
+            this.groupBox3.Location = new System.Drawing.Point(312, 99);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(237, 78);
             this.groupBox3.TabIndex = 3;
@@ -258,14 +258,14 @@
             // 
             // txtApellido
             // 
-            this.txtApellido.Location = new System.Drawing.Point(68, 35);
+            this.txtApellido.Location = new System.Drawing.Point(79, 35);
             this.txtApellido.Name = "txtApellido";
             this.txtApellido.Size = new System.Drawing.Size(170, 20);
             this.txtApellido.TabIndex = 1;
             // 
             // txtDireccion
             // 
-            this.txtDireccion.Location = new System.Drawing.Point(68, 63);
+            this.txtDireccion.Location = new System.Drawing.Point(79, 63);
             this.txtDireccion.Name = "txtDireccion";
             this.txtDireccion.Size = new System.Drawing.Size(170, 20);
             this.txtDireccion.TabIndex = 2;
@@ -273,7 +273,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(15, 38);
+            this.label7.Location = new System.Drawing.Point(26, 38);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(47, 13);
             this.label7.TabIndex = 11;
@@ -282,7 +282,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(7, 66);
+            this.label5.Location = new System.Drawing.Point(18, 66);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(55, 13);
             this.label5.TabIndex = 9;
@@ -291,7 +291,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 9);
+            this.label1.Location = new System.Drawing.Point(26, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 13);
             this.label1.TabIndex = 1;
@@ -299,23 +299,23 @@
             // 
             // txtnombre
             // 
-            this.txtnombre.Location = new System.Drawing.Point(68, 6);
+            this.txtnombre.Location = new System.Drawing.Point(79, 6);
             this.txtnombre.Name = "txtnombre";
             this.txtnombre.Size = new System.Drawing.Size(170, 20);
             this.txtnombre.TabIndex = 0;
             // 
             // txtBuscar
             // 
-            this.txtBuscar.Location = new System.Drawing.Point(249, 9);
+            this.txtBuscar.Location = new System.Drawing.Point(293, 9);
             this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(112, 20);
+            this.txtBuscar.Size = new System.Drawing.Size(144, 20);
             this.txtBuscar.TabIndex = 0;
             this.txtBuscar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBuscar_KeyPress);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 12);
+            this.label2.Location = new System.Drawing.Point(7, 12);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(43, 13);
             this.label2.TabIndex = 1;
@@ -323,6 +323,9 @@
             // 
             // grdEmpleado
             // 
+            this.grdEmpleado.AllowUserToAddRows = false;
+            this.grdEmpleado.AllowUserToDeleteRows = false;
+            this.grdEmpleado.AllowUserToOrderColumns = true;
             this.grdEmpleado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdEmpleado.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
@@ -335,88 +338,18 @@
             this.Permiso,
             this.Usuario,
             this.Contrasenna});
-            this.grdEmpleado.Location = new System.Drawing.Point(10, 244);
+            this.grdEmpleado.Location = new System.Drawing.Point(3, 244);
             this.grdEmpleado.Name = "grdEmpleado";
-            this.grdEmpleado.Size = new System.Drawing.Size(488, 299);
+            this.grdEmpleado.ReadOnly = true;
+            this.grdEmpleado.Size = new System.Drawing.Size(590, 299);
             this.grdEmpleado.TabIndex = 0;
             this.grdEmpleado.MouseClick += new System.Windows.Forms.MouseEventHandler(this.seleccionEmpleado);
             this.grdEmpleado.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.grdEmpleado_MouseDoubleClick);
             // 
-            // Id
-            // 
-            this.Id.DataPropertyName = "Id";
-            this.Id.HeaderText = "Id";
-            this.Id.Name = "Id";
-            this.Id.Visible = false;
-            this.Id.Width = 50;
-            // 
-            // Nombre
-            // 
-            this.Nombre.DataPropertyName = "Nombre";
-            this.Nombre.HeaderText = "Nombre";
-            this.Nombre.Name = "Nombre";
-            this.Nombre.Width = 65;
-            // 
-            // Apellido
-            // 
-            this.Apellido.DataPropertyName = "Apellido";
-            this.Apellido.HeaderText = "Apellido";
-            this.Apellido.Name = "Apellido";
-            this.Apellido.Width = 65;
-            // 
-            // Direccion
-            // 
-            this.Direccion.DataPropertyName = "Direccion";
-            this.Direccion.HeaderText = "Dirección";
-            this.Direccion.Name = "Direccion";
-            this.Direccion.Width = 80;
-            // 
-            // TelefonoResidencia
-            // 
-            this.TelefonoResidencia.DataPropertyName = "TelefonoResidencia";
-            this.TelefonoResidencia.HeaderText = "Tel. Residencia";
-            this.TelefonoResidencia.Name = "TelefonoResidencia";
-            this.TelefonoResidencia.Width = 65;
-            // 
-            // TelefonoCelular
-            // 
-            this.TelefonoCelular.DataPropertyName = "TelefonoCelular";
-            this.TelefonoCelular.HeaderText = "Tel. Célular";
-            this.TelefonoCelular.Name = "TelefonoCelular";
-            this.TelefonoCelular.Width = 65;
-            // 
-            // Puesto
-            // 
-            this.Puesto.DataPropertyName = "Puesto";
-            this.Puesto.HeaderText = "Puesto";
-            this.Puesto.Name = "Puesto";
-            this.Puesto.Width = 65;
-            // 
-            // Permiso
-            // 
-            this.Permiso.DataPropertyName = "Permiso";
-            this.Permiso.HeaderText = "Permiso";
-            this.Permiso.Name = "Permiso";
-            this.Permiso.Width = 65;
-            // 
-            // Usuario
-            // 
-            this.Usuario.DataPropertyName = "Usuario";
-            this.Usuario.HeaderText = "Usuario";
-            this.Usuario.Name = "Usuario";
-            this.Usuario.Width = 65;
-            // 
-            // Contrasenna
-            // 
-            this.Contrasenna.DataPropertyName = "Contrasenna";
-            this.Contrasenna.HeaderText = "Contraseña";
-            this.Contrasenna.Name = "Contrasenna";
-            this.Contrasenna.Width = 65;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(365, 552);
+            this.label4.Location = new System.Drawing.Point(464, 552);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(51, 13);
             this.label4.TabIndex = 3;
@@ -424,7 +357,7 @@
             // 
             // txtCantidadRegistros
             // 
-            this.txtCantidadRegistros.Location = new System.Drawing.Point(422, 549);
+            this.txtCantidadRegistros.Location = new System.Drawing.Point(521, 549);
             this.txtCantidadRegistros.Name = "txtCantidadRegistros";
             this.txtCantidadRegistros.ReadOnly = true;
             this.txtCantidadRegistros.Size = new System.Drawing.Size(72, 20);
@@ -491,9 +424,9 @@
             this.groupBox1.Controls.Add(this.rbBuscarPermiso);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.txtBuscar);
-            this.groupBox1.Location = new System.Drawing.Point(127, 204);
+            this.groupBox1.Location = new System.Drawing.Point(146, 204);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(367, 34);
+            this.groupBox1.Size = new System.Drawing.Size(447, 34);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             // 
@@ -501,7 +434,7 @@
             // 
             this.rbBuscarNombre.AutoSize = true;
             this.rbBuscarNombre.Checked = true;
-            this.rbBuscarNombre.Location = new System.Drawing.Point(49, 11);
+            this.rbBuscarNombre.Location = new System.Drawing.Point(65, 11);
             this.rbBuscarNombre.Name = "rbBuscarNombre";
             this.rbBuscarNombre.Size = new System.Drawing.Size(62, 17);
             this.rbBuscarNombre.TabIndex = 4;
@@ -512,7 +445,7 @@
             // rbBuscarPuesto
             // 
             this.rbBuscarPuesto.AutoSize = true;
-            this.rbBuscarPuesto.Location = new System.Drawing.Point(185, 11);
+            this.rbBuscarPuesto.Location = new System.Drawing.Point(229, 11);
             this.rbBuscarPuesto.Name = "rbBuscarPuesto";
             this.rbBuscarPuesto.Size = new System.Drawing.Size(58, 17);
             this.rbBuscarPuesto.TabIndex = 3;
@@ -523,7 +456,7 @@
             // rbBuscarPermiso
             // 
             this.rbBuscarPermiso.AutoSize = true;
-            this.rbBuscarPermiso.Location = new System.Drawing.Point(117, 12);
+            this.rbBuscarPermiso.Location = new System.Drawing.Point(150, 11);
             this.rbBuscarPermiso.Name = "rbBuscarPermiso";
             this.rbBuscarPermiso.Size = new System.Drawing.Size(62, 17);
             this.rbBuscarPermiso.TabIndex = 2;
@@ -533,17 +466,100 @@
             // 
             // txtSeleccion
             // 
+            this.txtSeleccion.BackColor = System.Drawing.SystemColors.Menu;
             this.txtSeleccion.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtSeleccion.Location = new System.Drawing.Point(10, 549);
+            this.txtSeleccion.Multiline = true;
             this.txtSeleccion.Name = "txtSeleccion";
-            this.txtSeleccion.Size = new System.Drawing.Size(333, 13);
+            this.txtSeleccion.Size = new System.Drawing.Size(448, 20);
             this.txtSeleccion.TabIndex = 14;
+            // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "Id";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            this.Id.Visible = false;
+            this.Id.Width = 50;
+            // 
+            // Nombre
+            // 
+            this.Nombre.DataPropertyName = "Nombre";
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.Name = "Nombre";
+            this.Nombre.ReadOnly = true;
+            this.Nombre.Width = 65;
+            // 
+            // Apellido
+            // 
+            this.Apellido.DataPropertyName = "Apellido";
+            this.Apellido.HeaderText = "Apellido";
+            this.Apellido.Name = "Apellido";
+            this.Apellido.ReadOnly = true;
+            this.Apellido.Width = 65;
+            // 
+            // Direccion
+            // 
+            this.Direccion.DataPropertyName = "Direccion";
+            this.Direccion.HeaderText = "Dirección";
+            this.Direccion.Name = "Direccion";
+            this.Direccion.ReadOnly = true;
+            this.Direccion.Width = 80;
+            // 
+            // TelefonoResidencia
+            // 
+            this.TelefonoResidencia.DataPropertyName = "TelefonoResidencia";
+            this.TelefonoResidencia.HeaderText = "Tel. Residencia";
+            this.TelefonoResidencia.Name = "TelefonoResidencia";
+            this.TelefonoResidencia.ReadOnly = true;
+            this.TelefonoResidencia.Width = 65;
+            // 
+            // TelefonoCelular
+            // 
+            this.TelefonoCelular.DataPropertyName = "TelefonoCelular";
+            this.TelefonoCelular.HeaderText = "Tel. Célular";
+            this.TelefonoCelular.Name = "TelefonoCelular";
+            this.TelefonoCelular.ReadOnly = true;
+            this.TelefonoCelular.Width = 65;
+            // 
+            // Puesto
+            // 
+            this.Puesto.DataPropertyName = "Puesto";
+            this.Puesto.HeaderText = "Puesto";
+            this.Puesto.Name = "Puesto";
+            this.Puesto.ReadOnly = true;
+            this.Puesto.Width = 50;
+            // 
+            // Permiso
+            // 
+            this.Permiso.DataPropertyName = "Permiso";
+            this.Permiso.HeaderText = "Permiso";
+            this.Permiso.Name = "Permiso";
+            this.Permiso.ReadOnly = true;
+            this.Permiso.Width = 50;
+            // 
+            // Usuario
+            // 
+            this.Usuario.DataPropertyName = "Usuario";
+            this.Usuario.HeaderText = "Usuario";
+            this.Usuario.Name = "Usuario";
+            this.Usuario.ReadOnly = true;
+            this.Usuario.Width = 50;
+            // 
+            // Contrasenna
+            // 
+            this.Contrasenna.DataPropertyName = "Contrasenna";
+            this.Contrasenna.HeaderText = "Contraseña";
+            this.Contrasenna.Name = "Contrasenna";
+            this.Contrasenna.ReadOnly = true;
+            this.Contrasenna.Width = 50;
             // 
             // FrmEmpleado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(510, 574);
+            this.ClientSize = new System.Drawing.Size(595, 574);
             this.Controls.Add(this.txtSeleccion);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.toolStrip1);
@@ -619,6 +635,7 @@
         private System.Windows.Forms.RadioButton rbBuscarNombre;
         private System.Windows.Forms.RadioButton rbBuscarPuesto;
         private System.Windows.Forms.RadioButton rbBuscarPermiso;
+        private System.Windows.Forms.TextBox txtSeleccion;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn Apellido;
@@ -629,6 +646,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Permiso;
         private System.Windows.Forms.DataGridViewTextBoxColumn Usuario;
         private System.Windows.Forms.DataGridViewTextBoxColumn Contrasenna;
-        private System.Windows.Forms.TextBox txtSeleccion;
     }
 }

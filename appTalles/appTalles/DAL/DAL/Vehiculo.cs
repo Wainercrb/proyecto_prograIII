@@ -104,6 +104,7 @@ namespace DAL
             prm.agregarParametro("@fk_marca", NpgsqlDbType.Integer, vehiculo.Marca.Id);
             prm.agregarParametro("@fk_cliente", NpgsqlDbType.Integer, vehiculo.Cliente.Id);
             prm.agregarParametro("fk_tipo", NpgsqlDbType.Integer, vehiculo.Tipo.Id);
+            prm.agregarParametro("@id_vehiculo", NpgsqlDbType.Numeric, vehiculo.Id);
             this.conexion.ejecutarSQL(sql, prm.obtenerParametros());
             if (this.conexion.IsError)
             {
@@ -118,6 +119,22 @@ namespace DAL
             string sql = "DELETE FROM " + this.conexion.Schema + "vehiculo WHERE id_vehiculo = @id_vehiculo";
             Parametro prm = new Parametro();
             prm.agregarParametro("@id_vehiculo", NpgsqlDbType.Integer, Vehiculo.Id);
+            this.conexion.ejecutarSQL(sql, prm.obtenerParametros());
+            if (this.conexion.IsError)
+            {
+                this.Error = true;
+                this.errorMsg = this.conexion.ErrorDescripcion;
+            }
+        }
+        //Metodo actualiza el estado del vehículo x por el valor
+        //que recibe por parametro
+        public void actualizarEstado(int id, string estado)
+        {
+            limpiarError();
+            string sql = "UPDATE " + this.conexion.Schema + "vehiculo SET estado = @estado WHERE id_vehiculo = @id_vehiculo";
+            Parametro prm = new Parametro();
+            prm.agregarParametro("@estado", NpgsqlDbType.Varchar, estado);
+            prm.agregarParametro("@id_vehiculo", NpgsqlDbType.Integer, id);
             this.conexion.ejecutarSQL(sql, prm.obtenerParametros());
             if (this.conexion.IsError)
             {
@@ -195,7 +212,6 @@ namespace DAL
             }
             return vehiculos;
         }
-
         public string ErrorMsg
         {
             get
@@ -208,7 +224,6 @@ namespace DAL
                 errorMsg = value;
             }
         }
-
         public bool Error
         {
             get

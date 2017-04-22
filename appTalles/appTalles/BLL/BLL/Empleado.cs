@@ -5,12 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using ENT;
 using DAL;
+using System.Data;
 
 namespace BLL
 {
     public class Empleado
     {
         //Metodo valida los datos de la endidad para agregarlo o actualizarlos
+        //y pasarlos a la clase DAL.empleado
         public void insertarEmpledo(ENT.Empleado empleado)
         {
             DAL.Empleado DalEmpleado = new DAL.Empleado();
@@ -99,9 +101,8 @@ namespace BLL
             }
             return empleados;
         }
-
-        //Metodo elimina al empleado que ingresa por parametro
-        //desde la interfaz
+        //Metodo verica la valides de los datos que ingresan
+        //desde la interfaz para pasarlo a DAl.empleado
         public void eliminarEmpleado(ENT.Empleado empleado)
         {
             DAL.Empleado DalEmpleado = new DAL.Empleado();
@@ -122,7 +123,8 @@ namespace BLL
                 throw ex;
             }
         }
-        //Metodo busca un valor string en la base de dastos
+        //Metodo verifica los datos a buscar, si estan
+        //correntos pasarlos a DAL.empleado
         public List<ENT.Empleado> buscarStringEmpleado(string valor, string columna)
         {
             List<ENT.Empleado> empleados = new List<ENT.Empleado>();
@@ -138,7 +140,8 @@ namespace BLL
             }
             return empleados;
         }
-        //Metodo busca un valor integer de la base de datos
+        //Metodo verifica los datos a buscar, si estan
+        //correntos pasarlos a DAL.empleado
         public List<ENT.Empleado> buscarIntEmpleado(int valor, string columna)
         {
             List<ENT.Empleado> empleados = new List<ENT.Empleado>();
@@ -154,8 +157,8 @@ namespace BLL
             }
             return empleados;
         }
-
         //Metodo valida los datos para cambiar la contrasenna
+        //se estan correctos pasarlos a DAL.empleado
         public void cambioCantrasenna(ENT.Empleado empleado, string nueva)
         {
             DAL.Empleado DalEmpleado = new DAL.Empleado();
@@ -177,9 +180,9 @@ namespace BLL
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }
+       
     }
 }

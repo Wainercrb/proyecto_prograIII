@@ -195,12 +195,7 @@ namespace ENT
 
         public override string ToString()
         {
-            return this.Id + " " + this.FechaIngreso + " " + this.FechaSalida + " " + this.FechaFacturacion + " " + this.Estado + " " + this.CostoTotal + " " + this.Vehiculo
-                + " " + this.Empleado + " " + this.OrdenCatalogo + " " + this.OrdenRepesto;
+            return this.Id +" "+ this.empleado  +" "+ this.vehiculo;
         }
-
-
-
-
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -98,6 +99,26 @@ namespace BLL
                 throw ex;
             }
             return ordenServicios;
+        }
+        public DataTable cargarInformeServicoPorId(int valor)
+        {
+
+            DataTable tabla = new DataTable();
+            try
+            {
+                DAL.OrdenServicio DalOrden = new DAL.OrdenServicio();
+                tabla = DalOrden.cargarInformeServicioPorId(valor);
+                if (DalOrden.Error)
+                {
+                    throw new Exception("Error al cargar los servicios, " + DalOrden.ErrorMsg);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return tabla;
         }
     }
 }

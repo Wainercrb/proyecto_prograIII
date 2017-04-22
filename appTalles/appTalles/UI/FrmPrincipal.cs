@@ -11,36 +11,48 @@ using DAL;
 using ENT;
 using Vista;
 using appTalles.Vista;
-using ENT;
 using appTalles.UI;
-using appTalles.Reportes;
+using appTalles.RP;
 
 namespace Vista
-
-
 {
     public partial class FrmPrincipal : Form
     {
 
-        private ENT.Empleado empleado;
-        private ENT.Empleado empleado1;
+        private ENT.Empleado EntEmpleado;
+        private ENT.Orden EntOrden;
+        private BLL.Orden BllOrden;
+        private List<ENT.Orden> ordenes;
 
         public FrmPrincipal()
         {
             InitializeComponent();
+            EntOrden = new ENT.Orden();
+            BllOrden = new BLL.Orden();
+            ordenes = new List<ENT.Orden>();
+            cargarOrden();
 
 
         }
         public FrmPrincipal(ENT.Empleado empleado)
         {
             InitializeComponent();
-            this.empleado = empleado;
+            this.EntEmpleado = empleado;
+            EntOrden = new ENT.Orden();
+            BllOrden = new BLL.Orden();
+            ordenes = new List<ENT.Orden>();
+            txtEmpleado.Text = empleado.Usuario;
+            cargarOrden();
         }
-
         private void cambioContraseñaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmCambio frm = new FrmCambio(empleado);
-            frm.ShowDialog();
+            if (EntEmpleado.Permiso == "Administrador")
+            {
+                FrmCambio frm = new FrmCambio(EntEmpleado);
+                frm.ShowDialog();
+                return;
+            }
+            MessageBox.Show("No tienes permisos para acceder a esta función", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void registroToolStripMenuItem_Click(object sender, EventArgs e)
@@ -50,101 +62,185 @@ namespace Vista
 
         private void registroMarcasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmMarca frm = new frmMarca();
-            frm.ShowDialog();
+            if (EntEmpleado.Puesto == "Cajero" || EntEmpleado.Puesto == "Jefe")
+            {
+                frmMarca frm = new frmMarca();
+                frm.ShowDialog();
+                return;
+            }
+            MessageBox.Show("No tienes permisos para acceder a esta función", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void registroVehiculoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmEdicionVehiculo frm = new frmEdicionVehiculo();
-            frm.ShowDialog();
+            if (EntEmpleado.Puesto == "Cajero" || EntEmpleado.Puesto == "Jefe")
+            {
+                frmEdicionVehiculo frm = new frmEdicionVehiculo();
+                frm.ShowDialog();
+                return;
+            }
+            MessageBox.Show("No tienes permisos para acceder a esta función", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void registroClasesVehiculoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmTipo frm = new FrmTipo();
-            frm.ShowDialog();
+            if (EntEmpleado.Puesto == "Cajero" || EntEmpleado.Puesto == "Jefe")
+            {
+                FrmTipo frm = new FrmTipo();
+                frm.ShowDialog();
+                return;
+            }
+            MessageBox.Show("No tienes permisos para acceder a esta función", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void registroClienteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmCliente frm = new frmCliente();
-            frm.ShowDialog();
+            if (EntEmpleado.Puesto == "Cajero" || EntEmpleado.Puesto == "Jefe")
+            {
+                frmCliente frm = new frmCliente();
+                frm.ShowDialog();
+                return;
+            }
+            MessageBox.Show("No tienes permisos para acceder a esta función", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void registroEmpleadoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (empleado.Permiso == "Administrador")
+            if (EntEmpleado.Permiso == "Administrador")
             {
                 FrmEmpleado frm = new FrmEmpleado();
                 frm.ShowDialog();
                 return;
             }
-            MessageBox.Show("No tienes permisos para acceder a esta función");
+            MessageBox.Show("No tienes permisos para acceder a esta función", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         private void registroCatalogoRepuestosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmRepuestos frm = new FrmRepuestos();
-            frm.ShowDialog();
+            if (EntEmpleado.Puesto == "Cajero" || EntEmpleado.Puesto == "Jefe")
+            {
+                FrmRepuestos frm = new FrmRepuestos();
+                frm.ShowDialog();
+                return;
+            }
+            MessageBox.Show("No tienes permisos para acceder a esta función", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
         private void registroCatalogoReparacionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RegistroServicio frm = new RegistroServicio();
-            frm.ShowDialog();
+            if (EntEmpleado.Puesto == "Cajero" || EntEmpleado.Puesto == "Jefe")
+            {
+                RegistroServicio frm = new RegistroServicio();
+                frm.ShowDialog();
+                return;
+            }
+            MessageBox.Show("No tienes permisos para acceder a esta función", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-
         private void crearOrdenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmOrdenReparaciones frm = new FrmOrdenReparaciones();
-            frm.Show();           
+            if (EntEmpleado.Puesto == "Cajero" || EntEmpleado.Puesto == "Jefe")
+            {
+                FrmOrdenReparaciones frm = new FrmOrdenReparaciones();
+                frm.Show();
+                return;
+            }
+            MessageBox.Show("No tienes permisos para acceder a esta función", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         private void registrarReparacionesRepuestosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmOrden frm = new FrmOrden();
-            frm.ShowDialog();
+            if (EntEmpleado.Puesto == "Mecanico" || EntEmpleado.Puesto == "Jefe")
+            {
+                FrmOrden frm = new FrmOrden();
+                frm.ShowDialog();
+                return;
+            }
+            MessageBox.Show("No tienes permisos para acceder a esta función", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-
         private void finalizoOrdenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmOrdenFinalizada frm = new FrmOrdenFinalizada();
-            frm.ShowDialog();
+            if (EntEmpleado.Puesto == "Mecanico" || EntEmpleado.Puesto == "Jefe")
+            {
+                FrmOrdenFinalizada frm = new FrmOrdenFinalizada();
+                frm.ShowDialog();
+                return;
+            }
+            MessageBox.Show("No tienes permisos para acceder a esta función", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-
         private void facturaOrdenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            repor frm = new repor();
-            frm.ShowDialog();
+            if (EntEmpleado.Puesto == "Cajero" || EntEmpleado.Puesto == "Jefe")
+            {
+               //FromReporteOrden frm = new FromReporteOrden();
+               // frm.ShowDialog();
+                return;
+            }
+            MessageBox.Show("No tienes permisos para acceder a esta función", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             DAL.Orden or = new DAL.Orden();
-            
-            this.grdPrueba.DataSource = or.cargarDataTableOrden(DateTime.Today);
+
+            this.grdOrdenes.DataSource = or.cargarDataTableOrden(DateTime.Today);
         }
 
         private void informeOrdenFinalizadaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmInformeOrdenFinalizada frm = new FrmInformeOrdenFinalizada();
+
+
+            FrmFacturaOrden frm = new FrmFacturaOrden();
             frm.ShowDialog();
+            //FrmRepuestoFrecuentes frm = new FrmRepuestoFrecuentes();
+            //frm.ShowDialog();
+
         }
 
         private void informeReparacionesAtendidasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmReporteServicios frm = new FrmReporteServicios();
-            frm.ShowDialog();
+           
         }
 
         private void informeEstadisticoAtendidioToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmReporteRepuestos frm = new FrmReporteRepuestos();
-            frm.ShowDialog();
+         
+        }
+
+        private void cargarOrden()
+        {
+            try
+            {
+                ordenes = BllOrden.cargarStringOrden("Pendiente", "estado");
+                this.grdOrdenes.DataSource = ordenes;
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
+        }
+
+        
+        private void seleccionOrden(object sender, MouseEventArgs e)
+        {
+
+            if (this.grdOrdenes.Rows.Count > 0)
+            {
+                int fila = this.grdOrdenes.CurrentRow.Index;
+                EntOrden.Id = Int32.Parse(this.grdOrdenes[0, fila].Value.ToString());
+                EntOrden.FechaIngreso = DateTime.Parse(this.grdOrdenes[1, fila].Value.ToString());
+                EntOrden.FechaSalida = DateTime.Parse(this.grdOrdenes[2, fila].Value.ToString());
+                EntOrden.FechaFacturacion = DateTime.Parse(this.grdOrdenes[3, fila].Value.ToString());
+                EntOrden.Estado = this.grdOrdenes[4, fila].Value.ToString();
+                EntOrden.CostoTotal = Double.Parse(this.grdOrdenes[5, fila].Value.ToString());
+                EntOrden.Empleado = (ENT.Empleado)grdOrdenes[7, fila].Value;
+                EntOrden.Vehiculo = (ENT.Vehiculo)this.grdOrdenes[6, fila].Value;
+                FrmOrdenReparaciones frm = new FrmOrdenReparaciones(EntOrden);
+                frm.ShowDialog();
+                cargarOrden();
+            }
         }
     }
 }

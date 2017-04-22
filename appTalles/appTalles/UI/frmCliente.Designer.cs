@@ -85,10 +85,11 @@
             // 
             // txtCantidadRegistros
             // 
+            this.txtCantidadRegistros.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtCantidadRegistros.Location = new System.Drawing.Point(460, 532);
             this.txtCantidadRegistros.Name = "txtCantidadRegistros";
             this.txtCantidadRegistros.ReadOnly = true;
-            this.txtCantidadRegistros.Size = new System.Drawing.Size(100, 20);
+            this.txtCantidadRegistros.Size = new System.Drawing.Size(100, 13);
             this.txtCantidadRegistros.TabIndex = 4;
             // 
             // label2
@@ -189,9 +190,9 @@
             // 
             // txtBuscar
             // 
-            this.txtBuscar.Location = new System.Drawing.Point(208, 11);
+            this.txtBuscar.Location = new System.Drawing.Point(206, 13);
             this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(176, 20);
+            this.txtBuscar.Size = new System.Drawing.Size(143, 20);
             this.txtBuscar.TabIndex = 0;
             this.txtBuscar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.BuscarEnter);
             // 
@@ -260,10 +261,11 @@
             // 
             // txtMensaje
             // 
+            this.txtMensaje.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtMensaje.Location = new System.Drawing.Point(10, 532);
             this.txtMensaje.Name = "txtMensaje";
             this.txtMensaje.ReadOnly = true;
-            this.txtMensaje.Size = new System.Drawing.Size(358, 20);
+            this.txtMensaje.Size = new System.Drawing.Size(358, 13);
             this.txtMensaje.TabIndex = 8;
             // 
             // txtApellidoMaterno
@@ -387,7 +389,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(121, 150);
+            this.label1.Location = new System.Drawing.Point(160, 149);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(43, 13);
             this.label1.TabIndex = 0;
@@ -399,16 +401,16 @@
             this.groupBox1.Controls.Add(this.rbBuscarNombre);
             this.groupBox1.Controls.Add(this.rbBuscarCedula);
             this.groupBox1.Controls.Add(this.txtBuscar);
-            this.groupBox1.Location = new System.Drawing.Point(170, 134);
+            this.groupBox1.Location = new System.Drawing.Point(209, 134);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(390, 37);
+            this.groupBox1.Size = new System.Drawing.Size(351, 37);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             // 
             // rbBuscaApellido
             // 
             this.rbBuscaApellido.AutoSize = true;
-            this.rbBuscaApellido.Location = new System.Drawing.Point(140, 11);
+            this.rbBuscaApellido.Location = new System.Drawing.Point(138, 13);
             this.rbBuscaApellido.Name = "rbBuscaApellido";
             this.rbBuscaApellido.Size = new System.Drawing.Size(62, 17);
             this.rbBuscaApellido.TabIndex = 3;
@@ -419,7 +421,7 @@
             // rbBuscarNombre
             // 
             this.rbBuscarNombre.AutoSize = true;
-            this.rbBuscarNombre.Location = new System.Drawing.Point(71, 11);
+            this.rbBuscarNombre.Location = new System.Drawing.Point(70, 13);
             this.rbBuscarNombre.Name = "rbBuscarNombre";
             this.rbBuscarNombre.Size = new System.Drawing.Size(62, 17);
             this.rbBuscarNombre.TabIndex = 2;
@@ -431,7 +433,7 @@
             // 
             this.rbBuscarCedula.AutoSize = true;
             this.rbBuscarCedula.Checked = true;
-            this.rbBuscarCedula.Location = new System.Drawing.Point(7, 11);
+            this.rbBuscarCedula.Location = new System.Drawing.Point(6, 14);
             this.rbBuscarCedula.Name = "rbBuscarCedula";
             this.rbBuscarCedula.Size = new System.Drawing.Size(58, 17);
             this.rbBuscarCedula.TabIndex = 1;

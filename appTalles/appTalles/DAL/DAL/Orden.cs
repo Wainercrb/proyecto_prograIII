@@ -27,14 +27,14 @@ namespace DAL
             this.Error = false;
             this.ErrorMsg = "";
         }
-        //Metodo agrega los valores que recibe por parametro 
+        //Metodo agrega los valores que recibe por parametro y retorna
+        //y id_de esa orden
         public int agregarOrden(ENT.Orden orden)
         {
             limpiarError();
             string id_orden = "0";
             string sql = "INSERT INTO " + this.conexion.Schema + "orden(fecha_ingreso, fecha_salida, fecha_facturacion, estado, costo_total, fk_vehiculo, pk_empleado) "
                        + "VALUES (@fecha_ingreso, @fecha_salida, @fecha_facturacion, @estado, @costo_total, @fk_vehiculo, @pk_empleado) returning id_orden";
-
             Parametro prm = new Parametro();
             prm.agregarParametro("@fecha_ingreso", NpgsqlDbType.Date, orden.FechaIngreso);
             prm.agregarParametro("@fecha_salida", NpgsqlDbType.Date, orden.FechaSalida);
@@ -92,6 +92,8 @@ namespace DAL
             }
             return ordenes;
         }
+        //Metodo busca por id una orden y lo retorna en un dataset
+        //lo recorre y lo convierte en una lista
         public ENT.Orden obtenerOrdenConsecutivo(int consecutivo)
         {
             this.limpiarError();
@@ -114,16 +116,13 @@ namespace DAL
             {
                 if (dsetOrden.Tables[0].Rows.Count > 0)
                 {
-
                     MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(dsetOrden.Tables["id_marca"].ToString()), dsetOrden.Tables["marca"].ToString());
                     ENT.Empleado OEmpleado = new ENT.Empleado(int.Parse(dsetOrden.Tables["id_empleado"].ToString()), dsetOrden.Tables["nombre_empleado"].ToString(), dsetOrden.Tables["apellido_empleado"].ToString(), dsetOrden.Tables["direccion_empleado"].ToString(), dsetOrden.Tables["telefono1_empleado"].ToString(), dsetOrden.Tables["telefono2_empleado"].ToString(), dsetOrden.Tables["trabajo_empleado"].ToString(), dsetOrden.Tables["permiso_empleado"].ToString(), dsetOrden.Tables["usuario_empleado"].ToString(), dsetOrden.Tables["contrasenna_empleado"].ToString());
                     ENT.Cliente oCliente = new ENT.Cliente(int.Parse(dsetOrden.Tables["id_cliente"].ToString()), dsetOrden.Tables["cedula"].ToString(), dsetOrden.Tables["nombre"].ToString(), dsetOrden.Tables["apellido"].ToString(), dsetOrden.Tables["apellido2"].ToString(), dsetOrden.Tables["telefono_casa"].ToString(), dsetOrden.Tables["telefono_celular"].ToString(), dsetOrden.Tables["telefono_oficina"].ToString());
                     TipoVehiculo oTipo = new TipoVehiculo(Int32.Parse(dsetOrden.Tables["id_tipo"].ToString()), dsetOrden.Tables["tipo"].ToString());
                     ENT.Vehiculo oVehiculo = new ENT.Vehiculo(int.Parse(dsetOrden.Tables["id_vehiculo"].ToString()), dsetOrden.Tables["placa"].ToString(), int.Parse(dsetOrden.Tables["anno"].ToString()), int.Parse(dsetOrden.Tables["cilindraje"].ToString()), int.Parse(dsetOrden.Tables["numero_motor"].ToString()), int.Parse(dsetOrden.Tables["numero_chazis"].ToString()), dsetOrden.Tables["combustible"].ToString(), dsetOrden.Tables["estado"].ToString(), oMarca, oCliente, oTipo);
                     ENT.Orden oOrden = new ENT.Orden(int.Parse(dsetOrden.Tables["id_orden"].ToString()), DateTime.Parse(dsetOrden.Tables["fecha_ingreso"].ToString()), DateTime.Parse(dsetOrden.Tables["fecha_salida"].ToString()), DateTime.Parse(dsetOrden.Tables["fecha_facturacion"].ToString()), dsetOrden.Tables["estado"].ToString(), double.Parse(dsetOrden.Tables["costo_total"].ToString()), oVehiculo, OEmpleado);
-
                 }
-
             }
             else
             {
@@ -148,7 +147,8 @@ namespace DAL
                 this.errorMsg = this.conexion.ErrorDescripcion;
             }
         }
-
+        //Metodo carga un dataset y lo recorre y lo retorna en una
+        //lista
         public List<ENT.Orden> obtenerOrdenId(ENT.Orden orden)
         {
             this.limpiarError();
@@ -164,7 +164,6 @@ namespace DAL
                          "where v.fk_marca = m.id_marca and " +
                          "v.fk_tipo = t.id_tipo and " +
                          "v.fk_cliente = c.id_cliente and o.fk_vehiculo = v.id_vehiculo and o.pk_empleado = e.id_empleado and id_orden = " + orden.Id;
-
             dsetOrden = this.conexion.ejecutarConsultaSQL(sql);
             foreach (DataRow tupla in dsetOrden.Tables[0].Rows)
             {
@@ -205,15 +204,29 @@ namespace DAL
                 this.error = true;
             }
         }
+        //Metodo actualiza el estado de una orden
+        //por los valores que recibe por parametro
         public void actualizarEstadoOrden(ENT.Orden orden)
         {
             limpiarError();
-            string sql = "UPDATE public.orden SET estado = @estado WHERE  id_orden = @id_orden";
+            string sql = "UPDATE " + this.conexion.Schema + "orden SET estado = @estado WHERE  id_orden = @id_orden";
             Parametro prm = new Parametro();
-
             prm.agregarParametro("@estado", NpgsqlDbType.Varchar, orden.Estado);
             prm.agregarParametro("@id_orden", NpgsqlDbType.Integer, orden.Id);
-
+            this.conexion.ejecutarSQL(sql, prm.obtenerParametros());
+            if (conexion.IsError)
+            {
+                this.errorMsg = this.conexion.ErrorDescripcion;
+                this.error = true;
+            }
+        }
+        //Metodo elimina la orden que recibe por parametro
+        public void eliminarOrden(int valor)
+        {
+            limpiarError();
+            string sql = "DELETE 'FROM " + this.conexion.Schema + "orden WHERE id_orden = @id_orden";
+            Parametro prm = new Parametro();
+            prm.agregarParametro("id_orden", NpgsqlDbType.Numeric, valor);
             this.conexion.ejecutarSQL(sql, prm.obtenerParametros());
             if (conexion.IsError)
             {
@@ -265,7 +278,6 @@ namespace DAL
             }
             return ordenes;
         }
-
         //Metodo busca por un valor string y lo agrega a un dataset para 
         //retorna en una lista
         public List<ENT.Orden> obtenerStringOrden(string valor, string columna)
@@ -285,7 +297,6 @@ namespace DAL
                          "where v.fk_marca = m.id_marca and " +
                          "v.fk_tipo = t.id_tipo and " +
                          "v.fk_cliente = c.id_cliente and o.fk_vehiculo = v.id_vehiculo and o.pk_empleado = e.id_empleado and o." + columna + "= @" + columna;
-
             DataSet dset = this.conexion.ejecutarConsultaSQL(sql, "empleado", prm.obtenerParametros());
             if (!this.conexion.IsError)
             {
@@ -312,13 +323,13 @@ namespace DAL
         }
         //Metodo busca por un valor datatime y lo agrega a un dataset para 
         //retorna en una lista
-        public List<ENT.Orden> obtenerFechaOrden(DateTime ingreso, DateTime salida)
+        public List<ENT.Orden> obtenerFechaOrden(DateTime fecha_uno, DateTime fecha_dos)
         {
             limpiarError();
             List<ENT.Empleado> empleados = new List<ENT.Empleado>();
             Parametro prm = new Parametro();
-            prm.agregarParametro("@ingreso", NpgsqlDbType.Date, ingreso);
-            prm.agregarParametro("@salida", NpgsqlDbType.Date, salida);
+            prm.agregarParametro("@fecha_ingreso_uno", NpgsqlDbType.Date, fecha_uno);
+            prm.agregarParametro("@fecha_ingreso_dos", NpgsqlDbType.Date, fecha_dos); ;
             List<ENT.Orden> ordenes = new List<ENT.Orden>();
             string sql = "SELECT o.id_orden as id_orden, o.fecha_ingreso as fecha_ingreso, o.fecha_salida as fecha_salida, o.fecha_facturacion as fecha_facturacion, o.estado as estado, o.costo_total as costo_total, o.fk_vehiculo as fk_vehiculo, o.pk_empleado as pk_empleado," +
                          "v.id_vehiculo as id_vehiculo,v.anno as anno, v.placa as placa, v.cilindraje as cilindraje, v.numero_motor as numero_motor, v.numero_chazis as numero_chazis, v.combustible as combustible, v.estado as estado, v.fk_marca as fk_marca, v.fk_cliente as fk_cliente, fk_tipo as fk_tipo," +
@@ -329,8 +340,7 @@ namespace DAL
                          "from public.vehiculo v, public.marca m, public.tipo t, public.cliente c, public.empleado e, public.orden o " +
                          "where v.fk_marca = m.id_marca and " +
                          "v.fk_tipo = t.id_tipo and " +
-                         "v.fk_cliente = c.id_cliente and o.fk_vehiculo = v.id_vehiculo and o.pk_empleado = e.id_empleado and o.fecha_ingreso >= @ingreso al @salida";
-
+                         "v.fk_cliente = c.id_cliente and o.fk_vehiculo = v.id_vehiculo and o.pk_empleado = e.id_empleado and cast(o.fecha_ingreso as date) between @fecha_ingreso_uno and @fecha_ingreso_dos";
             DataSet dset = this.conexion.ejecutarConsultaSQL(sql, "empleado", prm.obtenerParametros());
             if (!this.conexion.IsError)
             {
@@ -356,14 +366,14 @@ namespace DAL
             return ordenes;
         }
 
-        public DataTable consulaOrdenReporte(int valor)
+        //Metodo carga un datatable por id y lo retorna a bll.orden
+        public DataTable cargarReporteOrdenPorId(int valor)
         {
             DataTable tabla = null;
 
             Parametro oParametro = new Parametro();
             oParametro.agregarParametro("@consecutivo", NpgsqlDbType.Numeric, valor);
-            string sql = "select o.fecha_ingreso, o.fecha_salida, o.fecha_facturacion, o.estado, o.costo_total, s.servcio, s.precio, s.impuesto, r.repuesto, r.precio, r.impuesto from orden o, servicio s, repuesto r, orden_repuesto orre, orden_servicio orse " +
-            "where orre.fk_orden = o.id_orden and orse.fk_orden = o.id_orden and orre.fk_repuesto = r.id_repuesto and orse.fk_servicio = s.id_servicio and o.id_orden = @consecutivo;";
+            string sql = "select * from "+this.conexion.Schema+"orden WHERE id_orden = @consecutivo;";
 
             DataSet dset = this.conexion.ejecutarConsultaSQL(sql,
                                                         "orden",
@@ -403,10 +413,6 @@ namespace DAL
             }
             return tabla;
         }
-
-        string sql = "select e.nombre, e.apellido,s.servcio, orse.cantidad from empleado e, orden_servicio orse, servicio s, orden o where orse.fk_empleado = e.id_empleado " +
-                     "and orse.fk_servicio = s.id_servicio and o.id_orden = orse.fk_orden and e.id_empleado = @id_empleado and cast(o.fecha_ingreso as date) between @fecha_ingreso_uno and @fecha_ingreso_dos";
-
         public DataTable cargarDataTableServicios(int id_empleado, DateTime fecha_uno, DateTime fecha_dos)
         {
             DataTable tabla = null;
@@ -416,7 +422,7 @@ namespace DAL
             oParametro.agregarParametro("@fecha_ingreso_dos", NpgsqlDbType.Date, fecha_dos);
             string sql = "select e.nombre, e.apellido,s.servcio, orse.cantidad, o.id_orden from empleado e, orden_servicio orse, servicio s, orden o where orse.fk_empleado = e.id_empleado " +
                     "and orse.fk_servicio = s.id_servicio and o.id_orden = orse.fk_orden and e.id_empleado = @id_empleado and cast(o.fecha_ingreso as date) between @fecha_ingreso_uno and @fecha_ingreso_dos";
-            DataSet dset = this.conexion.ejecutarConsultaSQL(sql,"orden", oParametro.obtenerParametros());
+            DataSet dset = this.conexion.ejecutarConsultaSQL(sql, "orden", oParametro.obtenerParametros());
             if (!conexion.IsError)
             {
                 tabla = dset.Tables[0].Copy();
@@ -433,7 +439,7 @@ namespace DAL
         {
             DataTable tabla = null;
             Parametro oParametro = new Parametro();
-            string sql = "select r.repuesto, orre.cantidad, e.nombre, e.apellido, o.id_orden from empleado e, orden_repuesto orre, repuesto r, orden o "+
+            string sql = "select r.repuesto, orre.cantidad, e.nombre, e.apellido, o.id_orden from empleado e, orden_repuesto orre, repuesto r, orden o " +
                           "where orre.fk_orden = o.id_orden and orre.fk_repuesto = r.id_repuesto and orre.pk_empleado = e.id_empleado order by orre.cantidad desc";
             DataSet dset = this.conexion.ejecutarConsultaSQL(sql, "orden", oParametro.obtenerParametros());
             if (!conexion.IsError)

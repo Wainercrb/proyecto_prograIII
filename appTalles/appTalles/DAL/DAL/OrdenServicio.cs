@@ -14,7 +14,7 @@ namespace DAL
     {
         private AccesoDatosPostgre conexion;
         private bool error;
-        private string errorMsg;  
+        private string errorMsg;
         //Metodo limpia las variables de error
         public void limpiarError()
         {
@@ -48,7 +48,7 @@ namespace DAL
             this.limpiarError();
             List<ENT.OrdenServicio> ordenServicios = new List<ENT.OrdenServicio>();
             this.limpiarError();
-            List<OrdenRepuesto> ordenRepuestos = new List<OrdenRepuesto>();
+            List<ENT.OrdenRepuesto> ordenRepuestos = new List<ENT.OrdenRepuesto>();
             Parametro prm = new Parametro();
             prm.agregarParametro("@fk_orden", NpgsqlDbType.Integer, valor);
             string sql = "SELECT orp.id_orden_servicio AS id_orden_servicio, orp.cantidad AS cantidad, orp.costo AS costo, " +
@@ -56,8 +56,8 @@ namespace DAL
        "e.contrasenna AS contrasenna_empleado, e.usuario AS usuario_empleado, o.id_orden AS id_orden, o.fecha_ingreso AS fecha_ingreso, o.fecha_salida AS fecha_salida, o.fecha_facturacion AS fecha_facturacion, " +
        "o.estado AS estado, o.costo_total AS costo_total, o.fk_vehiculo AS fk_vehiculo, o.pk_empleado AS pk_empleado, s.id_servicio AS id_servicioS, s.servcio AS servicioS, " +
        "s.precio AS precioS, s.impuesto AS impuestoS " +
-      " FROM   "+this.conexion.Schema+"orden_servicio orp, "+this.conexion.Schema+"empleado e, "+this.conexion.Schema+"orden o, "+this.conexion.Schema+"servicio s " +
-       "WHERE orp.fk_empleado = e.id_empleado AND orp.fk_orden = o.id_orden AND orp.fk_Servicio = s.id_servicio AND orp.fk_orden = @fk_orden" ;
+      " FROM   " + this.conexion.Schema + "orden_servicio orp, " + this.conexion.Schema + "empleado e, " + this.conexion.Schema + "orden o, " + this.conexion.Schema + "servicio s " +
+       "WHERE orp.fk_empleado = e.id_empleado AND orp.fk_orden = o.id_orden AND orp.fk_Servicio = s.id_servicio AND orp.fk_orden = @fk_orden";
             DataSet dset = this.conexion.ejecutarConsultaSQL(sql, "orden_servicio", prm.obtenerParametros());
             if (!this.conexion.IsError)
             {
@@ -108,6 +108,30 @@ namespace DAL
                 this.error = true;
                 this.errorMsg = this.conexion.ErrorDescripcion;
             }
+        }
+        public DataTable cargarInformeServicioPorId(int valor)
+        {
+            DataTable tabla = null;
+            Parametro oParametro = new Parametro();
+            oParametro.agregarParametro("@id_orden", NpgsqlDbType.Numeric, valor);
+            string sql = "SELECT s.id_servicio, s.servcio, s.precio as precio_servicio, s.impuesto as impuesto_servicio " +
+            "FROM " + this.conexion.Schema + "orden_servicio orre, " + this.conexion.Schema + "orden o, " + this.conexion.Schema + "servicio s " +
+            "WHERE orre.fk_orden = o.id_orden and orre.fk_servicio = s.id_servicio and id_orden = @id_orden;";
+            DataSet dset = this.conexion.ejecutarConsultaSQL(sql,
+                                                        "servicio",
+                                                        oParametro.obtenerParametros());
+            if (!conexion.IsError)
+            {
+
+                tabla = dset.Tables[0].Copy();
+            }
+            else
+            {
+                this.ErrorMsg = this.conexion.ErrorDescripcion;
+                this.Error = true;
+
+            }
+            return tabla;
         }
         public bool Error
         {

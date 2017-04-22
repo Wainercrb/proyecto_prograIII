@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace appTalles.Reportes {
+namespace appTalles.RP {
     using System;
     using System.ComponentModel;
     using CrystalDecisions.Shared;
@@ -16,14 +16,14 @@ namespace appTalles.Reportes {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class CyOrdenFinalizada : ReportClass {
+    public class CryFacuraServicio : ReportClass {
         
-        public CyOrdenFinalizada() {
+        public CryFacuraServicio() {
         }
         
         public override string ResourceName {
             get {
-                return "CyOrdenFinalizada.rpt";
+                return "CryFacuraServicio.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace appTalles.Reportes {
         
         public override string FullResourceName {
             get {
-                return "appTalles.Reportes.CyOrdenFinalizada.rpt";
+                return "appTalles.RP.CryFacuraServicio.rpt";
             }
             set {
                 // Do nothing
@@ -90,9 +90,9 @@ namespace appTalles.Reportes {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedCyOrdenFinalizada : Component, ICachedReport {
+    public class CachedCryFacuraServicio : Component, ICachedReport {
         
-        public CachedCyOrdenFinalizada() {
+        public CachedCryFacuraServicio() {
         }
         
         [Browsable(false)]
@@ -129,7 +129,7 @@ namespace appTalles.Reportes {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            CyOrdenFinalizada rpt = new CyOrdenFinalizada();
+            CryFacuraServicio rpt = new CryFacuraServicio();
             rpt.Site = this.Site;
             return rpt;
         }

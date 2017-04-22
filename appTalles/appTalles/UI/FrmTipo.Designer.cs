@@ -85,12 +85,16 @@
             // 
             // grdTipos
             // 
+            this.grdTipos.AllowUserToAddRows = false;
+            this.grdTipos.AllowUserToDeleteRows = false;
+            this.grdTipos.AllowUserToOrderColumns = true;
             this.grdTipos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdTipos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
             this.tipoVehiculo});
             this.grdTipos.Location = new System.Drawing.Point(5, 79);
             this.grdTipos.Name = "grdTipos";
+            this.grdTipos.ReadOnly = true;
             this.grdTipos.Size = new System.Drawing.Size(283, 223);
             this.grdTipos.TabIndex = 0;
             this.grdTipos.DoubleClick += new System.EventHandler(this.Editar);
@@ -101,6 +105,7 @@
             this.Id.DataPropertyName = "Id";
             this.Id.HeaderText = "Código";
             this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
             this.Id.Width = 110;
             // 
             // tipoVehiculo
@@ -108,6 +113,7 @@
             this.tipoVehiculo.DataPropertyName = "Tipo";
             this.tipoVehiculo.HeaderText = "Tipo Vehículo";
             this.tipoVehiculo.Name = "tipoVehiculo";
+            this.tipoVehiculo.ReadOnly = true;
             this.tipoVehiculo.Width = 130;
             // 
             // txtMensaje
@@ -167,6 +173,7 @@
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(23, 22);
             this.btnEliminar.Text = "Eliminar";
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click_1);
             // 
             // btnRefrescar
             // 

@@ -13,7 +13,6 @@ namespace DAL
 {
     public class Cliente
     {
-
         private AccesoDatosPostgre conexion;
         private bool error;
         private string errorMsg;
@@ -32,7 +31,8 @@ namespace DAL
         {
             get { return error; }
         }
-
+        //Metodo carga un dataset con los clientes guardados en la
+        //base de datos los recorre y guarda en la lista y los retorna
         public List<ENT.Cliente> obtenerClientes()
         {
             this.limpiarError();
@@ -143,6 +143,31 @@ namespace DAL
                 this.errorMsg = this.conexion.ErrorDescripcion;
             }
             return clientes;
+        }
+        public DataTable cargarInformeClientePorIdOrden(int valor)
+        {
+            DataTable tabla = null;
+            Parametro oParametro = new Parametro();
+            oParametro.agregarParametro("@id_orden", NpgsqlDbType.Numeric, valor);
+            string sql = "SELECT c.id_cliente, c.cedula, c.nombre, c.apellido, c.apellido2, c.telefono_casa, " +
+            "c.telefono_oficina, c.telefono_celular " +
+            "FROM " + this.conexion.Schema + "cliente c, " + this.conexion.Schema + "orden o, " + this.conexion.Schema + "vehiculo v WHERE o.fk_vehiculo = v.id_vehiculo AND v.fk_cliente = c.id_cliente AND id_orden = @id_orden;";
+            DataSet dset = this.conexion.ejecutarConsultaSQL(sql,
+                                                        "cliente",
+                                                       oParametro.obtenerParametros());
+            if (!conexion.IsError)
+            {
+
+                tabla = dset.Tables[0].Copy();
+            }
+            else
+            {
+                this.errorMsg = this.conexion.ErrorDescripcion;
+                this.error = true;
+
+            }
+
+            return tabla;
         }
         public bool Error
         {

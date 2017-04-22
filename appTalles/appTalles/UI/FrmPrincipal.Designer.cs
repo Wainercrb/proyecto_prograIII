@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPrincipal));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.sistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cambioContraseñaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,10 +50,21 @@
             this.informeOrdenFinalizadaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.informeReparacionesAtendidasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.informeEstadisticoAtendidioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button1 = new System.Windows.Forms.Button();
-            this.grdPrueba = new System.Windows.Forms.DataGridView();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtEmpleado = new System.Windows.Forms.TextBox();
+            this.grdOrdenes = new System.Windows.Forms.DataGridView();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FechaIngreso = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fechaSalida = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fechaFacturacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Costo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Empleado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Vehiculo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdPrueba)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdOrdenes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -66,7 +78,7 @@
             this.gestionGerenciaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(820, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1362, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -226,31 +238,131 @@
             this.informeEstadisticoAtendidioToolStripMenuItem.Text = "Informe estadistico atendidio";
             this.informeEstadisticoAtendidioToolStripMenuItem.Click += new System.EventHandler(this.informeEstadisticoAtendidioToolStripMenuItem_Click);
             // 
-            // button1
+            // label1
             // 
-            this.button1.Location = new System.Drawing.Point(114, 49);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Monotype Corsiva", 26.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(850, 111);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(282, 43);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Ordenes Pendientes :(";
             // 
-            // grdPrueba
+            // txtEmpleado
             // 
-            this.grdPrueba.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdPrueba.Location = new System.Drawing.Point(27, 151);
-            this.grdPrueba.Name = "grdPrueba";
-            this.grdPrueba.Size = new System.Drawing.Size(763, 261);
-            this.grdPrueba.TabIndex = 2;
+            this.txtEmpleado.BackColor = System.Drawing.SystemColors.Menu;
+            this.txtEmpleado.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtEmpleado.Font = new System.Drawing.Font("Monotype Corsiva", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmpleado.Location = new System.Drawing.Point(1194, 27);
+            this.txtEmpleado.Name = "txtEmpleado";
+            this.txtEmpleado.Size = new System.Drawing.Size(168, 18);
+            this.txtEmpleado.TabIndex = 4;
+            // 
+            // grdOrdenes
+            // 
+            this.grdOrdenes.AllowUserToAddRows = false;
+            this.grdOrdenes.AllowUserToDeleteRows = false;
+            this.grdOrdenes.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.grdOrdenes.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.grdOrdenes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdOrdenes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Id,
+            this.FechaIngreso,
+            this.fechaSalida,
+            this.fechaFacturacion,
+            this.Costo,
+            this.Estado,
+            this.Empleado,
+            this.Vehiculo});
+            this.grdOrdenes.Location = new System.Drawing.Point(582, 195);
+            this.grdOrdenes.Name = "grdOrdenes";
+            this.grdOrdenes.ReadOnly = true;
+            this.grdOrdenes.Size = new System.Drawing.Size(768, 424);
+            this.grdOrdenes.TabIndex = 5;
+            this.grdOrdenes.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.seleccionOrden);
+            // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "Codigo";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            this.Id.Width = 50;
+            // 
+            // FechaIngreso
+            // 
+            this.FechaIngreso.DataPropertyName = "FechaIngreso";
+            this.FechaIngreso.HeaderText = "Ingreso";
+            this.FechaIngreso.Name = "FechaIngreso";
+            this.FechaIngreso.ReadOnly = true;
+            this.FechaIngreso.Width = 70;
+            // 
+            // fechaSalida
+            // 
+            this.fechaSalida.DataPropertyName = "FechaSalida";
+            this.fechaSalida.HeaderText = "Salida";
+            this.fechaSalida.Name = "fechaSalida";
+            this.fechaSalida.ReadOnly = true;
+            this.fechaSalida.Width = 70;
+            // 
+            // fechaFacturacion
+            // 
+            this.fechaFacturacion.DataPropertyName = "FechaFacturacion";
+            this.fechaFacturacion.HeaderText = "Facturación";
+            this.fechaFacturacion.Name = "fechaFacturacion";
+            this.fechaFacturacion.ReadOnly = true;
+            this.fechaFacturacion.Width = 70;
+            // 
+            // Costo
+            // 
+            this.Costo.DataPropertyName = "CostoTotal";
+            this.Costo.HeaderText = "Costo total";
+            this.Costo.Name = "Costo";
+            this.Costo.ReadOnly = true;
+            this.Costo.Width = 70;
+            // 
+            // Estado
+            // 
+            this.Estado.DataPropertyName = "Estado";
+            this.Estado.HeaderText = "Estado";
+            this.Estado.Name = "Estado";
+            this.Estado.ReadOnly = true;
+            this.Estado.Width = 80;
+            // 
+            // Empleado
+            // 
+            this.Empleado.DataPropertyName = "Empleado";
+            this.Empleado.HeaderText = "Empleado";
+            this.Empleado.Name = "Empleado";
+            this.Empleado.ReadOnly = true;
+            this.Empleado.Width = 150;
+            // 
+            // Vehiculo
+            // 
+            this.Vehiculo.DataPropertyName = "Vehiculo";
+            this.Vehiculo.HeaderText = "Vehículo";
+            this.Vehiculo.Name = "Vehiculo";
+            this.Vehiculo.ReadOnly = true;
+            this.Vehiculo.Width = 150;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(84, 94);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(188, 191);
+            this.pictureBox1.TabIndex = 6;
+            this.pictureBox1.TabStop = false;
             // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(820, 492);
-            this.Controls.Add(this.grdPrueba);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(1362, 741);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.grdOrdenes);
+            this.Controls.Add(this.txtEmpleado);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FrmPrincipal";
@@ -259,7 +371,8 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdPrueba)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdOrdenes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -288,8 +401,18 @@
         private System.Windows.Forms.ToolStripMenuItem informeOrdenFinalizadaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem informeReparacionesAtendidasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem informeEstadisticoAtendidioToolStripMenuItem;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DataGridView grdPrueba;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtEmpleado;
+        private System.Windows.Forms.DataGridView grdOrdenes;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FechaIngreso;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fechaSalida;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fechaFacturacion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Costo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Estado;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Empleado;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Vehiculo;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

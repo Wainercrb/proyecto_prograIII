@@ -25,7 +25,6 @@ namespace Vista
             BllMarca = new BLL.Marca();
             InitializeComponent();
         }
-
         private void btnAgregar_Click_1(object sender, EventArgs e)
         {
             try
@@ -53,7 +52,6 @@ namespace Vista
                 MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
         private void btnRefrescar_Click_1(object sender, EventArgs e)
         {
             cargarMarcas();
@@ -97,6 +95,7 @@ namespace Vista
                 }
             }
         }
+        //Metodo limpia los comentes utilizados en el frame
         private void limpiarDatos()
         {
             txtBuscar.Text = "";
@@ -105,6 +104,8 @@ namespace Vista
             txtMensaje.Text = "";
             EntMarca = new ENT.MarcaVehiculo();
         }
+        //Metodo recine la lista de marcas desde BLL.marca
+        //y lo agrega a el datagriew
         private void cargarMarcas()
         {
             try

@@ -16,21 +16,20 @@ namespace DAL
         private AccesoDatosPostgre conexion;
         private bool error;
         private string errorMsg;
-
-
         public Marca()
         {
             this.conexion = AccesoDatosPostgre.Instance;
             this.limpiarError();
         }
-        //Metodo elimna los errores de las variables//
+        //Metodo elimna los errores de las variables
         public void limpiarError()
         {
             this.error = false;
             this.errorMsg = "";
         }
-
         //Metodo carga todas  las marca de la base de datos
+        //en un dataset las recorre y las agrega a una lista para
+        //retornarlas
         public List<MarcaVehiculo> obtenerMarcas()
         {
             this.limpiarError();
@@ -54,7 +53,7 @@ namespace DAL
             }
             return marcas;
         }
-        //Metodo inserta la marca que recibe por parametro//
+        //Metodo inserta la marca que recibe por parametro
         public void agregarMarca(MarcaVehiculo pMarca)
         {
             limpiarError();
@@ -68,7 +67,6 @@ namespace DAL
                 this.errorMsg = this.conexion.ErrorDescripcion;
             }
         }
-
         //Metodo elimina la marca por id
         public void borrarMarca(MarcaVehiculo pMarca)
         {
@@ -84,7 +82,6 @@ namespace DAL
                 this.errorMsg = this.conexion.ErrorDescripcion;
             }
         }
-
         //Metodo elimina una marca por id, recibida por parametro
         public void editarMarca(MarcaVehiculo pMarca)
         {
@@ -100,7 +97,6 @@ namespace DAL
                 this.errorMsg = this.conexion.ErrorDescripcion;
             }
         }
-
         //Metodo busca un valor de una marca para agregarlo
         //a un dataset para retornalo en una lista
         public List<MarcaVehiculo> buscarMarcas(string valor)

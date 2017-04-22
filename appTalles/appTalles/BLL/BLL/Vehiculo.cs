@@ -143,8 +143,7 @@ namespace BLL
                 }
             }
             catch (Exception ex)
-            {
-
+            {           
                 throw ex;
             }
             return vehiculos;
@@ -173,6 +172,34 @@ namespace BLL
                 throw ex;
             }
             return vehiculos;
+        }
+        public void actualizarEstado(int id, string estado) {
+
+            try
+            {
+                DAL.Vehiculo DalVehiculo = new DAL.Vehiculo();
+                if (id<= 0)
+                {
+                    throw new Exception("Debes seleccionar una orden para actualizar el estado del vehículo");
+                }
+                if (estado == string.Empty)
+                {
+                    throw new Exception("No se encontro el estado del vehículo");
+                }
+                DalVehiculo.actualizarEstado(id, estado);
+                if (DalVehiculo.Error)
+                {
+                    throw new Exception("Error al actualizar el estado del vehículo");
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
         }
     }
 }

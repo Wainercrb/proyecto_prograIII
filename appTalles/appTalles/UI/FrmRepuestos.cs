@@ -31,7 +31,6 @@ namespace Vista
             BllMarca = new BLL.Marca();
             llenarComboMarca();
         }
-
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             try
@@ -82,7 +81,8 @@ namespace Vista
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+               MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+               MessageBoxIcon.Information);
             }
         }
         private void btnQuitar_Click(object sender, EventArgs e)
@@ -169,7 +169,7 @@ namespace Vista
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
-                 MessageBoxIcon.Information);
+                MessageBoxIcon.Information);
             }
         }
         //Metodo carga las marcas a la lista
@@ -195,6 +195,7 @@ namespace Vista
             {
                 marcas = BllMarca.buscaIntrMarca(valor);
                 grdMarca.DataSource = marcas;
+                txtMarcasM.Text = "" + marcas.Count;
             }
             catch (Exception ex)
             {

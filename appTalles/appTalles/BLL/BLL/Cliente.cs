@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ENT;
 using DAL;
+using System.Data;
 
 namespace BLL
 {
@@ -19,41 +20,32 @@ namespace BLL
             {
                 if (cli.Cedula == String.Empty)
                 {
-
                     throw new Exception("Se debe ingresar la Cedula");
                 }
                 if (cli.Nombre == String.Empty)
                 {
-
                     throw new Exception("Se debe ingresar su Nombre");
                 }
                 if (cli.ApellidoPaterno == String.Empty)
                 {
-
                     throw new Exception("Se debe ingresar el Apellido Paterno");
                 }
-
                 if (cli.ApellidoMaterno == String.Empty)
                 {
-
                     throw new Exception("Se debe ingresar el Apellifdo Materno");
                 }
-
                 if (cli.TelefonoCasa == String.Empty)
                 {
-
                     throw new Exception("Se debe ingresar el Telefono de casa");
                 }
 
                 if (cli.TelefonoOficina == String.Empty)
                 {
-
                     throw new Exception("Se debe ingrese el Telefono de oficina ");
                 }
 
                 if (cli.TelefonoCelular == String.Empty)
                 {
-
                     throw new Exception("Se debe ingresar el Telefono cedular");
                 }
                 if (cli.Id <= 0)
@@ -71,7 +63,6 @@ namespace BLL
                     {
                         throw new Exception("Error al editar el cliente" + DalCliente.ErrorMsg);
                     }
-
                 }
             }
             catch (Exception ex)
@@ -79,7 +70,6 @@ namespace BLL
                 throw ex;
             }
         }
-
         //Metodo vefica que la entidad cliente este correcta y poder eliminarlo
         //si hay error mostrarlo en interfaz
         public void eliminarCliente(ENT.Cliente cliente)
@@ -102,7 +92,8 @@ namespace BLL
                 throw ex;
             }
         }
-        //Metodo verifica errores, cuando se cargqa los cliente 
+        //Metodo verifica errores, cuando se cargqa los cliente
+        //si los hay monstrarlos en interfaz 
         public List<ENT.Cliente> cargarClientes()
         {
             DAL.Cliente DalCliente = new DAL.Cliente();
@@ -125,8 +116,8 @@ namespace BLL
             }
             return clientes;
         }
-
-        //Metodo verifica errores, cuando se cargqa los cliente 
+        //Metodo verifica errores, cuando se cargqa los clientes
+        //Si los hay mostrarlos en interfaz 
         public List<ENT.Cliente> buscarCliente(string valor, string columna)
         {
             DAL.Cliente DalCliente = new DAL.Cliente();
@@ -136,7 +127,7 @@ namespace BLL
                 clientes = DalCliente.buscarClientes(valor, columna);
                 if (DalCliente.Error)
                 {
-                    throw new Exception("Error al buscar los clientes, "+ DalCliente.ErrorMsg);
+                    throw new Exception("Error al buscar los clientes, " + DalCliente.ErrorMsg);
                 }
                 if (clientes.Count <= 0)
                 {
@@ -149,6 +140,24 @@ namespace BLL
             }
             return clientes;
         }
+        public DataTable cargarInformeClientePorIdOrden(int valor)
+        {
+            DataTable tabla = null;
+            DAL.Cliente DalCliente = new DAL.Cliente();
+            try
+            {
+                tabla = DalCliente.cargarInformeClientePorIdOrden(valor);
+                if (DalCliente.Error)
+                {
+                    throw new Exception("Erro al cargar los datos del cliente, en este informe " + DalCliente.ErrorMsg);
+                }
+            }
+            catch (Exception ex)
+            {
 
+                throw ex;
+            }
+            return tabla;
+        }
     }
 }

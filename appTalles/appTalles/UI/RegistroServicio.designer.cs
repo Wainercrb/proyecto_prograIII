@@ -35,6 +35,10 @@
             this.txtServicio = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.grdServicios = new System.Windows.Forms.DataGridView();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pServicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.impuesto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label3 = new System.Windows.Forms.Label();
             this.txtCantidadRegistros = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -47,13 +51,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtImpuesto = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rbBuscarCodigo = new System.Windows.Forms.RadioButton();
             this.rbBuscarServicio = new System.Windows.Forms.RadioButton();
             this.rbBuscaPrecio = new System.Windows.Forms.RadioButton();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pServicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.impuesto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rbBuscarCodigo = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.grdServicios)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -64,7 +64,7 @@
             this.txtPrecio.Location = new System.Drawing.Point(66, 38);
             this.txtPrecio.Name = "txtPrecio";
             this.txtPrecio.Size = new System.Drawing.Size(114, 20);
-            this.txtPrecio.TabIndex = 10;
+            this.txtPrecio.TabIndex = 1;
             this.txtPrecio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.validarNumeros);
             // 
             // label6
@@ -105,6 +105,9 @@
             // 
             // grdServicios
             // 
+            this.grdServicios.AllowUserToAddRows = false;
+            this.grdServicios.AllowUserToDeleteRows = false;
+            this.grdServicios.AllowUserToOrderColumns = true;
             this.grdServicios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdServicios.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
@@ -113,10 +116,43 @@
             this.Precio});
             this.grdServicios.Location = new System.Drawing.Point(9, 131);
             this.grdServicios.Name = "grdServicios";
+            this.grdServicios.ReadOnly = true;
             this.grdServicios.Size = new System.Drawing.Size(445, 211);
             this.grdServicios.TabIndex = 0;
             this.grdServicios.DoubleClick += new System.EventHandler(this.EditarServicio);
             this.grdServicios.MouseClick += new System.Windows.Forms.MouseEventHandler(this.seleccionServicio);
+            // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "Código";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            this.Id.Width = 90;
+            // 
+            // pServicio
+            // 
+            this.pServicio.DataPropertyName = "pServicio";
+            this.pServicio.HeaderText = "Servicio";
+            this.pServicio.Name = "pServicio";
+            this.pServicio.ReadOnly = true;
+            this.pServicio.Width = 130;
+            // 
+            // impuesto
+            // 
+            this.impuesto.DataPropertyName = "impuesto";
+            this.impuesto.HeaderText = "I.V.I";
+            this.impuesto.Name = "impuesto";
+            this.impuesto.ReadOnly = true;
+            this.impuesto.Width = 90;
+            // 
+            // Precio
+            // 
+            this.Precio.DataPropertyName = "Precio";
+            this.Precio.HeaderText = "Precio";
+            this.Precio.Name = "Precio";
+            this.Precio.ReadOnly = true;
+            this.Precio.Width = 90;
             // 
             // label3
             // 
@@ -143,7 +179,7 @@
             this.label4.Location = new System.Drawing.Point(6, 16);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(43, 13);
-            this.label4.TabIndex = 4;
+            this.label4.TabIndex = 0;
             this.label4.Text = "Buscar:";
             // 
             // txtBuscar
@@ -151,7 +187,7 @@
             this.txtBuscar.Location = new System.Drawing.Point(232, 13);
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(100, 20);
-            this.txtBuscar.TabIndex = 0;
+            this.txtBuscar.TabIndex = 4;
             this.txtBuscar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.enterSeleccion);
             // 
             // toolStrip1
@@ -165,7 +201,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(9, 103);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(104, 25);
-            this.toolStrip1.TabIndex = 11;
+            this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // btnAgregar
@@ -222,7 +258,7 @@
             this.txtImpuesto.Location = new System.Drawing.Point(66, 64);
             this.txtImpuesto.Name = "txtImpuesto";
             this.txtImpuesto.Size = new System.Drawing.Size(114, 20);
-            this.txtImpuesto.TabIndex = 13;
+            this.txtImpuesto.TabIndex = 2;
             // 
             // groupBox1
             // 
@@ -234,20 +270,8 @@
             this.groupBox1.Location = new System.Drawing.Point(116, 90);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(338, 39);
-            this.groupBox1.TabIndex = 14;
+            this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
-            // 
-            // rbBuscarCodigo
-            // 
-            this.rbBuscarCodigo.AutoSize = true;
-            this.rbBuscarCodigo.Checked = true;
-            this.rbBuscarCodigo.Location = new System.Drawing.Point(55, 16);
-            this.rbBuscarCodigo.Name = "rbBuscarCodigo";
-            this.rbBuscarCodigo.Size = new System.Drawing.Size(58, 17);
-            this.rbBuscarCodigo.TabIndex = 15;
-            this.rbBuscarCodigo.TabStop = true;
-            this.rbBuscarCodigo.Text = "Codigo";
-            this.rbBuscarCodigo.UseVisualStyleBackColor = true;
             // 
             // rbBuscarServicio
             // 
@@ -255,7 +279,7 @@
             this.rbBuscarServicio.Location = new System.Drawing.Point(163, 16);
             this.rbBuscarServicio.Name = "rbBuscarServicio";
             this.rbBuscarServicio.Size = new System.Drawing.Size(63, 17);
-            this.rbBuscarServicio.TabIndex = 16;
+            this.rbBuscarServicio.TabIndex = 3;
             this.rbBuscarServicio.Text = "Servicio";
             this.rbBuscarServicio.UseVisualStyleBackColor = true;
             // 
@@ -265,37 +289,21 @@
             this.rbBuscaPrecio.Location = new System.Drawing.Point(109, 16);
             this.rbBuscaPrecio.Name = "rbBuscaPrecio";
             this.rbBuscaPrecio.Size = new System.Drawing.Size(55, 17);
-            this.rbBuscaPrecio.TabIndex = 17;
+            this.rbBuscaPrecio.TabIndex = 2;
             this.rbBuscaPrecio.Text = "Precio";
             this.rbBuscaPrecio.UseVisualStyleBackColor = true;
             // 
-            // Id
+            // rbBuscarCodigo
             // 
-            this.Id.DataPropertyName = "Id";
-            this.Id.HeaderText = "Código";
-            this.Id.Name = "Id";
-            this.Id.Width = 90;
-            // 
-            // pServicio
-            // 
-            this.pServicio.DataPropertyName = "pServicio";
-            this.pServicio.HeaderText = "Servicio";
-            this.pServicio.Name = "pServicio";
-            this.pServicio.Width = 130;
-            // 
-            // impuesto
-            // 
-            this.impuesto.DataPropertyName = "impuesto";
-            this.impuesto.HeaderText = "I.V.I";
-            this.impuesto.Name = "impuesto";
-            this.impuesto.Width = 90;
-            // 
-            // Precio
-            // 
-            this.Precio.DataPropertyName = "Precio";
-            this.Precio.HeaderText = "Precio";
-            this.Precio.Name = "Precio";
-            this.Precio.Width = 90;
+            this.rbBuscarCodigo.AutoSize = true;
+            this.rbBuscarCodigo.Checked = true;
+            this.rbBuscarCodigo.Location = new System.Drawing.Point(55, 16);
+            this.rbBuscarCodigo.Name = "rbBuscarCodigo";
+            this.rbBuscarCodigo.Size = new System.Drawing.Size(58, 17);
+            this.rbBuscarCodigo.TabIndex = 1;
+            this.rbBuscarCodigo.TabStop = true;
+            this.rbBuscarCodigo.Text = "Codigo";
+            this.rbBuscarCodigo.UseVisualStyleBackColor = true;
             // 
             // RegistroServicio
             // 

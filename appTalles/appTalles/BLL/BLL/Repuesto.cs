@@ -96,7 +96,6 @@ namespace BLL
             {
                 throw ex;
             }
-
         }
         //Metodo valida los datos que ingresan por parametos, que esten
         //correctos para pasarlos al DAL
@@ -121,7 +120,6 @@ namespace BLL
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }

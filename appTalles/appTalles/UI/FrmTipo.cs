@@ -38,6 +38,19 @@ namespace Vista
                 MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void btnEliminar_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                BllTipo.eliminarTipoVehiculo(EntTipo);
+                limpiarDatos();
+                cargarTipos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             try
@@ -57,7 +70,6 @@ namespace Vista
         {
             cargarTipos();
         }
-
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             limpiarDatos();
@@ -97,6 +109,8 @@ namespace Vista
                 MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        //Metodo recibe una lista de tipos de vehículos desde la
+        //clase BLL.tipo y la agrega al datagriew
         private void cargarTipos()
         {
             try
@@ -110,6 +124,7 @@ namespace Vista
                 MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        //Metodo limpia los componentes utilizados en el frame
         private void limpiarDatos()
         {
             txtMensaje.Text = "";

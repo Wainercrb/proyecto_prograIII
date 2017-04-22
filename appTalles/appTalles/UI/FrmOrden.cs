@@ -45,13 +45,24 @@ namespace Vista
             ordenes = new List<ENT.Orden>();
             cargarCombos();
             anadirItemsEstado();
-
-        }
-        private void cargarCombos()
+        }   
+        private void btnEliminar_Click(object sender, EventArgs e)
         {
-            llenarComboCliente();
-            llenarComboVehiculo();
-            llenarComboEncargado();
+            try
+            {
+                BllOrden.eliminarOrden(orden.Id);
+                limpiarDatos();
+                cargarOrdenes();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
+        }
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            limpiarDatos();
         }
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
@@ -75,7 +86,7 @@ namespace Vista
                     return;
                 }
                 if (cbEsatado.SelectedIndex >= 0)
-                {  
+                {
                     buscar(seleccionEstado(), 0, "estado");
                     return;
                 }
@@ -87,7 +98,10 @@ namespace Vista
                 }
                 if (dtIngreso.Checked && dtSalida.Checked)
                 {
-
+                    ordenes = BllOrden.buscarFechas(dtIngreso.Value, dtSalida.Value);
+                    this.dgOrdenes.DataSource = ordenes;
+                    txtNumero.Text = "" + ordenes.Count;
+                    return;
                 }
                 cargarOrdenes();
             }
@@ -96,7 +110,6 @@ namespace Vista
                 MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
             }
-
         }
         private void buscar(string valor, int numero, string columna)
         {
@@ -129,7 +142,6 @@ namespace Vista
         {
             if (this.dgOrdenes.Rows.Count > 0)
             {
-
                 int fila = this.dgOrdenes.CurrentRow.Index;
                 orden.Id = Int32.Parse(this.dgOrdenes[0, fila].Value.ToString());
                 orden.FechaIngreso = DateTime.Parse(this.dgOrdenes[1, fila].Value.ToString());
@@ -144,6 +156,31 @@ namespace Vista
                 buscar("", orden.Id, "id_orden");
             }
         }
+        private void seleccionMause(object sender, MouseEventArgs e)
+        {
+            if (this.dgOrdenes.Rows.Count > 0)
+            {
+                int fila = this.dgOrdenes.CurrentRow.Index;
+                orden.Id = Int32.Parse(this.dgOrdenes[0, fila].Value.ToString());
+                orden.FechaIngreso = DateTime.Parse(this.dgOrdenes[1, fila].Value.ToString());
+                orden.FechaSalida = DateTime.Parse(this.dgOrdenes[2, fila].Value.ToString());
+                orden.FechaFacturacion = DateTime.Parse(this.dgOrdenes[3, fila].Value.ToString());
+                orden.Estado = this.dgOrdenes[4, fila].Value.ToString();
+                orden.CostoTotal = Double.Parse(this.dgOrdenes[5, fila].Value.ToString());
+                orden.Empleado = (ENT.Empleado)dgOrdenes[7, fila].Value;
+                orden.Vehiculo = (ENT.Vehiculo)this.dgOrdenes[6, fila].Value;
+                txtMensaje.Text = "Codigo orden" + orden.Id + " ---> costo total >>" + orden.CostoTotal;
+            }
+        }
+        //Metodo carga todos los combobox
+        private void cargarCombos()
+        {
+            llenarComboCliente();
+            llenarComboVehiculo();
+            llenarComboEncargado();
+        }
+        //Metodo limpia los componentes utilizados
+        //en el frame
         private void limpiarDatos()
         {
             txtCodigo.Text = "";
@@ -153,6 +190,9 @@ namespace Vista
             cbVehiculo.SelectedIndex = -1;
             dtIngreso.Value = DateTime.Today;
             dtSalida.Value = DateTime.Today;
+            this.dgOrdenes.DataSource = null;
+            dtIngreso.Checked = false;
+            dtSalida.Checked = false;
         }
         //Metodo carga la lista de ordenes y las agrega al 
         //data griew view
@@ -273,7 +313,10 @@ namespace Vista
             }
             return estado;
         }
-        private void anadirItemsEstado() {
+        //Metodo añade los items string al
+        //combobox de estado
+        private void anadirItemsEstado()
+        {
             cbEsatado.Items.Add("Dañado");
             cbEsatado.Items.Add("Pendiente");
             cbEsatado.Items.Add("Finalizado");

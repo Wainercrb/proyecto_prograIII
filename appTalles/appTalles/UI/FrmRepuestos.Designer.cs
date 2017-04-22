@@ -53,12 +53,10 @@
             this.rbBuscarRepuesto = new System.Windows.Forms.RadioButton();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtMarcas = new System.Windows.Forms.TextBox();
+            this.txtMarcasM = new System.Windows.Forms.TextBox();
             this.grdMarca = new System.Windows.Forms.DataGridView();
             this.idMarca = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.marcaVehiculo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txtCantidadRepuesto = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnAgregar = new System.Windows.Forms.ToolStripButton();
             this.btnEliminar = new System.Windows.Forms.ToolStripButton();
@@ -75,6 +73,9 @@
             // 
             // grdRepuesto
             // 
+            this.grdRepuesto.AllowUserToAddRows = false;
+            this.grdRepuesto.AllowUserToDeleteRows = false;
+            this.grdRepuesto.AllowUserToOrderColumns = true;
             this.grdRepuesto.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdRepuesto.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id_repuesto,
@@ -83,6 +84,7 @@
             this.ImpuestoVehiculo});
             this.grdRepuesto.Location = new System.Drawing.Point(12, 122);
             this.grdRepuesto.Name = "grdRepuesto";
+            this.grdRepuesto.ReadOnly = true;
             this.grdRepuesto.Size = new System.Drawing.Size(397, 213);
             this.grdRepuesto.TabIndex = 0;
             this.grdRepuesto.DoubleClick += new System.EventHandler(this.editarRepuesto);
@@ -93,6 +95,7 @@
             this.id_repuesto.DataPropertyName = "Id";
             this.id_repuesto.HeaderText = "Id";
             this.id_repuesto.Name = "id_repuesto";
+            this.id_repuesto.ReadOnly = true;
             this.id_repuesto.Width = 80;
             // 
             // RepuestoVehiculo
@@ -100,6 +103,7 @@
             this.RepuestoVehiculo.DataPropertyName = "Repuesto";
             this.RepuestoVehiculo.HeaderText = "Repuesto";
             this.RepuestoVehiculo.Name = "RepuestoVehiculo";
+            this.RepuestoVehiculo.ReadOnly = true;
             // 
             // PrecioVehiculo
             // 
@@ -107,6 +111,7 @@
             this.PrecioVehiculo.FillWeight = 90F;
             this.PrecioVehiculo.HeaderText = "Precio";
             this.PrecioVehiculo.Name = "PrecioVehiculo";
+            this.PrecioVehiculo.ReadOnly = true;
             this.PrecioVehiculo.Width = 85;
             // 
             // ImpuestoVehiculo
@@ -115,6 +120,7 @@
             this.ImpuestoVehiculo.FillWeight = 90F;
             this.ImpuestoVehiculo.HeaderText = "Impuesto";
             this.ImpuestoVehiculo.Name = "ImpuestoVehiculo";
+            this.ImpuestoVehiculo.ReadOnly = true;
             this.ImpuestoVehiculo.Width = 85;
             // 
             // txtImpuesto
@@ -177,11 +183,10 @@
             // txtMensaje
             // 
             this.txtMensaje.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtMensaje.Location = new System.Drawing.Point(12, 565);
-            this.txtMensaje.Multiline = true;
+            this.txtMensaje.Location = new System.Drawing.Point(12, 569);
             this.txtMensaje.Name = "txtMensaje";
             this.txtMensaje.ReadOnly = true;
-            this.txtMensaje.Size = new System.Drawing.Size(151, 20);
+            this.txtMensaje.Size = new System.Drawing.Size(151, 13);
             this.txtMensaje.TabIndex = 10;
             // 
             // btnQuitar
@@ -292,23 +297,27 @@
             this.label5.TabIndex = 4;
             this.label5.Text = "Buscar:";
             // 
-            // txtMarcas
+            // txtMarcasM
             // 
-            this.txtMarcas.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtMarcas.Location = new System.Drawing.Point(352, 565);
-            this.txtMarcas.Multiline = true;
-            this.txtMarcas.Name = "txtMarcas";
-            this.txtMarcas.Size = new System.Drawing.Size(57, 20);
-            this.txtMarcas.TabIndex = 18;
+            this.txtMarcasM.BackColor = System.Drawing.SystemColors.Menu;
+            this.txtMarcasM.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtMarcasM.Location = new System.Drawing.Point(345, 569);
+            this.txtMarcasM.Name = "txtMarcasM";
+            this.txtMarcasM.Size = new System.Drawing.Size(57, 13);
+            this.txtMarcasM.TabIndex = 18;
             // 
             // grdMarca
             // 
+            this.grdMarca.AllowUserToAddRows = false;
+            this.grdMarca.AllowUserToDeleteRows = false;
+            this.grdMarca.AllowUserToOrderColumns = true;
             this.grdMarca.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdMarca.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.idMarca,
             this.marcaVehiculo});
             this.grdMarca.Location = new System.Drawing.Point(12, 370);
             this.grdMarca.Name = "grdMarca";
+            this.grdMarca.ReadOnly = true;
             this.grdMarca.Size = new System.Drawing.Size(397, 186);
             this.grdMarca.TabIndex = 6;
             this.grdMarca.MouseClick += new System.Windows.Forms.MouseEventHandler(this.seleccionMarca);
@@ -318,6 +327,7 @@
             this.idMarca.DataPropertyName = "Id";
             this.idMarca.HeaderText = "Id";
             this.idMarca.Name = "idMarca";
+            this.idMarca.ReadOnly = true;
             this.idMarca.Width = 175;
             // 
             // marcaVehiculo
@@ -325,24 +335,8 @@
             this.marcaVehiculo.DataPropertyName = "marca";
             this.marcaVehiculo.HeaderText = "Marca";
             this.marcaVehiculo.Name = "marcaVehiculo";
+            this.marcaVehiculo.ReadOnly = true;
             this.marcaVehiculo.Width = 175;
-            // 
-            // txtCantidadRepuesto
-            // 
-            this.txtCantidadRepuesto.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtCantidadRepuesto.Location = new System.Drawing.Point(309, 341);
-            this.txtCantidadRepuesto.Name = "txtCantidadRepuesto";
-            this.txtCantidadRepuesto.Size = new System.Drawing.Size(100, 13);
-            this.txtCantidadRepuesto.TabIndex = 3;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(242, 344);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(61, 13);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Repuestos:";
             // 
             // toolStrip1
             // 
@@ -409,11 +403,11 @@
             // 
             // txtMarca
             // 
+            this.txtMarca.BackColor = System.Drawing.SystemColors.Menu;
             this.txtMarca.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtMarca.Location = new System.Drawing.Point(175, 565);
-            this.txtMarca.Multiline = true;
+            this.txtMarca.Location = new System.Drawing.Point(175, 568);
             this.txtMarca.Name = "txtMarca";
-            this.txtMarca.Size = new System.Drawing.Size(126, 20);
+            this.txtMarca.Size = new System.Drawing.Size(126, 13);
             this.txtMarca.TabIndex = 21;
             // 
             // FrmRepuestos
@@ -428,7 +422,7 @@
             this.Controls.Add(this.txtImpuesto);
             this.Controls.Add(this.btnTipoMarca);
             this.Controls.Add(this.cbMarca);
-            this.Controls.Add(this.txtMarcas);
+            this.Controls.Add(this.txtMarcasM);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.groupBox2);
@@ -436,12 +430,10 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtMensaje);
             this.Controls.Add(this.grdRepuesto);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.txtPrecio);
             this.Controls.Add(this.grdMarca);
             this.Controls.Add(this.txtRepuesto);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.txtCantidadRepuesto);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label7);
@@ -474,8 +466,6 @@
         private System.Windows.Forms.RadioButton rbBuscarRepuesto;
         private System.Windows.Forms.TextBox txtBuscar;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtCantidadRepuesto;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown txtImpuesto;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DataGridView grdMarca;
@@ -484,7 +474,7 @@
         private System.Windows.Forms.ComboBox cbMarca;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox txtMarcas;
+        private System.Windows.Forms.TextBox txtMarcasM;
         private System.Windows.Forms.RadioButton rbBuscarImpuesto;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton btnAgregar;

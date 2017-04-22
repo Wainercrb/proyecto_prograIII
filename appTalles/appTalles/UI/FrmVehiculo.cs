@@ -97,7 +97,7 @@ namespace Vista
         private void Editar(object sender, MouseEventArgs e)
         {
             txtTarea.Text = "";
-            if (this.grdVehiculos.Rows.Count > 0)
+            if (this.grdVehiculos.Rows.Count >= 0)
             {
                 int fila = this.grdVehiculos.CurrentRow.Index;
                 EntVehiculo.Id = Int32.Parse(this.grdVehiculos[0, fila].Value.ToString());
@@ -107,11 +107,7 @@ namespace Vista
                 nubMotor.Value = Int32.Parse(this.grdVehiculos[4, fila].Value.ToString());
                 nubChazis.Value = Int32.Parse(this.grdVehiculos[5, fila].Value.ToString());
 
-                if (this.grdVehiculos[7, fila].Value.ToString() == "Dañado")
-                {
-                    this.rbDanado.Checked = true;
-                }
-                else if (this.grdVehiculos[7, fila].Value.ToString() == "Pendiente")
+                if (this.grdVehiculos[7, fila].Value.ToString() == "Pendiente")
                 {
                     this.rbPendiente.Checked = true;
                 }
@@ -161,46 +157,18 @@ namespace Vista
         }
         private void seleccionVehiculo(object sender, MouseEventArgs e)
         {
-            if (this.grdVehiculos.Rows.Count > 0)
+            if (this.grdVehiculos.Rows.Count >= 0)
             {
                 int fila = this.grdVehiculos.CurrentRow.Index;
                 EntVehiculo.Id = Int32.Parse(this.grdVehiculos[0, fila].Value.ToString());
                 txtTarea.Text = "Placa: " + this.grdVehiculos[1, fila].Value.ToString();
             }
         }
-        //Metodo limpia todos los datos de las variables
-        //utilizadas 
-        private void limpiarDatos()
-        {
-            EntCliente = new ENT.Cliente();
-            EntMarca = new ENT.MarcaVehiculo();
-            EntTipo = new ENT.TipoVehiculo();
-            EntVehiculo = new ENT.Vehiculo();
-            txtPlacaa.Text = "";
-            nubAnno.Value = 0;
-            nubMotor.Value = 0;
-            nudCilindraje.Value = 0;
-            nubChazis.Value = 0;
-            cbCliente.SelectedIndex = -1;
-            cbMarca.SelectedIndex = -1;
-            cbTipo.SelectedIndex = -1;
-            cbTipoCombustible.SelectedIndex = -1;
-            rbDanado.Checked = true;
-            txtTarea.Text = "";
-            txtCantidad.Text = "";
-            txtBuscar.Text = "";
-            txtPlacaa.Text = "";
-            vehiculos.Clear();
-        }
         //Metodo seleccion en los radio button 
         private string seleccionEstado()
         {
             string estado = "";
-            if (this.rbDanado.Checked)
-            {
-                estado = "Dañado";
-            }
-            else if (this.rbPendiente.Checked)
+            if (this.rbPendiente.Checked)
             {
                 estado = "Pendiente";
             }
@@ -249,7 +217,30 @@ namespace Vista
                 MessageBoxIcon.Information);
             }
         }
-
+        //Metodo limpia todos los datos de las variables
+        //utilizadas 
+        private void limpiarDatos()
+        {
+            EntCliente = new ENT.Cliente();
+            EntMarca = new ENT.MarcaVehiculo();
+            EntTipo = new ENT.TipoVehiculo();
+            EntVehiculo = new ENT.Vehiculo();
+            txtPlacaa.Text = "";
+            nubAnno.Value = 0;
+            nubMotor.Value = 0;
+            nudCilindraje.Value = 0;
+            nubChazis.Value = 0;
+            cbCliente.SelectedIndex = -1;
+            cbMarca.SelectedIndex = -1;
+            cbTipo.SelectedIndex = -1;
+            cbTipoCombustible.SelectedIndex = -1;
+            txtTarea.Text = "";
+            txtCantidad.Text = "";
+            txtBuscar.Text = "";
+            txtPlacaa.Text = "";
+            vehiculos.Clear();
+            this.grdVehiculos.DataSource = null;
+        }
         //Metodo busca un valor por columna y los carga al data griew
         private void buscar(string valor, int numero, string columna)
         {

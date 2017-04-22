@@ -60,7 +60,6 @@
             this.grbEstado = new System.Windows.Forms.GroupBox();
             this.rbFinalizado = new System.Windows.Forms.RadioButton();
             this.rbPendiente = new System.Windows.Forms.RadioButton();
-            this.rbDanado = new System.Windows.Forms.RadioButton();
             this.cbTipo = new System.Windows.Forms.ComboBox();
             this.cbMarca = new System.Windows.Forms.ComboBox();
             this.cbCliente = new System.Windows.Forms.ComboBox();
@@ -192,6 +191,9 @@
             // 
             // grdVehiculos
             // 
+            this.grdVehiculos.AllowUserToAddRows = false;
+            this.grdVehiculos.AllowUserToDeleteRows = false;
+            this.grdVehiculos.AllowUserToOrderColumns = true;
             this.grdVehiculos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdVehiculos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
@@ -377,7 +379,6 @@
             // 
             this.grbEstado.Controls.Add(this.rbFinalizado);
             this.grbEstado.Controls.Add(this.rbPendiente);
-            this.grbEstado.Controls.Add(this.rbDanado);
             this.grbEstado.Location = new System.Drawing.Point(392, 110);
             this.grbEstado.Name = "grbEstado";
             this.grbEstado.Size = new System.Drawing.Size(206, 41);
@@ -387,7 +388,7 @@
             // rbFinalizado
             // 
             this.rbFinalizado.AutoSize = true;
-            this.rbFinalizado.Location = new System.Drawing.Point(134, 15);
+            this.rbFinalizado.Location = new System.Drawing.Point(96, 15);
             this.rbFinalizado.Name = "rbFinalizado";
             this.rbFinalizado.Size = new System.Drawing.Size(72, 17);
             this.rbFinalizado.TabIndex = 2;
@@ -397,24 +398,12 @@
             // rbPendiente
             // 
             this.rbPendiente.AutoSize = true;
-            this.rbPendiente.Location = new System.Drawing.Point(59, 15);
+            this.rbPendiente.Location = new System.Drawing.Point(6, 15);
             this.rbPendiente.Name = "rbPendiente";
             this.rbPendiente.Size = new System.Drawing.Size(73, 17);
             this.rbPendiente.TabIndex = 1;
             this.rbPendiente.Text = "Pendiente";
             this.rbPendiente.UseVisualStyleBackColor = true;
-            // 
-            // rbDanado
-            // 
-            this.rbDanado.AutoSize = true;
-            this.rbDanado.Checked = true;
-            this.rbDanado.Location = new System.Drawing.Point(1, 15);
-            this.rbDanado.Name = "rbDanado";
-            this.rbDanado.Size = new System.Drawing.Size(63, 17);
-            this.rbDanado.TabIndex = 0;
-            this.rbDanado.TabStop = true;
-            this.rbDanado.Text = "Dañado";
-            this.rbDanado.UseVisualStyleBackColor = true;
             // 
             // cbTipo
             // 
@@ -628,7 +617,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(750, 488);
+            this.ClientSize = new System.Drawing.Size(744, 488);
             this.Controls.Add(this.txtCantidad);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.toolStrip1);
@@ -698,7 +687,6 @@
         private System.Windows.Forms.GroupBox grbEstado;
         private System.Windows.Forms.RadioButton rbFinalizado;
         private System.Windows.Forms.RadioButton rbPendiente;
-        private System.Windows.Forms.RadioButton rbDanado;
         private System.Diagnostics.EventLog eventLog1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton rbBuscarCilindraje;

@@ -16,7 +16,6 @@ namespace appTalles.UI
         private BLL.Orden BllOrden;
         private List<ENT.Orden> ordenes;
         string estado;
-        private bool modifico = false;
         public FrmOrdenFinalizada()
         {
             EntOrden = new ENT.Orden();
@@ -26,7 +25,6 @@ namespace appTalles.UI
         }
         private void btnFinalizada_Click(object sender, EventArgs e)
         {
-            modifico = true;
             estado = "Finalizado";
             cargarOrden(estado, "estado");
         }
@@ -45,7 +43,6 @@ namespace appTalles.UI
         }
         private void btnPendiente_Click(object sender, EventArgs e)
         {
-            modifico = true;
             estado = "Pendiente";
             cargarOrden(estado, "estado");
         }
@@ -82,9 +79,8 @@ namespace appTalles.UI
         {
             try
             {
-                modifico = true;
                 EntOrden.Estado = "Finalizado";
-                BllOrden.actualizarEstadoOrden(EntOrden);
+                BllOrden.actualizarEstadoOrden(EntOrden, "Finalizado");
                 txtSeleccion.Text = "Orden finalizado correctamente";
                 cargarOrden(estado, "estado");
             }
@@ -100,7 +96,7 @@ namespace appTalles.UI
             try
             {
                 EntOrden.Estado = "Pendiente";
-                BllOrden.actualizarEstadoOrden(EntOrden);
+                BllOrden.actualizarEstadoOrden(EntOrden, "Pendiente");
                 txtSeleccion.Text = "Orden reversada correctamente";
                 cargarOrden(estado, "estado");
             }

@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMarca));
             this.grdMarcas = new System.Windows.Forms.DataGridView();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MarcaVehiculo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.txtMarca = new System.Windows.Forms.TextBox();
             this.txtMensaje = new System.Windows.Forms.TextBox();
@@ -42,14 +44,15 @@
             this.btnEliminar = new System.Windows.Forms.ToolStripButton();
             this.btnRefrescar = new System.Windows.Forms.ToolStripButton();
             this.btnLimpiar = new System.Windows.Forms.ToolStripButton();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MarcaVehiculo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grdMarcas)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // grdMarcas
             // 
+            this.grdMarcas.AllowUserToAddRows = false;
+            this.grdMarcas.AllowUserToDeleteRows = false;
+            this.grdMarcas.AllowUserToOrderColumns = true;
             this.grdMarcas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdMarcas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
@@ -61,6 +64,22 @@
             this.grdMarcas.TabIndex = 3;
             this.grdMarcas.DoubleClick += new System.EventHandler(this.Editar);
             this.grdMarcas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.seleccionMarca);
+            // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "Código";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            this.Id.Width = 120;
+            // 
+            // MarcaVehiculo
+            // 
+            this.MarcaVehiculo.DataPropertyName = "Marca";
+            this.MarcaVehiculo.HeaderText = "Marca del vehiculo";
+            this.MarcaVehiculo.Name = "MarcaVehiculo";
+            this.MarcaVehiculo.ReadOnly = true;
+            this.MarcaVehiculo.Width = 150;
             // 
             // label1
             // 
@@ -90,10 +109,11 @@
             // 
             // txtCantidadRegistros
             // 
-            this.txtCantidadRegistros.Location = new System.Drawing.Point(272, 270);
+            this.txtCantidadRegistros.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtCantidadRegistros.Location = new System.Drawing.Point(263, 273);
             this.txtCantidadRegistros.Name = "txtCantidadRegistros";
             this.txtCantidadRegistros.ReadOnly = true;
-            this.txtCantidadRegistros.Size = new System.Drawing.Size(49, 20);
+            this.txtCantidadRegistros.Size = new System.Drawing.Size(49, 13);
             this.txtCantidadRegistros.TabIndex = 4;
             // 
             // label4
@@ -107,16 +127,16 @@
             // 
             // txtBuscar
             // 
-            this.txtBuscar.Location = new System.Drawing.Point(157, 48);
+            this.txtBuscar.Location = new System.Drawing.Point(179, 48);
             this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(164, 20);
+            this.txtBuscar.Size = new System.Drawing.Size(142, 20);
             this.txtBuscar.TabIndex = 2;
             this.txtBuscar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.busquedaMarca);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(108, 51);
+            this.label2.Location = new System.Drawing.Point(130, 51);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(43, 13);
             this.label2.TabIndex = 1;
@@ -176,22 +196,6 @@
             this.btnLimpiar.Size = new System.Drawing.Size(23, 22);
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click_1);
-            // 
-            // Id
-            // 
-            this.Id.DataPropertyName = "Id";
-            this.Id.HeaderText = "Código";
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
-            this.Id.Width = 120;
-            // 
-            // MarcaVehiculo
-            // 
-            this.MarcaVehiculo.DataPropertyName = "Marca";
-            this.MarcaVehiculo.HeaderText = "Marca del vehiculo";
-            this.MarcaVehiculo.Name = "MarcaVehiculo";
-            this.MarcaVehiculo.ReadOnly = true;
-            this.MarcaVehiculo.Width = 150;
             // 
             // frmMarca
             // 

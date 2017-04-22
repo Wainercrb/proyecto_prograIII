@@ -74,73 +74,40 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Reportes\CryRepuestos.cs">
+    <Compile Include="RP\CryFacturaOrden.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CryRepuestos.rpt</DependentUpon>
+      <DependentUpon>CryFacturaOrden.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reportes\CrystalReport1.cs">
+    <Compile Include="RP\CryFacturaOrdenOrden.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CrystalReport1.rpt</DependentUpon>
+      <DependentUpon>CryFacturaOrdenOrden.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reportes\CyOrdenFinalizada.cs">
+    <Compile Include="RP\CryFacturaRepuesto.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CyOrdenFinalizada.rpt</DependentUpon>
+      <DependentUpon>CryFacturaRepuesto.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reportes\CyServicio.cs">
+    <Compile Include="RP\CryFacuraServicio.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CyServicio.rpt</DependentUpon>
+      <DependentUpon>CryFacuraServicio.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reportes\dsetOrden.cs">
-      <DependentUpon>dsetOrden.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Reportes\dsetOrden.Designer.cs">
+    <Compile Include="RP\DsetFacturaOrden.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>dsetOrden.xsd</DependentUpon>
+      <DependentUpon>DsetFacturaOrden.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Reportes\DsetOrdenFinalizada.cs">
-      <DependentUpon>DsetOrdenFinalizada.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Reportes\DsetOrdenFinalizada.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DsetOrdenFinalizada.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Reportes\dsetRepuesto.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dsetRepuesto.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Reportes\dsetServicioEmpleado.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dsetServicioEmpleado.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Reportes\FrmReporteRepuestos.cs">
+    <Compile Include="RP\FrmFacturaOrden.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Reportes\FrmReporteRepuestos.Designer.cs">
-      <DependentUpon>FrmReporteRepuestos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Reportes\FrmReporteServicios.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Reportes\FrmReporteServicios.Designer.cs">
-      <DependentUpon>FrmReporteServicios.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Reportes\FrmInformeOrdenFinalizada.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Reportes\FrmInformeOrdenFinalizada.Designer.cs">
-      <DependentUpon>FrmInformeOrdenFinalizada.cs</DependentUpon>
+    <Compile Include="RP\FrmFacturaOrden.Designer.cs">
+      <DependentUpon>FrmFacturaOrden.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\FrmOrden.cs">
       <SubType>Form</SubType>
@@ -216,23 +183,11 @@
     <Compile Include="UI\FrmTipo.Designer.cs">
       <DependentUpon>FrmTipo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reportes\FromReporteOrden.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Reportes\FromReporteOrden.Designer.cs">
-      <DependentUpon>FromReporteOrden.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\RegistroServicio.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\RegistroServicio.designer.cs">
       <DependentUpon>RegistroServicio.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Reportes\repor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Reportes\repor.Designer.cs">
-      <DependentUpon>repor.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\SeleccionEmpleado.cs">
       <SubType>Form</SubType>
@@ -249,27 +204,24 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Reportes\CryRepuestos.rpt">
+    <EmbeddedResource Include="RP\CryFacturaOrden.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CryRepuestos.cs</LastGenOutput>
+      <LastGenOutput>CryFacturaOrden.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reportes\CrystalReport1.rpt">
+    <EmbeddedResource Include="RP\CryFacturaOrdenOrden.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CrystalReport1.cs</LastGenOutput>
+      <LastGenOutput>CryFacturaOrdenOrden.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reportes\CyOrdenFinalizada.rpt">
+    <EmbeddedResource Include="RP\CryFacturaRepuesto.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CyOrdenFinalizada.cs</LastGenOutput>
+      <LastGenOutput>CryFacturaRepuesto.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reportes\CyServicio.rpt">
+    <EmbeddedResource Include="RP\CryFacuraServicio.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CyServicio.cs</LastGenOutput>
+      <LastGenOutput>CryFacuraServicio.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reportes\FrmReporteRepuestos.resx">
-      <DependentUpon>FrmReporteRepuestos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reportes\FrmReporteServicios.resx">
-      <DependentUpon>FrmReporteServicios.cs</DependentUpon>
+    <EmbeddedResource Include="RP\FrmFacturaOrden.resx">
+      <DependentUpon>FrmFacturaOrden.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FrmCambio.resx">
       <DependentUpon>FrmCambio.cs</DependentUpon>
@@ -279,9 +231,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FrmEmpleado.resx">
       <DependentUpon>FrmEmpleado.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reportes\FrmInformeOrdenFinalizada.resx">
-      <DependentUpon>FrmInformeOrdenFinalizada.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>
@@ -310,14 +259,8 @@
     <EmbeddedResource Include="UI\FrmTipo.resx">
       <DependentUpon>FrmTipo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reportes\FromReporteOrden.resx">
-      <DependentUpon>FromReporteOrden.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\RegistroServicio.resx">
       <DependentUpon>RegistroServicio.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reportes\repor.resx">
-      <DependentUpon>repor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\SeleccionEmpleado.resx">
       <DependentUpon>SeleccionEmpleado.cs</DependentUpon>
@@ -331,49 +274,16 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Reportes\dsetOrden.xsc">
-      <DependentUpon>dsetOrden.xsd</DependentUpon>
+    <None Include="RP\DsetFacturaOrden.xsc">
+      <DependentUpon>DsetFacturaOrden.xsd</DependentUpon>
     </None>
-    <None Include="Reportes\dsetOrden.xsd">
+    <None Include="RP\DsetFacturaOrden.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsetOrden.Designer.cs</LastGenOutput>
+      <LastGenOutput>DsetFacturaOrden.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Reportes\dsetOrden.xss">
-      <DependentUpon>dsetOrden.xsd</DependentUpon>
-    </None>
-    <None Include="Reportes\DsetOrdenFinalizada.xsc">
-      <DependentUpon>DsetOrdenFinalizada.xsd</DependentUpon>
-    </None>
-    <None Include="Reportes\DsetOrdenFinalizada.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DsetOrdenFinalizada.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="Reportes\DsetOrdenFinalizada.xss">
-      <DependentUpon>DsetOrdenFinalizada.xsd</DependentUpon>
-    </None>
-    <None Include="Reportes\dsetRepuesto.xsc">
-      <DependentUpon>dsetRepuesto.xsd</DependentUpon>
-    </None>
-    <None Include="Reportes\dsetRepuesto.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsetRepuesto.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="Reportes\dsetRepuesto.xss">
-      <DependentUpon>dsetRepuesto.xsd</DependentUpon>
-    </None>
-    <None Include="Reportes\dsetServicioEmpleado.xsc">
-      <DependentUpon>dsetServicioEmpleado.xsd</DependentUpon>
-    </None>
-    <None Include="Reportes\dsetServicioEmpleado.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsetServicioEmpleado.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="Reportes\dsetServicioEmpleado.xss">
-      <DependentUpon>dsetServicioEmpleado.xsd</DependentUpon>
+    <None Include="RP\DsetFacturaOrden.xss">
+      <DependentUpon>DsetFacturaOrden.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -390,9 +300,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="BLL\BLL\BLL.csproj">

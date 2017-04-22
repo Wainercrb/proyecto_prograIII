@@ -5,17 +5,13 @@ using System.Data;
 using System.Linq;
 using ENT;
 using Npgsql;
-
-
 namespace DAL
 {
     public class Empleado
-
     {
         private AccesoDatosPostgre conexion;
         private bool error;
         private string errorMsg;
-
         public Empleado()
         {
             this.conexion = AccesoDatosPostgre.Instance;
@@ -50,7 +46,8 @@ namespace DAL
                 this.ErrorMsg = this.conexion.ErrorDescripcion;
             }
         }
-        //Metodo carga a todos los empleados de la base de datos y lo agrega a lista
+        //Metodo carga a todos los data set de empleados
+        //los recorre y los agrega a la lista
         public List<ENT.Empleado> ObtenerEmpleados()
         {
             List<ENT.Empleado> empleados = new List<ENT.Empleado>();
@@ -180,19 +177,18 @@ namespace DAL
         public void cambioContrasenna(ENT.Empleado empleado, string nueva)
         {
             limpiarError();
-            string sql = " UPDATE " + this.conexion.Schema + " empleado set  contrasenna = @contra  where  usuario = @usuario and contrasenna = @contrasenna";
-            NpgsqlParameter[] parametros = new NpgsqlParameter[3];
             Parametro prm = new Parametro();
-            prm.agregarParametro("@contrasenna", NpgsqlDbType.Text, empleado.Contrasenna);
-            prm.agregarParametro("@usuario", NpgsqlDbType.Text, empleado.Usuario);
-            prm.agregarParametro("@contra", NpgsqlDbType.Text, nueva);
-            this.conexion.ejecutarSQL(sql, parametros);
+            prm.agregarParametro("@contrasenna", NpgsqlDbType.Text, nueva);
+            prm.agregarParametro("@id_empleado", NpgsqlDbType.Integer, empleado.Id);
+            string sql = "UPDATE " + this.conexion.Schema + "empleado SET contrasenna = @contrasenna WHERE id_empleado = @id_empleado";
+            this.conexion.ejecutarSQL(sql, prm.obtenerParametros());
             if (this.conexion.IsError)
             {
-                Error = true;
+                this.error = true;
                 this.errorMsg = this.conexion.ErrorDescripcion;
             }
         }
+       
         public bool Error
         {
             get
