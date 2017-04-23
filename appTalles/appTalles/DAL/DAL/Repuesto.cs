@@ -37,7 +37,7 @@ namespace DAL
             dsetRepuesto = this.conexion.ejecutarConsultaSQL(sql);
             foreach (DataRow tupla in dsetRepuesto.Tables[0].Rows)
             {
-                RepuestoVehiculo repuesto = new RepuestoVehiculo(Int32.Parse(tupla["id_repuesto"].ToString()), tupla["repuesto"].ToString(), Double.Parse(tupla["precio"].ToString()), Double.Parse(tupla["impuesto"].ToString()));
+                RepuestoVehiculo repuesto = new RepuestoVehiculo(Int32.Parse(tupla["id_repuesto"].ToString()), tupla["repuesto"].ToString(), Double.Parse(tupla["precio"].ToString()), Double.Parse(tupla["impuesto"].ToString()), Int32.Parse(tupla["anno"].ToString()));
                 repuestos.Add(repuesto);
             }
             if (this.conexion.IsError)
@@ -52,11 +52,12 @@ namespace DAL
         public void agregarRepuesto(RepuestoVehiculo pRepuesto)
         {
             limpiarError();
-            string sql = "INSERT INTO " + this.conexion.Schema + "repuesto(repuesto, precio, impuesto) " + "values(@repuesto, @precio, @impuesto)";
+            string sql = "INSERT INTO " + this.conexion.Schema + "repuesto(repuesto, precio, impuesto, anno) " + "values(@repuesto, @precio, @impuesto, @anno)";
             Parametro prm = new Parametro();
             prm.agregarParametro("@repuesto", NpgsqlDbType.Varchar, pRepuesto.Repuesto);
             prm.agregarParametro("@precio", NpgsqlDbType.Double, pRepuesto.Precio);
             prm.agregarParametro("@impuesto", NpgsqlDbType.Double, pRepuesto.Impuesto);
+            prm.agregarParametro("@anno", NpgsqlDbType.Integer, pRepuesto.Anno);
             this.conexion.ejecutarSQL(sql, prm.obtenerParametros());
             if (this.conexion.IsError)
             {
@@ -114,11 +115,12 @@ namespace DAL
         public void editarRepuesto(RepuestoVehiculo pRepuesto)
         {
             limpiarError();
-            string sql = "UPDATE " + this.conexion.Schema + "repuesto SET repuesto = @repuesto, precio = @precio, impuesto = @impuesto where id_repuesto = @id_repuesto";
+            string sql = "UPDATE " + this.conexion.Schema + "repuesto SET repuesto = @repuesto, precio = @precio, impuesto = @impuesto, anno = @anno where id_repuesto = @id_repuesto";
             Parametro prm = new Parametro();
             prm.agregarParametro("@repuesto", NpgsqlDbType.Varchar, pRepuesto.Repuesto);
             prm.agregarParametro("@precio", NpgsqlDbType.Double, pRepuesto.Precio);
             prm.agregarParametro("@impuesto", NpgsqlDbType.Double, pRepuesto.Impuesto);
+            prm.agregarParametro("@anno", NpgsqlDbType.Integer, pRepuesto.Anno);
             prm.agregarParametro("@id_repuesto", NpgsqlDbType.Integer, pRepuesto.Id);
             this.conexion.ejecutarSQL(sql, prm.obtenerParametros());
             if (this.conexion.IsError)
@@ -144,7 +146,7 @@ namespace DAL
 
                     foreach (DataRow tupla in dset.Tables[0].Rows)
                     {
-                        RepuestoVehiculo repuesto = new RepuestoVehiculo(Int32.Parse(tupla["id_repuesto"].ToString()), tupla["repuesto"].ToString(), Double.Parse(tupla["precio"].ToString()), Double.Parse(tupla["impuesto"].ToString()));
+                        RepuestoVehiculo repuesto = new RepuestoVehiculo(Int32.Parse(tupla["id_repuesto"].ToString()), tupla["repuesto"].ToString(), Double.Parse(tupla["precio"].ToString()), Double.Parse(tupla["impuesto"].ToString()), Int32.Parse(tupla["anno"].ToString()));
                         repuestos.Add(repuesto);
                     }
                 }
@@ -173,7 +175,7 @@ namespace DAL
 
                     foreach (DataRow tupla in dset.Tables[0].Rows)
                     {
-                        RepuestoVehiculo repuesto = new RepuestoVehiculo(Int32.Parse(tupla["id_repuesto"].ToString()), tupla["repuesto"].ToString(), Double.Parse(tupla["precio"].ToString()), Double.Parse(tupla["impuesto"].ToString()));
+                        RepuestoVehiculo repuesto = new RepuestoVehiculo(Int32.Parse(tupla["id_repuesto"].ToString()), tupla["repuesto"].ToString(), Double.Parse(tupla["precio"].ToString()), Double.Parse(tupla["impuesto"].ToString()), Int32.Parse(tupla["anno"].ToString()));
                         repuestos.Add(repuesto);
                     }
                 }
@@ -192,7 +194,7 @@ namespace DAL
             List<RepuestoVehiculo> repuestos = new List<RepuestoVehiculo>();
             Parametro prm = new Parametro();
             prm.agregarParametro("@consecutivo", NpgsqlDbType.Numeric, valor);
-            string sql = " select rp.id_repuesto as id_repuesto, rp.repuesto as repuesto, rp.precio as precio, rp.impuesto  as impuesto from repuesto rp, orden o, orden_repuesto ore where ore.fk_repuesto = rp.id_repuesto and ore.fk_orden = o.id_orden and o.id_orden = @consecutivo;";
+            string sql = " select rp.id_repuesto as id_repuesto, rp.repuesto as repuesto, rp.precio as precio, rp.impuesto  as impuesto, rp.anno from repuesto rp, orden o, orden_repuesto ore where ore.fk_repuesto = rp.id_repuesto and ore.fk_orden = o.id_orden and o.id_orden = @consecutivo;";
             DataSet dset = this.conexion.ejecutarConsultaSQL(sql, "repuesto", prm.obtenerParametros());
             if (!this.conexion.IsError)
             {
@@ -201,7 +203,7 @@ namespace DAL
 
                     foreach (DataRow tupla in dset.Tables[0].Rows)
                     {
-                        RepuestoVehiculo repuesto = new RepuestoVehiculo(Int32.Parse(tupla["id_repuesto"].ToString()), tupla["repuesto"].ToString(), Double.Parse(tupla["precio"].ToString()), Double.Parse(tupla["impuesto"].ToString()));
+                        RepuestoVehiculo repuesto = new RepuestoVehiculo(Int32.Parse(tupla["id_repuesto"].ToString()), tupla["repuesto"].ToString(), Double.Parse(tupla["precio"].ToString()), Double.Parse(tupla["impuesto"].ToString()), Int32.Parse(tupla["anno"].ToString()));
                         repuestos.Add(repuesto);
                     }
                 }

@@ -6,20 +6,19 @@ using System.Threading.Tasks;
 
 namespace ENT
 {
-    public class MarcaVehiculo
+    public class Modelo
     {
-        private int id;
-        private string marca;
-        private Modelo modelo;
-  
 
-        public MarcaVehiculo()
+        private int id;
+        private string modelo;
+
+        public Modelo()
         {
         }
-        public MarcaVehiculo(int id, string marca, Modelo modelo)
+
+        public Modelo(int id, string modelo)
         {
             this.id = id;
-            this.marca = marca;
             this.modelo = modelo;
         }
 
@@ -36,20 +35,7 @@ namespace ENT
             }
         }
 
-        public string Marca
-        {
-            get
-            {
-                return marca;
-            }
-
-            set
-            {
-                marca = value;
-            }
-        }
-
-        public Modelo Modelo
+        public string pModelo
         {
             get
             {
@@ -61,10 +47,11 @@ namespace ENT
                 modelo = value;
             }
         }
-
         public override string ToString()
         {
-            return  this.marca + " " + modelo;
+           return modelo;
         }
+
     }
+  
 }

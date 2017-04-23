@@ -21,6 +21,10 @@ namespace BLL
                 {
                     throw new Exception("No agregado una marca");
                 }
+                if (marca.Modelo.Id <= 0)
+                {
+                    throw new Exception("Debes seleccionar un modelo para esta marca");
+                }
                 if (marca.Id <= 0)
                 {
                     DalMarca.agregarMarca(marca);
@@ -136,11 +140,7 @@ namespace BLL
                 marcas = DalMarca.buscarIntMarcas(valor);
                 if (DalMarca.Error)
                 {
-                    throw new Exception("Error al buscar las marcas");
-                }
-                if (marcas.Count <= 0)
-                {
-                    throw new Exception("No hay marcas registradas para este repuesto");
+                    throw new Exception("Error al buscar las marcas, "+DalMarca.ErrorMsg);
                 }
             }
             catch (Exception ex)

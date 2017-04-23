@@ -107,11 +107,10 @@ namespace appTalles.Vista
                 seleccionComboVehiculo();
                 EntOrden.FechaIngreso = dtIngreso.Value;
                 EntOrden.FechaSalida = dtFechaSalida.Value;
-                EntOrden.FechaFacturacion = dtFechaFacturacion.Value;
                 EntOrden.Empleado = EntEmpleado;
                 EntOrden.Vehiculo = EntVehiculo;
                 EntOrden.Estado = "Dañado";
-                limpiarDatos();              
+                limpiarDatos();
                 int consecutivo = BllOrden.consecutivogAregarOrden(EntOrden);
                 if (consecutivo > 0)
                 {
@@ -125,9 +124,9 @@ namespace appTalles.Vista
             }
             catch (Exception ex)
             {
-              MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
-              MessageBoxIcon.Information);
-            }          
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
         }
         private void btnAgregarServicio_Click(object sender, EventArgs e)
         {
@@ -301,7 +300,7 @@ namespace appTalles.Vista
         {
             int fila = this.grdRepuesto.CurrentRow.Index;
             if (fila >= 0)
-            {     
+            {
                 npRepuestoAgregar.Enabled = true;
                 EntRepuesto.Id = Int32.Parse(this.grdRepuesto[0, fila].Value.ToString());
                 EntRepuesto.Repuesto = this.grdRepuesto[1, fila].Value.ToString();
@@ -329,10 +328,18 @@ namespace appTalles.Vista
         //desde la base de datos a los componentes de la interfaz
         private void cargarComponentesOrden(ENT.Orden orden)
         {
+            string valor = orden.FechaFacturacion.ToShortDateString().ToString();
             txtCodigo.Text = orden.Id + "";
             dtIngreso.Value = orden.FechaIngreso;
             dtFechaSalida.Value = orden.FechaSalida;
-            dtFechaFacturacion.Value = orden.FechaFacturacion;
+            if (valor.Equals("1/1/0001"))
+            {
+                txtFechaFacturacion.Text = "Orden sin facturar";
+            }else{
+                txtFechaFacturacion.Text = orden.FechaFacturacion.ToShortDateString();
+
+            }
+         
             for (int j = 0; j < cbEncargado.Items.Count; j++)
             {
                 if (cbEncargado.Items[j].ToString() == orden.Empleado.ToString())
@@ -369,7 +376,7 @@ namespace appTalles.Vista
             EntEmpleado = new ENT.Empleado();
             dtIngreso.Value = DateTime.Today;
             dtFechaSalida.Value = DateTime.Today;
-            dtFechaFacturacion.Value = DateTime.Today;
+            txtFechaFacturacion.Text = "";
         }
         //Metodo selecciona un item del combobox estado
         //y lo retorna en valor de string
@@ -408,36 +415,33 @@ namespace appTalles.Vista
                 EntEmpleado.Nombre = selectedItem.Nombre;
             }
         }
+        private bool ver(int id, List<ENT.Servicio> ser)
+        {
+            foreach (ENT.Servicio item in ser)
+            {
+                if (item.Id == id)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
         //Metodo carga una lista y las agrega al datagriew
         //y las agrega al datagriew de servicio
-        private void cargarServicio(List<ENT.OrdenServicio> Ordenservicios)
+        private void cargarServicio(List<ENT.OrdenServicio> OrdenServicios)
         {
             try
             {
-                bool esta = false;
                 List<ENT.Servicio> tem = new List<ENT.Servicio>();
                 servicios = BllServicio.cargarServicio();
-                if (ordenServicios.Count <= 0)
+                for (int i = 0; i < servicios.Count; i++)
                 {
-                    this.grdServicioUno.DataSource = servicios;
-                    return;
-                }
-                esta = false;
-                foreach (ENT.Servicio oServicio in servicios)
-                {
-                    foreach (ENT.OrdenServicio oOrdenServicio in Ordenservicios)
+                    if (!VerificarServicio(servicios[i].pServicio, OrdenServicios))
                     {
-                        if (oServicio.Id != oOrdenServicio.Servicio.Id)
-                        {
-                            tem.Add(oServicio);
-                        }
-                        if (esta)
-                        {
-                            break;
-                        }
+                        tem.Add(servicios[i]);
                     }
                 }
-
                 this.grdServicioUno.DataSource = tem;
             }
             catch (Exception ex)
@@ -446,54 +450,34 @@ namespace appTalles.Vista
                 MessageBoxIcon.Information);
             }
         }
+        //Metodo verifica si el repuesto esta agregado en la 
+        //lista de orden repuesto
+        private bool VerificarServicio(string a, List<ENT.OrdenServicio> ser)
+        {
+            for (int i = 0; i < ser.Count; i++)
+            {
+                if (ser[i].Servicio.pServicio == a)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         //Metodo carga una lista y las agrega al datagriew
         //de repuestos
         private void cargarRepuestos(List<ENT.OrdenRepuesto> Ordenrepuestos)
         {
             try
             {
-                bool esta = false;
                 List<ENT.RepuestoVehiculo> tem = new List<ENT.RepuestoVehiculo>();
                 repuestos = BllRepesto.cargarRepuestos();
-                if (Ordenrepuestos.Count <= 0)
+                for (int i = 0; i < repuestos.Count; i++)
                 {
-                    this.grdRepuesto.DataSource = repuestos;
-                    return;
-                }
-               
-                     
-                foreach (ENT.RepuestoVehiculo oRepuesto in repuestos)
-                {
-                    esta = false;
-                    foreach (ENT.OrdenRepuesto oOrdenRepusto in Ordenrepuestos)
+                    if (!VerificarRepuesto(repuestos[i].Repuesto, Ordenrepuestos))
                     {
-                        if (oRepuesto.Id != oOrdenRepusto.Repuesto1.Id)
-                        {
-                            esta = false;
-
-                            foreach (ENT.RepuestoVehiculo item in tem)
-                            {
-                                if (item.Id == oOrdenRepusto.Repuesto1.Id)
-                                {
-                                    esta = true;
-                                }
-                                
-                            }
-
-
-                            if (esta == false)
-                            {
-                                tem.Add(oOrdenRepusto.Repuesto1);
-                            }
-                        }
-                       
-                   
-
-      
+                        tem.Add(repuestos[i]);
                     }
-
                 }
-                           
                 this.grdRepuesto.DataSource = tem;
             }
             catch (Exception ex)
@@ -501,6 +485,19 @@ namespace appTalles.Vista
                 MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
             }
+        }
+        //Metodo verifica si el repuesto esta agregado en la 
+        //lista de orden repuesto
+        private bool VerificarRepuesto(string a, List<ENT.OrdenRepuesto> rep)
+        {
+            for (int i = 0; i < rep.Count; i++)
+            {
+                if (rep[i].Repuesto1.Repuesto == a)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         //Metodo retorna un lista y las agrega
         //al combobox de empleado
@@ -633,7 +630,6 @@ namespace appTalles.Vista
                     seleccionComboVehiculo();
                     EntOrden.FechaIngreso = dtIngreso.Value;
                     EntOrden.FechaSalida = dtFechaSalida.Value;
-                    EntOrden.FechaFacturacion = dtFechaFacturacion.Value;
                     EntOrden.Empleado = EntEmpleado;
                     EntOrden.Vehiculo = EntVehiculo;
                     EntOrden.Estado = seleccionEstado();

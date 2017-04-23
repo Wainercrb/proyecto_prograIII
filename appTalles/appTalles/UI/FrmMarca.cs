@@ -17,22 +17,34 @@ namespace Vista
     {
         private ENT.MarcaVehiculo EntMarca;
         private BLL.Marca BllMarca;
+        private ENT.Modelo EntModelo;
+        private BLL.Modelo BllModelo;
+        private List<ENT.Modelo> modelos;
         private string marcaAntes;
         private List<ENT.MarcaVehiculo> marcas;
+
         public frmMarca()
         {
+            InitializeComponent();
             EntMarca = new ENT.MarcaVehiculo();
             BllMarca = new BLL.Marca();
-            InitializeComponent();
+            EntModelo = new ENT.Modelo();
+            BllModelo = new BLL.Modelo();
+            modelos = new List<ENT.Modelo>();
+            llenarComboModelo();
+         
         }
         private void btnAgregar_Click_1(object sender, EventArgs e)
         {
             try
             {
+                seleccionComboModelo();
                 EntMarca.Marca = txtMarca.Text;
+                EntMarca.Modelo = EntModelo;
                 BllMarca.insertarMarca(EntMarca);
-                limpiarDatos();
                 cargarMarcas();
+                limpiarDatos();
+               
             }
             catch (Exception ex)
             {
@@ -64,10 +76,8 @@ namespace Vista
         {
             if (this.grdMarcas.Rows.Count > 0)
             {
-                int fila = this.grdMarcas.CurrentRow.Index;
-                EntMarca.Id = Int32.Parse(this.grdMarcas[0, fila].Value.ToString());
-                txtMarca.Text = this.grdMarcas[1, fila].Value.ToString();
-                marcaAntes = this.grdMarcas[1, fila].Value.ToString();
+                int fila = this.grdMarcas.CurrentRow.Index;              
+                txtMensaje.Text = this.grdMarcas[1, fila].Value.ToString();                           
             }
         }
         private void seleccionMarca(object sender, MouseEventArgs e)
@@ -117,6 +127,55 @@ namespace Vista
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+        //Metodo retorna un lista y las agrega
+        //al combobox de empleado
+        private void llenarComboModelo()
+        {
+            try
+            {
+                this.cbModelo.Items.Clear();
+                modelos = BllModelo.cargarModelo();
+                foreach (ENT.Modelo oModelo in modelos)
+                {
+                    this.cbModelo.Items.Add(oModelo);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
+        }
+        //Metodo selecciona un cliente del combobox y lo agrega
+        //a la entidad cliente
+        private void seleccionComboModelo()
+        {
+            if (cbModelo.SelectedIndex != -1)
+            {
+                int selectedIndex = cbModelo.SelectedIndex;
+                ENT.Modelo selectedItem = (ENT.Modelo)cbModelo.SelectedItem;
+                EntModelo.Id = selectedItem.Id;
+            }   
+        }
+
+        private void Editar(object sender, MouseEventArgs e)
+        {
+            if (this.grdMarcas.Rows.Count > 0)
+            {
+                int fila = this.grdMarcas.CurrentRow.Index;
+                EntMarca.Id = Int32.Parse(this.grdMarcas[0, fila].Value.ToString());
+                txtMarca.Text = this.grdMarcas[1, fila].Value.ToString();
+                EntModelo = (ENT.Modelo)this.grdMarcas[2, fila].Value;
+                for (int j = 0; j < cbModelo.Items.Count; j++)
+                {
+                    if (cbModelo.Items[j].ToString() == EntModelo.ToString())
+                    {
+                        cbModelo.SelectedIndex = j;
+                        break;
+                    }
+                }
             }
         }
     }

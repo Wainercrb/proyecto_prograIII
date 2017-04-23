@@ -76,7 +76,6 @@
             this.Repuesto1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnQuitar = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
-            this.dtFechaFacturacion = new System.Windows.Forms.DateTimePicker();
             this.label7 = new System.Windows.Forms.Label();
             this.dtFechaSalida = new System.Windows.Forms.DateTimePicker();
             this.dtIngreso = new System.Windows.Forms.DateTimePicker();
@@ -94,6 +93,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.cbEstado = new System.Windows.Forms.ComboBox();
             this.grdMarca = new System.Windows.Forms.DataGridView();
+            this.txtFechaFacturacion = new System.Windows.Forms.TextBox();
             this.tabComponentes.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.npMasServicio)).BeginInit();
@@ -619,13 +619,6 @@
             this.btnAgregar.UseVisualStyleBackColor = true;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
-            // dtFechaFacturacion
-            // 
-            this.dtFechaFacturacion.Location = new System.Drawing.Point(416, 122);
-            this.dtFechaFacturacion.Name = "dtFechaFacturacion";
-            this.dtFechaFacturacion.Size = new System.Drawing.Size(213, 20);
-            this.dtFechaFacturacion.TabIndex = 26;
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -780,11 +773,19 @@
             this.grdMarca.Size = new System.Drawing.Size(211, 214);
             this.grdMarca.TabIndex = 0;
             // 
+            // txtFechaFacturacion
+            // 
+            this.txtFechaFacturacion.Location = new System.Drawing.Point(416, 125);
+            this.txtFechaFacturacion.Name = "txtFechaFacturacion";
+            this.txtFechaFacturacion.Size = new System.Drawing.Size(213, 20);
+            this.txtFechaFacturacion.TabIndex = 37;
+            // 
             // FrmOrdenReparaciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(743, 494);
+            this.Controls.Add(this.txtFechaFacturacion);
             this.Controls.Add(this.cbEstado);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.toolStrip3);
@@ -793,7 +794,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cbVehiculo);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.dtFechaFacturacion);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.dtFechaSalida);
             this.Controls.Add(this.dtIngreso);
@@ -833,7 +833,6 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DateTimePicker dtFechaFacturacion;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DateTimePicker dtFechaSalida;
         private System.Windows.Forms.DateTimePicker dtIngreso;
@@ -895,5 +894,6 @@
         private System.Windows.Forms.NumericUpDown npMasRepuesto;
         private System.Windows.Forms.Button btnMasServicio;
         private System.Windows.Forms.NumericUpDown npMasServicio;
+        private System.Windows.Forms.TextBox txtFechaFacturacion;
     }
 }

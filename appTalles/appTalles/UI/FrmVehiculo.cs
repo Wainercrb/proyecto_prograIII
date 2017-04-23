@@ -271,7 +271,8 @@ namespace Vista
                 int selectedIndex = cbMarca.SelectedIndex;
                 MarcaVehiculo selectedItem = (MarcaVehiculo)cbMarca.SelectedItem;
                 EntMarca = new MarcaVehiculo();
-                EntMarca = new MarcaVehiculo(selectedItem.Id, selectedItem.Marca);
+                EntMarca.Id = selectedItem.Id;
+                EntMarca.Marca = selectedItem.Marca;
             }
         }
         //Metodo selecciona el combo tipo de vehículo

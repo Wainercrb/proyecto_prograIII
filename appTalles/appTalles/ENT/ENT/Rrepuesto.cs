@@ -11,6 +11,7 @@ namespace ENT
         private int id;
         private int cantidad;
         private double totalRepuestos;
+     
 
         public Rrepuesto(int id, int cantidad, double totalRepuestos)
         {

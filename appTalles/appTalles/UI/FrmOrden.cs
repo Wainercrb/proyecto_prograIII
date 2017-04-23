@@ -184,6 +184,7 @@ namespace Vista
         private void limpiarDatos()
         {
             txtCodigo.Text = "";
+            txtMensaje.Text = "";
             cbCliente.SelectedIndex = -1;
             cbEncargado.SelectedIndex = -1;
             cbEsatado.SelectedIndex = -1;

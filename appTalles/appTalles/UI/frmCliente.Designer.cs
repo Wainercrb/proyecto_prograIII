@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCliente));
             this.btnSalir = new System.Windows.Forms.Button();
             this.txtCantidadRegistros = new System.Windows.Forms.TextBox();
@@ -105,6 +106,8 @@
             // 
             this.grdClientes.AllowUserToAddRows = false;
             this.grdClientes.AllowUserToDeleteRows = false;
+            this.grdClientes.BackgroundColor = System.Drawing.SystemColors.ActiveBorder;
+            this.grdClientes.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.grdClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdClientes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
@@ -115,11 +118,19 @@
             this.TelefonoCasa,
             this.TelefonoOficina,
             this.TelefonoCelular});
-            this.grdClientes.Location = new System.Drawing.Point(12, 177);
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grdClientes.DefaultCellStyle = dataGridViewCellStyle1;
+            this.grdClientes.Location = new System.Drawing.Point(0, 177);
             this.grdClientes.MultiSelect = false;
             this.grdClientes.Name = "grdClientes";
             this.grdClientes.ReadOnly = true;
-            this.grdClientes.Size = new System.Drawing.Size(548, 349);
+            this.grdClientes.Size = new System.Drawing.Size(558, 349);
             this.grdClientes.TabIndex = 2;
             this.grdClientes.MouseClick += new System.Windows.Forms.MouseEventHandler(this.seleccion);
             this.grdClientes.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Editar);

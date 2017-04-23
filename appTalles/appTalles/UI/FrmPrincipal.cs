@@ -247,5 +247,11 @@ namespace Vista
             FrmInformeOrdenPendiente frm = new FrmInformeOrdenPendiente();
             frm.ShowDialog();
         }
+
+        private void mantenimientoModelosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmModelo frm = new FrmModelo();
+            frm.ShowDialog();
+        }
     }
 }

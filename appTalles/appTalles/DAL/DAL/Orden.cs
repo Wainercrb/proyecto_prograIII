@@ -75,7 +75,7 @@ namespace DAL
                 {
                     foreach (DataRow tupla in dsetOrden.Tables[0].Rows)
                     {
-                        MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(tupla["id_marca"].ToString()), tupla["marca"].ToString());
+                        MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(tupla["id_marca"].ToString()), tupla["marca"].ToString(),new ENT.Modelo());
                         ENT.Empleado OEmpleado = new ENT.Empleado(int.Parse(tupla["id_empleado"].ToString()), tupla["nombre_empleado"].ToString(), tupla["apellido_empleado"].ToString(), tupla["direccion_empleado"].ToString(), tupla["telefono1_empleado"].ToString(), tupla["telefono2_empleado"].ToString(), tupla["trabajo_empleado"].ToString(), tupla["permiso_empleado"].ToString(), tupla["usuario_empleado"].ToString(), tupla["contrasenna_empleado"].ToString());
                         ENT.Cliente oCliente = new ENT.Cliente(int.Parse(tupla["id_cliente"].ToString()), tupla["cedula"].ToString(), tupla["nombre"].ToString(), tupla["apellido"].ToString(), tupla["apellido2"].ToString(), tupla["telefono_casa"].ToString(), tupla["telefono_celular"].ToString(), tupla["telefono_oficina"].ToString());
                         TipoVehiculo oTipo = new TipoVehiculo(Int32.Parse(tupla["id_tipo"].ToString()), tupla["tipo"].ToString());
@@ -116,7 +116,7 @@ namespace DAL
             {
                 if (dsetOrden.Tables[0].Rows.Count > 0)
                 {
-                    MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(dsetOrden.Tables["id_marca"].ToString()), dsetOrden.Tables["marca"].ToString());
+                    MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(dsetOrden.Tables["id_marca"].ToString()), dsetOrden.Tables["marca"].ToString(), new ENT.Modelo());
                     ENT.Empleado OEmpleado = new ENT.Empleado(int.Parse(dsetOrden.Tables["id_empleado"].ToString()), dsetOrden.Tables["nombre_empleado"].ToString(), dsetOrden.Tables["apellido_empleado"].ToString(), dsetOrden.Tables["direccion_empleado"].ToString(), dsetOrden.Tables["telefono1_empleado"].ToString(), dsetOrden.Tables["telefono2_empleado"].ToString(), dsetOrden.Tables["trabajo_empleado"].ToString(), dsetOrden.Tables["permiso_empleado"].ToString(), dsetOrden.Tables["usuario_empleado"].ToString(), dsetOrden.Tables["contrasenna_empleado"].ToString());
                     ENT.Cliente oCliente = new ENT.Cliente(int.Parse(dsetOrden.Tables["id_cliente"].ToString()), dsetOrden.Tables["cedula"].ToString(), dsetOrden.Tables["nombre"].ToString(), dsetOrden.Tables["apellido"].ToString(), dsetOrden.Tables["apellido2"].ToString(), dsetOrden.Tables["telefono_casa"].ToString(), dsetOrden.Tables["telefono_celular"].ToString(), dsetOrden.Tables["telefono_oficina"].ToString());
                     TipoVehiculo oTipo = new TipoVehiculo(Int32.Parse(dsetOrden.Tables["id_tipo"].ToString()), dsetOrden.Tables["tipo"].ToString());
@@ -167,7 +167,7 @@ namespace DAL
             dsetOrden = this.conexion.ejecutarConsultaSQL(sql);
             foreach (DataRow tupla in dsetOrden.Tables[0].Rows)
             {
-                MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(tupla["id_marca"].ToString()), tupla["marca"].ToString());
+                MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(tupla["id_marca"].ToString()), tupla["marca"].ToString(), new ENT.Modelo());
                 ENT.Empleado OEmpleado = new ENT.Empleado(int.Parse(tupla["id_empleado"].ToString()), tupla["nombre_empleado"].ToString(), tupla["apellido_empleado"].ToString(), tupla["direccion_empleado"].ToString(), tupla["telefono1_empleado"].ToString(), tupla["telefono2_empleado"].ToString(), tupla["trabajo_empleado"].ToString(), tupla["permiso_empleado"].ToString(), tupla["usuario_empleado"].ToString(), tupla["contrasenna_empleado"].ToString());
                 ENT.Cliente oCliente = new ENT.Cliente(int.Parse(tupla["id_cliente"].ToString()), tupla["cedula"].ToString(), tupla["nombre"].ToString(), tupla["apellido"].ToString(), tupla["apellido2"].ToString(), tupla["telefono_casa"].ToString(), tupla["telefono_celular"].ToString(), tupla["telefono_oficina"].ToString());
                 TipoVehiculo oTipo = new TipoVehiculo(Int32.Parse(tupla["id_tipo"].ToString()), tupla["tipo"].ToString());
@@ -206,13 +206,14 @@ namespace DAL
         }
         //Metodo actualiza el estado de una orden
         //por los valores que recibe por parametro
-        public void actualizarEstadoOrden(ENT.Orden orden)
+        public void actualizarEstadoOrden(ENT.Orden orden, DateTime date)
         {
             limpiarError();
-            string sql = "UPDATE " + this.conexion.Schema + "orden SET estado = @estado WHERE  id_orden = @id_orden";
+            string sql = "UPDATE " + this.conexion.Schema + "orden SET estado = @estado, fecha_facturacion = @fecha_facturacion WHERE  id_orden = @id_orden";
             Parametro prm = new Parametro();
             prm.agregarParametro("@estado", NpgsqlDbType.Varchar, orden.Estado);
             prm.agregarParametro("@id_orden", NpgsqlDbType.Integer, orden.Id);
+            prm.agregarParametro("@fecha_facturacion", NpgsqlDbType.Date,date);
             this.conexion.ejecutarSQL(sql, prm.obtenerParametros());
             if (conexion.IsError)
             {
@@ -261,7 +262,7 @@ namespace DAL
                 {
                     foreach (DataRow tupla in dset.Tables[0].Rows)
                     {
-                        MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(tupla["id_marca"].ToString()), tupla["marca"].ToString());
+                        MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(tupla["id_marca"].ToString()), tupla["marca"].ToString(), new  ENT.Modelo());
                         ENT.Empleado OEmpleado = new ENT.Empleado(int.Parse(tupla["id_empleado"].ToString()), tupla["nombre_empleado"].ToString(), tupla["apellido_empleado"].ToString(), tupla["direccion_empleado"].ToString(), tupla["telefono1_empleado"].ToString(), tupla["telefono2_empleado"].ToString(), tupla["trabajo_empleado"].ToString(), tupla["permiso_empleado"].ToString(), tupla["usuario_empleado"].ToString(), tupla["contrasenna_empleado"].ToString());
                         ENT.Cliente oCliente = new ENT.Cliente(int.Parse(tupla["id_cliente"].ToString()), tupla["cedula"].ToString(), tupla["nombre"].ToString(), tupla["apellido"].ToString(), tupla["apellido2"].ToString(), tupla["telefono_casa"].ToString(), tupla["telefono_celular"].ToString(), tupla["telefono_oficina"].ToString());
                         TipoVehiculo oTipo = new TipoVehiculo(Int32.Parse(tupla["id_tipo"].ToString()), tupla["tipo"].ToString());
@@ -304,7 +305,7 @@ namespace DAL
                 {
                     foreach (DataRow tupla in dset.Tables[0].Rows)
                     {
-                        MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(tupla["id_marca"].ToString()), tupla["marca"].ToString());
+                        MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(tupla["id_marca"].ToString()), tupla["marca"].ToString(), new ENT.Modelo());
                         ENT.Empleado OEmpleado = new ENT.Empleado(int.Parse(tupla["id_empleado"].ToString()), tupla["nombre_empleado"].ToString(), tupla["apellido_empleado"].ToString(), tupla["direccion_empleado"].ToString(), tupla["telefono1_empleado"].ToString(), tupla["telefono2_empleado"].ToString(), tupla["trabajo_empleado"].ToString(), tupla["permiso_empleado"].ToString(), tupla["usuario_empleado"].ToString(), tupla["contrasenna_empleado"].ToString());
                         ENT.Cliente oCliente = new ENT.Cliente(int.Parse(tupla["id_cliente"].ToString()), tupla["cedula"].ToString(), tupla["nombre"].ToString(), tupla["apellido"].ToString(), tupla["apellido2"].ToString(), tupla["telefono_casa"].ToString(), tupla["telefono_celular"].ToString(), tupla["telefono_oficina"].ToString());
                         TipoVehiculo oTipo = new TipoVehiculo(Int32.Parse(tupla["id_tipo"].ToString()), tupla["tipo"].ToString());
@@ -348,7 +349,7 @@ namespace DAL
                 {
                     foreach (DataRow tupla in dset.Tables[0].Rows)
                     {
-                        MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(tupla["id_marca"].ToString()), tupla["marca"].ToString());
+                        MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(tupla["id_marca"].ToString()), tupla["marca"].ToString(), new ENT.Modelo());
                         ENT.Empleado OEmpleado = new ENT.Empleado(int.Parse(tupla["id_empleado"].ToString()), tupla["nombre_empleado"].ToString(), tupla["apellido_empleado"].ToString(), tupla["direccion_empleado"].ToString(), tupla["telefono1_empleado"].ToString(), tupla["telefono2_empleado"].ToString(), tupla["trabajo_empleado"].ToString(), tupla["permiso_empleado"].ToString(), tupla["usuario_empleado"].ToString(), tupla["contrasenna_empleado"].ToString());
                         ENT.Cliente oCliente = new ENT.Cliente(int.Parse(tupla["id_cliente"].ToString()), tupla["cedula"].ToString(), tupla["nombre"].ToString(), tupla["apellido"].ToString(), tupla["apellido2"].ToString(), tupla["telefono_casa"].ToString(), tupla["telefono_celular"].ToString(), tupla["telefono_oficina"].ToString());
                         TipoVehiculo oTipo = new TipoVehiculo(Int32.Parse(tupla["id_tipo"].ToString()), tupla["tipo"].ToString());

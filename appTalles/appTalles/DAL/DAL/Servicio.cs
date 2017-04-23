@@ -30,11 +30,13 @@ namespace DAL
         public void agregarservicio(ENT.Servicio servicio)
         {
             limpiarError();
-            string sql = "INSERT INTO " + this.conexion.Schema + "servicio (servcio, precio, impuesto) values(@servicio, @precio, @impuesto)";
+            string sql = "INSERT INTO " + this.conexion.Schema + "servicio (servcio, precio, impuesto, descripcion, horas_promedio) values(@servicio, @precio, @impuesto, @descripcion, @horas_promedio)";
             Parametro prm = new Parametro();
             prm.agregarParametro("@servicio", NpgsqlDbType.Varchar, servicio.pServicio);
             prm.agregarParametro("@precio", NpgsqlDbType.Double, servicio.Precio);
             prm.agregarParametro("@impuesto", NpgsqlDbType.Double, servicio.Impuesto);
+            prm.agregarParametro("@descripcion", NpgsqlDbType.Varchar, servicio.Descripcion);
+            prm.agregarParametro("@horas_promedio", NpgsqlDbType.Integer, servicio.DiasPromedio);
             this.conexion.ejecutarSQL(sql, prm.obtenerParametros());
             if (this.conexion.IsError)
             {
@@ -49,12 +51,12 @@ namespace DAL
             limpiarError();
             List<ENT.Servicio> servicios = new List<ENT.Servicio>();
             DataSet dsetEmpleados;
-            string sql = "select p.id_servicio as id_servicio, p.servcio as servcio ,p.precio as precio, p.impuesto as impuesto from servicio p";
+            string sql = "SELECT * FROM " + this.conexion.Schema + "servicio";
             dsetEmpleados = conexion.ejecutarConsultaSQL(sql);
             foreach (DataRow tupla in dsetEmpleados.Tables[0].Rows)
             {
                 ENT.Servicio pEmpleados = new ENT.Servicio(Convert.ToInt32(tupla["id_servicio"].ToString()), tupla["servcio"].ToString(),
-                double.Parse(tupla["precio"].ToString()), double.Parse(tupla["impuesto"].ToString()));
+                double.Parse(tupla["precio"].ToString()), double.Parse(tupla["impuesto"].ToString()), tupla["descripcion"].ToString(),Int32.Parse(tupla["horas_promedio"].ToString()));
                 servicios.Add(pEmpleados);
             }
             if (this.conexion.IsError)
@@ -82,12 +84,14 @@ namespace DAL
         public void actualizarServicio(ENT.Servicio servicio)
         {
             limpiarError();
-            string sql = "UPDATE " + this.conexion.Schema + "servicio set servcio = @servicio ,precio = @precio, impuesto = @impuesto where id_servicio = @id_servicio";
+            string sql = "UPDATE " + this.conexion.Schema + "servicio set servcio = @servicio ,precio = @precio, impuesto = @impuesto, descripcion = @descripcion, horas_promedio = @horas_promedio where id_servicio = @id_servicio";
             Parametro prm = new Parametro();
             prm.agregarParametro("@servicio", NpgsqlDbType.Varchar, servicio.pServicio);
             prm.agregarParametro("@precio", NpgsqlDbType.Double, servicio.Precio);
             prm.agregarParametro("@impuesto", NpgsqlDbType.Double, servicio.Impuesto);
             prm.agregarParametro("@id_servicio", NpgsqlDbType.Integer, servicio.Id);
+            prm.agregarParametro("@descripcion", NpgsqlDbType.Varchar, servicio.Descripcion);
+            prm.agregarParametro("@horas_promedio", NpgsqlDbType.Integer, servicio.DiasPromedio);
             this.conexion.ejecutarSQL(sql, prm.obtenerParametros());
             if (this.conexion.IsError)
             {

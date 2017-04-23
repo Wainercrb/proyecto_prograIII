@@ -26,20 +26,22 @@ namespace Vista
         }
         private void btnAgregar_Click_1(object sender, EventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 EntServicio.pServicio = txtServicio.Text;
-                EntServicio.Precio = int.Parse(txtPrecio.Text);
+                EntServicio.Precio = Double.Parse(txtPrecio.Text);
                 EntServicio.Impuesto = Double.Parse(txtImpuesto.Text);
+                EntServicio.Descripcion = txtDetalle.Text;
+                EntServicio.DiasPromedio = Int32.Parse(npHorasPromedio.Value.ToString());
                 BllServicio.agregarServicio(EntServicio);
                 limpiarDatos();
                 cargar();       
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK, 
-                MessageBoxIcon.Error);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK, 
+            //    MessageBoxIcon.Error);
+            //}
         }
         private void btnEliminar_Click_1(object sender, EventArgs e)
         {
@@ -77,6 +79,8 @@ namespace Vista
                 txtServicio.Text = this.grdServicios[1, fila].Value.ToString();
                 txtPrecio.Text = this.grdServicios[2, fila].Value.ToString();
                 txtImpuesto.Text = this.grdServicios[3, fila].Value.ToString();
+                txtDetalle.Text = this.grdServicios[4, fila].Value.ToString();
+                npHorasPromedio.Value = Int32.Parse(this.grdServicios[5, fila].Value.ToString());
             }
         }
         private void seleccionServicio(object sender, MouseEventArgs e)
@@ -84,7 +88,6 @@ namespace Vista
             if (this.grdServicios.Rows.Count > 0)
             {
                 int fila = this.grdServicios.CurrentRow.Index;
-                EntServicio.Id = Int32.Parse(grdServicios[0, fila].Value.ToString());
                 txtMensaje.Text = "Codigo, " + grdServicios[0, fila].Value.ToString() + ", servicio " + grdServicios[1, fila].Value.ToString();
             }
         }
@@ -116,12 +119,30 @@ namespace Vista
         }
         private void validarNumeros(object sender, KeyPressEventArgs e)
         {
-            if (char.IsLetter(e.KeyChar))
-                e.Handled = true;
-            else if (char.IsSymbol(e.KeyChar))
-                e.Handled = true;
-            else if (char.IsPunctuation(e.KeyChar))
-                e.Handled = true;
+            if (txtImpuesto.Text.Contains(','))
+            {
+                if (!char.IsDigit(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+
+                if (e.KeyChar == '\b')
+                {
+                    e.Handled = false;
+                }
+            }
+            else
+            {
+                if (!char.IsDigit(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+
+                if (e.KeyChar == ',' || e.KeyChar == '\b')
+                {
+                    e.Handled = false;
+                }
+            }
         }
         //Metodo retorna una lista desde la clase BLL.servicio
         //y la agrega al datagriew
@@ -169,6 +190,34 @@ namespace Vista
             {
                 MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
+            }
+        }
+
+        private void validarImpuesto(object sender, KeyPressEventArgs e)
+        {
+            if (txtImpuesto.Text.Contains(','))
+            {
+                if (!char.IsDigit(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+
+                if (e.KeyChar == '\b')
+                {
+                    e.Handled = false;
+                }
+            }
+            else
+            {
+                if (!char.IsDigit(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+
+                if (e.KeyChar == ',' || e.KeyChar == '\b')
+                {
+                    e.Handled = false;
+                }
             }
         }
     }

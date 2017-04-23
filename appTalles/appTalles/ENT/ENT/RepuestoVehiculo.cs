@@ -12,6 +12,7 @@ namespace ENT
         private string repuesto;
         private double precio;
         private double impuesto;
+        private int anno;
         private List<MarcaVehiculo> marcas;
 
 
@@ -29,12 +30,13 @@ namespace ENT
 
 
 
-        public RepuestoVehiculo(int id, string repuesto, double precio, double impuesto)
+        public RepuestoVehiculo(int id, string repuesto, double precio, double impuesto, int anno)
         {
             this.id = id;
             this.repuesto = repuesto;
             this.precio = precio;
             this.impuesto = impuesto;
+            this.Anno = anno;
         }
         public int Id
         {
@@ -98,6 +100,19 @@ namespace ENT
             set
             {
                 impuesto = value;
+            }
+        }
+
+        public int Anno
+        {
+            get
+            {
+                return anno;
+            }
+
+            set
+            {
+                anno = value;
             }
         }
 

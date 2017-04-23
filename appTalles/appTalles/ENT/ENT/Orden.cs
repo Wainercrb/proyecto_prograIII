@@ -13,7 +13,7 @@ namespace ENT
         private int id;
         private DateTime fechaIngreso;
         private DateTime fechaSalida;
-        private DateTime fechaFacturacion;
+        private DateTime fechaFacturacion = DateTime.Parse("01/01/0001");
         private string estado;
         private double costoTotal;
         private Vehiculo vehiculo;

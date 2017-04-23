@@ -35,14 +35,15 @@ namespace DAL
             this.limpiarError();
             List<MarcaVehiculo> marcas = new List<MarcaVehiculo>();
             DataSet dsetMarcas;
-            string sql = "SELECT * FROM " + this.conexion.Schema + " marca";
+            string sql = "SELECT m.id_marca, m.marca, md.id_modelo, md.modelo FROM " + this.conexion.Schema + " marca m, "+this.conexion.Schema+"modelo md WHERE  m.fk_modelo =  md.id_modelo";
             dsetMarcas = this.conexion.ejecutarConsultaSQL(sql);
             if (!this.conexion.IsError)
             {
                 foreach (DataRow tupla in dsetMarcas.Tables[0].Rows)
                 {
+                    ENT.Modelo modelo = new ENT.Modelo(Int32.Parse(tupla["id_modelo"].ToString()), tupla["modelo"].ToString());
                     MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(tupla["id_marca"].ToString()),
-                    tupla["marca"].ToString());
+                    tupla["marca"].ToString(), modelo);
                     marcas.Add(oMarca);
                 }
             }
@@ -57,9 +58,10 @@ namespace DAL
         public void agregarMarca(MarcaVehiculo pMarca)
         {
             limpiarError();
-            string sql = "INSERT INTO " + this.conexion.Schema + " marca(marca) values(@marca)";
+            string sql = "INSERT INTO " + this.conexion.Schema + " marca(marca, fk_modelo) values(@marca, @fk_modelo)";
             Parametro prm = new Parametro();
             prm.agregarParametro("@marca", NpgsqlDbType.Varchar, pMarca.Marca);
+            prm.agregarParametro("@fk_modelo", NpgsqlDbType.Integer, pMarca.Modelo.Id);
             this.conexion.ejecutarSQL(sql, prm.obtenerParametros());
             if (this.conexion.IsError)
             {
@@ -86,9 +88,10 @@ namespace DAL
         public void editarMarca(MarcaVehiculo pMarca)
         {
             limpiarError();
-            string sql = "UPDATE " + this.conexion.Schema + " marca SET marca = @marca WHERE id_marca = @id_marca";
+            string sql = "UPDATE " + this.conexion.Schema + " marca SET marca = @marca, fk_modelo = @fk_modelo WHERE id_marca = @id_marca";
             Parametro prm = new Parametro();
             prm.agregarParametro("@marca", NpgsqlDbType.Varchar, pMarca.Marca);
+            prm.agregarParametro("@fk_modelo", NpgsqlDbType.Integer, pMarca.Modelo.Id);
             prm.agregarParametro("@id_marca", NpgsqlDbType.Integer, pMarca.Id);
             this.conexion.ejecutarSQL(sql, prm.obtenerParametros());
             if (this.conexion.IsError)
@@ -105,7 +108,7 @@ namespace DAL
             List<ENT.MarcaVehiculo> marcas = new List<ENT.MarcaVehiculo>();
             Parametro oParametro = new Parametro();
             oParametro.agregarParametro("@marca", NpgsqlDbType.Varchar, valor);
-            string sql = "SELECT * FROM " + this.conexion.Schema + "marca WHERE marca = @marca";
+            string sql = "SELECT m.id_marca, m.marca,md.id_modelo,  md.modelo FROM " + this.conexion.Schema + " marca m, "+this.conexion.Schema+"modelo md, WHERE  m.fk_modelo = md.id_modelo AND marca = @marca";
             DataSet dset = this.conexion.ejecutarConsultaSQL(sql, "marca", oParametro.obtenerParametros());
             if (!this.conexion.IsError)
             {
@@ -113,8 +116,9 @@ namespace DAL
                 {
                     foreach (DataRow tupla in dset.Tables[0].Rows)
                     {
+                        ENT.Modelo modelo = new ENT.Modelo(Int32.Parse(tupla["id_modelo"].ToString()), tupla["modelo"].ToString());
                         MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(tupla["id_marca"].ToString()),
-                        tupla["marca"].ToString());
+                        tupla["marca"].ToString(), modelo);
                         marcas.Add(oMarca);
                     }
                 }
@@ -134,7 +138,7 @@ namespace DAL
             List<MarcaVehiculo> marcas = new List<MarcaVehiculo>();
             Parametro oParametro = new Parametro();
             oParametro.agregarParametro("@fk_repuesto", NpgsqlDbType.Integer, valor);
-            string sql = "select m.id_marca as id_marca, m.marca as marca from marca m, repuesto_marca mr, repuesto r where mr.fk_marca = m.id_marca and mr.fk_repuesto = r.id_repuesto and mr.fk_repuesto = @fk_repuesto";
+            string sql = "select m.id_marca as id_marca, m.marca as marca, md.id_modelo, md.modelo FROM  repuesto_marca mr, repuesto r, modelo md, marca m where m.fk_modelo = md.id_modelo AND mr.fk_marca = m.id_marca and mr.fk_repuesto = r.id_repuesto and mr.fk_repuesto = @fk_repuesto";
             DataSet dset = this.conexion.ejecutarConsultaSQL(sql, "marca", oParametro.obtenerParametros());
             if (!this.conexion.IsError)
             {
@@ -142,8 +146,9 @@ namespace DAL
                 {
                     foreach (DataRow tupla in dset.Tables[0].Rows)
                     {
+                        ENT.Modelo modelo = new ENT.Modelo(Int32.Parse(tupla["id_modelo"].ToString()), tupla["modelo"].ToString());
                         MarcaVehiculo oMarca = new MarcaVehiculo(Int32.Parse(tupla["id_marca"].ToString()),
-                        tupla["marca"].ToString());
+                        tupla["marca"].ToString(), modelo);
                         marcas.Add(oMarca);
                     }
                 }

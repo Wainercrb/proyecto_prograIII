@@ -54,9 +54,14 @@
             this.rbBuscarServicio = new System.Windows.Forms.RadioButton();
             this.rbBuscaPrecio = new System.Windows.Forms.RadioButton();
             this.rbBuscarCodigo = new System.Windows.Forms.RadioButton();
+            this.label5 = new System.Windows.Forms.Label();
+            this.npHorasPromedio = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtDetalle = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.grdServicios)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.npHorasPromedio)).BeginInit();
             this.SuspendLayout();
             // 
             // txtPrecio
@@ -259,6 +264,7 @@
             this.txtImpuesto.Name = "txtImpuesto";
             this.txtImpuesto.Size = new System.Drawing.Size(114, 20);
             this.txtImpuesto.TabIndex = 2;
+            this.txtImpuesto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.validarImpuesto);
             // 
             // groupBox1
             // 
@@ -305,11 +311,47 @@
             this.rbBuscarCodigo.Text = "Codigo";
             this.rbBuscarCodigo.UseVisualStyleBackColor = true;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(201, 15);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(43, 13);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "Detalle:";
+            // 
+            // npHorasPromedio
+            // 
+            this.npHorasPromedio.Location = new System.Drawing.Point(289, 38);
+            this.npHorasPromedio.Name = "npHorasPromedio";
+            this.npHorasPromedio.Size = new System.Drawing.Size(120, 20);
+            this.npHorasPromedio.TabIndex = 14;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(198, 41);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(85, 13);
+            this.label7.TabIndex = 15;
+            this.label7.Text = "Horas Promedio:";
+            // 
+            // txtDetalle
+            // 
+            this.txtDetalle.Location = new System.Drawing.Point(289, 12);
+            this.txtDetalle.Name = "txtDetalle";
+            this.txtDetalle.Size = new System.Drawing.Size(120, 20);
+            this.txtDetalle.TabIndex = 16;
+            // 
             // RegistroServicio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(461, 373);
+            this.Controls.Add(this.txtDetalle);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.npHorasPromedio);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.txtImpuesto);
             this.Controls.Add(this.label2);
@@ -330,6 +372,7 @@
             this.toolStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.npHorasPromedio)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -361,5 +404,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn pServicio;
         private System.Windows.Forms.DataGridViewTextBoxColumn impuesto;
         private System.Windows.Forms.DataGridViewTextBoxColumn Precio;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.NumericUpDown npHorasPromedio;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txtDetalle;
     }
 }

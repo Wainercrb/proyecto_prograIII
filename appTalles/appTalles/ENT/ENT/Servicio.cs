@@ -12,6 +12,8 @@ namespace ENT
         private string servicio;
         private double precio;
         private double impuesto;
+        private string descripcion;
+        private int diasPromedio;
 
         public Servicio(int id, string servicio,double precio)
         {
@@ -19,12 +21,14 @@ namespace ENT
             this.servicio = servicio;
             this.Precio = precio;
         }
-        public Servicio(int id, string servicio, double precio, double impuesto)
+        public Servicio(int id, string servicio, double precio, double impuesto, string descripcion, int diasPromedio)
         {
             this.id = id;
             this.servicio = servicio;
             this.Precio = precio;
             this.Impuesto = impuesto;
+            this.Descripcion = descripcion;
+            this.DiasPromedio = diasPromedio;
         }
 
 
@@ -82,6 +86,32 @@ namespace ENT
             set
             {
                 impuesto = value;
+            }
+        }
+
+        public string Descripcion
+        {
+            get
+            {
+                return descripcion;
+            }
+
+            set
+            {
+                descripcion = value;
+            }
+        }
+
+        public int DiasPromedio
+        {
+            get
+            {
+                return diasPromedio;
+            }
+
+            set
+            {
+                diasPromedio = value;
             }
         }
 

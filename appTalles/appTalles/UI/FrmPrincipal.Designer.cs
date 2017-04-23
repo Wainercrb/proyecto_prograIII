@@ -50,6 +50,7 @@
             this.informeOrdenFinalizadaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.informeReparacionesAtendidasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.informeEstadisticoAtendidioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.informeOrdenPendienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.txtEmpleado = new System.Windows.Forms.TextBox();
             this.grdOrdenes = new System.Windows.Forms.DataGridView();
@@ -62,7 +63,7 @@
             this.Empleado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Vehiculo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.informeOrdenPendienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mantenimientoModelosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdOrdenes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -122,7 +123,8 @@
             this.registroClasesVehiculoToolStripMenuItem,
             this.registroVehiculoToolStripMenuItem,
             this.registroCatalogoRepuestosToolStripMenuItem,
-            this.registroCatalogoReparacionToolStripMenuItem});
+            this.registroCatalogoReparacionToolStripMenuItem,
+            this.mantenimientoModelosToolStripMenuItem});
             this.parámetrosToolStripMenuItem.Name = "parámetrosToolStripMenuItem";
             this.parámetrosToolStripMenuItem.Size = new System.Drawing.Size(83, 20);
             this.parámetrosToolStripMenuItem.Text = "Parámetros";
@@ -240,6 +242,13 @@
             this.informeEstadisticoAtendidioToolStripMenuItem.Text = "Informe estadistico atendidio";
             this.informeEstadisticoAtendidioToolStripMenuItem.Click += new System.EventHandler(this.informeEstadisticoAtendidioToolStripMenuItem_Click);
             // 
+            // informeOrdenPendienteToolStripMenuItem
+            // 
+            this.informeOrdenPendienteToolStripMenuItem.Name = "informeOrdenPendienteToolStripMenuItem";
+            this.informeOrdenPendienteToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
+            this.informeOrdenPendienteToolStripMenuItem.Text = "Informe orden pendiente";
+            this.informeOrdenPendienteToolStripMenuItem.Click += new System.EventHandler(this.informeOrdenPendienteToolStripMenuItem_Click);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -356,12 +365,12 @@
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
             // 
-            // informeOrdenPendienteToolStripMenuItem
+            // mantenimientoModelosToolStripMenuItem
             // 
-            this.informeOrdenPendienteToolStripMenuItem.Name = "informeOrdenPendienteToolStripMenuItem";
-            this.informeOrdenPendienteToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
-            this.informeOrdenPendienteToolStripMenuItem.Text = "Informe orden pendiente";
-            this.informeOrdenPendienteToolStripMenuItem.Click += new System.EventHandler(this.informeOrdenPendienteToolStripMenuItem_Click);
+            this.mantenimientoModelosToolStripMenuItem.Name = "mantenimientoModelosToolStripMenuItem";
+            this.mantenimientoModelosToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.mantenimientoModelosToolStripMenuItem.Text = "Mantenimiento Modelos";
+            this.mantenimientoModelosToolStripMenuItem.Click += new System.EventHandler(this.mantenimientoModelosToolStripMenuItem_Click);
             // 
             // FrmPrincipal
             // 
@@ -423,6 +432,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Vehiculo;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ToolStripMenuItem informeOrdenPendienteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mantenimientoModelosToolStripMenuItem;
     }
 }
 

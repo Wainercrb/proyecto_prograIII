@@ -56,7 +56,7 @@ namespace DAL
        "e.id_empleado AS id_empleado, e.nombre AS nombre_empleado, e.apellido AS apellido_empleado, e.direccion AS direccion_empleado, e.telefono1 AS telefono1_empleado, e.telefono2 AS telefono2_empleado, e.trabajo AS trabajo_empleado, e.permiso AS permiso_empleado, " +
        "e.contrasenna AS contrasenna_empleado, e.usuario AS usuario_empleado, o.id_orden AS id_orden, o.fecha_ingreso AS fecha_ingreso, o.fecha_salida AS fecha_salida, o.fecha_facturacion AS fecha_facturacion, " +
        "o.estado AS estado, o.costo_total AS costo_total, o.fk_vehiculo AS fk_vehiculo, o.pk_empleado AS pk_empleado, r.id_repuesto AS id_repuestoR, r.repuesto AS repuestoR, " +
-       "r.precio AS precioR, r.impuesto AS impuestoR " +
+       "r.precio AS precioR, r.impuesto AS impuestoR, r.anno as anno " +
        "FROM " + this.conexion.Schema + "orden_repuesto orp, " + this.conexion.Schema + "empleado e, " + this.conexion.Schema + "orden o, " + this.conexion.Schema + "repuesto r " +
        "WHERE  orp.pk_empleado = e.id_empleado AND orp.fk_orden = o.id_orden AND orp.fk_repuesto = r.id_repuesto AND orp.fk_orden = @fk_orden";
             DataSet dset = this.conexion.ejecutarConsultaSQL(sql, "orden_repuesto", prm.obtenerParametros());
@@ -66,7 +66,7 @@ namespace DAL
                 {
                     foreach (DataRow tupla in dset.Tables[0].Rows)
                     {
-                        RepuestoVehiculo Orepuesto = new RepuestoVehiculo(Int32.Parse(tupla["id_repuestor"].ToString()), tupla["repuestor"].ToString(), Double.Parse(tupla["precior"].ToString()), Double.Parse(tupla["impuestor"].ToString()));
+                        RepuestoVehiculo Orepuesto = new RepuestoVehiculo(Int32.Parse(tupla["id_repuestor"].ToString()), tupla["repuestor"].ToString(), Double.Parse(tupla["precior"].ToString()), Double.Parse(tupla["impuestor"].ToString()), Int32.Parse(tupla["anno"].ToString()));
                         ENT.Orden oOrden = new ENT.Orden(int.Parse(tupla["id_orden"].ToString()), DateTime.Parse(tupla["fecha_ingreso"].ToString()), DateTime.Parse(tupla["fecha_salida"].ToString()), DateTime.Parse(tupla["fecha_facturacion"].ToString()), tupla["estado"].ToString(), double.Parse(tupla["costo_total"].ToString()), new ENT.Vehiculo(), new ENT.Empleado());
                         ENT.Empleado OEmpleado = new ENT.Empleado(int.Parse(tupla["id_empleado"].ToString()), tupla["nombre_empleado"].ToString(), tupla["apellido_empleado"].ToString(), tupla["direccion_empleado"].ToString(), tupla["telefono1_empleado"].ToString(), tupla["telefono2_empleado"].ToString(), tupla["trabajo_empleado"].ToString(), tupla["permiso_empleado"].ToString(), tupla["usuario_empleado"].ToString(), tupla["contrasenna_empleado"].ToString());
                         ENT.OrdenRepuesto ordenRepuesto = new ENT.OrdenRepuesto(Int32.Parse(tupla["id_orden_repuesto"].ToString()), Int32.Parse(tupla["cantidad"].ToString()), Double.Parse(tupla["costo"].ToString()), oOrden, OEmpleado, Orepuesto);

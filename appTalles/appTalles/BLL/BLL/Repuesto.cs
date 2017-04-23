@@ -14,8 +14,8 @@ namespace BLL
         public void agregarRepuesto(ENT.RepuestoVehiculo repuesto)
         {
             DAL.Repuesto DalRepesto = new DAL.Repuesto();
-            try
-            {
+            //try
+            //{
                 if (repuesto.Impuesto <= 0)
                 {
                     throw new Exception("No se ha seleccionado un impuesto para este repuesto");
@@ -41,15 +41,15 @@ namespace BLL
                     DalRepesto.editarRepuesto(repuesto);
                     if (DalRepesto.Error)
                     {
-                        throw new Exception("Error al editar el repuesto");
+                        throw new Exception("Error al editar el repuesto, "+ DalRepesto.ErrorMsg);
                     }
                 }
-            }
-            catch (Exception ex)
-            {
+            //}
+            //catch (Exception ex)
+            //{
 
-                throw ex;
-            }
+            //    throw ex;
+            //}
         }
         //Metodo verifica, cuando carga que la carga sea correcto
         //si no que dispare los errores 

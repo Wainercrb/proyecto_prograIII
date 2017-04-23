@@ -267,7 +267,7 @@ namespace BLL
         //Metodo verifica los datos que ingresan este correcto
         //verifica la actualizacion de las ordenes sea correcto, de lo
         //contrario monstrarlos en interfas
-        public void actualizarEstadoOrden(ENT.Orden EntOrden, string estado)
+        public void actualizarEstadoOrden(ENT.Orden EntOrden, string estado, DateTime valor)
         {
             AccesoDatosPostgre cnx = AccesoDatosPostgre.Instance;
             cnx.iniciarTransaccion();
@@ -275,7 +275,7 @@ namespace BLL
             BLL.Vehiculo BllVehiculo = new BLL.Vehiculo();
             try
             {
-                DalOrden.actualizarEstadoOrden(EntOrden);
+                DalOrden.actualizarEstadoOrden(EntOrden, valor);
                 if (DalOrden.Error)
                 {
                     throw new Exception("Error al actualizar el estado de la orden");

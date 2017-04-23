@@ -19,12 +19,14 @@ namespace Vista
         private BLL.Marca BllMarca;
         private BLL.Repuesto BllRepuesto;
         private List<MarcaVehiculo> marcas;
+        private List<MarcaVehiculo> marcasTemp;
         private List<ENT.RepuestoVehiculo> repuestos;
         public FrmRepuestos()
         {
             InitializeComponent();
             marcas = new List<ENT.MarcaVehiculo>();
             repuestos = new List<ENT.RepuestoVehiculo>();
+            marcasTemp = new List<MarcaVehiculo>();
             EntRepuesto = new ENT.RepuestoVehiculo();
             EntMarca = new ENT.MarcaVehiculo();
             BllRepuesto = new BLL.Repuesto();
@@ -36,11 +38,13 @@ namespace Vista
             try
             {
                 EntRepuesto.Repuesto = txtRepuesto.Text;
-                EntRepuesto.Precio = Int32.Parse(txtPrecio.Text);
-                EntRepuesto.Impuesto = Double.Parse(txtImpuesto.Value.ToString());
+                EntRepuesto.Precio = Double.Parse(txtPrecio.Text);
+                EntRepuesto.Impuesto = Double.Parse(txtImpuesto.Text);
+                EntRepuesto.Anno = Int32.Parse(npAnno.Value.ToString());
                 BllRepuesto.agregarRepuesto(EntRepuesto);
-                limpiarDatos();
                 cargarRepuestos();
+                limpiarDatos();
+
             }
             catch (Exception ex)
             {
@@ -65,6 +69,7 @@ namespace Vista
         private void btnRefrescar_Click(object sender, EventArgs e)
         {
             cargarRepuestos();
+            limpiarDatos();
         }
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
@@ -74,27 +79,40 @@ namespace Vista
         {
             try
             {
-                seleccionCbMarcas();
-                BllRepuesto.agregarRepuestoMarca(EntMarca, EntRepuesto);
-                limpiarDatos();
-                cargarRepuestos();
+                if (this.grdRepuesto.Rows.Count > 0)
+                {
+                    int fila = this.grdRepuesto.CurrentRow.Index;
+                    EntRepuesto.Id = Int32.Parse(this.grdRepuesto[0, fila].Value.ToString());
+                    if (verificarMarcasAdd())
+                    {
+                        MessageBox.Show("Esta marca ya se encuentra agregada");
+                        return;
+                    }
+                    BllRepuesto.agregarRepuestoMarca(EntMarca, EntRepuesto);
+                    cargarIntMarcas(Int32.Parse(this.grdRepuesto[0, fila].Value.ToString()));
+                    limpiarDatos();
+                    cargarRepuestos();
+                }
             }
             catch (Exception ex)
             {
-               MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
-               MessageBoxIcon.Information);
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
             }
         }
         private void btnQuitar_Click(object sender, EventArgs e)
         {
             try
             {
-                if (this.grdMarca.Rows.Count > 0)
+                if (this.grdMarca.Rows.Count >= 0)
                 {
+                    int fila = this.grdMarca.CurrentRow.Index;
+                    int fila2 = this.grdRepuesto.CurrentRow.Index;
+                    EntMarca.Id = Int32.Parse(this.grdMarca[0, fila].Value.ToString());
                     BllRepuesto.borrarRepuestoMarca(EntMarca);
+                    limpiarDatos();
+                    cargarIntMarcas(Int32.Parse(this.grdRepuesto[0, fila2].Value.ToString()));
                 }
-                limpiarDatos();
-                cargarRepuestos();
             }
             catch (Exception ex)
             {
@@ -109,10 +127,9 @@ namespace Vista
                 if (this.grdRepuesto.Rows.Count > 0)
                 {
                     int fila = this.grdRepuesto.CurrentRow.Index;
-                    EntRepuesto = new ENT.RepuestoVehiculo(Int32.Parse(this.grdRepuesto[0, fila].Value.ToString()),
-                    this.grdRepuesto[1, fila].Value.ToString(), Double.Parse(this.grdRepuesto[2, fila].Value.ToString()), Double.Parse(this.grdRepuesto[3, fila].Value.ToString()));
                     txtMensaje.Text = "Repuesto: " + this.grdRepuesto[1, fila].Value.ToString();
                     cargarIntMarcas(Int32.Parse(this.grdRepuesto[0, fila].Value.ToString()));
+                    limpiarDatos();
                 }
             }
             catch (Exception ex)
@@ -122,16 +139,6 @@ namespace Vista
             }
 
         }
-        private void seleccionMarca(object sender, MouseEventArgs e)
-        {
-            if (this.grdMarca.Rows.Count > 0)
-            {
-                int fila = this.grdMarca.CurrentRow.Index;
-                EntMarca = new MarcaVehiculo(Int32.Parse(this.grdMarca[0, fila].Value.ToString()),
-                this.grdMarca[1, fila].Value.ToString());
-                txtMarca.Text = "Marca: " + this.grdMarca[1, fila].Value.ToString();
-            }
-        }
         private void editarRepuesto(object sender, EventArgs e)
         {
             if (this.grdRepuesto.Rows.Count > 0)
@@ -139,7 +146,7 @@ namespace Vista
                 int fila = this.grdRepuesto.CurrentRow.Index;
                 txtRepuesto.Text = grdRepuesto[1, fila].Value.ToString();
                 txtPrecio.Text = grdRepuesto[2, fila].Value.ToString();
-                txtImpuesto.Value = Int32.Parse(grdRepuesto[3, fila].Value.ToString());
+                txtImpuesto.Text = (grdRepuesto[3, fila].Value.ToString());
                 EntRepuesto.Id = Int32.Parse(grdRepuesto[0, fila].Value.ToString());
             }
         }
@@ -149,11 +156,12 @@ namespace Vista
         private void limpiarDatos()
         {
             txtPrecio.Text = "";
-            txtImpuesto.Value = 0;
+            txtImpuesto.Text = "";
             txtPrecio.Text = "";
             txtRepuesto.Text = "";
             txtMensaje.Text = "";
             txtMarca.Text = "";
+            npAnno.Value = 2000;
             EntRepuesto = new RepuestoVehiculo();
             EntMarca = new MarcaVehiculo();
         }
@@ -193,9 +201,9 @@ namespace Vista
         {
             try
             {
-                marcas = BllMarca.buscaIntrMarca(valor);
-                grdMarca.DataSource = marcas;
-                txtMarcasM.Text = "" + marcas.Count;
+                marcasTemp = BllMarca.buscaIntrMarca(valor);
+                grdMarca.DataSource = marcasTemp;
+                txtMarcasM.Text = "" + marcasTemp.Count;
             }
             catch (Exception ex)
             {
@@ -229,7 +237,8 @@ namespace Vista
             {
                 int selectedIndex = cbMarca.SelectedIndex;
                 MarcaVehiculo selectedItem = (MarcaVehiculo)cbMarca.SelectedItem;
-                EntMarca = new MarcaVehiculo(selectedItem.Id, selectedItem.Marca);
+                EntMarca.Id = selectedItem.Id;
+                EntMarca.Marca = selectedItem.Marca;
             }
         }
         private void BuscarRepuesto(object sender, KeyPressEventArgs e)
@@ -278,6 +287,74 @@ namespace Vista
             {
                 MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
+            }
+        }
+        private bool verificarMarcasAdd() {
+
+            seleccionCbMarcas();
+            for (int i = 0; i < marcasTemp.Count; i++)
+            {
+                if (marcasTemp[i].Id == EntMarca.Id)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private void validarDato(object sender, KeyPressEventArgs e)
+        {
+            if (txtImpuesto.Text.Contains(','))
+            {
+                if (!char.IsDigit(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+
+                if (e.KeyChar == '\b')
+                {
+                    e.Handled = false;
+                }
+            }
+            else
+            {
+                if (!char.IsDigit(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+
+                if (e.KeyChar == ',' || e.KeyChar == '\b')
+                {
+                    e.Handled = false;
+                }
+            }
+        }
+
+        private void validarDouble(object sender, KeyPressEventArgs e)
+        {
+            if (txtImpuesto.Text.Contains(','))
+            {
+                if (!char.IsDigit(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+
+                if (e.KeyChar == '\b')
+                {
+                    e.Handled = false;
+                }
+            }
+            else
+            {
+                if (!char.IsDigit(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+
+                if (e.KeyChar == ',' || e.KeyChar == '\b')
+                {
+                    e.Handled = false;
+                }
             }
         }
     }

@@ -80,7 +80,7 @@ namespace appTalles.UI
             try
             {
                 EntOrden.Estado = "Finalizado";
-                BllOrden.actualizarEstadoOrden(EntOrden, "Finalizado");
+                BllOrden.actualizarEstadoOrden(EntOrden, "Finalizado", DateTime.Today);
                 txtSeleccion.Text = "Orden finalizado correctamente";
                 cargarOrden(estado, "estado");
             }
@@ -96,7 +96,7 @@ namespace appTalles.UI
             try
             {
                 EntOrden.Estado = "Pendiente";
-                BllOrden.actualizarEstadoOrden(EntOrden, "Pendiente");
+                BllOrden.actualizarEstadoOrden(EntOrden, "Pendiente", DateTime.Parse("0001-01-01"));
                 txtSeleccion.Text = "Orden reversada correctamente";
                 cargarOrden(estado, "estado");
             }

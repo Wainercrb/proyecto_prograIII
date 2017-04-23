@@ -14,8 +14,8 @@ namespace BLL
         public void agregarServicio(ENT.Servicio servicio)
         {
             DAL.Servicio DalServicio = new DAL.Servicio();
-            try
-            {
+            //try
+            //{
                 if (servicio.Impuesto <= 0)
                 {
                     throw new Exception("Impuesto del servicio requerido");
@@ -27,6 +27,14 @@ namespace BLL
                 if (servicio.pServicio == string.Empty)
                 {
                     throw new Exception("Tipo de servicio requerido");
+                }
+                if (servicio.Descripcion == string.Empty)
+                {
+                    throw new Exception("Debes ingresar una descripción");
+                }
+                if (servicio.DiasPromedio<= 0)
+                {
+                    throw new Exception("Debes agregar las horas promedio de este servicio");
                 }
                 if (servicio.Id <= 0)
                 {
@@ -44,11 +52,11 @@ namespace BLL
                         throw new Exception("Error al actualizar el servicio " + DalServicio.ErrorMsg);
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
         }
         //Metodo valida los datos y comprueva cualquier error  
         //para posteriormente pasarlos a DAL
