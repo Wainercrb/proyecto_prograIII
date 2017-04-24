@@ -149,10 +149,6 @@ namespace BLL
                 {
                     throw new Exception("Error al cargar las ordenes " + DalOrden.ErrorMsg);
                 }
-                if (ordenes.Count <= 0)
-                {
-                    throw new Exception("No hay ordenes en la base de datos");
-                }
             }
             catch (Exception ex)
             {
@@ -162,7 +158,8 @@ namespace BLL
         }
         //Metodo verifica si la busqueda de la orden esta correcta
         //si hay erros mostrarlos en interfaz
-        public List<ENT.Orden> buscarFechas(DateTime fecha_uno, DateTime fecha_dos) {
+        public List<ENT.Orden> buscarFechas(DateTime fecha_uno, DateTime fecha_dos)
+        {
 
             DAL.Orden DalOrden = new DAL.Orden();
             List<ENT.Orden> ordenes = new List<ENT.Orden>();
@@ -172,10 +169,6 @@ namespace BLL
                 if (DalOrden.Error)
                 {
                     throw new Exception("Error al cargar las ordenes " + DalOrden.ErrorMsg);
-                }
-                if (ordenes.Count <= 0)
-                {
-                    throw new Exception("No hay ordenes en la base de datos");
                 }
             }
             catch (Exception ex)
@@ -201,10 +194,6 @@ namespace BLL
                 {
                     throw new Exception("Error al cargar las ordenes " + DalOrden.ErrorMsg);
                 }
-                if (ordenes.Count <= 0)
-                {
-                    throw new Exception("No hay ordenes en la base de datos");
-                }
             }
             catch (Exception ex)
             {
@@ -229,10 +218,6 @@ namespace BLL
                 {
                     throw new Exception("Error al cargar las ordenes " + DalOrden.ErrorMsg);
                 }
-                if (ordenes.Count <= 0)
-                {
-                    throw new Exception("No hay ordenes en la base de datos");
-                }
             }
             catch (Exception ex)
             {
@@ -252,10 +237,6 @@ namespace BLL
                 if (DalOrden.Error)
                 {
                     throw new Exception("Error al cargar las ordenes " + DalOrden.ErrorMsg);
-                }
-                if (ordenes.Count <= 0)
-                {
-                    throw new Exception("No hay ordenes en la base de datos");
                 }
             }
             catch (Exception ex)
@@ -287,7 +268,7 @@ namespace BLL
                     throw new Exception("Error al actualizar el estado del vehículo");
                     cnx.rollbackTransaccion();
                 }
-                cnx.commitTransaccion();              
+                cnx.commitTransaccion();
             }
             catch (Exception ex)
             {

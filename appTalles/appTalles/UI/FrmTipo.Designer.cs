@@ -50,36 +50,42 @@
             // 
             // txtBuscar
             // 
-            this.txtBuscar.Location = new System.Drawing.Point(182, 53);
+            this.txtBuscar.Location = new System.Drawing.Point(243, 65);
+            this.txtBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(106, 20);
+            this.txtBuscar.Size = new System.Drawing.Size(140, 22);
             this.txtBuscar.TabIndex = 0;
             this.txtBuscar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.enterSeleccion);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(133, 56);
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.Location = new System.Drawing.Point(177, 69);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(43, 13);
+            this.label4.Size = new System.Drawing.Size(56, 17);
             this.label4.TabIndex = 4;
             this.label4.Text = "Buscar:";
             // 
             // txtCantidadRegistros
             // 
             this.txtCantidadRegistros.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtCantidadRegistros.Location = new System.Drawing.Point(225, 315);
+            this.txtCantidadRegistros.Location = new System.Drawing.Point(300, 388);
+            this.txtCantidadRegistros.Margin = new System.Windows.Forms.Padding(4);
             this.txtCantidadRegistros.Name = "txtCantidadRegistros";
             this.txtCantidadRegistros.ReadOnly = true;
-            this.txtCantidadRegistros.Size = new System.Drawing.Size(55, 13);
+            this.txtCantidadRegistros.Size = new System.Drawing.Size(73, 15);
             this.txtCantidadRegistros.TabIndex = 3;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(165, 314);
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Location = new System.Drawing.Point(220, 386);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(54, 13);
+            this.label3.Size = new System.Drawing.Size(72, 17);
             this.label3.TabIndex = 2;
             this.label3.Text = "Registros:";
             // 
@@ -92,10 +98,11 @@
             this.grdTipos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
             this.tipoVehiculo});
-            this.grdTipos.Location = new System.Drawing.Point(5, 79);
+            this.grdTipos.Location = new System.Drawing.Point(7, 97);
+            this.grdTipos.Margin = new System.Windows.Forms.Padding(4);
             this.grdTipos.Name = "grdTipos";
             this.grdTipos.ReadOnly = true;
-            this.grdTipos.Size = new System.Drawing.Size(283, 223);
+            this.grdTipos.Size = new System.Drawing.Size(377, 274);
             this.grdTipos.TabIndex = 0;
             this.grdTipos.DoubleClick += new System.EventHandler(this.Editar);
             this.grdTipos.MouseClick += new System.Windows.Forms.MouseEventHandler(this.seleccionTipo);
@@ -119,39 +126,45 @@
             // txtMensaje
             // 
             this.txtMensaje.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtMensaje.Location = new System.Drawing.Point(5, 315);
+            this.txtMensaje.Location = new System.Drawing.Point(7, 388);
+            this.txtMensaje.Margin = new System.Windows.Forms.Padding(4);
             this.txtMensaje.Name = "txtMensaje";
             this.txtMensaje.ReadOnly = true;
-            this.txtMensaje.Size = new System.Drawing.Size(148, 13);
+            this.txtMensaje.Size = new System.Drawing.Size(197, 15);
             this.txtMensaje.TabIndex = 5;
             // 
             // txtTipo
             // 
-            this.txtTipo.Location = new System.Drawing.Point(96, 12);
+            this.txtTipo.Location = new System.Drawing.Point(128, 15);
+            this.txtTipo.Margin = new System.Windows.Forms.Padding(4);
             this.txtTipo.Name = "txtTipo";
-            this.txtTipo.Size = new System.Drawing.Size(87, 20);
+            this.txtTipo.Size = new System.Drawing.Size(115, 22);
             this.txtTipo.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 15);
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Location = new System.Drawing.Point(12, 18);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(76, 13);
+            this.label1.Size = new System.Drawing.Size(96, 17);
             this.label1.TabIndex = 0;
             this.label1.Text = "Tipo vehículo:";
             // 
             // toolStrip1
             // 
+            this.toolStrip1.BackColor = System.Drawing.Color.Transparent;
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnAgregar,
             this.btnEliminar,
             this.btnRefrescar,
             this.btnLimpiar});
-            this.toolStrip1.Location = new System.Drawing.Point(9, 48);
+            this.toolStrip1.Location = new System.Drawing.Point(12, 59);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(135, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(147, 27);
             this.toolStrip1.TabIndex = 7;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -161,7 +174,7 @@
             this.btnAgregar.Image = ((System.Drawing.Image)(resources.GetObject("btnAgregar.Image")));
             this.btnAgregar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(23, 22);
+            this.btnAgregar.Size = new System.Drawing.Size(24, 24);
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click_1);
             // 
@@ -171,7 +184,7 @@
             this.btnEliminar.Image = ((System.Drawing.Image)(resources.GetObject("btnEliminar.Image")));
             this.btnEliminar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(23, 22);
+            this.btnEliminar.Size = new System.Drawing.Size(24, 24);
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click_1);
             // 
@@ -181,7 +194,7 @@
             this.btnRefrescar.Image = ((System.Drawing.Image)(resources.GetObject("btnRefrescar.Image")));
             this.btnRefrescar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnRefrescar.Name = "btnRefrescar";
-            this.btnRefrescar.Size = new System.Drawing.Size(23, 22);
+            this.btnRefrescar.Size = new System.Drawing.Size(24, 24);
             this.btnRefrescar.Text = "Refrescar";
             this.btnRefrescar.Click += new System.EventHandler(this.btnRefrescar_Click);
             // 
@@ -191,15 +204,16 @@
             this.btnLimpiar.Image = ((System.Drawing.Image)(resources.GetObject("btnLimpiar.Image")));
             this.btnLimpiar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(23, 22);
+            this.btnLimpiar.Size = new System.Drawing.Size(24, 24);
             this.btnLimpiar.Text = "limpiar";
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // FrmTipo
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(292, 336);
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.ClientSize = new System.Drawing.Size(389, 414);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.label4);
@@ -209,9 +223,11 @@
             this.Controls.Add(this.txtTipo);
             this.Controls.Add(this.grdTipos);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FrmTipo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Tipo vehículo";
+            this.Load += new System.EventHandler(this.FrmTipo_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grdTipos)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();

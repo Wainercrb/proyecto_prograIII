@@ -103,7 +103,9 @@ namespace Vista
                     txtNumero.Text = "" + ordenes.Count;
                     return;
                 }
+                limpiarDatos();
                 cargarOrdenes();
+                
             }
             catch (Exception ex)
             {
@@ -137,6 +139,7 @@ namespace Vista
         {
             FrmOrdenReparaciones frm = new FrmOrdenReparaciones();
             frm.ShowDialog();
+            buscar("", frm.EntOrden1.Id, "id_orden");
         }
         private void MateniminetoOrden(object sender, EventArgs e)
         {
@@ -191,7 +194,6 @@ namespace Vista
             cbVehiculo.SelectedIndex = -1;
             dtIngreso.Value = DateTime.Today;
             dtSalida.Value = DateTime.Today;
-            this.dgOrdenes.DataSource = null;
             dtIngreso.Checked = false;
             dtSalida.Checked = false;
         }

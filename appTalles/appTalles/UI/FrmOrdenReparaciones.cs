@@ -35,6 +35,7 @@ namespace appTalles.Vista
         private List<ENT.OrdenServicio> ordenServicios;
         private List<ENT.Vehiculo> vehiculos;
         private List<ENT.Empleado> empleados;
+        private List<ENT.Orden> ordenes;
         private double agregado;
         private double quito;
         private bool modifico = false;
@@ -62,6 +63,7 @@ namespace appTalles.Vista
             vehiculos = new List<ENT.Vehiculo>();
             empleados = new List<ENT.Empleado>();
             vehiculos = new List<ENT.Vehiculo>();
+            ordenes = new List<ENT.Orden>();
             cbEstado.Enabled = false;
             tabComponentes.Enabled = false;
             llenarComboEncargado();
@@ -91,6 +93,7 @@ namespace appTalles.Vista
             ordenServicios = new List<ENT.OrdenServicio>();
             vehiculos = new List<ENT.Vehiculo>();
             empleados = new List<ENT.Empleado>();
+            ordenes = new List<ENT.Orden>();
             this.EntOrden = orden;
             llenarComboEncargado();
             llenarComboVehiculo();
@@ -103,8 +106,12 @@ namespace appTalles.Vista
         {
             try
             {
+                if (verificarVehiculo())
+                {
+                    MessageBox.Show("El vehículo ya esta registrado en otra orden");
+                    return;
+                }
                 seleccionComboEmpleado();
-                seleccionComboVehiculo();
                 EntOrden.FechaIngreso = dtIngreso.Value;
                 EntOrden.FechaSalida = dtFechaSalida.Value;
                 EntOrden.Empleado = EntEmpleado;
@@ -112,6 +119,7 @@ namespace appTalles.Vista
                 EntOrden.Estado = "Dañado";
                 limpiarDatos();
                 int consecutivo = BllOrden.consecutivogAregarOrden(EntOrden);
+                txtCodigo.Text = consecutivo+"";
                 if (consecutivo > 0)
                 {
                     List<ENT.Orden> ordenes = BllOrden.cargarIntOrden(consecutivo, "id_orden");
@@ -162,6 +170,7 @@ namespace appTalles.Vista
             {
                 if (EntOrdenServicio.Id > 0)
                 {
+                    modifico = true;
                     double monto;
                     if (npQuitarServicio.Value == npQuitarServicio.Maximum)
                     {
@@ -178,7 +187,7 @@ namespace appTalles.Vista
                         quito += monto;
                         BllOrdenServicio.agregarOrdenServicio(EntOrdenServicio);
                         limpiarDatosServicios();
-                        modifico = true;
+                        
                     }
                 }
             }
@@ -223,6 +232,7 @@ namespace appTalles.Vista
             {
                 if (EntOrdenRepuesto.Id > 0)
                 {
+                    modifico = true;
                     double monto;
                     if (npQuitarRepuesto.Value == npQuitarRepuesto.Maximum)
                     {
@@ -239,7 +249,7 @@ namespace appTalles.Vista
                         quito += monto;
                         BllOrdenRepuesto.agregarOrdenRepuesto(EntOrdenRepuesto);
                         limpiarDatosRepuesto();
-                        modifico = true;
+                        
                     }
                 }
             }
@@ -254,6 +264,7 @@ namespace appTalles.Vista
             {
                 if (EntOrdenRepuesto.Id > 0)
                 {
+                    modifico = true;
                     double monto;
                     EntOrdenRepuesto.Cantidad = EntOrdenRepuesto.Cantidad + Int32.Parse(npMasRepuesto.Value.ToString());
                     monto = EntOrdenRepuesto.totalRepuesto(EntOrdenRepuesto, Int32.Parse(npMasRepuesto.Value.ToString()));
@@ -328,6 +339,7 @@ namespace appTalles.Vista
         //desde la base de datos a los componentes de la interfaz
         private void cargarComponentesOrden(ENT.Orden orden)
         {
+            tabComponentes.Enabled = true;
             string valor = orden.FechaFacturacion.ToShortDateString().ToString();
             txtCodigo.Text = orden.Id + "";
             dtIngreso.Value = orden.FechaIngreso;
@@ -402,6 +414,19 @@ namespace appTalles.Vista
                 ENT.Vehiculo selectedItem = (ENT.Vehiculo)cbVehiculo.SelectedItem;
                 EntVehiculo.Id = selectedItem.Id;
             }
+        }
+        private bool verificarVehiculo() {
+
+            ordenes = BllOrden.cargarOrden();
+            seleccionComboVehiculo();
+            foreach (ENT.Orden item in ordenes)
+            {
+                if (item.Vehiculo.Id == EntVehiculo.Id)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         //Metodo selecciona el item de empleado y le agrega 
         //los valares a la entidad empleado
@@ -598,6 +623,7 @@ namespace appTalles.Vista
             {
                 if (EntOrdenServicio.Id > 0)
                 {
+                    modifico = true;
                     double monto;
                     EntOrdenServicio.Cantidad = EntOrdenServicio.Cantidad + Int32.Parse(npMasServicio.Value.ToString());
                     monto = EntOrdenServicio.totalServicio(EntOrdenServicio, Int32.Parse(npMasServicio.Value.ToString()));
@@ -620,19 +646,20 @@ namespace appTalles.Vista
                 {
                     if (agregado > 0)
                     {
-                        EntOrden.CostoTotal = EntOrden.CostoTotal + agregado;
+                        EntOrden.CostoTotal += agregado;
                     }
                     if (quito > 0)
                     {
-                        EntOrden.CostoTotal = EntOrden.CostoTotal - quito;
+                        EntOrden.CostoTotal += quito;
                     }
                     seleccionComboEmpleado();
                     seleccionComboVehiculo();
+                    EntOrden.Id = Int32.Parse(txtCodigo.Text);
                     EntOrden.FechaIngreso = dtIngreso.Value;
                     EntOrden.FechaSalida = dtFechaSalida.Value;
                     EntOrden.Empleado = EntEmpleado;
                     EntOrden.Vehiculo = EntVehiculo;
-                    EntOrden.Estado = seleccionEstado();
+                    EntOrden.Estado = "Pendiente";
                     BllOrden.agregarOrden(EntOrden);
                 }
             }

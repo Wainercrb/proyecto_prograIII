@@ -30,7 +30,6 @@ namespace DAL
         //Metodo inserta los valores que recibe por parametro
         public void agregarModelo(ENT.Modelo modelo)
         {
-
             this.limpiarError();
             Parametro prm = new Parametro();
             prm.agregarParametro("@modelo", NpgsqlDbType.Varchar, modelo.pModelo);
@@ -45,13 +44,11 @@ namespace DAL
         //Metodo edita el modelo
         //por los valores que ingresa por parametro
         public void editarModelo(ENT.Modelo modelo) {
-
             this.limpiarError();
             Parametro prm = new Parametro();
             prm.agregarParametro("@modelo", NpgsqlDbType.Varchar, modelo.pModelo);
             prm.agregarParametro("@id_modelo", NpgsqlDbType.Integer, modelo.Id);
-            string sql = "UPDATE "+this.conexion.Schema+"modelo SET  modelo = @modelo WHERE id_modelo = @id_modelo";
-        
+            string sql = "UPDATE "+this.conexion.Schema+"modelo SET  modelo = @modelo WHERE id_modelo = @id_modelo";   
             this.conexion.ejecutarSQL(sql, prm.obtenerParametros());
             if (this.conexion.IsError)
             {
@@ -166,7 +163,6 @@ namespace DAL
                 error = value;
             }
         }
-
         public string ErrorMsg
         {
             get
@@ -179,7 +175,5 @@ namespace DAL
                 errorMsg = value;
             }
         }
-
-
     }
 }

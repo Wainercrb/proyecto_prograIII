@@ -15,12 +15,14 @@ namespace appTalles.UI
         private ENT.Orden EntOrden;
         private BLL.Orden BllOrden;
         private List<ENT.Orden> ordenes;
+        private ENT.Empleado EntEmpleado;
         string estado;
-        public FrmOrdenFinalizada()
+        public FrmOrdenFinalizada(ENT.Empleado empleado)
         {
             EntOrden = new ENT.Orden();
             BllOrden = new BLL.Orden();
             ordenes = new List<ENT.Orden>();
+            this.EntEmpleado = empleado;
             InitializeComponent();
         }
         private void btnFinalizada_Click(object sender, EventArgs e)
@@ -79,6 +81,11 @@ namespace appTalles.UI
         {
             try
             {
+                if (!verificarEmpleado())
+                {
+                    MessageBox.Show("No tiene permiso para finalizar esta orden");
+                    return;
+                }
                 EntOrden.Estado = "Finalizado";
                 BllOrden.actualizarEstadoOrden(EntOrden, "Finalizado", DateTime.Today);
                 txtSeleccion.Text = "Orden finalizado correctamente";
@@ -95,6 +102,11 @@ namespace appTalles.UI
         {
             try
             {
+                if (!verificarEmpleado())
+                {
+                    MessageBox.Show("No tiene permiso para reversar esta orden");
+                    return;
+                }
                 EntOrden.Estado = "Pendiente";
                 BllOrden.actualizarEstadoOrden(EntOrden, "Pendiente", DateTime.Parse("0001-01-01"));
                 txtSeleccion.Text = "Orden reversada correctamente";
@@ -105,6 +117,18 @@ namespace appTalles.UI
                 MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
             }
+        }
+
+        private bool verificarEmpleado() {
+
+            foreach (ENT.Orden item in ordenes)
+            {
+                if (item.Empleado.Usuario == EntEmpleado.Usuario && item.Empleado.Contrasenna == EntEmpleado.Contrasenna)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

@@ -13,6 +13,7 @@ using Vista;
 using appTalles.Vista;
 using appTalles.UI;
 using appTalles.RP;
+using System.Threading;
 
 namespace Vista
 {
@@ -23,7 +24,8 @@ namespace Vista
         private ENT.Orden EntOrden;
         private BLL.Orden BllOrden;
         private List<ENT.Orden> ordenes;
-
+        private Thread cierre;
+        private bool estado = false;
         public FrmPrincipal()
         {
             InitializeComponent();
@@ -31,6 +33,7 @@ namespace Vista
             BllOrden = new BLL.Orden();
             ordenes = new List<ENT.Orden>();
             cargarOrden();
+          
 
 
         }
@@ -41,7 +44,7 @@ namespace Vista
             EntOrden = new ENT.Orden();
             BllOrden = new BLL.Orden();
             ordenes = new List<ENT.Orden>();
-            txtEmpleado.Text = empleado.Usuario;
+            txtUsuario.Text = empleado.Usuario;
             cargarOrden();
         }
         private void cambioContraseñaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -163,7 +166,7 @@ namespace Vista
         {
             if (EntEmpleado.Puesto == "Mecanico" || EntEmpleado.Puesto == "Jefe")
             {
-                FrmOrdenFinalizada frm = new FrmOrdenFinalizada();
+                FrmOrdenFinalizada frm = new FrmOrdenFinalizada(EntEmpleado);
                 frm.ShowDialog();
                 return;
             }
@@ -252,6 +255,28 @@ namespace Vista
         {
             FrmModelo frm = new FrmModelo();
             frm.ShowDialog();
+        }
+
+        private void cerrarSesionToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+            this.Close();
+            cierre = new Thread(llamar_segundo);
+            cierre.SetApartmentState(ApartmentState.STA);
+            cierre.Start();
+            estado = true;
+            return;
+        }
+
+
+        private void llamar_segundo(Object obj)
+        {
+            Application.Run(new FrmLogin());
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -13,8 +13,8 @@ namespace BLL
         {
             DAL.OrdenServicio DalOrdenServicio = new DAL.OrdenServicio();
            
-            try
-            {
+            //try
+            //{
                 if (ordenServicio.Empleado.Id <= 0)
                 {
                     throw new Exception("Debes seleccionar un empleado para estos servicios");
@@ -51,12 +51,12 @@ namespace BLL
                         throw new Exception("Error al actualizar los servicios a la orden, "+DalOrdenServicio.ErrorMsg);
                     }
                 }
-            }
-            catch (Exception ex)
-            {
+            //}
+            //catch (Exception ex)
+            //{
 
-                throw ex;
-            }
+            //    throw ex;
+            //}
         }
         public void eliminarOrdenServicio(ENT.OrdenServicio ordenServicio)
         {

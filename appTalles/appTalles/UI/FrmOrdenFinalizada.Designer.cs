@@ -30,12 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmOrdenFinalizada));
             this.grdOrdenes = new System.Windows.Forms.DataGridView();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.btnFinalizada = new System.Windows.Forms.ToolStripButton();
-            this.btnPendiente = new System.Windows.Forms.ToolStripButton();
-            this.btnFinalizarOrden = new System.Windows.Forms.ToolStripButton();
-            this.btnReversarOrden = new System.Windows.Forms.ToolStripButton();
-            this.txtSeleccion = new System.Windows.Forms.TextBox();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FechaIngreso = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fechaSalida = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,6 +38,12 @@
             this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Empleado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Vehiculo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.btnFinalizada = new System.Windows.Forms.ToolStripButton();
+            this.btnPendiente = new System.Windows.Forms.ToolStripButton();
+            this.btnReversarOrden = new System.Windows.Forms.ToolStripButton();
+            this.btnFinalizarOrden = new System.Windows.Forms.ToolStripButton();
+            this.txtSeleccion = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.grdOrdenes)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -62,72 +62,13 @@
             this.Estado,
             this.Empleado,
             this.Vehiculo});
-            this.grdOrdenes.Location = new System.Drawing.Point(1, 28);
+            this.grdOrdenes.Location = new System.Drawing.Point(1, 34);
+            this.grdOrdenes.Margin = new System.Windows.Forms.Padding(4);
             this.grdOrdenes.Name = "grdOrdenes";
             this.grdOrdenes.ReadOnly = true;
-            this.grdOrdenes.Size = new System.Drawing.Size(761, 287);
+            this.grdOrdenes.Size = new System.Drawing.Size(1015, 353);
             this.grdOrdenes.TabIndex = 0;
             this.grdOrdenes.MouseClick += new System.Windows.Forms.MouseEventHandler(this.seleccionOrden);
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnFinalizada,
-            this.btnPendiente,
-            this.btnFinalizarOrden,
-            this.btnReversarOrden});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(762, 25);
-            this.toolStrip1.TabIndex = 1;
-            this.toolStrip1.Text = "toolStrip1";
-            // 
-            // btnFinalizada
-            // 
-            this.btnFinalizada.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnFinalizada.Image = ((System.Drawing.Image)(resources.GetObject("btnFinalizada.Image")));
-            this.btnFinalizada.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnFinalizada.Name = "btnFinalizada";
-            this.btnFinalizada.Size = new System.Drawing.Size(23, 22);
-            this.btnFinalizada.Text = "Finazalida";
-            this.btnFinalizada.Click += new System.EventHandler(this.btnFinalizada_Click);
-            // 
-            // btnPendiente
-            // 
-            this.btnPendiente.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnPendiente.Image = ((System.Drawing.Image)(resources.GetObject("btnPendiente.Image")));
-            this.btnPendiente.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnPendiente.Name = "btnPendiente";
-            this.btnPendiente.Size = new System.Drawing.Size(23, 22);
-            this.btnPendiente.Text = "Pendiente";
-            this.btnPendiente.Click += new System.EventHandler(this.btnPendiente_Click);
-            // 
-            // btnFinalizarOrden
-            // 
-            this.btnFinalizarOrden.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnFinalizarOrden.Image = ((System.Drawing.Image)(resources.GetObject("btnFinalizarOrden.Image")));
-            this.btnFinalizarOrden.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnFinalizarOrden.Name = "btnFinalizarOrden";
-            this.btnFinalizarOrden.Size = new System.Drawing.Size(23, 22);
-            this.btnFinalizarOrden.Text = "Finalizar orden";
-            this.btnFinalizarOrden.Click += new System.EventHandler(this.btnFinalizarOrden_Click);
-            // 
-            // btnReversarOrden
-            // 
-            this.btnReversarOrden.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnReversarOrden.Image = ((System.Drawing.Image)(resources.GetObject("btnReversarOrden.Image")));
-            this.btnReversarOrden.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnReversarOrden.Name = "btnReversarOrden";
-            this.btnReversarOrden.Size = new System.Drawing.Size(23, 22);
-            this.btnReversarOrden.Text = "Reversar";
-            this.btnReversarOrden.Click += new System.EventHandler(this.btnReversarOrden_Click);
-            // 
-            // txtSeleccion
-            // 
-            this.txtSeleccion.Location = new System.Drawing.Point(1, 321);
-            this.txtSeleccion.Name = "txtSeleccion";
-            this.txtSeleccion.Size = new System.Drawing.Size(761, 20);
-            this.txtSeleccion.TabIndex = 2;
             // 
             // Id
             // 
@@ -193,14 +134,79 @@
             this.Vehiculo.ReadOnly = true;
             this.Vehiculo.Width = 150;
             // 
+            // toolStrip1
+            // 
+            this.toolStrip1.BackColor = System.Drawing.Color.Transparent;
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnFinalizada,
+            this.btnPendiente,
+            this.btnReversarOrden,
+            this.btnFinalizarOrden});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(1016, 27);
+            this.toolStrip1.TabIndex = 1;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // btnFinalizada
+            // 
+            this.btnFinalizada.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnFinalizada.Image = ((System.Drawing.Image)(resources.GetObject("btnFinalizada.Image")));
+            this.btnFinalizada.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnFinalizada.Name = "btnFinalizada";
+            this.btnFinalizada.Size = new System.Drawing.Size(24, 24);
+            this.btnFinalizada.Text = "Finazalida";
+            this.btnFinalizada.Click += new System.EventHandler(this.btnFinalizada_Click);
+            // 
+            // btnPendiente
+            // 
+            this.btnPendiente.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnPendiente.Image = ((System.Drawing.Image)(resources.GetObject("btnPendiente.Image")));
+            this.btnPendiente.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnPendiente.Name = "btnPendiente";
+            this.btnPendiente.Size = new System.Drawing.Size(24, 24);
+            this.btnPendiente.Text = "Pendiente";
+            this.btnPendiente.Click += new System.EventHandler(this.btnPendiente_Click);
+            // 
+            // btnReversarOrden
+            // 
+            this.btnReversarOrden.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnReversarOrden.Image = ((System.Drawing.Image)(resources.GetObject("btnReversarOrden.Image")));
+            this.btnReversarOrden.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnReversarOrden.Name = "btnReversarOrden";
+            this.btnReversarOrden.Size = new System.Drawing.Size(24, 24);
+            this.btnReversarOrden.Text = "Reversar";
+            this.btnReversarOrden.Click += new System.EventHandler(this.btnReversarOrden_Click);
+            // 
+            // btnFinalizarOrden
+            // 
+            this.btnFinalizarOrden.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnFinalizarOrden.Image = ((System.Drawing.Image)(resources.GetObject("btnFinalizarOrden.Image")));
+            this.btnFinalizarOrden.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnFinalizarOrden.Name = "btnFinalizarOrden";
+            this.btnFinalizarOrden.Size = new System.Drawing.Size(24, 24);
+            this.btnFinalizarOrden.Text = "Finalizar orden";
+            this.btnFinalizarOrden.Click += new System.EventHandler(this.btnFinalizarOrden_Click);
+            // 
+            // txtSeleccion
+            // 
+            this.txtSeleccion.Location = new System.Drawing.Point(1, 395);
+            this.txtSeleccion.Margin = new System.Windows.Forms.Padding(4);
+            this.txtSeleccion.Name = "txtSeleccion";
+            this.txtSeleccion.Size = new System.Drawing.Size(1013, 22);
+            this.txtSeleccion.TabIndex = 2;
+            // 
             // FrmOrdenFinalizada
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(762, 346);
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.ClientSize = new System.Drawing.Size(1016, 426);
             this.Controls.Add(this.txtSeleccion);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.grdOrdenes);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FrmOrdenFinalizada";
             this.Text = "FrmOrdenFinalizada";
             ((System.ComponentModel.ISupportInitialize)(this.grdOrdenes)).EndInit();

@@ -20,7 +20,6 @@ namespace Vista
         private ENT.Modelo EntModelo;
         private BLL.Modelo BllModelo;
         private List<ENT.Modelo> modelos;
-        private string marcaAntes;
         private List<ENT.MarcaVehiculo> marcas;
 
         public frmMarca()
@@ -31,8 +30,7 @@ namespace Vista
             EntModelo = new ENT.Modelo();
             BllModelo = new BLL.Modelo();
             modelos = new List<ENT.Modelo>();
-            llenarComboModelo();
-         
+            llenarComboModelo();  
         }
         private void btnAgregar_Click_1(object sender, EventArgs e)
         {
@@ -43,12 +41,12 @@ namespace Vista
                 EntMarca.Modelo = EntModelo;
                 BllMarca.insertarMarca(EntMarca);
                 cargarMarcas();
-                limpiarDatos();
-               
+                limpiarDatos();    
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK, 
+                MessageBoxIcon.Information);
             }
         }
         private void btnEliminar_Click(object sender, EventArgs e)
@@ -64,20 +62,33 @@ namespace Vista
                 MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-        private void btnRefrescar_Click_1(object sender, EventArgs e)
-        {
-            cargarMarcas();
-        }
-        private void btnLimpiar_Click_1(object sender, EventArgs e)
-        {
-            limpiarDatos();
-        }
         private void Editar(object sender, EventArgs e)
         {
             if (this.grdMarcas.Rows.Count > 0)
             {
-                int fila = this.grdMarcas.CurrentRow.Index;              
+                int fila = this.grdMarcas.CurrentRow.Index;
+                EntMarca.Id = Int32.Parse(this.grdMarcas[0, fila].Value.ToString());
                 txtMensaje.Text = this.grdMarcas[1, fila].Value.ToString();                           
+            }
+        }
+        //Metodo edita y agrega los valore del datagrew al 
+        //los difentes componentes de frame
+        private void Editar(object sender, MouseEventArgs e)
+        {
+            if (this.grdMarcas.Rows.Count > 0)
+            {
+                int fila = this.grdMarcas.CurrentRow.Index;
+                EntMarca.Id = Int32.Parse(this.grdMarcas[0, fila].Value.ToString());
+                txtMarca.Text = this.grdMarcas[1, fila].Value.ToString();
+                EntModelo = (ENT.Modelo)this.grdMarcas[2, fila].Value;
+                for (int j = 0; j < cbModelo.Items.Count; j++)
+                {
+                    if (cbModelo.Items[j].ToString() == EntModelo.ToString())
+                    {
+                        cbModelo.SelectedIndex = j;
+                        break;
+                    }
+                }
             }
         }
         private void seleccionMarca(object sender, MouseEventArgs e)
@@ -85,9 +96,16 @@ namespace Vista
             if (this.grdMarcas.Rows.Count > 0)
             {
                 int fila = this.grdMarcas.CurrentRow.Index;
-                EntMarca.Id = Int32.Parse(this.grdMarcas[0, fila].Value.ToString());
                 txtMensaje.Text = this.grdMarcas[1, fila].Value.ToString();
             }
+        }
+        private void btnRefrescar_Click_1(object sender, EventArgs e)
+        {
+            cargarMarcas();
+        }
+        private void btnLimpiar_Click_1(object sender, EventArgs e)
+        {
+            limpiarDatos();
         }
         private void busquedaMarca(object sender, KeyPressEventArgs e)
         {
@@ -158,25 +176,6 @@ namespace Vista
                 ENT.Modelo selectedItem = (ENT.Modelo)cbModelo.SelectedItem;
                 EntModelo.Id = selectedItem.Id;
             }   
-        }
-
-        private void Editar(object sender, MouseEventArgs e)
-        {
-            if (this.grdMarcas.Rows.Count > 0)
-            {
-                int fila = this.grdMarcas.CurrentRow.Index;
-                EntMarca.Id = Int32.Parse(this.grdMarcas[0, fila].Value.ToString());
-                txtMarca.Text = this.grdMarcas[1, fila].Value.ToString();
-                EntModelo = (ENT.Modelo)this.grdMarcas[2, fila].Value;
-                for (int j = 0; j < cbModelo.Items.Count; j++)
-                {
-                    if (cbModelo.Items[j].ToString() == EntModelo.ToString())
-                    {
-                        cbModelo.SelectedIndex = j;
-                        break;
-                    }
-                }
-            }
         }
     }
 }

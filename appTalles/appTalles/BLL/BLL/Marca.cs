@@ -50,7 +50,6 @@ namespace BLL
                 throw ex;
             }
         }
-
         //Metodo elimina la marca que ingresa por parametros
         public void eliminarMarca(ENT.MarcaVehiculo marca)
         {
@@ -84,11 +83,7 @@ namespace BLL
                 marcas = DalMarca.obtenerMarcas();
                 if (DalMarca.Error)
                 {
-                    throw new Exception("Error al cargar las marcas, "+ DalMarca.ErrorMsg);
-                }
-                if (marcas.Count <= 0)
-                {
-                    throw new Exception("No hay marcas registradas");
+                    throw new Exception("Error al cargar las marcas, " + DalMarca.ErrorMsg);
                 }
             }
             catch (Exception ex)
@@ -114,10 +109,6 @@ namespace BLL
                 {
                     throw new Exception("Error al buscar las marcas");
                 }
-                if (marcas.Count <= 0)
-                {
-                    throw new Exception("No hay marcas registradas");
-                }
             }
             catch (Exception ex)
             {
@@ -140,7 +131,7 @@ namespace BLL
                 marcas = DalMarca.buscarIntMarcas(valor);
                 if (DalMarca.Error)
                 {
-                    throw new Exception("Error al buscar las marcas, "+DalMarca.ErrorMsg);
+                    throw new Exception("Error al buscar las marcas, " + DalMarca.ErrorMsg);
                 }
             }
             catch (Exception ex)

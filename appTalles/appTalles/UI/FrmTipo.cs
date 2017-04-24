@@ -132,5 +132,10 @@ namespace Vista
             txtTipo.Text = "";
             EntTipo = new ENT.TipoVehiculo();
         }
+
+        private void FrmTipo_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

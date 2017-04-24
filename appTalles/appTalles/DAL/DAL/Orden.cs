@@ -225,7 +225,7 @@ namespace DAL
         public void eliminarOrden(int valor)
         {
             limpiarError();
-            string sql = "DELETE 'FROM " + this.conexion.Schema + "orden WHERE id_orden = @id_orden";
+            string sql = "DELETE FROM " + this.conexion.Schema + "orden WHERE id_orden = @id_orden";
             Parametro prm = new Parametro();
             prm.agregarParametro("id_orden", NpgsqlDbType.Numeric, valor);
             this.conexion.ejecutarSQL(sql, prm.obtenerParametros());
@@ -254,8 +254,7 @@ namespace DAL
                          "where v.fk_marca = m.id_marca and " +
                          "v.fk_tipo = t.id_tipo and " +
                          "v.fk_cliente = c.id_cliente and o.fk_vehiculo = v.id_vehiculo and o.pk_empleado = e.id_empleado and " + columna + "= @" + columna;
-
-            DataSet dset = this.conexion.ejecutarConsultaSQL(sql, "empleado", prm.obtenerParametros());
+            DataSet dset = this.conexion.ejecutarConsultaSQL(sql, "orden", prm.obtenerParametros());
             if (!this.conexion.IsError)
             {
                 if (dset.Tables[0].Rows.Count > 0)

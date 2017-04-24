@@ -26,8 +26,8 @@ namespace Vista
         }
         private void btnAgregar_Click_1(object sender, EventArgs e)
         {
-            //try
-            //{
+            try
+            {
                 EntServicio.pServicio = txtServicio.Text;
                 EntServicio.Precio = Double.Parse(txtPrecio.Text);
                 EntServicio.Impuesto = Double.Parse(txtImpuesto.Text);
@@ -35,19 +35,19 @@ namespace Vista
                 EntServicio.DiasPromedio = Int32.Parse(npHorasPromedio.Value.ToString());
                 BllServicio.agregarServicio(EntServicio);
                 limpiarDatos();
-                cargar();       
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK, 
-            //    MessageBoxIcon.Error);
-            //}
+                cargar();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+            }
         }
         private void btnEliminar_Click_1(object sender, EventArgs e)
         {
             try
             {
-                DialogResult respuesta = MessageBox.Show("¿Está seguro de borrar?","Error", MessageBoxButtons.YesNo, 
+                DialogResult respuesta = MessageBox.Show("¿Está seguro de borrar?", "Error", MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
                 if (respuesta == DialogResult.Yes)
                 {
@@ -58,18 +58,10 @@ namespace Vista
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK, 
+                MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
             }
         }
-        private void btnRefrescar_Click(object sender, EventArgs e)
-        {
-            cargar();
-        }
-        private void btnLimpiar_Click_1(object sender, EventArgs e)
-        {
-            limpiarDatos();
-        } 
         private void EditarServicio(object sender, EventArgs e)
         {
             if (this.grdServicios.Rows.Count > 0)
@@ -113,36 +105,17 @@ namespace Vista
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error al ingresar datos",MessageBoxButtons.OK,
+                MessageBox.Show(ex.Message, "Error al ingresar datos", MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
             }
-        }
-        private void validarNumeros(object sender, KeyPressEventArgs e)
+        }     
+        private void btnRefrescar_Click(object sender, EventArgs e)
         {
-            if (txtImpuesto.Text.Contains(','))
-            {
-                if (!char.IsDigit(e.KeyChar))
-                {
-                    e.Handled = true;
-                }
-
-                if (e.KeyChar == '\b')
-                {
-                    e.Handled = false;
-                }
-            }
-            else
-            {
-                if (!char.IsDigit(e.KeyChar))
-                {
-                    e.Handled = true;
-                }
-
-                if (e.KeyChar == ',' || e.KeyChar == '\b')
-                {
-                    e.Handled = false;
-                }
-            }
+            cargar();
+        }
+        private void btnLimpiar_Click_1(object sender, EventArgs e)
+        {
+            limpiarDatos();
         }
         //Metodo retorna una lista desde la clase BLL.servicio
         //y la agrega al datagriew
@@ -192,8 +165,34 @@ namespace Vista
                 MessageBoxIcon.Error);
             }
         }
-
         private void validarImpuesto(object sender, KeyPressEventArgs e)
+        {
+            if (txtImpuesto.Text.Contains(','))
+            {
+                if (!char.IsDigit(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+
+                if (e.KeyChar == '\b')
+                {
+                    e.Handled = false;
+                }
+            }
+            else
+            {
+                if (!char.IsDigit(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+
+                if (e.KeyChar == ',' || e.KeyChar == '\b')
+                {
+                    e.Handled = false;
+                }
+            }
+        }
+        private void validarNumeros(object sender, KeyPressEventArgs e)
         {
             if (txtImpuesto.Text.Contains(','))
             {

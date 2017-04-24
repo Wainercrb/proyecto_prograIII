@@ -38,7 +38,6 @@ namespace appTalles.UI
                 MessageBoxIcon.Information);
             }
         }
-
         private void Eliminar_Click(object sender, EventArgs e)
         {
             try
@@ -53,11 +52,6 @@ namespace appTalles.UI
                 MessageBoxIcon.Information);
             }
         }
-
-        private void Refrescar_Click(object sender, EventArgs e)
-        {
-            cargar();
-        }
         private void cargar()
         {
             try
@@ -71,22 +65,20 @@ namespace appTalles.UI
                 MessageBox.Show(ex.Message, "Error de transacción", MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
             }
-
-
         }
-
         private void Limpiar_Click(object sender, EventArgs e)
         {
             limpiar();
         }
+        private void Refrescar_Click(object sender, EventArgs e)
+        {
+            cargar();
+        }
         private void limpiar()
         {
-
             txtModelo.Text = "";
             EntModelo = new ENT.Modelo();
-
         }
-
         private void seleccion(object sender, MouseEventArgs e)
         {
             if (this.grdModelo.Rows.Count > 0)
@@ -95,10 +87,8 @@ namespace appTalles.UI
                 txtMensaje.Text = "Modelo: " + this.grdModelo[1, fila].Value.ToString();
             }
         }
-
         private void EditorAndEliminar(object sender, MouseEventArgs e)
         {
-
             if (this.grdModelo.Rows.Count > 0)
             {
                 int fila = this.grdModelo.CurrentRow.Index;
@@ -109,7 +99,6 @@ namespace appTalles.UI
                 txtMensaje.Text = "Modelo: " + this.grdModelo[1, fila].Value.ToString();
             }
         }
-
         private void buscar(object sender, KeyPressEventArgs e)
         {
             if ((int)e.KeyChar == (int)Keys.Enter)
@@ -117,7 +106,8 @@ namespace appTalles.UI
                 buscar();
             }
         }
-
+        //Metodo buscar validad el tipo de dato y los agrega a las direfenres
+        //columnas despues carga el datagriew
         private void buscar()
         {
             try
